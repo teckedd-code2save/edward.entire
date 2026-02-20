@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edward Twumasi — Backend Engineer</title>
+    <meta name="description"
+        content="Edward Twumasi — Backend Engineer crafting resilient, scalable systems. Accra, Ghana.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Custom cursor */
+        #cursor {
+            position: fixed;
+            width: 26px;
+            height: 26px;
+            border: 1.5px solid #3b82f6;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            mix-blend-mode: multiply;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        #cursor::before {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #3b82f6;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 99px;
+        }
+
+        /* Hero canvas */
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Float animation */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-14px);
+            }
+        }
+
+        .image-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Fade-in base */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Stacked Card Carousel ─────────────────────── */
+        .card-stage {
+            position: relative;
+            width: 100%;
+            height: 420px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-card {
+            position: absolute;
+            width: min(580px, 86vw);
+            background: #fff;
+            border-radius: 22px;
+            padding: 36px 40px;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.5s ease,
+                box-shadow 0.5s ease;
+            will-change: transform, opacity;
+        }
+
+        .project-card[data-pos="0"] {
+            transform: translateX(0) scale(1);
+            opacity: 1;
+            z-index: 10;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.10), 0 4px 16px rgba(0, 0, 0, 0.05);
+            cursor: default;
+        }
+
+        .project-card[data-pos="-1"] {
+            transform: translateX(-60%) scale(0.86);
+            opacity: 0.5;
+            z-index: 5;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        .project-card[data-pos="1"] {
+            transform: translateX(60%) scale(0.86);
+            opacity: 0.5;
+            z-index: 5;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        .project-card[data-pos="-2"],
+        .project-card[data-pos="2"] {
+            transform: translateX(0) scale(0.72);
+            opacity: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .carousel-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+            transition: box-shadow 0.2s, background 0.2s;
+            color: #374151;
+        }
+
+        .carousel-nav-btn:hover {
+            background: #f8fafc;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+        }
+
+        .carousel-nav-btn.prev {
+            left: 4px;
+        }
+
+        .carousel-nav-btn.next {
+            right: 4px;
+        }
+
+        /* ── Credential Cards ─────────────────────── */
+        .cred-group-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #94a3b8;
+        }
+
+        .cred-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 20px 22px;
+            border: 1px solid #f1f5f9;
+            transition: box-shadow 0.22s, transform 0.22s;
+        }
+
+        .cred-card:hover {
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.10);
+            transform: translateY(-2px);
+        }
+
+        .skill-pill {
+            display: inline-block;
+            padding: 3px 10px;
+            background: #eff6ff;
+            color: #2563eb;
+            border-radius: 99px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* ── Section heading underline ──────────────── */
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 14px;
+            margin-bottom: 52px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 48px;
+            height: 3px;
+            background: #3b82f6;
+            border-radius: 99px;
+        }
+
+        /* ── Stat cards ────────────────────── */
+        .stat-card {
+            padding: 24px;
+            background: #fff;
+            border-radius: 16px;
+            border: 1px solid #f1f5f9;
+            transition: box-shadow 0.2s;
+        }
+
+        .stat-card:hover {
+            box-shadow: 0 6px 24px rgba(59, 130, 246, 0.09);
+        }
+
+        /* ── Nav ──────────────────────────── */
+        .nav-link {
+            position: relative;
+            font-size: 14px;
+            font-weight: 500;
+            color: #64748b;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: #3b82f6;
+            transition: width 0.25s;
+        }
+
+        .nav-link:hover {
+            color: #1e293b;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* ── Footer ────────────────────────── */
+        footer {
+            background: #0a0f1e;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="cursor"></div>
+
+    <!-- ══ NAV ════════════════════════════════════════ -->
+    <header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-lg border-b border-gray-100">
+        <nav class="max-w-6xl mx-auto px-8 py-4 flex justify-between items-center">
+            <a href="#hero" class="text-xl font-bold text-gray-900" style="font-family:Syne,sans-serif;">ET</a>
+            <ul class="hidden md:flex gap-10">
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#credentials" class="nav-link">Credentials</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <a href="Edward_Twumasi_SeniorRoleCV_Final.pdf" target="_blank"
+                class="px-5 py-2 text-sm font-semibold border border-gray-200 rounded-lg hover:border-blue-500 hover:text-blue-600 transition text-gray-700">
+                View CV
+            </a>
+        </nav>
+    </header>
+
+    <!-- ══ HERO ═══════════════════════════════════════ -->
+    <section class="min-h-screen flex items-center justify-center px-8 pt-20 relative overflow-hidden bg-white"
+        id="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center w-full relative z-10">
+            <div class="fade-in text-center md:text-left">
+                <p class="text-blue-500 font-semibold text-sm uppercase tracking-widest mb-5">Backend Engineer · Accra,
+                    Ghana</p>
+                <h1 class="text-6xl lg:text-7xl text-gray-950 mb-6 leading-[1.05]">Edward<br>Twumasi</h1>
+                <p class="text-lg text-slate-500 mb-10 leading-relaxed max-w-md">
+                    Architecting resilient backend systems. Helping teams scale from thousands to millions of requests —
+                    optimize, ship, and lead.
+                </p>
+                <div class="flex gap-4 flex-wrap">
+                    <a href="#projects"
+                        class="px-7 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition shadow-md hover:shadow-lg text-sm">
+                        See My Work
+                    </a>
+                    <a href="#contact"
+                        class="px-7 py-3 border border-gray-200 text-gray-700 font-semibold rounded-xl hover:border-blue-500 hover:text-blue-600 transition text-sm">
+                        Get in Touch
+                    </a>
+                    <a href="Edward_Twumasi_SeniorRoleCV_Final.pdf" target="_blank"
+                        class="px-7 py-3 bg-gray-950 text-white font-semibold rounded-xl hover:bg-gray-800 transition text-sm">
+                        View CV
+                    </a>
+                </div>
+            </div>
+            <div class="fade-in hidden md:flex justify-center items-center">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-blue-100 rounded-3xl blur-2xl opacity-40 scale-110"></div>
+                    <img id="edward-image" src="./1719185128651.jpeg" alt="Edward Twumasi"
+                        class="relative w-72 h-72 rounded-3xl object-cover object-top shadow-2xl image-float">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ ABOUT ══════════════════════════════════════ -->
+    <section class="py-28 bg-white" id="about">
+        <div class="max-w-6xl mx-auto px-8">
+            <h2 class="text-5xl text-gray-950 section-title">About</h2>
+            <div class="grid md:grid-cols-2 gap-16">
+                <div class="fade-in space-y-5">
+                    <p class="text-gray-600 leading-relaxed">
+                        Backend engineer with <strong class="text-gray-900 font-semibold">6+ years</strong> shipping
+                        production systems. Expert in
+                        <strong class="text-gray-900 font-semibold">microservices architecture</strong>,
+                        <strong class="text-gray-900 font-semibold">event-driven systems</strong> with Apache Kafka, and
+                        <strong class="text-gray-900 font-semibold">cloud infrastructure</strong> on AWS &amp; Azure.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed">
+                        Deepening expertise in <strong class="text-gray-900 font-semibold">Kubernetes
+                            orchestration</strong>,
+                        <strong class="text-gray-900 font-semibold">CI/CD automation</strong>, and the
+                        <strong class="text-gray-900 font-semibold">Java ecosystem</strong>. Actively contributing to AI
+                        tooling — extended the open-source DBHub AI MCP tool to add Elasticsearch &amp; Redis support.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed">
+                        I solve hard problems in production and mentor teams to do the same.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="stat-card fade-in">
+                        <div class="text-4xl font-bold text-blue-600 mb-1" style="font-family:Syne,sans-serif;">
+                            <span class="stat-number" data-target="6">0</span><span>+</span>
+                        </div>
+                        <div class="text-xs text-gray-500 uppercase font-semibold tracking-wide">Years Experience</div>
+                    </div>
+                    <div class="stat-card fade-in">
+                        <div class="text-4xl font-bold text-blue-600 mb-1" style="font-family:Syne,sans-serif;">
+                            <span class="stat-number" data-target="8">0</span><span>+</span>
+                        </div>
+                        <div class="text-xs text-gray-500 uppercase font-semibold tracking-wide">Engineers Mentored
+                        </div>
+                    </div>
+                    <div class="stat-card fade-in">
+                        <div class="text-4xl font-bold text-blue-600 mb-1" style="font-family:Syne,sans-serif;">
+                            <span class="stat-number" data-target="15">0</span><span>+</span>
+                        </div>
+                        <div class="text-xs text-gray-500 uppercase font-semibold tracking-wide">Production Systems
+                        </div>
+                    </div>
+                    <div class="stat-card fade-in">
+                        <div class="text-3xl font-bold text-blue-600 mb-1" style="font-family:Syne,sans-serif;">99.99%
+                        </div>
+                        <div class="text-xs text-gray-500 uppercase font-semibold tracking-wide">Payment Uptime SLA
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ PROJECTS ════════════════════════════════════ -->
+    <section class="py-28 bg-slate-50 overflow-hidden" id="projects">
+        <div class="max-w-6xl mx-auto px-8 mb-16">
+            <h2 class="text-5xl text-gray-950 section-title">Impact &amp; Contributions</h2>
+        </div>
+
+        <div class="relative max-w-5xl mx-auto px-16">
+            <div class="card-stage" id="card-stage"></div>
+            <button class="carousel-nav-btn prev" id="prev-btn" aria-label="Previous">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6" />
+                </svg>
+            </button>
+            <button class="carousel-nav-btn next" id="next-btn" aria-label="Next">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6" />
+                </svg>
+            </button>
+        </div>
+        <p class="text-center mt-8 text-xs text-gray-400 font-medium tracking-widest" id="card-counter"></p>
+    </section>
+
+    <!-- ══ CREDENTIALS ══════════════════════════════════ -->
+    <section class="py-28 bg-white" id="credentials">
+        <div class="max-w-6xl mx-auto px-8">
+            <h2 class="text-5xl text-gray-950 section-title">Credentials &amp; Learning</h2>
+            <div id="credentials-container"></div>
+        </div>
+    </section>
+
+    <!-- ══ CV SECTION ══════════════════════════════════ -->
+    <section class="py-20 bg-slate-950" id="cv-section">
+        <div class="max-w-4xl mx-auto px-8 text-center">
+            <p class="text-blue-400 text-xs font-bold uppercase tracking-widest mb-4">Curriculum Vitae</p>
+            <h2 class="text-4xl text-white mb-5">Full Professional Profile</h2>
+            <p class="text-slate-400 mb-10 leading-relaxed max-w-xl mx-auto">Detailed work history, system design
+                experience, stack depth, and references available on request or via the link below.</p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a href="https://www.linkedin.com/in/edward-twumasi/" target="_blank" rel="noopener"
+                    class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition text-sm">
+                    View on LinkedIn
+                </a>
+                <a href="Edward_Twumasi_SeniorRoleCV_Final.pdf" target="_blank" id="cv-download-btn"
+                    class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition text-sm">
+                    Download PDF CV
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ CONTACT ═════════════════════════════════════ -->
+    <section class="py-28 bg-white" id="contact">
+        <div class="max-w-4xl mx-auto px-8">
+            <h2 class="text-5xl text-gray-950 section-title">Let's Build Together</h2>
+            <p class="text-gray-500 mb-12 leading-relaxed text-lg max-w-2xl">
+                Open to full-time, contract, and consulting opportunities in backend engineering, distributed systems,
+                and AI tooling.
+            </p>
+            <div class="grid md:grid-cols-3 gap-4">
+                <a href="mailto:edwardktwumasi1000@gmail.com"
+                    class="group p-6 rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-lg transition bg-white">
+                    <div class="text-2xl mb-3">📧</div>
+                    <h3 class="font-bold text-gray-900 text-sm mb-1">Email</h3>
+                    <p class="text-xs text-gray-500 group-hover:text-blue-500 transition break-all">
+                        edwardktwumasi1000@gmail.com</p>
+                </a>
+                <a href="https://www.linkedin.com/in/edward-twumasi/" target="_blank" rel="noopener"
+                    class="group p-6 rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-lg transition bg-white">
+                    <div class="text-2xl mb-3">💼</div>
+                    <h3 class="font-bold text-gray-900 text-sm mb-1">LinkedIn</h3>
+                    <p class="text-xs text-gray-500 group-hover:text-blue-500 transition">edward-twumasi</p>
+                </a>
+                <a href="https://github.com/edwardtwumasi" target="_blank" rel="noopener"
+                    class="group p-6 rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-lg transition bg-white">
+                    <div class="text-2xl mb-3">🐱</div>
+                    <h3 class="font-bold text-gray-900 text-sm mb-1">GitHub</h3>
+                    <p class="text-xs text-gray-500 group-hover:text-blue-500 transition">edwardtwumasi</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ FOOTER ══════════════════════════════════════ -->
+    <footer>
+        <div class="max-w-6xl mx-auto px-8 py-16 grid md:grid-cols-3 gap-12">
+            <div>
+                <div class="text-2xl font-bold text-white mb-3" style="font-family:Syne,sans-serif;">ET</div>
+                <p class="text-slate-500 text-sm leading-relaxed">Backend engineer building<br>systems that scale.</p>
+            </div>
+            <div>
+                <p class="cred-group-label text-slate-600 mb-5">Navigate</p>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#about" class="text-slate-400 hover:text-white transition">About</a></li>
+                    <li><a href="#projects" class="text-slate-400 hover:text-white transition">Projects</a></li>
+                    <li><a href="#credentials" class="text-slate-400 hover:text-white transition">Credentials</a></li>
+                    <li><a href="#cv-section" class="text-slate-400 hover:text-white transition">CV</a></li>
+                    <li><a href="#contact" class="text-slate-400 hover:text-white transition">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="cred-group-label text-slate-600 mb-5">Connect</p>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="mailto:edwardktwumasi1000@gmail.com"
+                            class="text-slate-400 hover:text-white transition">Email</a></li>
+                    <li><a href="https://www.linkedin.com/in/edward-twumasi/" target="_blank"
+                            class="text-slate-400 hover:text-white transition">LinkedIn</a></li>
+                    <li><a href="https://github.com/edwardtwumasi" target="_blank"
+                            class="text-slate-400 hover:text-white transition">GitHub</a></li>
+                    <li><a href="tel:+233552489602" class="text-slate-400 hover:text-white transition">+233 552 489
+                            602</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-white/5">
+            <div class="max-w-6xl mx-auto px-8 py-5 flex justify-between items-center">
+                <p class="text-xs text-slate-700">© 2026 Edward Twumasi</p>
+                <p class="text-xs text-slate-700">Accra, Ghana</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+        /* ════════════════════════════════════════════════
+           THREE.JS — Hero Particle Network
+        ════════════════════════════════════════════════ */
+        (function initHeroCanvas() {
+            const canvas = document.getElementById('hero-canvas');
+            const section = document.getElementById('hero');
+
+            const scene = new THREE.Scene();
+            let W = section.offsetWidth, H = section.offsetHeight;
+
+            const camera = new THREE.PerspectiveCamera(50, W / H, 0.1, 100);
+            camera.position.set(0, 0, 9);
+
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setSize(W, H);
+
+            const N = 90;
+            const MAX_LINE_PAIRS = N * N;
+            const pPos = new Float32Array(N * 3);
+            const pVel = [];
+            const linePositions = new Float32Array(MAX_LINE_PAIRS * 6);
+
+            for (let i = 0; i < N; i++) {
+                pPos[i * 3] = (Math.random() - 0.5) * 18;
+                pPos[i * 3 + 1] = (Math.random() - 0.5) * 10;
+                pPos[i * 3 + 2] = (Math.random() - 0.5) * 2;
+                pVel.push({
+                    x: (Math.random() - 0.5) * 0.004,
+                    y: (Math.random() - 0.5) * 0.004
+                });
+            }
+
+            // Points
+            const pGeo = new THREE.BufferGeometry();
+            pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+            const pMat = new THREE.PointsMaterial({ color: 0x3b82f6, size: 0.07, transparent: true, opacity: 0.55 });
+            scene.add(new THREE.Points(pGeo, pMat));
+
+            // Lines
+            const lGeo = new THREE.BufferGeometry();
+            const lAttr = new THREE.BufferAttribute(linePositions, 3);
+            lAttr.setUsage(THREE.DynamicDrawUsage);
+            lGeo.setAttribute('position', lAttr);
+            const lMat = new THREE.LineBasicMaterial({ color: 0x93c5fd, transparent: true, opacity: 0.18 });
+            const lines = new THREE.LineSegments(lGeo, lMat);
+            scene.add(lines);
+
+            let mouseX = 0, mouseY = 0;
+            window.addEventListener('mousemove', e => {
+                mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+                mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+            });
+
+            const DIST_THRESHOLD = 2.8;
+
+            function tick() {
+                requestAnimationFrame(tick);
+
+                // Move particles
+                for (let i = 0; i < N; i++) {
+                    pPos[i * 3] += pVel[i].x;
+                    pPos[i * 3 + 1] += pVel[i].y;
+                    if (Math.abs(pPos[i * 3]) > 9) pVel[i].x *= -1;
+                    if (Math.abs(pPos[i * 3 + 1]) > 5.5) pVel[i].y *= -1;
+                }
+                pGeo.attributes.position.needsUpdate = true;
+
+                // Build line segments
+                let lIdx = 0;
+                for (let i = 0; i < N - 1; i++) {
+                    for (let j = i + 1; j < N; j++) {
+                        const dx = pPos[i * 3] - pPos[j * 3];
+                        const dy = pPos[i * 3 + 1] - pPos[j * 3 + 1];
+                        if (Math.sqrt(dx * dx + dy * dy) < DIST_THRESHOLD && lIdx < MAX_LINE_PAIRS - 1) {
+                            const b = lIdx * 6;
+                            linePositions[b] = pPos[i * 3]; linePositions[b + 1] = pPos[i * 3 + 1]; linePositions[b + 2] = pPos[i * 3 + 2];
+                            linePositions[b + 3] = pPos[j * 3]; linePositions[b + 4] = pPos[j * 3 + 1]; linePositions[b + 5] = pPos[j * 3 + 2];
+                            lIdx++;
+                        }
+                    }
+                }
+                lGeo.setDrawRange(0, lIdx * 2);
+                lGeo.attributes.position.needsUpdate = true;
+
+                // Camera parallax
+                camera.position.x += (mouseX * 0.35 - camera.position.x) * 0.045;
+                camera.position.y += (-mouseY * 0.2 - camera.position.y) * 0.045;
+                camera.lookAt(0, 0, 0);
+
+                renderer.render(scene, camera);
+            }
+            tick();
+
+            window.addEventListener('resize', () => {
+                W = section.offsetWidth; H = section.offsetHeight;
+                camera.aspect = W / H;
+                camera.updateProjectionMatrix();
+                renderer.setSize(W, H);
+            });
+        })();
+
+        /* ════════════════════════════════════════════════
+           PROJECTS — Stacked Card Carousel
+        ════════════════════════════════════════════════ */
+        const projects = [
+            {
+                tag: 'Open Source',
+                title: 'DBHub AI MCP — Elasticsearch & Redis Extension',
+                desc: 'Extended the open-source DBHub AI Model Context Protocol tool to add native Elasticsearch and Redis data source support. Enables AI models to query NoSQL stores and cache layers — PR pending to official repo.',
+                stack: ['MCP Protocol', 'Elasticsearch', 'Redis', 'Python', 'AI Tooling'],
+                link: 'https://github.com/edwardtwumasi',
+                accent: '#10b981'
+            },
+            {
+                tag: 'Personal Project',
+                title: 'Automated Traffic Data Archiver',
+                desc: 'JavaScript web application utilizing cron scheduling to automate traffic data archiving from providers like Google Directions API and DistanceMatrix.ai. Includes robust Python downstream data analysis.',
+                stack: ['JavaScript', 'Cron', 'Google APIs', 'Python'],
+                link: 'https://github.com/teckedd-code2save/google-directions-api',
+                accent: '#f43f5e'
+            },
+            {
+                tag: 'Personal Project',
+                title: 'REACHY AI — Multi-lingual Healthcare',
+                desc: 'Voice-enabled healthcare platform supporting English, French, Twi, and Hausa with real-time speech processing. Fine-tuned Whisper Small on custom Twi dataset for underrepresented language accuracy.',
+                stack: ['Python', 'FastAPI', 'Whisper/HuggingFace', 'Docker', 'GitHub Actions', 'AWS ECR/EC2'],
+                link: 'https://github.com/edwardtwumasi',
+                accent: '#3b82f6'
+            },
+            {
+                tag: 'Production System (Hubtel)',
+                title: 'Payment & eCommerce Microservices',
+                desc: 'Architected elastic payment and eCommerce microservices at Hubtel handling millions of daily transactions with sub-500ms latency. Implemented event-driven Kafka architectures, PgBouncer connection pooling, and critical path optimizations for 99.99% system uptime.',
+                stack: ['C#/.NET', 'Apache Kafka', 'PostgreSQL', 'Redis', 'Azure DevOps', 'AWS'],
+                link: 'https://github.com/edwardtwumasi',
+                accent: '#8b5cf6'
+            }
+        ];
+
+        const stage = document.getElementById('card-stage');
+        const counter = document.getElementById('card-counter');
+        let current = 0;
+        const total = projects.length;
+
+        function posOf(i) {
+            let raw = (i - current + total) % total;
+            if (raw > Math.floor(total / 2)) raw -= total;
+            return Math.max(-2, Math.min(2, raw));
+        }
+
+        function renderCards() {
+            stage.innerHTML = '';
+            projects.forEach((p, i) => {
+                const pos = posOf(i);
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.dataset.pos = pos;
+                card.dataset.index = i;
+                if (pos === -1) card.onclick = () => navigate(-1);
+                if (pos === 1) card.onclick = () => navigate(1);
+                card.innerHTML = `
+                <div class="flex items-center gap-3 mb-5">
+                    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${p.accent};flex-shrink:0;"></span>
+                    <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#94a3b8;">${p.tag}</span>
+                </div>
+                <h3 style="font-family:Syne,sans-serif;font-size:1.2rem;color:#0f172a;margin-bottom:12px;line-height:1.3;">${p.title}</h3>
+                <p style="font-size:14px;color:#64748b;line-height:1.7;margin-bottom:20px;">${p.desc}</p>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;">
+                    ${p.stack.map(s => `<span style="padding:4px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:99px;font-size:11px;color:#64748b;font-weight:500;">${s}</span>`).join('')}
+                </div>
+                <a href="${p.link}" target="_blank" rel="noopener"
+                   style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:${p.accent};text-decoration:none;transition:opacity .2s;"
+                   onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">
+                    View on GitHub
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            `;
+                stage.appendChild(card);
+            });
+            counter.textContent = `${current + 1}  /  ${total}`;
+        }
+
+        function navigate(dir) {
+            current = (current + dir + total) % total;
+            renderCards();
+        }
+
+        document.getElementById('prev-btn').addEventListener('click', () => navigate(-1));
+        document.getElementById('next-btn').addEventListener('click', () => navigate(1));
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowLeft') navigate(-1);
+            if (e.key === 'ArrowRight') navigate(1);
+        });
+
+        // Touch/swipe
+        let swipeStartX = 0;
+        stage.addEventListener('touchstart', e => { swipeStartX = e.touches[0].clientX; }, { passive: true });
+        stage.addEventListener('touchend', e => {
+            const dx = swipeStartX - e.changedTouches[0].clientX;
+            if (Math.abs(dx) > 40) navigate(dx > 0 ? 1 : -1);
+        });
+
+        renderCards();
+
+        /* ════════════════════════════════════════════════
+           CREDENTIALS
+        ════════════════════════════════════════════════ */
+        const credentialGroups = [
+            {
+                group: 'Artificial Intelligence',
+                icon: '🤖',
+                items: [
+                    {
+                        title: 'Understanding Open AI Workspaces',
+                        issuer: 'Coursera', date: 'Feb 2026', id: '2VN2JD7NFZNI',
+                        url: 'https://www.coursera.org/account/accomplishments/certificate/2VN2JD7NFZNI',
+                        skills: ['Generative AI', 'Fine Tuning', 'OpenAI', 'Prompt Engineering']
+                    },
+                    {
+                        title: 'Foundations of Open Generative AI Engineering',
+                        issuer: 'Coursera', date: 'Feb 2026', id: 'YMOK2TV2T0JK',
+                        url: 'https://www.coursera.org/account/accomplishments/certificate/YMOK2TV2T0JK',
+                        skills: ['Generative AI', 'AI-Powered Development', 'LLMs', 'Prompt Engineering']
+                    },
+                    {
+                        title: 'Intermediate Machine Learning',
+                        issuer: 'Kaggle', date: 'Sep 2023', id: '',
+                        url: 'https://www.kaggle.com/learn/certification',
+                        skills: ['Python', 'Scikit-Learn', 'ML Pipelines']
+                    },
+                    {
+                        title: 'Intro to Machine Learning',
+                        issuer: 'Kaggle', date: 'Aug 2023', id: '',
+                        url: 'https://www.kaggle.com/learn/certification',
+                        skills: ['Machine Learning', 'ML Algorithms']
+                    },
+                    {
+                        title: 'Computer Vision',
+                        issuer: 'Kaggle', date: 'Oct 2023', id: '',
+                        url: 'https://www.kaggle.com/learn/certification',
+                        skills: ['Computer Vision', 'Python']
+                    },
+                    {
+                        title: 'Pandas',
+                        issuer: 'Kaggle', date: 'Aug 2023', id: '',
+                        url: 'https://www.kaggle.com/learn/certification',
+                        skills: ['Data Analysis', 'Data Preparation', 'Python']
+                    }
+                ]
+            },
+            {
+                group: 'Cloud & DevOps',
+                icon: '☁️',
+                items: [
+                    {
+                        title: 'AWS Foundations and Core Services',
+                        issuer: 'Coursera', date: 'Feb 2026', id: 'CK4LVBUM6CFH',
+                        url: 'https://www.coursera.org/account/accomplishments/certificate/CK4LVBUM6CFH',
+                        skills: ['AWS', 'EC2', 'S3', 'RDS']
+                    },
+                    {
+                        title: 'Kubernetes From Basics to Guru: Unit 2',
+                        issuer: 'Coursera', date: 'Feb 2026', id: 'DFX1W42R91VU',
+                        url: 'https://www.coursera.org/account/accomplishments/certificate/DFX1W42R91VU',
+                        skills: ['Jenkins', 'GitOps', 'Kubernetes']
+                    },
+                    {
+                        title: 'Build a CI/CD Pipeline with Docker',
+                        issuer: 'Coursera', date: 'Jan 2026', id: 'KJVWV84YKH9J',
+                        url: 'https://www.coursera.org/account/accomplishments/certificate/KJVWV84YKH9J',
+                        skills: ['DevOps', 'Docker', 'GitHub Actions', 'CI/CD']
+                    },
+                    {
+                        title: 'Kubernetes From Basics to Guru: Unit 1',
+                        issuer: 'Coursera', date: 'Jan 2026', id: 'RZKKID28SZP2',
+                        url: 'https://www.coursera.org/account/accomplishments/certificate/RZKKID28SZP2',
+                        skills: ['Docker', 'Containers', 'Kubernetes']
+                    }
+                ]
+            },
+            {
+                group: 'Security',
+                icon: '🔐',
+                items: [
+                    {
+                        title: 'Software Secure Coding and Security Techniques',
+                        issuer: 'GXT International', date: 'May 2023', id: 'GX104202003423',
+                        url: null,
+                        skills: ['Security', 'Secure Coding', 'Auth', 'Vulnerability Prevention']
+                    }
+                ]
+            },
+            {
+                group: 'Leadership & Process',
+                icon: '👥',
+                items: [
+                    {
+                        title: 'Working in Teams: A Practical Guide',
+                        issuer: 'edX', date: 'Aug 2025', id: 'feb96a0c7ec2478cae816290ac8bf6cb',
+                        url: 'https://courses.edx.org/certificates/feb96a0c7ec2478cae816290ac8bf6cb',
+                        skills: ['Leadership', 'Mentoring', 'Communication']
+                    },
+                    {
+                        title: 'Software Development Life Cycle (SDLC)',
+                        issuer: 'LinkedIn', date: 'Jan 2023', id: '',
+                        url: 'https://www.linkedin.com/learning/certificates/c02bd40be2ae75fac18070e3b2fdd057fbb3f46bace53f4d78388155a8e7b825',
+                        skills: ['SDLC', 'Agile', 'Best Practices']
+                    }
+                ]
+            },
+            {
+                group: 'Education',
+                icon: '🎓',
+                items: [
+                    {
+                        title: 'B.S. Computer Science',
+                        issuer: 'KNUST', date: 'Nov 2021', id: '',
+                        url: null,
+                        skills: ['Algorithms', 'Data Structures', 'Software Engineering']
+                    }
+                ]
+            }
+        ];
+
+        const credsContainer = document.getElementById('credentials-container');
+        credentialGroups.forEach(group => {
+            const section = document.createElement('div');
+            section.className = 'mb-14 fade-in';
+            section.innerHTML = `
+            <div class="flex items-center gap-3 mb-6">
+                <span>${group.icon}</span>
+                <span class="cred-group-label">${group.group}</span>
+                <div class="flex-1 h-px bg-gray-100 ml-2"></div>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        `;
+            credsContainer.appendChild(section);
+
+            const grid = section.querySelector('.grid');
+            group.items.forEach(cred => {
+                const card = document.createElement('div');
+                card.className = 'cred-card fade-in';
+                card.innerHTML = `
+                <p class="text-sm font-semibold text-gray-900 mb-1 leading-snug">${cred.title}</p>
+                <p class="text-xs text-blue-500 font-semibold mb-3">${cred.issuer} · ${cred.date}</p>
+                ${cred.id ? `<p class="text-xs text-gray-400 font-mono mb-3 truncate">${cred.id}</p>` : ''}
+                <div class="flex flex-wrap gap-1.5 mb-4">
+                    ${cred.skills.map(s => `<span class="skill-pill">${s}</span>`).join('')}
+                </div>
+                ${cred.url ? `
+                    <a href="${cred.url}" target="_blank" rel="noopener"
+                       class="inline-flex items-center gap-1 text-xs font-semibold text-blue-500 hover:text-blue-700 transition">
+                        Show credential
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>` : ''}
+            `;
+                grid.appendChild(card);
+            });
+        });
+
+        /* ════════════════════════════════════════════════
+           SMOOTH NAV — Fixed with ScrollToPlugin
+        ════════════════════════════════════════════════ */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return; // skip placeholder links
+                const target = document.querySelector(href);
+                if (!target) return;
+                e.preventDefault();
+                gsap.to(window, { duration: 0.9, scrollTo: { y: target, offsetY: 72 }, ease: 'power3.inOut' });
+            });
+        });
+
+        /* ════════════════════════════════════════════════
+           CURSOR
+        ════════════════════════════════════════════════ */
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', e => {
+            gsap.to(cursor, { duration: 0.08, left: e.clientX - 13, top: e.clientY - 13, ease: 'none' });
+        });
+
+        /* ════════════════════════════════════════════════
+           FADE-IN via IntersectionObserver
+        ════════════════════════════════════════════════ */
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    io.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+        /* ════════════════════════════════════════════════
+           STAT COUNTERS
+        ════════════════════════════════════════════════ */
+        document.querySelectorAll('.stat-number').forEach(el => {
+            const target = parseInt(el.dataset.target, 10);
+            gsap.fromTo(el,
+                { textContent: 0 },
+                {
+                    textContent: target,
+                    duration: 2,
+                    snap: { textContent: 1 },
+                    ease: 'power2.out',
+                    scrollTrigger: { trigger: el, start: 'top 80%' }
+                }
+            );
+        });
+    </script>
+</body>
+
+</html>
