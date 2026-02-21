@@ -2,11 +2,7 @@
     "name": "edward-portfolio",
     "version": "1.0.0",
     "description": "Edward Twumasi Portfolio",
-    "scripts": {
-        "dev": "next dev",
-        "build": "next build",
-        "start": "next start"
-    },
+    "scripts": {},
     "dependencies": {
         "@google/genai": "^1.42.0",
         "next": "^15.0.0",
