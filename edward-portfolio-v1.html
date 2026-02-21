@@ -301,9 +301,281 @@
             width: 100%;
         }
 
-        /* ── Footer ────────────────────────── */
-        footer {
+        /* ── Chat Widget ────────────────────── */
+        #chat-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #chat-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #3b82f6;
+            color: white;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s;
+            border: none;
+        }
+
+        #chat-btn:hover {
+            transform: scale(1.1);
+            background: #2563eb;
+        }
+
+        #chat-btn svg {
+            width: 28px;
+            height: 28px;
+            transition: transform 0.3s;
+        }
+
+        #chat-btn.open svg {
+            transform: rotate(90deg);
+        }
+
+        #chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 380px;
+            height: 520px;
+            max-width: calc(100vw - 40px);
+            max-height: calc(100vh - 120px);
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12), 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform-origin: bottom right;
+            transform: scale(0.8);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+            border: 1px solid #f1f5f9;
+        }
+
+        #chat-window.open {
+            transform: scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #chat-header {
             background: #0a0f1e;
+            color: white;
+            padding: 20px;
+            font-family: 'Syne', sans-serif;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #chat-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 10px #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
+        }
+
+        #chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: #f8fafc;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 14px;
+            line-height: 1.5;
+            word-wrap: break-word;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .message.system {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            color: #334155;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+        }
+
+        .message.user {
+            background: #3b82f6;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+        }
+
+        #loading-indicator {
+            align-self: flex-start;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border-bottom-left-radius: 4px;
+            display: none;
+            gap: 4px;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            background: #cbd5e1;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .dot:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        .dot:nth-child(3) {
+            animation-delay: 0s;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            80%,
+            100% {
+                transform: scale(0);
+            }
+
+            40% {
+                transform: scale(1);
+                background: #3b82f6;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #chat-input-area {
+            padding: 16px;
+            background: white;
+            border-top: 1px solid #f1f5f9;
+            display: flex;
+            gap: 10px;
+        }
+
+        #chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 99px;
+            outline: none;
+            font-size: 14px;
+            transition: border-color 0.2s;
+            background: #f8fafc;
+        }
+
+        #chat-input:focus {
+            border-color: #3b82f6;
+            background: white;
+        }
+
+        #send-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        #send-btn:hover {
+            background: #2563eb;
+            transform: scale(1.05);
+        }
+
+        #send-btn:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        @media (max-width: 640px) {
+            #chat-window {
+                width: 100vw;
+                height: 100svh;
+                bottom: 0;
+                right: 0;
+                max-width: none;
+                max-height: none;
+                border-radius: 0;
+                z-index: 101;
+            }
+
+            #chat-btn {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .close-chat-mobile {
+                display: block !important;
+            }
         }
     </style>
 </head>
@@ -544,6 +816,49 @@
             </div>
         </div>
     </footer>
+
+    <!-- ══ CHAT WIDGET ══════════════════════════════════ -->
+    <div id="chat-widget">
+        <div id="chat-window">
+            <div id="chat-header">
+                <h3><span class="status-dot"></span>Edward's Digital Twin</h3>
+                <button id="close-chat" class="text-gray-400 hover:text-white transition hidden close-chat-mobile"
+                    aria-label="Close Chat">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div id="chat-messages">
+                <div class="message system">
+                    Hi! I'm Edward's digital twin powered by AI. I know all about his experience, skills, and projects.
+                    What would you like to know?
+                </div>
+                <!-- Loading indicator -->
+                <div id="loading-indicator">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+            <div id="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Ask me about Edward..." autocomplete="off">
+                <button id="send-btn" aria-label="Send Message">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <button id="chat-btn" aria-label="Open Chat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+        </button>
+    </div>
 
     <script>
         gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -960,6 +1275,106 @@
                     scrollTrigger: { trigger: el, start: 'top 80%' }
                 }
             );
+        });
+
+        /* ════════════════════════════════════════════════
+           CHAT WIDGET LOGIC
+        ════════════════════════════════════════════════ */
+        const chatWidget = document.getElementById('chat-widget');
+        const chatBtn = document.getElementById('chat-btn');
+        const chatWindow = document.getElementById('chat-window');
+        const closeBtn = document.getElementById('close-chat');
+        const chatInput = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('send-btn');
+        const chatMessages = document.getElementById('chat-messages');
+        const loadingIndicator = document.getElementById('loading-indicator');
+
+        // Chat History for API
+        let messageHistory = [];
+
+        // Toggle Chat
+        function toggleChat() {
+            chatWindow.classList.toggle('open');
+            chatBtn.classList.toggle('open');
+            if (chatWindow.classList.contains('open')) {
+                chatInput.focus();
+                // Custom close icon toggle
+                chatBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>';
+            } else {
+                chatBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>';
+            }
+        }
+
+        chatBtn.addEventListener('click', toggleChat);
+        closeBtn.addEventListener('click', toggleChat);
+
+        // Add Message to UI
+        function addMessageToUI(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${sender}`;
+            // Simple markdown-like parsing for bold text
+            const formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            msgDiv.innerHTML = formattedText;
+
+            // Insert before loading indicator
+            chatMessages.insertBefore(msgDiv, loadingIndicator);
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Send Message Handler
+        async function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            // UI Updates
+            chatInput.value = '';
+            chatInput.disabled = true;
+            sendBtn.disabled = true;
+            addMessageToUI(text, 'user');
+            loadingIndicator.style.display = 'flex';
+            scrollToBottom();
+
+            // Update History
+            messageHistory.push({ role: 'user', content: text });
+
+            try {
+                // Call our Vercel Serverless Function
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ messages: messageHistory })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+
+                // Add AI response to UI and history
+                addMessageToUI(data.content, 'system');
+                messageHistory.push({ role: 'assistant', content: data.content });
+
+            } catch (error) {
+                console.error('Chat Error:', error);
+                addMessageToUI("Sorry, I'm having trouble connecting right now. Please try again later.", 'system');
+            } finally {
+                // Restore UI
+                loadingIndicator.style.display = 'none';
+                chatInput.disabled = false;
+                sendBtn.disabled = false;
+                chatInput.focus();
+                scrollToBottom();
+            }
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
         });
     </script>
 </body>

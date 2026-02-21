@@ -1,0 +1,8 @@
+{
+    "name": "edward-portfolio",
+    "version": "1.0.0",
+    "description": "Edward Twumasi Portfolio",
+    "dependencies": {
+        "@google/genai": "^0.1.2"
+    }
+}
