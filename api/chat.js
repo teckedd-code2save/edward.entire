@@ -1,4 +1,4 @@
-import { GoogleGenAI } from '@google/genai';
+const { GoogleGenAI } = require('@google/genai');
 
 const SYSTEM_PROMPT = `You are the digital twin of Edward Twumasi, a highly skilled backend engineer from Accra, Ghana.
 Your purpose is to answer questions about Edward's experience, skills, and portfolio in a professional, slightly collaborative, and helpful manner.
@@ -29,8 +29,7 @@ You should speak in the first person ("I am Edward", "My experience includes..."
 - Do not make up experience or skills that aren't listed above.
 - Be extremely polite, professional, and express enthusiasm for collaboration.`;
 
-export default async function handler(req, res) {
-    // Initialize AI client inside the handler so it has access to Vercel's runtime environment variables
+module.exports = async function handler(req, res) {
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     if (req.method !== 'POST') {
@@ -44,7 +43,6 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: 'Messages array is required' });
         }
 
-        // Convert OpenAI-style messages to Gemini format
         const formattedMessages = messages.map(msg => ({
             role: msg.role === 'user' ? 'user' : 'model',
             parts: [{ text: msg.content }]
@@ -67,4 +65,4 @@ export default async function handler(req, res) {
         console.error('Chat API Error:', error);
         return res.status(500).json({ error: 'Failed to generate response' });
     }
-}
+};
