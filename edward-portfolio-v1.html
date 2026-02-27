@@ -577,6 +577,122 @@
                 display: block !important;
             }
         }
+
+        /* ── Article Drawer ────────────────────── */
+        #article-drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        #article-drawer-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #article-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        #article-drawer.open {
+            transform: translateX(0);
+        }
+
+        .drawer-header {
+            padding: 30px;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .drawer-close {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #64748b;
+            transition: all 0.2s;
+        }
+
+        .drawer-close:hover {
+            background: #f1f5f9;
+            color: #0f172a;
+            transform: rotate(90deg);
+        }
+
+        .drawer-content {
+            padding: 30px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .chapter-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #3b82f6;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .article-link-item {
+            display: block;
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+            background: #fff;
+            text-decoration: none;
+        }
+
+        .article-link-item:hover {
+            border-color: #93c5fd;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.08);
+            transform: translateX(4px);
+        }
+
+        .article-link-title {
+            color: #0f172a;
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 4px;
+            font-family: 'Syne', sans-serif;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .article-link-desc {
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.5;
+        }
     </style>
 </head>
 
@@ -801,29 +917,49 @@
     <!-- ══ INSIGHTS & WRITING ══════════════════════════ -->
     <section class="py-28 bg-slate-50 border-t border-b border-gray-100" id="insights">
         <div class="max-w-6xl mx-auto px-8">
-            <h2 class="text-5xl text-gray-950 section-title">Insights &amp; Writing</h2>
-            <div class="grid md:grid-cols-2 gap-6 mt-4">
-                <a href="#"
+            <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-12">
+                <div>
+                    <h2 class="text-5xl text-gray-950 section-title mb-0">Insights &amp; Writing</h2>
+                    <p class="text-gray-500 mt-4 max-w-xl">Deep dives into production systems, MLOps, and agentic
+                        workflows. Featuring the latest series on deploying high-performance Whisper models.</p>
+                </div>
+                <button id="open-drawer-btn"
+                    class="mt-8 md:mt-0 px-6 py-3 bg-white border border-gray-200 text-gray-800 font-semibold rounded-xl hover:border-blue-500 hover:text-blue-600 hover:shadow-md transition shadow-sm text-sm inline-flex items-center gap-2 w-fit">
+                    View Entire Series
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Featured Article 1 -->
+                <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/1_mlops_foundation/1_the_strategy.md"
+                    target="_blank"
                     class="group block p-8 bg-white rounded-2xl border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300">
                     <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs font-bold text-blue-600 tracking-widest uppercase">System Design</span>
+                        <span class="text-xs font-bold text-blue-600 tracking-widest uppercase">MLOps Foundation</span>
                         <span class="text-gray-400 group-hover:text-blue-500 transition-colors">↗</span>
                     </div>
                     <h3 class="text-xl text-gray-900 mb-3 group-hover:text-blue-600 transition-colors"
-                        style="font-family:Syne,sans-serif;">Building Production-Grade Kafka Microservices at Scale</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Lessons learned from handling 1M+ daily
-                        transactions, ensuring 99.99% uptime, and designing resilient event-driven architectures.</p>
+                        style="font-family:Syne,sans-serif;">The Strategy: Why Models Belong in Containers</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Discover how to transform heavy ML models into
+                        lightweight, high-performance microservices, focusing on scalable inference architecture.</p>
                 </a>
-                <a href="#"
+
+                <!-- Featured Article 2 -->
+                <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/2_agent_sandboxing/6_building_the_workbench.md"
+                    target="_blank"
                     class="group block p-8 bg-white rounded-2xl border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300">
                     <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs font-bold text-blue-600 tracking-widest uppercase">DevOps</span>
+                        <span class="text-xs font-bold text-blue-600 tracking-widest uppercase">Agent Sandboxing</span>
                         <span class="text-gray-400 group-hover:text-blue-500 transition-colors">↗</span>
                     </div>
                     <h3 class="text-xl text-gray-900 mb-3 group-hover:text-blue-600 transition-colors"
-                        style="font-family:Syne,sans-serif;">Zero-Downtime Deployments with Blue-Green Strategy</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Optimizing CI/CD pipelines to reduce deployment
-                        times from hours to minutes using GitHub Actions and container orchestration.</p>
+                        style="font-family:Syne,sans-serif;">Building the Workbench</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Moving from "Chat" to "Action" by providing agents
+                        with safe, ephemeral Docker environments for secure LLM code execution.</p>
                 </a>
             </div>
         </div>
@@ -943,6 +1079,77 @@
             </svg>
         </button>
     </div>
+
+    <!-- ══ ARTICLE DRAWER OVERLAY & PANEL ══════════════ -->
+    <div id="article-drawer-overlay"></div>
+    <aside id="article-drawer">
+        <div class="drawer-header">
+            <div>
+                <h3 class="text-2xl font-bold text-gray-900" style="font-family:Syne,sans-serif;">The MLOps Stack</h3>
+                <p class="text-xs text-slate-500 mt-1 uppercase tracking-widest font-semibold">Complete Series</p>
+            </div>
+            <button class="drawer-close" aria-label="Close Drawer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div class="drawer-content">
+
+            <span class="chapter-label">Chapter 1: The MLOps Foundation</span>
+            <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/1_mlops_foundation/1_the_strategy.md"
+                target="_blank" class="article-link-item">
+                <div class="article-link-title">1. The Strategy <span class="text-gray-400">↗</span></div>
+                <div class="article-link-desc">Why models belong in containers.</div>
+            </a>
+            <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/1_mlops_foundation/2_implementation.md"
+                target="_blank" class="article-link-item">
+                <div class="article-link-title">2. Implementation <span class="text-gray-400">↗</span></div>
+                <div class="article-link-desc">Building the Twi ASR server with BentoML.</div>
+            </a>
+            <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/1_mlops_foundation/3_deep_dive_whisper_twi.md"
+                target="_blank" class="article-link-item">
+                <div class="article-link-title">3. Deep Dive: Whisper Twi <span class="text-gray-400">↗</span></div>
+                <div class="article-link-desc">Model architecture and FP16 optimizations.</div>
+            </a>
+            <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/1_mlops_foundation/4_scaling_ops.md"
+                target="_blank" class="article-link-item">
+                <div class="article-link-title">4. Scaling & Ops <span class="text-gray-400">↗</span></div>
+                <div class="article-link-desc">Health checks, resource limits, and RTF tracking.</div>
+            </a>
+
+            <span class="chapter-label mt-8">Chapter 2: The Agentic Layer</span>
+            <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/2_agent_sandboxing/5_why_sandboxing.md"
+                target="_blank" class="article-link-item">
+                <div class="article-link-title">5. Why Sandboxing? <span class="text-gray-400">↗</span></div>
+                <div class="article-link-desc">Solving the security risks of LLM code execution.</div>
+            </a>
+            <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/2_agent_sandboxing/6_building_the_workbench.md"
+                target="_blank" class="article-link-item">
+                <div class="article-link-title">6. Building the Workbench <span class="text-gray-400">↗</span></div>
+                <div class="article-link-desc">Ephemeral Docker environments for agents.</div>
+            </a>
+            <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/2_agent_sandboxing/7_advanced_isolation.md"
+                target="_blank" class="article-link-item">
+                <div class="article-link-title">7. Advanced Isolation <span class="text-gray-400">↗</span></div>
+                <div class="article-link-desc">Managed state, network egress, and human interaction.</div>
+            </a>
+
+            <span class="chapter-label mt-8">Chapter 3: Integration & Deployment</span>
+            <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/3_integration_deployment/8_the_agentic_bridge.md"
+                target="_blank" class="article-link-item">
+                <div class="article-link-title">8. The Agentic Bridge <span class="text-gray-400">↗</span></div>
+                <div class="article-link-desc">Orchestrating inference models via sandboxed agents.</div>
+            </a>
+            <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/3_integration_deployment/9_one_click_deployment.md"
+                target="_blank" class="article-link-item">
+                <div class="article-link-title">9. One-Click Deployment <span class="text-gray-400">↗</span></div>
+                <div class="article-link-desc">Launching the full stack with Docker Compose.</div>
+            </a>
+
+        </div>
+    </aside>
 
     <script>
         gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -1161,6 +1368,12 @@
                 group: 'Artificial Intelligence',
                 icon: '🤖',
                 items: [
+                    {
+                        title: 'Preparing Text for AI Models',
+                        issuer: 'Coursera', date: 'Feb 2026', id: '31WARUPH6SZC',
+                        url: 'https://www.coursera.org/account/accomplishments/verify/31WARUPH6SZC',
+                        skills: ['Generative AI', 'Data Cleansing', 'Large Language Modeling', 'Hugging Face']
+                    },
                     {
                         title: 'Understanding Open AI Workspaces',
                         issuer: 'Coursera', date: 'Feb 2026', id: '2VN2JD7NFZNI',
@@ -1461,6 +1674,38 @@
         chatInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') sendMessage();
         });
+
+        /* ════════════════════════════════════════════════
+           ARTICLE DRAWER LOGIC
+        ════════════════════════════════════════════════ */
+        const drawerBtn = document.getElementById('open-drawer-btn');
+        const drawerOverlay = document.getElementById('article-drawer-overlay');
+        const drawer = document.getElementById('article-drawer');
+        const closeDrawerBtn = document.querySelector('.drawer-close');
+
+        function openDrawer() {
+            drawerOverlay.classList.add('open');
+            drawer.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeDrawer() {
+            drawerOverlay.classList.remove('open');
+            drawer.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        drawerBtn.addEventListener('click', openDrawer);
+        closeDrawerBtn.addEventListener('click', closeDrawer);
+        drawerOverlay.addEventListener('click', closeDrawer);
+
+        // Escape key to close drawer
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && drawer.classList.contains('open')) {
+                closeDrawer();
+            }
+        });
+
     </script>
 </body>
 
