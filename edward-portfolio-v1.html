@@ -706,6 +706,7 @@
             <ul class="hidden md:flex gap-10">
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#tools" class="nav-link">Tools</a></li>
                 <li><a href="#credentials" class="nav-link">Credentials</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
@@ -886,8 +887,55 @@
         <p class="text-center mt-8 text-xs text-gray-400 font-medium tracking-widest" id="card-counter"></p>
     </section>
 
+    <!-- ══ TOOLS ════════════════════════════════════════ -->
+    <section class="py-24 bg-slate-950" id="tools">
+        <div class="max-w-6xl mx-auto px-8">
+            <h2 class="text-4xl text-white mb-2" style="font-family:Syne,sans-serif;font-weight:700;">Tools &amp;
+                Packages</h2>
+            <div class="h-1 w-12 bg-blue-500 mb-10 rounded-full"></div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Tool Card: Datafy -->
+                <div
+                    class="fade-in p-8 rounded-2xl border border-slate-800 hover:border-slate-600 hover:shadow-2xl transition-all duration-300 bg-slate-900 flex flex-col">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-blue-400 tracking-widest uppercase">NPM Package</span>
+                        <a href="https://www.npmjs.com/package/@teckedd-code2save/datafy" target="_blank"
+                            class="text-slate-500 hover:text-blue-400 transition-colors">↗</a>
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <h3 class="text-2xl text-white" style="font-family:Syne,sans-serif;">@teckedd-code2save/datafy
+                        </h3>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed mb-6">Minimal, token-efficient Database MCP Server
+                        for PostgreSQL, MySQL, SQL Server, SQLite, MariaDB, Redis, and Elasticsearch with code
+                        generation.</p>
+                    <div class="flex flex-wrap gap-2 mb-8">
+                        <span
+                            class="px-3 py-1 bg-slate-800 text-blue-300 border border-slate-700 rounded-full text-xs font-semibold">MCP</span>
+                        <span
+                            class="px-3 py-1 bg-slate-800 text-blue-300 border border-slate-700 rounded-full text-xs font-semibold">Node.js</span>
+                        <span
+                            class="px-3 py-1 bg-slate-800 text-blue-300 border border-slate-700 rounded-full text-xs font-semibold">PostgreSQL</span>
+                        <span
+                            class="px-3 py-1 bg-slate-800 text-blue-300 border border-slate-700 rounded-full text-xs font-semibold">Redis</span>
+                        <span
+                            class="px-3 py-1 bg-slate-800 text-blue-300 border border-slate-700 rounded-full text-xs font-semibold">Elasticsearch</span>
+                    </div>
+                    <div class="flex gap-4 mt-auto">
+                        <a href="https://www.npmjs.com/package/@teckedd-code2save/datafy" target="_blank"
+                            class="px-5 py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition text-sm text-center">View
+                            on NPM</a>
+                        <a href="https://github.com/teckedd-code2save/datafy" target="_blank"
+                            class="px-5 py-2.5 border border-slate-700 text-slate-300 font-semibold rounded-lg hover:border-slate-500 hover:text-white transition text-sm text-center">GitHub
+                            Repo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ══ CREDENTIALS ══════════════════════════════════ -->
-    <section class="py-28 bg-white" id="credentials">
+    <section class="py-28 bg-slate-50" id="credentials">
         <div class="max-w-6xl mx-auto px-8">
             <h2 class="text-5xl text-gray-950 section-title">Credentials &amp; Learning</h2>
             <div id="credentials-container"></div>
@@ -1010,6 +1058,7 @@
                 <ul class="space-y-3 text-sm">
                     <li><a href="#about" class="text-slate-400 hover:text-white transition">About</a></li>
                     <li><a href="#projects" class="text-slate-400 hover:text-white transition">Projects</a></li>
+                    <li><a href="#tools" class="text-slate-400 hover:text-white transition">Tools</a></li>
                     <li><a href="#credentials" class="text-slate-400 hover:text-white transition">Credentials</a></li>
                     <li><a href="#cv-section" class="text-slate-400 hover:text-white transition">CV</a></li>
                     <li><a href="#contact" class="text-slate-400 hover:text-white transition">Contact</a></li>
@@ -1487,23 +1536,39 @@
         ];
 
         const credsContainer = document.getElementById('credentials-container');
-        credentialGroups.forEach(group => {
-            const section = document.createElement('div');
-            section.className = 'mb-14 fade-in';
-            section.innerHTML = `
-            <div class="flex items-center gap-3 mb-6">
-                <span>${group.icon}</span>
-                <span class="cred-group-label">${group.group}</span>
-                <div class="flex-1 h-px bg-gray-100 ml-2"></div>
-            </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-        `;
-            credsContainer.appendChild(section);
 
-            const grid = section.querySelector('.grid');
+        // Create Tabs Container
+        const tabsNav = document.createElement('div');
+        tabsNav.className = 'flex flex-wrap gap-2 md:gap-3 mb-10 fade-in';
+        credsContainer.appendChild(tabsNav);
+
+        // Create Content Container
+        const tabsContent = document.createElement('div');
+        tabsContent.className = 'relative min-h-[300px] fade-in';
+        credsContainer.appendChild(tabsContent);
+
+        let activeTabIdx = 0;
+
+        credentialGroups.forEach((group, index) => {
+            // Create Tab Button
+            const tabBtn = document.createElement('button');
+            const isActive = index === activeTabIdx;
+            tabBtn.className = `px-5 py-2.5 rounded-full text-sm font-semibold transition-all border ${isActive ? 'bg-blue-600 text-white border-blue-600 shadow-md' : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300 hover:text-blue-600'}`;
+            tabBtn.innerHTML = `<span class="mr-1">${group.icon}</span> <span>${group.group}</span>`;
+            tabsNav.appendChild(tabBtn);
+
+            // Create Tab Panel
+            const panel = document.createElement('div');
+            panel.className = `transition-opacity duration-300 ${isActive ? 'block opacity-100' : 'hidden opacity-0 h-0 overflow-hidden'}`;
+
+            const grid = document.createElement('div');
+            grid.className = 'grid md:grid-cols-2 lg:grid-cols-3 gap-4';
+            panel.appendChild(grid);
+            tabsContent.appendChild(panel);
+
             group.items.forEach(cred => {
                 const card = document.createElement('div');
-                card.className = 'cred-card fade-in';
+                card.className = 'cred-card flex flex-col h-full';
                 card.innerHTML = `
                 <p class="text-sm font-semibold text-gray-900 mb-1 leading-snug">${cred.title}</p>
                 <p class="text-xs text-blue-500 font-semibold mb-3">${cred.issuer} · ${cred.date}</p>
@@ -1513,12 +1578,34 @@
                 </div>
                 ${cred.url ? `
                     <a href="${cred.url}" target="_blank" rel="noopener"
-                       class="inline-flex items-center gap-1 text-xs font-semibold text-blue-500 hover:text-blue-700 transition">
+                       class="inline-flex items-center gap-1 text-xs font-semibold text-blue-500 hover:text-blue-700 transition mt-auto pt-2">
                         Show credential
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>` : ''}
             `;
                 grid.appendChild(card);
+            });
+
+            // Tab Click Logic
+            tabBtn.addEventListener('click', () => {
+                activeTabIdx = index;
+                // Update buttons
+                Array.from(tabsNav.children).forEach((btn, i) => {
+                    if (i === activeTabIdx) {
+                        btn.className = 'px-5 py-2.5 rounded-full text-sm font-semibold transition-all border bg-blue-600 text-white border-blue-600 shadow-md';
+                    } else {
+                        btn.className = 'px-5 py-2.5 rounded-full text-sm font-semibold transition-all border bg-white text-gray-600 border-gray-200 hover:border-blue-300 hover:text-blue-600';
+                    }
+                });
+
+                // Update panels
+                Array.from(tabsContent.children).forEach((p, i) => {
+                    if (i === activeTabIdx) {
+                        p.className = 'transition-opacity duration-300 block opacity-100 ease-in';
+                    } else {
+                        p.className = 'hidden opacity-0 h-0 overflow-hidden';
+                    }
+                });
             });
         });
 
