@@ -693,6 +693,44 @@
             font-size: 13px;
             line-height: 1.5;
         }
+
+        /* ── Project Breakdown Drawer ──────────────── */
+        #project-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            max-width: 550px;
+            background: #fff;
+            z-index: 1100;
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        #project-drawer.open {
+            transform: translateX(0);
+        }
+        .breakdown-section {
+            padding: 30px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .breakdown-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #3b82f6;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+        .breakdown-content {
+            font-size: 15px;
+            color: #334155;
+            line-height: 1.6;
+        }
     </style>
 </head>
 
@@ -766,17 +804,10 @@
                 <div class="fade-in space-y-5">
                     <p class="text-gray-600 leading-relaxed">
                         Senior engineer with <strong class="text-gray-900 font-semibold">6+ years</strong> shipping
-                        production systems. Expert in <strong class="text-gray-900 font-semibold">microservices
-                            architecture</strong>, <strong class="text-gray-900 font-semibold">event-driven
-                            systems</strong> with Apache Kafka, and <strong class="text-gray-900 font-semibold">cloud
-                            infrastructure</strong> on AWS &amp; Azure.
+                        production systems. I specialize in <strong class="text-gray-900 font-semibold">architecting AI-assisted developer workflows</strong>, building tools that bridge the gap between business needs and production code.
                     </p>
                     <p class="text-gray-600 leading-relaxed">
-                        Deepening expertise in <strong class="text-gray-900 font-semibold">Kubernetes
-                            orchestration</strong>, <strong class="text-gray-900 font-semibold">CI/CD
-                            automation</strong>, and the <strong class="text-gray-900 font-semibold">Java
-                            ecosystem</strong>. Actively contributing to AI tooling — extended the open-source DBHub AI
-                        MCP tool to add Elasticsearch &amp; Redis support.
+                        I've pioneered the <strong class="text-gray-900 font-semibold">b2dp ecosystem</strong> — an orchestrator that enables AI agents to build full-stack platforms from scratch. My expertise spans <strong class="text-gray-900 font-semibold">event-driven architectures</strong>, <strong class="text-gray-900 font-semibold">GitHub Actions automation</strong>, and resilient backend systems.
                     </p>
                     <p class="text-gray-600 leading-relaxed">
                         I solve hard problems in production and mentor teams to do the same.
@@ -885,6 +916,13 @@
             </button>
         </div>
         <p class="text-center mt-8 text-xs text-gray-400 font-medium tracking-widest" id="card-counter"></p>
+        <div class="mt-12 text-center">
+            <a href="https://github.com/teckedd-code2save" target="_blank"
+                class="inline-flex items-center gap-2 px-6 py-3 border border-gray-200 text-gray-700 font-semibold rounded-xl hover:border-blue-500 hover:text-blue-600 transition text-sm">
+                See All Projects on GitHub
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            </a>
+        </div>
     </section>
 
     <!-- ══ TOOLS ════════════════════════════════════════ -->
@@ -914,20 +952,39 @@
                             class="px-3 py-1 bg-slate-800 text-blue-300 border border-slate-700 rounded-full text-xs font-semibold">MCP</span>
                         <span
                             class="px-3 py-1 bg-slate-800 text-blue-300 border border-slate-700 rounded-full text-xs font-semibold">Node.js</span>
-                        <span
-                            class="px-3 py-1 bg-slate-800 text-blue-300 border border-slate-700 rounded-full text-xs font-semibold">PostgreSQL</span>
-                        <span
-                            class="px-3 py-1 bg-slate-800 text-blue-300 border border-slate-700 rounded-full text-xs font-semibold">Redis</span>
-                        <span
-                            class="px-3 py-1 bg-slate-800 text-blue-300 border border-slate-700 rounded-full text-xs font-semibold">Elasticsearch</span>
                     </div>
                     <div class="flex gap-4 mt-auto">
                         <a href="https://www.npmjs.com/package/@teckedd-code2save/datafy" target="_blank"
                             class="px-5 py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition text-sm text-center">View
                             on NPM</a>
-                        <a href="https://github.com/teckedd-code2save/datafy" target="_blank"
-                            class="px-5 py-2.5 border border-slate-700 text-slate-300 font-semibold rounded-lg hover:border-slate-500 hover:text-white transition text-sm text-center">GitHub
-                            Repo</a>
+                    </div>
+                </div>
+
+                <!-- Tool Card: B2DP -->
+                <div
+                    class="fade-in p-8 rounded-2xl border border-slate-800 hover:border-slate-600 hover:shadow-2xl transition-all duration-300 bg-slate-900 flex flex-col">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-blue-400 tracking-widest uppercase">NPM Package</span>
+                        <a href="https://www.npmjs.com/package/@teckedd-code2save/b2dp" target="_blank"
+                            class="text-slate-500 hover:text-blue-400 transition-colors">↗</a>
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <h3 class="text-2xl text-white" style="font-family:Syne,sans-serif;">@teckedd-code2save/b2dp
+                        </h3>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed mb-6">Business-to-Data-Platform CLI. One-command setup for the b2dp skill ecosystem across Antigravity, Claude, and Cursor.</p>
+                    <div class="flex flex-wrap gap-2 mb-8">
+                        <span
+                            class="px-3 py-1 bg-slate-800 text-blue-300 border border-slate-700 rounded-full text-xs font-semibold">CLI</span>
+                        <span
+                            class="px-3 py-1 bg-slate-800 text-blue-300 border border-slate-700 rounded-full text-xs font-semibold">AI Workflow</span>
+                        <span
+                            class="px-3 py-1 bg-slate-800 text-blue-300 border border-slate-700 rounded-full text-xs font-semibold">Skill SDK</span>
+                    </div>
+                    <div class="flex gap-4 mt-auto">
+                        <a href="https://www.npmjs.com/package/@teckedd-code2save/b2dp" target="_blank"
+                            class="px-5 py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition text-sm text-center">View
+                            on NPM</a>
                     </div>
                 </div>
             </div>
@@ -939,6 +996,11 @@
         <div class="max-w-6xl mx-auto px-8">
             <h2 class="text-5xl text-gray-950 section-title">Credentials &amp; Learning</h2>
             <div id="credentials-container"></div>
+            <div class="mt-12 text-center" id="credentials-see-all-container" style="display:none;">
+                <button id="credentials-see-all-btn" class="px-6 py-3 bg-white border border-gray-200 text-gray-800 font-semibold rounded-xl hover:border-blue-500 hover:text-blue-600 transition shadow-sm text-sm">
+                    See All Certifications
+                </button>
+            </div>
         </div>
     </section>
 
@@ -1200,6 +1262,25 @@
         </div>
     </aside>
 
+    <!-- ── Project Breakdown Drawer ──────────────── -->
+    <aside id="project-drawer">
+        <div class="drawer-header">
+            <div id="project-drawer-header-content">
+                <h3 class="text-2xl font-bold text-gray-900" style="font-family:Syne,sans-serif;">Project Breakdown</h3>
+                <p class="text-xs text-slate-500 mt-1 uppercase tracking-widest font-semibold" id="project-drawer-tag"></p>
+            </div>
+            <button class="drawer-close" id="project-drawer-close" aria-label="Close Drawer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div id="project-drawer-content">
+            <!-- Dynamic content here -->
+        </div>
+    </aside>
+
     <script>
         gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -1310,37 +1391,43 @@
         ════════════════════════════════════════════════ */
         const projects = [
             {
-                tag: 'Open Source',
+                tag: 'B2DP CLI',
+                title: 'Business-to-Data-Platform (b2dp) Orchestrator',
+                desc: 'A powerful CLI tool that transforms high-level business requirements into production-grade technical implementations. Automates skill installation (MCP servers) for AI coding agents.',
+                stack: ['CLI', 'AI Workflow', 'Node.js', 'GitHub Actions'],
+                link: 'https://www.npmjs.com/package/@teckedd-code2save/b2dp',
+                accent: '#3b82f6',
+                breakdown: {
+                    architecture: 'Architected as a multi-agent orchestrator utilizing the Model Context Protocol (MCP). It uses a modular skill system and a singleton configuration manager for agent discovery.',
+                    challenges: 'Handling cross-agent configuration (Antigravity, Claude, Cursor) and automated dependency resolution across different OS environments.',
+                    highlights: 'Pioneered "Orchestrator Skills" that allow AI agents to provision their own technical sibling skills.'
+                }
+            },
+            {
+                tag: 'AI Tooling',
                 title: 'DBHub AI MCP — Elasticsearch & Redis Extension',
-                desc: 'Extended the open-source DBHub AI Model Context Protocol tool to add native Elasticsearch and Redis data source support.<br><br><strong>Impact:</strong> Enables AI models to directly query NoSQL stores and cache layers. Abstracted database integration patterns and implemented MCP protocol handlers. PR pending to the official repository.',
-                stack: ['MCP Protocol', 'Elasticsearch', 'Redis', 'Python', 'AI Tooling'],
-                link: 'https://github.com/teckedd-code2save/datafy.git',
-                accent: '#10b981'
+                desc: 'Extended the open-source DBHub AI MCP tool to add native Elasticsearch and Redis data source support. Abstracted database integration patterns and implemented MCP protocol handlers.',
+                stack: ['MCP Protocol', 'Elasticsearch', 'Redis', 'Python'],
+                link: 'https://www.npmjs.com/package/@teckedd-code2save/datafy',
+                accent: '#10b981',
+                breakdown: {
+                    architecture: 'Built on the FastMCP framework. Implemented dynamic schema discovery for NoSQL databases and token-efficient query abstraction layers.',
+                    challenges: 'Mapping Elasticsearch\'s query DSL and Redis HGETALL/SCAN patterns into a unified natural language interface for LLMs.',
+                    highlights: 'Enabled AI models to perform real-time cache analysis and log-level troubleshooting directly through the MCP interface.'
+                }
             },
             {
-                tag: 'Personal Project',
-                title: 'Automated Traffic Data Archiver',
-                desc: '<strong>Problem:</strong> Needed to collect and analyze transportation research data at scale.<br><strong>Solution:</strong> Built a JavaScript web application utilizing cron scheduling to automate traffic data archiving from providers like Google Directions API and DistanceMatrix.ai.<br><strong>Impact:</strong> Processed tens of thousands of real-time data points with robust Python downstream data analysis.',
-                stack: ['JavaScript', 'Cron', 'Google APIs', 'Python'],
-                link: 'https://github.com/teckedd-code2save/google-directions-api.git',
-                accent: '#f43f5e'
-            },
-            {
-                tag: 'Personal Project',
-                title: 'REACHY AI — Multi-lingual Healthcare',
-                desc: '<strong>Problem:</strong> Healthcare communication gaps in low-resource settings with language barriers.<br><strong>Solution:</strong> Voice-enabled healthcare platform supporting English, French, Twi, and Hausa. Fine-tuned Whisper Small on a custom Twi dataset.<br><strong>Impact:</strong> Automated CI/CD pipeline and multi-lingual real-time speech processing.',
-                stack: ['Python', 'FastAPI', 'Whisper/HuggingFace', 'Docker', 'GitHub Actions', 'AWS ECR/EC2'],
+                tag: 'AI & Healthcare',
+                title: 'REACHY AI — Multi-lingual Speech Platform',
+                desc: 'Voice-enabled healthcare platform supporting English, French, Twi, and Hausa. Fine-tuned Whisper Small on a custom Twi dataset for low-resource settings.',
+                stack: ['Python', 'FastAPI', 'Whisper/HuggingFace', 'Docker'],
                 link: 'https://github.com/teckedd-code2save/serendepify-frontend.git',
-                accent: '#3b82f6'
-            },
-            {
-                tag: 'Production System (Hubtel)',
-                title: 'Payment & eCommerce Microservices',
-                desc: '<strong>Problem:</strong> Payment processing at scale with high availability requirements.<br><strong>Solution:</strong> Architected elastic payment and eCommerce microservices using event-driven Kafka architectures and PgBouncer connection pooling.<br><strong>Impact:</strong> Handled 1M+ daily transactions, 99.99% uptime SLA, and sub-500ms API latency. Achieved significant latency reduction through Redis caching.',
-                stack: ['C#/.NET', 'Apache Kafka', 'PostgreSQL', 'Redis', 'Azure DevOps', 'AWS'],
-                link: 'https://hubtel.com',
-                linkText: 'Visit Hubtel',
-                accent: '#8b5cf6'
+                accent: '#f43f5e',
+                breakdown: {
+                    architecture: 'Microservices architecture with FastAPI backends. Asynchronous speech processing utilizing Celery and Redis for background transcription tasks.',
+                    challenges: 'Optimizing inference speed for Whisper models on CPU-constrained environments in local healthcare centers.',
+                    highlights: 'Achieved high accuracy for Twi (Akan) language transcription, significantly bridging the healthcare communication gap.'
+                }
             }
         ];
 
@@ -1375,17 +1462,79 @@
                 <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;">
                     ${p.stack.map(s => `<span style="padding:4px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:99px;font-size:11px;color:#64748b;font-weight:500;">${s}</span>`).join('')}
                 </div>
-                <a href="${p.link}" target="_blank" rel="noopener"
-                   style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:${p.accent};text-decoration:none;transition:opacity .2s;"
-                   onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">
-                    ${p.linkText || 'View on GitHub'}
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;">
+                    <a href="${p.link}" target="_blank" rel="noopener"
+                       style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:${p.accent};text-decoration:none;transition:opacity .2s;"
+                       onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">
+                        ${p.linkText || 'Visit'}
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <button class="see-more-btn" data-index="${i}"
+                        style="font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.05em;border:none;background:none;cursor:pointer;padding:8px 0;">
+                        See More
+                    </button>
+                </div>
             `;
                 stage.appendChild(card);
             });
+
+            // Add listener for See More buttons
+            document.querySelectorAll('.see-more-btn').forEach(btn => {
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    openProjectDrawer(btn.dataset.index);
+                };
+            });
+
             counter.textContent = `${current + 1}  /  ${total}`;
         }
+
+        const projectDrawer = document.getElementById('project-drawer');
+        const projectDrawerClose = document.getElementById('project-drawer-close');
+        const projectDrawerContent = document.getElementById('project-drawer-content');
+        const projectDrawerTag = document.getElementById('project-drawer-tag');
+        const projectDrawerTitle = document.querySelector('#project-drawer-header-content h3');
+
+        function openProjectDrawer(index) {
+            const p = projects[index];
+            projectDrawerTag.textContent = p.tag;
+            projectDrawerTitle.textContent = p.title;
+
+            projectDrawerContent.innerHTML = `
+                <div class="breakdown-section">
+                    <div class="breakdown-title">Core Architecture</div>
+                    <div class="breakdown-content">${p.breakdown.architecture}</div>
+                </div>
+                <div class="breakdown-section">
+                    <div class="breakdown-title">Technical Challenges</div>
+                    <div class="breakdown-content">${p.breakdown.challenges}</div>
+                </div>
+                <div class="breakdown-section">
+                    <div class="breakdown-title">Key Highlights</div>
+                    <div class="breakdown-content">${p.breakdown.highlights}</div>
+                </div>
+                <div class="breakdown-section" style="border-bottom:none;">
+                    <div class="breakdown-title">Tech Stack</div>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        ${p.stack.map(s => `<span class="skill-pill">${s}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+            projectDrawer.classList.add('open');
+            document.getElementById('article-drawer-overlay').classList.add('open');
+        }
+
+        projectDrawerClose.onclick = () => {
+            projectDrawer.classList.remove('open');
+            document.getElementById('article-drawer-overlay').classList.remove('open');
+        };
+
+        document.getElementById('article-drawer-overlay').addEventListener('click', () => {
+            projectDrawer.classList.remove('open');
+            // Also close the other drawer if open
+            document.getElementById('article-drawer').classList.remove('open');
+            document.getElementById('article-drawer-overlay').classList.remove('open');
+        });
 
         function navigate(dir) {
             current = (current + dir + total) % total;
@@ -1414,27 +1563,60 @@
         ════════════════════════════════════════════════ */
         const credentialGroups = [
             {
-                group: 'Artificial Intelligence',
+                provider: 'Google',
+                group: 'Google & AI Engineering',
                 icon: '🤖',
                 items: [
                     {
+                        title: 'Foundations of Open Generative AI Engineering',
+                        issuer: 'Google/Coursera', date: 'Feb 2026', id: 'YMOK2TV2T0JK',
+                        url: 'https://www.coursera.org/account/accomplishments/certificate/YMOK2TV2T0JK',
+                        skills: ['Generative AI', 'AI-Powered Development', 'LLMs']
+                    },
+                    {
                         title: 'Preparing Text for AI Models',
-                        issuer: 'Coursera', date: 'Feb 2026', id: '31WARUPH6SZC',
+                        issuer: 'Google/Coursera', date: 'Feb 2026', id: '31WARUPH6SZC',
                         url: 'https://www.coursera.org/account/accomplishments/verify/31WARUPH6SZC',
-                        skills: ['Generative AI', 'Data Cleansing', 'Large Language Modeling', 'Hugging Face']
+                        skills: ['Generative AI', 'Data Cleansing', 'Hugging Face']
                     },
                     {
                         title: 'Understanding Open AI Workspaces',
-                        issuer: 'Coursera', date: 'Feb 2026', id: '2VN2JD7NFZNI',
+                        issuer: 'Google/Coursera', date: 'Feb 2026', id: '2VN2JD7NFZNI',
                         url: 'https://www.coursera.org/account/accomplishments/certificate/2VN2JD7NFZNI',
-                        skills: ['Generative AI', 'Fine Tuning', 'OpenAI', 'Prompt Engineering']
+                        skills: ['Generative AI', 'Fine Tuning', 'OpenAI']
+                    }
+                ]
+            },
+            {
+                provider: 'AWS',
+                group: 'AWS & Cloud Systems',
+                icon: '☁️',
+                items: [
+                    {
+                        title: 'AWS Foundations and Core Services',
+                        issuer: 'AWS/Coursera', date: 'Feb 2026', id: 'CK4LVBUM6CFH',
+                        url: 'https://www.coursera.org/account/accomplishments/certificate/CK4LVBUM6CFH',
+                        skills: ['AWS', 'EC2', 'S3', 'RDS']
                     },
                     {
-                        title: 'Foundations of Open Generative AI Engineering',
-                        issuer: 'Coursera', date: 'Feb 2026', id: 'YMOK2TV2T0JK',
-                        url: 'https://www.coursera.org/account/accomplishments/certificate/YMOK2TV2T0JK',
-                        skills: ['Generative AI', 'AI-Powered Development', 'LLMs', 'Prompt Engineering']
+                        title: 'Kubernetes From Basics to Guru',
+                        issuer: 'Coursera', date: 'Feb 2026', id: 'DFX1W42R91VU',
+                        url: 'https://www.coursera.org/account/accomplishments/certificate/DFX1W42R91VU',
+                        skills: ['Kubernetes', 'GitOps', 'Jenkins']
                     },
+                    {
+                        title: 'Build a CI/CD Pipeline with Docker',
+                        issuer: 'Coursera', date: 'Jan 2026', id: 'KJVWV84YKH9J',
+                        url: 'https://www.coursera.org/account/accomplishments/certificate/KJVWV84YKH9J',
+                        skills: ['DevOps', 'Docker', 'GitHub Actions']
+                    }
+                ]
+            },
+            {
+                provider: 'Data Science',
+                group: 'Kaggle & Data Science',
+                icon: '📊',
+                items: [
                     {
                         title: 'Intermediate Machine Learning',
                         issuer: 'Kaggle', date: 'Sep 2023', id: '',
@@ -1442,69 +1624,22 @@
                         skills: ['Python', 'Scikit-Learn', 'ML Pipelines']
                     },
                     {
-                        title: 'Intro to Machine Learning',
+                        title: 'Pandas & Data Analysis',
                         issuer: 'Kaggle', date: 'Aug 2023', id: '',
                         url: 'https://www.kaggle.com/learn/certification',
-                        skills: ['Machine Learning', 'ML Algorithms']
+                        skills: ['Data Analysis', 'Python']
                     },
                     {
                         title: 'Computer Vision',
                         issuer: 'Kaggle', date: 'Oct 2023', id: '',
                         url: 'https://www.kaggle.com/learn/certification',
                         skills: ['Computer Vision', 'Python']
-                    },
-                    {
-                        title: 'Pandas',
-                        issuer: 'Kaggle', date: 'Aug 2023', id: '',
-                        url: 'https://www.kaggle.com/learn/certification',
-                        skills: ['Data Analysis', 'Data Preparation', 'Python']
                     }
                 ]
             },
             {
-                group: 'Cloud & DevOps',
-                icon: '☁️',
-                items: [
-                    {
-                        title: 'AWS Foundations and Core Services',
-                        issuer: 'Coursera', date: 'Feb 2026', id: 'CK4LVBUM6CFH',
-                        url: 'https://www.coursera.org/account/accomplishments/certificate/CK4LVBUM6CFH',
-                        skills: ['AWS', 'EC2', 'S3', 'RDS']
-                    },
-                    {
-                        title: 'Kubernetes From Basics to Guru: Unit 2',
-                        issuer: 'Coursera', date: 'Feb 2026', id: 'DFX1W42R91VU',
-                        url: 'https://www.coursera.org/account/accomplishments/certificate/DFX1W42R91VU',
-                        skills: ['Jenkins', 'GitOps', 'Kubernetes']
-                    },
-                    {
-                        title: 'Build a CI/CD Pipeline with Docker',
-                        issuer: 'Coursera', date: 'Jan 2026', id: 'KJVWV84YKH9J',
-                        url: 'https://www.coursera.org/account/accomplishments/certificate/KJVWV84YKH9J',
-                        skills: ['DevOps', 'Docker', 'GitHub Actions', 'CI/CD']
-                    },
-                    {
-                        title: 'Kubernetes From Basics to Guru: Unit 1',
-                        issuer: 'Coursera', date: 'Jan 2026', id: 'RZKKID28SZP2',
-                        url: 'https://www.coursera.org/account/accomplishments/certificate/RZKKID28SZP2',
-                        skills: ['Docker', 'Containers', 'Kubernetes']
-                    }
-                ]
-            },
-            {
-                group: 'Security',
-                icon: '🔐',
-                items: [
-                    {
-                        title: 'Software Secure Coding and Security Techniques',
-                        issuer: 'GXT International', date: 'May 2023', id: 'GX104202003423',
-                        url: null,
-                        skills: ['Security', 'Secure Coding', 'Auth', 'Vulnerability Prevention']
-                    }
-                ]
-            },
-            {
-                group: 'Leadership & Process',
+                provider: 'Leadership',
+                group: 'Leadership & Professional',
                 icon: '👥',
                 items: [
                     {
@@ -1522,6 +1657,7 @@
                 ]
             },
             {
+                provider: 'Education',
                 group: 'Education',
                 icon: '🎓',
                 items: [
@@ -1549,65 +1685,76 @@
 
         let activeTabIdx = 0;
 
+        // Initialize empty tabs
         credentialGroups.forEach((group, index) => {
-            // Create Tab Button
             const tabBtn = document.createElement('button');
-            const isActive = index === activeTabIdx;
-            tabBtn.className = `px-5 py-2.5 rounded-full text-sm font-semibold transition-all border ${isActive ? 'bg-blue-600 text-white border-blue-600 shadow-md' : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300 hover:text-blue-600'}`;
             tabBtn.innerHTML = `<span class="mr-1">${group.icon}</span> <span>${group.group}</span>`;
             tabsNav.appendChild(tabBtn);
 
-            // Create Tab Panel
             const panel = document.createElement('div');
-            panel.className = `transition-opacity duration-300 ${isActive ? 'block opacity-100' : 'hidden opacity-0 h-0 overflow-hidden'}`;
-
             const grid = document.createElement('div');
             grid.className = 'grid md:grid-cols-2 lg:grid-cols-3 gap-4';
             panel.appendChild(grid);
             tabsContent.appendChild(panel);
 
-            group.items.forEach(cred => {
-                const card = document.createElement('div');
-                card.className = 'cred-card flex flex-col h-full';
-                card.innerHTML = `
-                <p class="text-sm font-semibold text-gray-900 mb-1 leading-snug">${cred.title}</p>
-                <p class="text-xs text-blue-500 font-semibold mb-3">${cred.issuer} · ${cred.date}</p>
-                ${cred.id ? `<p class="text-xs text-gray-400 font-mono mb-3 truncate">${cred.id}</p>` : ''}
-                <div class="flex flex-wrap gap-1.5 mb-4">
-                    ${cred.skills.map(s => `<span class="skill-pill">${s}</span>`).join('')}
-                </div>
-                ${cred.url ? `
-                    <a href="${cred.url}" target="_blank" rel="noopener"
-                       class="inline-flex items-center gap-1 text-xs font-semibold text-blue-500 hover:text-blue-700 transition mt-auto pt-2">
-                        Show credential
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </a>` : ''}
-            `;
-                grid.appendChild(card);
-            });
-
-            // Tab Click Logic
             tabBtn.addEventListener('click', () => {
                 activeTabIdx = index;
-                // Update buttons
-                Array.from(tabsNav.children).forEach((btn, i) => {
-                    if (i === activeTabIdx) {
-                        btn.className = 'px-5 py-2.5 rounded-full text-sm font-semibold transition-all border bg-blue-600 text-white border-blue-600 shadow-md';
-                    } else {
-                        btn.className = 'px-5 py-2.5 rounded-full text-sm font-semibold transition-all border bg-white text-gray-600 border-gray-200 hover:border-blue-300 hover:text-blue-600';
-                    }
-                });
-
-                // Update panels
-                Array.from(tabsContent.children).forEach((p, i) => {
-                    if (i === activeTabIdx) {
-                        p.className = 'transition-opacity duration-300 block opacity-100 ease-in';
-                    } else {
-                        p.className = 'hidden opacity-0 h-0 overflow-hidden';
-                    }
-                });
+                renderCredentials();
             });
         });
+
+        function renderCredentials(showAll = false) {
+            Array.from(tabsNav.children).forEach((btn, i) => {
+                const isActive = i === activeTabIdx;
+                btn.className = `px-5 py-2.5 rounded-full text-sm font-semibold transition-all border ${isActive ? 'bg-blue-600 text-white border-blue-600 shadow-md' : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300 hover:text-blue-600'}`;
+            });
+
+            Array.from(tabsContent.children).forEach((panel, i) => {
+                if (i === activeTabIdx) {
+                    panel.className = 'transition-opacity duration-300 block opacity-100';
+                    const grid = panel.firstChild;
+                    const items = credentialGroups[i].items;
+                    const LIMIT = 3;
+                    grid.innerHTML = '';
+                    const itemsToShow = (showAll || items.length <= LIMIT) ? items : items.slice(0, LIMIT);
+                    
+                    itemsToShow.forEach(cred => {
+                        const card = document.createElement('div');
+                        card.className = 'cred-card flex flex-col h-full';
+                        card.innerHTML = `
+                            <p class="text-sm font-semibold text-gray-900 mb-1 leading-snug">${cred.title}</p>
+                            <p class="text-xs text-blue-500 font-semibold mb-3">${cred.issuer} · ${cred.date}</p>
+                            ${cred.id ? `<p class="text-xs text-gray-400 font-mono mb-3 truncate">${cred.id}</p>` : ''}
+                            <div class="flex flex-wrap gap-1.5 mb-4">
+                                ${cred.skills.map(s => `<span class="skill-pill">${s}</span>`).join('')}
+                            </div>
+                            ${cred.url ? `
+                                <a href="${cred.url}" target="_blank" rel="noopener"
+                                   class="inline-flex items-center gap-1 text-xs font-semibold text-blue-500 hover:text-blue-700 transition mt-auto pt-2">
+                                    Show credential
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                </a>` : ''}
+                        `;
+                        grid.appendChild(card);
+                    });
+
+                    const seeAllContainer = document.getElementById('credentials-see-all-container');
+                    if (items.length > LIMIT && !showAll) {
+                        seeAllContainer.style.display = 'block';
+                    } else {
+                        seeAllContainer.style.display = 'none';
+                    }
+                } else {
+                    panel.className = 'transition-opacity duration-300 hidden opacity-0 h-0 overflow-hidden';
+                }
+            });
+        }
+
+        document.getElementById('credentials-see-all-btn').onclick = () => {
+            renderCredentials(true);
+        };
+
+        renderCredentials();
 
         /* ════════════════════════════════════════════════
            SMOOTH NAV — Fixed with ScrollToPlugin
