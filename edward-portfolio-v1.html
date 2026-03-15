@@ -226,8 +226,16 @@
         }
 
         .cred-card:hover {
-            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.10);
-            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(59, 130, 246, 0.15);
+            transform: translateY(-5px) scale(1.02);
+            border-color: #93c5fd;
+        }
+
+        .project-title-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .skill-pill {
@@ -748,7 +756,7 @@
                 <li><a href="#credentials" class="nav-link">Credentials</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <a href="Edward_Twumasi_SeniorRoleCV_Final.pdf" target="_blank"
+            <a href="staticfiles/Edward_Twumasi_CV_Latest.pdf" target="_blank"
                 class="px-5 py-2 text-sm font-semibold border border-gray-200 rounded-lg hover:border-blue-500 hover:text-blue-600 transition text-gray-700">
                 View CV
             </a>
@@ -778,7 +786,7 @@
                         class="px-7 py-3 border border-gray-200 text-gray-700 font-semibold rounded-xl hover:border-blue-500 hover:text-blue-600 transition text-sm">
                         Get in Touch
                     </a>
-                    <a href="Edward_Twumasi_SeniorRoleCV_Final.pdf" target="_blank"
+                    <a href="staticfiles/Edward_Twumasi_CV_Latest.pdf" target="_blank"
                         class="px-7 py-3 bg-gray-950 text-white font-semibold rounded-xl hover:bg-gray-800 transition text-sm">
                         View CV
                     </a>
@@ -787,7 +795,7 @@
             <div class="fade-in hidden md:flex justify-center items-center">
                 <div class="relative">
                     <div class="absolute inset-0 bg-blue-100 rounded-3xl blur-2xl opacity-40 scale-110"></div>
-                    <img id="edward-image" src="./1719185128651.jpeg" alt="Edward Twumasi"
+                    <img id="edward-image" src="staticfiles/1719185128651.jpeg" alt="Edward Twumasi"
                         class="relative w-72 h-72 rounded-3xl object-cover object-top shadow-2xl image-float">
                 </div>
             </div>
@@ -802,15 +810,14 @@
             <div class="grid md:grid-cols-2 gap-16">
                 <!-- Left: Text -->
                 <div class="fade-in space-y-5">
-                    <p class="text-gray-600 leading-relaxed">
-                        Senior engineer with <strong class="text-gray-900 font-semibold">6+ years</strong> shipping
-                        production systems. I specialize in <strong class="text-gray-900 font-semibold">architecting AI-assisted developer workflows</strong>, building tools that bridge the gap between business needs and production code.
+                    <p class="text-gray-600 leading-relaxed text-lg">
+                        Senior engineer with <strong class="text-gray-900 font-semibold">6+ years</strong> shipping production systems at the intersection of backend infrastructure and AI tooling.
                     </p>
                     <p class="text-gray-600 leading-relaxed">
-                        I've pioneered the <strong class="text-gray-900 font-semibold">b2dp ecosystem</strong> — an orchestrator that enables AI agents to build full-stack platforms from scratch. My expertise spans <strong class="text-gray-900 font-semibold">event-driven architectures</strong>, <strong class="text-gray-900 font-semibold">GitHub Actions automation</strong>, and resilient backend systems.
+                        I specialize in <strong class="text-gray-900 font-semibold">architecting AI-assisted developer workflows</strong> — including <strong class="text-gray-900 font-semibold">b2dp</strong>, an orchestrator that enables AI agents to generate full-stack platforms from a business spec. 
                     </p>
                     <p class="text-gray-600 leading-relaxed">
-                        I solve hard problems in production and mentor teams to do the same.
+                        My expertise spans <strong class="text-gray-900 font-semibold">event-driven architectures</strong>, <strong class="text-gray-900 font-semibold">CI/CD automation</strong>, and resilient backend systems. I work on hard problems in production and bring teams along in the process.
                     </p>
                 </div>
 
@@ -895,7 +902,8 @@
     </section>
 
     <!-- ══ PROJECTS ════════════════════════════════════ -->
-    <section class="py-28 bg-slate-50 overflow-hidden" id="projects">
+    <section class="py-28 bg-slate-50 overflow-hidden relative" id="projects">
+        <canvas id="projects-canvas" class="absolute inset-0 pointer-events-none"></canvas>
         <div class="max-w-6xl mx-auto px-8 mb-16">
             <h2 class="text-5xl text-gray-950 section-title">Impact &amp; Contributions</h2>
         </div>
@@ -926,7 +934,8 @@
     </section>
 
     <!-- ══ TOOLS ════════════════════════════════════════ -->
-    <section class="py-24 bg-slate-950" id="tools">
+    <section class="py-24 bg-slate-950 relative" id="tools">
+        <canvas id="tools-canvas" class="absolute inset-0 pointer-events-none opacity-40"></canvas>
         <div class="max-w-6xl mx-auto px-8">
             <h2 class="text-4xl text-white mb-2" style="font-family:Syne,sans-serif;font-weight:700;">Tools &amp;
                 Packages</h2>
@@ -992,7 +1001,8 @@
     </section>
 
     <!-- ══ CREDENTIALS ══════════════════════════════════ -->
-    <section class="py-28 bg-slate-50" id="credentials">
+    <section class="py-28 bg-slate-50 relative" id="credentials">
+        <canvas id="credentials-canvas" class="absolute inset-0 pointer-events-none"></canvas>
         <div class="max-w-6xl mx-auto px-8">
             <h2 class="text-5xl text-gray-950 section-title">Credentials &amp; Learning</h2>
             <div id="credentials-container"></div>
@@ -1016,7 +1026,7 @@
                     class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition text-sm">
                     View on LinkedIn
                 </a>
-                <a href="Edward_Twumasi_SeniorRoleCV_Final.pdf" target="_blank" id="cv-download-btn"
+                <a href="staticfiles/Edward_Twumasi_CV_Latest.pdf" target="_blank" id="cv-download-btn"
                     class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition text-sm">
                     Download PDF CV
                 </a>
@@ -1285,11 +1295,12 @@
         gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
         /* ════════════════════════════════════════════════
-           THREE.JS — Hero Particle Network
+           THREE.JS — Background Engine
         ════════════════════════════════════════════════ */
-        (function initHeroCanvas() {
-            const canvas = document.getElementById('hero-canvas');
-            const section = document.getElementById('hero');
+        function initBackgroundCanvas(canvasId, sectionId, color = 0x3b82f6, lineColor = 0x93c5fd) {
+            const canvas = document.getElementById(canvasId);
+            const section = document.getElementById(sectionId);
+            if (!canvas || !section) return;
 
             const scene = new THREE.Scene();
             let W = section.offsetWidth, H = section.offsetHeight;
@@ -1301,7 +1312,7 @@
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             renderer.setSize(W, H);
 
-            const N = 90;
+            const N = 70;
             const MAX_LINE_PAIRS = N * N;
             const pPos = new Float32Array(N * 3);
             const pVel = [];
@@ -1312,38 +1323,35 @@
                 pPos[i * 3 + 1] = (Math.random() - 0.5) * 10;
                 pPos[i * 3 + 2] = (Math.random() - 0.5) * 2;
                 pVel.push({
-                    x: (Math.random() - 0.5) * 0.004,
-                    y: (Math.random() - 0.5) * 0.004
+                    x: (Math.random() - 0.5) * 0.003,
+                    y: (Math.random() - 0.5) * 0.003
                 });
             }
 
-            // Points
             const pGeo = new THREE.BufferGeometry();
             pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-            const pMat = new THREE.PointsMaterial({ color: 0x3b82f6, size: 0.07, transparent: true, opacity: 0.55 });
+            const pMat = new THREE.PointsMaterial({ color: color, size: 0.06, transparent: true, opacity: 0.4 });
             scene.add(new THREE.Points(pGeo, pMat));
 
-            // Lines
             const lGeo = new THREE.BufferGeometry();
             const lAttr = new THREE.BufferAttribute(linePositions, 3);
             lAttr.setUsage(THREE.DynamicDrawUsage);
             lGeo.setAttribute('position', lAttr);
-            const lMat = new THREE.LineBasicMaterial({ color: 0x93c5fd, transparent: true, opacity: 0.18 });
+            const lMat = new THREE.LineBasicMaterial({ color: lineColor, transparent: true, opacity: 0.1 });
             const lines = new THREE.LineSegments(lGeo, lMat);
             scene.add(lines);
 
             let mouseX = 0, mouseY = 0;
-            window.addEventListener('mousemove', e => {
+            const onMouseMove = e => {
                 mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
                 mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-            });
+            };
+            window.addEventListener('mousemove', onMouseMove);
 
-            const DIST_THRESHOLD = 2.8;
+            const DIST_THRESHOLD = 2.5;
 
             function tick() {
                 requestAnimationFrame(tick);
-
-                // Move particles
                 for (let i = 0; i < N; i++) {
                     pPos[i * 3] += pVel[i].x;
                     pPos[i * 3 + 1] += pVel[i].y;
@@ -1352,7 +1360,6 @@
                 }
                 pGeo.attributes.position.needsUpdate = true;
 
-                // Build line segments
                 let lIdx = 0;
                 for (let i = 0; i < N - 1; i++) {
                     for (let j = i + 1; j < N; j++) {
@@ -1369,9 +1376,8 @@
                 lGeo.setDrawRange(0, lIdx * 2);
                 lGeo.attributes.position.needsUpdate = true;
 
-                // Camera parallax
-                camera.position.x += (mouseX * 0.35 - camera.position.x) * 0.045;
-                camera.position.y += (-mouseY * 0.2 - camera.position.y) * 0.045;
+                camera.position.x += (mouseX * 0.2 - camera.position.x) * 0.03;
+                camera.position.y += (-mouseY * 0.15 - camera.position.y) * 0.03;
                 camera.lookAt(0, 0, 0);
 
                 renderer.render(scene, camera);
@@ -1384,7 +1390,15 @@
                 camera.updateProjectionMatrix();
                 renderer.setSize(W, H);
             });
-        })();
+        }
+
+        // Initialize all background canvases
+        window.addEventListener('DOMContentLoaded', () => {
+            initBackgroundCanvas('hero-canvas', 'hero', 0x3b82f6, 0x93c5fd);
+            initBackgroundCanvas('projects-canvas', 'projects', 0x6366f1, 0x818cf8);
+            initBackgroundCanvas('tools-canvas', 'tools', 0x3b82f6, 0x2563eb);
+            initBackgroundCanvas('credentials-canvas', 'credentials', 0x10b981, 0x34d399);
+        });
 
         /* ════════════════════════════════════════════════
            PROJECTS — Stacked Card Carousel
@@ -1457,7 +1471,7 @@
                     <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${p.accent};flex-shrink:0;"></span>
                     <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#94a3b8;">${p.tag}</span>
                 </div>
-                <h3 style="font-family:Syne,sans-serif;font-size:1.2rem;color:#0f172a;margin-bottom:12px;line-height:1.3;">${p.title}</h3>
+                <h3 class="project-title-gradient" style="font-family:Syne,sans-serif;font-size:1.2rem;margin-bottom:12px;line-height:1.3;">${p.title}</h3>
                 <p style="font-size:14px;color:#64748b;line-height:1.7;margin-bottom:20px;">${p.desc}</p>
                 <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;">
                     ${p.stack.map(s => `<span style="padding:4px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:99px;font-size:11px;color:#64748b;font-weight:500;">${s}</span>`).join('')}
