@@ -1005,122 +1005,321 @@
                 </div>
             </div>
 
-            <!-- Bottom: Core Technologies -->
-            <div class="mt-20 pt-16 fade-in" style="border-top: 1px solid rgba(72,72,73,0.15); position:relative; overflow:hidden;">
+            <!-- Bottom: Core Technologies — Bento Skill Grid -->
+            <div class="mt-20 pt-16 fade-in" id="tech-section" style="border-top: 1px solid rgba(72,72,73,0.15); position:relative;">
 
-                <!-- Ambient morphing blobs -->
-                <div aria-hidden="true" class="tech-blob" style="width:380px;height:380px;top:-120px;left:-100px;background:rgba(166,140,255,0.04);animation:blobMorph 20s ease-in-out infinite;"></div>
-                <div aria-hidden="true" class="tech-blob" style="width:260px;height:260px;top:30%;right:-80px;background:rgba(166,140,255,0.05);animation:blobMorph 14s ease-in-out infinite reverse;animation-delay:-5s;"></div>
-                <div aria-hidden="true" class="tech-blob" style="width:200px;height:200px;bottom:-60px;left:38%;background:rgba(255,89,227,0.04);animation:blobMorph 17s ease-in-out infinite;animation-delay:-9s;"></div>
+                <style>
+                /* ── Skill Bento ──────────────────────────── */
+                .skill-bento-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 14px;
+                }
+                @media (max-width: 640px) {
+                    .skill-bento-grid { grid-template-columns: 1fr; }
+                }
+                .skill-bento-card {
+                    border-radius: 18px;
+                    padding: 24px 26px 22px;
+                    border: 1px solid rgba(72,72,73,0.14);
+                    position: relative;
+                    overflow: hidden;
+                    background: #131314;
+                    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+                    cursor: default;
+                }
+                .skill-bento-card::after {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    border-radius: 18px;
+                    opacity: 0;
+                    transition: opacity 0.4s;
+                    pointer-events: none;
+                }
+                .skill-bento-card:hover {
+                    transform: translateY(-3px);
+                }
+                .skill-bento-card:hover::after { opacity: 1; }
 
-                <!-- Floating angular shards -->
-                <div aria-hidden="true" class="tech-shard" style="width:7px;height:7px;top:12%;left:18%;border:1px solid rgba(166,140,255,0.28);--r:28deg;--o:0.28;animation:shardDrift 7s ease-in-out infinite;"></div>
-                <div aria-hidden="true" class="tech-shard" style="width:11px;height:4px;top:55%;left:6%;border:1px solid rgba(166,140,255,0.22);--r:-18deg;--o:0.22;animation:shardDrift 9s ease-in-out infinite reverse;animation-delay:-2s;"></div>
-                <div aria-hidden="true" class="tech-shard" style="width:9px;height:9px;top:28%;right:8%;border:1px solid rgba(255,89,227,0.2);--r:48deg;--o:0.2;animation:shardDrift 8s ease-in-out infinite;animation-delay:-3.5s;"></div>
-                <div aria-hidden="true" class="tech-shard" style="width:5px;height:14px;bottom:18%;right:22%;border:1px solid rgba(166,140,255,0.18);--r:-35deg;--o:0.18;animation:shardDrift 11s ease-in-out infinite reverse;animation-delay:-1s;"></div>
-                <div aria-hidden="true" class="tech-shard" style="width:13px;height:5px;bottom:10%;left:42%;border:1px solid rgba(166,140,255,0.18);--r:62deg;--o:0.18;animation:shardDrift 6s ease-in-out infinite;animation-delay:-4s;"></div>
-                <div aria-hidden="true" class="tech-shard" style="width:8px;height:8px;top:18%;left:58%;border:1px solid rgba(255,89,227,0.14);--r:15deg;--o:0.14;animation:shardDrift 12s ease-in-out infinite reverse;animation-delay:-6s;"></div>
-                <div aria-hidden="true" class="tech-shard" style="width:6px;height:10px;top:70%;left:28%;border:1px solid rgba(166,140,255,0.15);--r:-50deg;--o:0.15;animation:shardDrift 8.5s ease-in-out infinite;animation-delay:-2.5s;"></div>
-
-                <!-- Pulsing rings -->
-                <div aria-hidden="true" class="tech-ring" style="width:90px;height:90px;top:4%;right:4%;border:1px solid rgba(166,140,255,0.08);animation:ringBreath 5s ease-in-out infinite;"></div>
-                <div aria-hidden="true" class="tech-ring" style="width:130px;height:130px;bottom:-20px;left:3%;border:1px solid rgba(166,140,255,0.06);animation:ringBreath 7s ease-in-out infinite reverse;"></div>
-                <div aria-hidden="true" class="tech-ring" style="width:60px;height:60px;top:45%;left:47%;border:1px solid rgba(255,89,227,0.07);animation:ringBreath 4s ease-in-out infinite;animation-delay:-2s;"></div>
+                .skill-bento-title {
+                    font-size: 10px;
+                    font-weight: 700;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    margin-bottom: 2px;
+                }
+                .skill-bento-sub {
+                    font-size: 11px;
+                    color: #484849;
+                    margin-bottom: 18px;
+                    font-style: italic;
+                }
+                .skill-bento-chips {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 7px;
+                }
+                .skill-chip {
+                    position: relative;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 5px;
+                    padding: 5px 11px 5px 9px;
+                    border-radius: 99px;
+                    font-size: 11.5px;
+                    font-weight: 500;
+                    border: 1px solid;
+                    cursor: pointer;
+                    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+                    user-select: none;
+                }
+                .skill-chip:hover {
+                    transform: translateY(-2px) scale(1.04);
+                }
+                .skill-chip-dot {
+                    width: 5px;
+                    height: 5px;
+                    border-radius: 50%;
+                    flex-shrink: 0;
+                }
+                /* Chip tooltip */
+                .skill-chip-tooltip {
+                    position: fixed;
+                    pointer-events: none;
+                    display: none;
+                    background: rgba(20,19,21,0.98);
+                    border-radius: 12px;
+                    padding: 12px 15px;
+                    max-width: 260px;
+                    z-index: 9999;
+                    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+                    backdrop-filter: blur(12px);
+                    border: 1px solid rgba(72,72,73,0.3);
+                }
+                .skill-chip-tooltip p { margin: 0; }
+                .skill-chip-tooltip .tt-name {
+                    font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 6px;
+                }
+                .skill-chip-tooltip .tt-desc {
+                    font-size: 11px; color: #adaaab; line-height: 1.6;
+                }
+                /* Bento entrance animation */
+                @keyframes bentoIn {
+                    from { opacity: 0; transform: translateY(18px) scale(0.97); }
+                    to   { opacity: 1; transform: translateY(0) scale(1); }
+                }
+                .skill-bento-card.bento-animate {
+                    animation: bentoIn 0.45s cubic-bezier(0.22,1,0.36,1) both;
+                }
+                </style>
 
                 <!-- Header -->
-                <div class="flex items-center gap-3 mb-10 relative" style="z-index:2;">
+                <div class="flex items-center gap-3 mb-10" style="z-index:2; position:relative;">
                     <h3 class="text-sm font-bold uppercase tracking-widest" style="color:#adaaab;">Core Technologies</h3>
-                    <span class="text-xs" style="color:#adaaab;">— hover any skill for context</span>
+                    <span class="text-xs" style="color:#484849;">— hover any skill</span>
                 </div>
 
-                <!-- 2×2 group grid -->
-                <div class="grid md:grid-cols-2 gap-5 relative" style="z-index:2;">
-
-                    <!-- Group 1: Languages & Runtimes -->
-                    <div class="tech-group-card" style="border-radius:20px 6px 20px 6px; --accent-rgb:166,140,255;">
-                        <div class="tech-group-header">
-                            <div class="tech-group-icon" style="background:rgba(166,140,255,0.1);">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a68cff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                            </div>
-                            <div>
-                                <p class="tech-group-label" style="color:#a68cff;">Languages &amp; Runtimes</p>
-                                <p class="tech-group-sub">The execution layer</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="skill-pill" data-tip="ASP.NET Core REST APIs · Event-driven services with Kafka · Production microservices for enterprise clients">C# (.NET Core)</span>
-                            <span class="skill-pill" data-tip="b2dp CLI orchestrator · Datafy MCP server · AgentMart multi-agent economy · Strict-mode TypeScript throughout">Node.js / TypeScript</span>
-                            <span class="skill-pill" data-tip="REACHY AI speech platform · ML model serving with BentoML · Async inference endpoints · Celery task queues">Python / FastAPI</span>
-                            <span class="skill-pill" data-tip="High-throughput backend services · Concurrent data processing pipelines · Low-latency API gateways">Go</span>
-                            <span class="skill-pill" data-tip="Enterprise Spring Boot microservices · JPA/Hibernate ORM · RESTful and event-driven service patterns">Java / Spring Boot</span>
-                        </div>
-                    </div>
-
-                    <!-- Group 2: Systems & Architecture -->
-                    <div class="tech-group-card" style="border-radius:6px 20px 6px 20px; --accent-rgb:255,89,227;">
-                        <div class="tech-group-header">
-                            <div class="tech-group-icon" style="background:rgba(255,89,227,0.1);">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff59e3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><line x1="12" y1="7" x2="5" y2="17"/><line x1="12" y1="7" x2="19" y2="17"/></svg>
-                            </div>
-                            <div>
-                                <p class="tech-group-label" style="color:#ff59e3;">Systems &amp; Architecture</p>
-                                <p class="tech-group-sub">Patterns that scale to millions</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="skill-pill" data-tip="Distributed system design · Service mesh patterns · API gateway composition · Independent deployability at scale">Microservices</span>
-                            <span class="skill-pill" data-tip="Bounded context design · Aggregate root modelling · Event sourcing · Applied in complex enterprise domain systems">Domain-Driven Design</span>
-                            <span class="skill-pill" data-tip="Real-time event streaming for high-throughput systems · Producer-consumer pipelines · Async message queues between microservices">Apache Kafka</span>
-                            <span class="skill-pill" data-tip="Real-time bidirectional communication · Live AgentMart payment dashboard · Push notifications and streaming responses">WebSockets</span>
-                            <span class="skill-pill" data-tip="Decoupled service boundaries · CQRS and outbox patterns · Reliable async workflows at scale">Event-Driven Design</span>
-                        </div>
-                    </div>
-
-                    <!-- Group 3: Cloud & Infrastructure -->
-                    <div class="tech-group-card" style="border-radius:6px 20px 6px 20px; --accent-rgb:166,140,255;">
-                        <div class="tech-group-header">
-                            <div class="tech-group-icon" style="background:rgba(166,140,255,0.1);">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a68cff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
-                            </div>
-                            <div>
-                                <p class="tech-group-label" style="color:#a68cff;">Cloud &amp; Infrastructure</p>
-                                <p class="tech-group-sub">From code to production</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="skill-pill" data-tip="EC2 for ML inference workloads · S3 for model artifacts · RDS PostgreSQL · Lambda serverless · REACHY AI production deployment">AWS</span>
-                            <span class="skill-pill" data-tip="Cloud Run serverless containers · Cloud SQL managed Postgres · GKE for container orchestration · Vertex AI for ML · Cloud Shell · Directions API integration">GCP</span>
-                            <span class="skill-pill" data-tip="Azure DevOps pipelines · Managed PostgreSQL · Cloud compute for enterprise client workloads and staging environments">Azure</span>
-                            <span class="skill-pill" data-tip="Containerised Whisper ML models · K8s deployments with GitOps · Self-healing infrastructure · BentoML container serving">Docker / Kubernetes</span>
-                            <span class="skill-pill" data-tip="IaC for AWS and Azure environments · Module-based infrastructure design · Reproducible cloud provisioning from zero">Terraform</span>
-                            <span class="skill-pill" data-tip="Full ECR + EC2 deploy pipeline · IAM roles and least-privilege policies · GitHub Secrets integration · Automated image build, push, and rolling deploy to EC2">GitHub Actions</span>
-                        </div>
-                    </div>
-
-                    <!-- Group 4: Data & AI Layer -->
-                    <div class="tech-group-card" style="border-radius:20px 6px 20px 6px; --accent-rgb:255,89,227;">
-                        <div class="tech-group-header">
-                            <div class="tech-group-icon" style="background:rgba(255,89,227,0.1);">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff59e3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-                            </div>
-                            <div>
-                                <p class="tech-group-label" style="color:#ff59e3;">Data &amp; AI Layer</p>
-                                <p class="tech-group-sub">Where data lives, intelligence runs</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="skill-pill" data-tip="Primary relational store across multiple production systems · RDS in AWS · Complex query optimisation and indexing strategies">PostgreSQL</span>
-                            <span class="skill-pill" data-tip="Caching layer and session management · Celery broker for REACHY AI · Datafy MCP data source for AI-driven cache inspection">Redis</span>
-                            <span class="skill-pill" data-tip="Full-text search and log analysis · Datafy MCP data source · Aggregation pipelines for analytics · Extended DBHub with native ES support">Elasticsearch</span>
-                            <span class="skill-pill" data-tip="Serving containerised Whisper STT models · Multi-model runner for REACHY AI · Production ML model packaging and deployment">BentoML</span>
-                            <span class="skill-pill" data-tip="Core protocol behind b2dp and Datafy · Enables Claude, Cursor, VS Code to interact with databases and orchestrate full-stack dev workflows">MCP Protocol</span>
-                        </div>
-                    </div>
-
+                <!-- Chip tooltip (shared) -->
+                <div id="chip-tooltip" class="skill-chip-tooltip">
+                    <p class="tt-name" id="chip-tt-name"></p>
+                    <p class="tt-desc" id="chip-tt-desc"></p>
                 </div>
+
+                <!-- Bento grid -->
+                <div class="skill-bento-grid" id="skill-bento-grid"></div>
+
             </div>
         </div>
     </section>
+
+    <script>
+    /* ═══════════════════════════════════════════════════
+       SKILL BENTO GRID
+    ═══════════════════════════════════════════════════ */
+    (function() {
+        const GROUPS = [
+            {
+                key: 'languages',
+                label: 'Languages & Runtimes',
+                sub: 'The execution layer',
+                color: '#a68cff',
+                bg: 'rgba(166,140,255,0.04)',
+                border: 'rgba(166,140,255,0.14)',
+                hoverShadow: 'rgba(166,140,255,0.12)',
+                chipBg: 'rgba(166,140,255,0.08)',
+                chipBorder: 'rgba(166,140,255,0.2)',
+                chipHoverBg: 'rgba(166,140,255,0.16)',
+                icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+                skills: [
+                    { name: 'C# (.NET Core)',      desc: 'ASP.NET Core REST APIs · Event-driven services with Kafka · Production microservices for enterprise clients' },
+                    { name: 'Node.js / TypeScript', desc: 'b2dp CLI orchestrator · Datafy MCP server · AgentMart multi-agent economy · Strict-mode TypeScript throughout' },
+                    { name: 'Python / FastAPI',     desc: 'REACHY AI speech platform · ML model serving with BentoML · Async inference endpoints · Celery task queues' },
+                    { name: 'Go',                   desc: 'High-throughput backend services · Concurrent data processing pipelines · Low-latency API gateways' },
+                    { name: 'Java / Spring Boot',   desc: 'Enterprise Spring Boot microservices · JPA/Hibernate ORM · RESTful and event-driven service patterns' },
+                ],
+            },
+            {
+                key: 'arch',
+                label: 'Systems & Architecture',
+                sub: 'Patterns that scale to millions',
+                color: '#ff59e3',
+                bg: 'rgba(255,89,227,0.04)',
+                border: 'rgba(255,89,227,0.14)',
+                hoverShadow: 'rgba(255,89,227,0.12)',
+                chipBg: 'rgba(255,89,227,0.08)',
+                chipBorder: 'rgba(255,89,227,0.2)',
+                chipHoverBg: 'rgba(255,89,227,0.16)',
+                icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><line x1="12" y1="7" x2="5" y2="17"/><line x1="12" y1="7" x2="19" y2="17"/></svg>`,
+                skills: [
+                    { name: 'Microservices',        desc: 'Distributed system design · Service mesh patterns · API gateway composition · Independent deployability at scale' },
+                    { name: 'Domain-Driven Design', desc: 'Bounded context design · Aggregate root modelling · Event sourcing · Applied in complex enterprise domain systems' },
+                    { name: 'Apache Kafka',         desc: 'Real-time event streaming for high-throughput systems · Producer-consumer pipelines · Async message queues between microservices' },
+                    { name: 'WebSockets',           desc: 'Real-time bidirectional communication · Live AgentMart payment dashboard · Push notifications and streaming responses' },
+                    { name: 'Event-Driven Design',  desc: 'Decoupled service boundaries · CQRS and outbox patterns · Reliable async workflows at scale' },
+                ],
+            },
+            {
+                key: 'cloud',
+                label: 'Cloud & Infrastructure',
+                sub: 'From code to production',
+                color: '#38bdf8',
+                bg: 'rgba(56,189,248,0.04)',
+                border: 'rgba(56,189,248,0.14)',
+                hoverShadow: 'rgba(56,189,248,0.12)',
+                chipBg: 'rgba(56,189,248,0.08)',
+                chipBorder: 'rgba(56,189,248,0.2)',
+                chipHoverBg: 'rgba(56,189,248,0.16)',
+                icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>`,
+                skills: [
+                    { name: 'AWS',                  desc: 'EC2 for ML inference workloads · S3 for model artifacts · RDS PostgreSQL · Lambda serverless · REACHY AI production deployment' },
+                    { name: 'GCP',                  desc: 'Cloud Run serverless containers · Cloud SQL managed Postgres · GKE for container orchestration · Vertex AI for ML' },
+                    { name: 'Azure',                desc: 'Azure DevOps pipelines · Managed PostgreSQL · Cloud compute for enterprise client workloads and staging environments' },
+                    { name: 'Docker / Kubernetes',  desc: 'Containerised Whisper ML models · K8s deployments with GitOps · Self-healing infrastructure · BentoML container serving' },
+                    { name: 'Terraform',            desc: 'IaC for AWS and Azure environments · Module-based infrastructure design · Reproducible cloud provisioning from zero' },
+                    { name: 'GitHub Actions',       desc: 'Full ECR + EC2 deploy pipeline · IAM roles and least-privilege policies · GitHub Secrets integration · Automated rolling deploys' },
+                ],
+            },
+            {
+                key: 'data',
+                label: 'Data & AI Layer',
+                sub: 'Where data lives, intelligence runs',
+                color: '#34d399',
+                bg: 'rgba(52,211,153,0.04)',
+                border: 'rgba(52,211,153,0.14)',
+                hoverShadow: 'rgba(52,211,153,0.12)',
+                chipBg: 'rgba(52,211,153,0.08)',
+                chipBorder: 'rgba(52,211,153,0.2)',
+                chipHoverBg: 'rgba(52,211,153,0.16)',
+                icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>`,
+                skills: [
+                    { name: 'PostgreSQL',           desc: 'Primary relational store across multiple production systems · RDS in AWS · Complex query optimisation and indexing strategies' },
+                    { name: 'Redis',                desc: 'Caching layer and session management · Celery broker for REACHY AI · Datafy MCP data source for AI-driven cache inspection' },
+                    { name: 'Elasticsearch',        desc: 'Full-text search and log analysis · Datafy MCP data source · Aggregation pipelines for analytics · Extended DBHub with native ES support' },
+                    { name: 'BentoML',              desc: 'Serving containerised Whisper STT models · Multi-model runner for REACHY AI · Production ML model packaging and deployment' },
+                    { name: 'MCP Protocol',         desc: 'Core protocol behind b2dp and Datafy · Enables Claude, Cursor, VS Code to interact with databases and orchestrate full-stack dev workflows' },
+                ],
+            },
+        ];
+
+        const grid = document.getElementById('skill-bento-grid');
+        const tooltip = document.getElementById('chip-tooltip');
+        const ttName  = document.getElementById('chip-tt-name');
+        const ttDesc  = document.getElementById('chip-tt-desc');
+
+        if (!grid) return;
+
+        // Build cards
+        GROUPS.forEach((g, gi) => {
+            const card = document.createElement('div');
+            card.className = 'skill-bento-card';
+            card.style.background = g.bg;
+            card.style.borderColor = g.border;
+            card.style.setProperty('--accent', g.color);
+            card.style.animationDelay = (gi * 80) + 'ms';
+
+            // Top-edge accent line
+            const line = document.createElement('div');
+            line.style.cssText = `position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,${g.color}55,transparent);border-radius:18px 18px 0 0;`;
+            card.appendChild(line);
+
+            // Hover glow via JS (::after replacement)
+            card.addEventListener('mouseenter', () => {
+                card.style.borderColor = g.border.replace('0.14', '0.3');
+                card.style.boxShadow = `0 16px 48px ${g.hoverShadow}, inset 0 0 60px ${g.bg}`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.borderColor = g.border;
+                card.style.boxShadow = '';
+            });
+
+            // Header
+            const header = document.createElement('div');
+            header.style.cssText = 'display:flex;align-items:center;gap:10px;margin-bottom:6px;';
+            header.innerHTML = `
+                <div style="width:30px;height:30px;border-radius:8px;background:${g.bg.replace('0.04','0.12')};display:flex;align-items:center;justify-content:center;color:${g.color};flex-shrink:0;">${g.icon}</div>
+                <div>
+                    <p class="skill-bento-title" style="color:${g.color};">${g.label}</p>
+                    <p class="skill-bento-sub">${g.sub}</p>
+                </div>`;
+            card.appendChild(header);
+
+            // Chips
+            const chips = document.createElement('div');
+            chips.className = 'skill-bento-chips';
+            g.skills.forEach(s => {
+                const chip = document.createElement('span');
+                chip.className = 'skill-chip';
+                chip.style.cssText = `background:${g.chipBg};border-color:${g.chipBorder};color:${g.color};`;
+                chip.innerHTML = `<span class="skill-chip-dot" style="background:${g.color};opacity:0.7;"></span>${s.name}`;
+
+                chip.addEventListener('mouseenter', e => {
+                    chip.style.background = g.chipHoverBg;
+                    chip.style.boxShadow = `0 4px 16px ${g.hoverShadow}`;
+                    ttName.textContent = s.name;
+                    ttName.style.color = g.color;
+                    ttDesc.textContent = s.desc;
+                    positionTooltip(e);
+                    tooltip.style.display = 'block';
+                });
+                chip.addEventListener('mousemove', positionTooltip);
+                chip.addEventListener('mouseleave', () => {
+                    chip.style.background = g.chipBg;
+                    chip.style.boxShadow = '';
+                    tooltip.style.display = 'none';
+                });
+
+                chips.appendChild(chip);
+            });
+            card.appendChild(chips);
+            grid.appendChild(card);
+        });
+
+        function positionTooltip(e) {
+            const margin = 14;
+            let x = e.clientX + margin;
+            let y = e.clientY - 10;
+            const tw = 270, th = 90;
+            if (x + tw > window.innerWidth)  x = e.clientX - tw - margin;
+            if (y + th > window.innerHeight) y = e.clientY - th - margin;
+            tooltip.style.left = x + 'px';
+            tooltip.style.top  = y + 'px';
+        }
+
+        // Trigger entrance animations when section scrolls into view
+        const observer = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting) {
+                document.querySelectorAll('.skill-bento-card').forEach((card, i) => {
+                    card.style.animationDelay = (i * 90) + 'ms';
+                    card.classList.add('bento-animate');
+                });
+                observer.disconnect();
+            }
+        }, { threshold: 0.15 });
+        const techSection = document.getElementById('tech-section');
+        if (techSection) observer.observe(techSection);
+    })();
+    </script>
 
     <!-- ══ PROJECTS ════════════════════════════════════ -->
     <section class="py-28 overflow-hidden relative" id="projects" style="background:#0e0e0f;">
@@ -2011,9 +2210,9 @@
         const GROUP_ACCENTS   = ['#a68cff','#ff59e3','#a68cff','#ff59e3','#a68cff'];
         const GROUP_ACCENTS_2 = ['#ff59e3','#a68cff','#ff59e3','#a68cff','#ff59e3']; // gradient pair
 
-        // Tab nav
+        // Tab nav — clean underline style
         const tabsNav = document.createElement('div');
-        tabsNav.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;margin-bottom:36px;';
+        tabsNav.style.cssText = 'display:flex;flex-wrap:wrap;gap:0;margin-bottom:40px;border-bottom:1px solid rgba(72,72,73,0.18);position:relative;';
         credsContainer.appendChild(tabsNav);
 
         // Content area
@@ -2024,15 +2223,12 @@
 
         credentialGroups.forEach((group, index) => {
             const accent = GROUP_ACCENTS[index];
-            const accentRgb = index % 2 === 0 ? '166,140,255' : '255,89,227';
 
             const tabBtn = document.createElement('button');
-            tabBtn.innerHTML = `
-                <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${accent};margin-right:8px;vertical-align:middle;flex-shrink:0;"></span>
-                <span style="vertical-align:middle;">${group.group}</span>`;
-            tabBtn.style.cssText = `display:inline-flex;align-items:center;padding:9px 18px;border-radius:99px;font-size:13px;font-weight:600;background:#1a191b;color:#adaaab;border:1px solid rgba(72,72,73,0.2);cursor:pointer;transition:all 0.2s;`;
-            tabBtn.onmouseover = () => { if (index !== activeTabIdx) { tabBtn.style.color='#ffffff'; tabBtn.style.borderColor=`rgba(${accentRgb},0.3)`; } };
-            tabBtn.onmouseout  = () => { if (index !== activeTabIdx) { tabBtn.style.color='#adaaab'; tabBtn.style.borderColor='rgba(72,72,73,0.2)'; } };
+            tabBtn.innerHTML = `${group.group}`;
+            tabBtn.style.cssText = `display:inline-flex;align-items:center;padding:12px 20px;font-size:13px;font-weight:600;background:transparent;color:#484849;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;transition:color 0.2s,border-color 0.2s;letter-spacing:0.01em;`;
+            tabBtn.onmouseover = () => { if (index !== activeTabIdx) tabBtn.style.color='#adaaab'; };
+            tabBtn.onmouseout  = () => { if (index !== activeTabIdx) tabBtn.style.color='#484849'; };
             tabsNav.appendChild(tabBtn);
 
             const panel = document.createElement('div');
@@ -2046,20 +2242,22 @@
 
         function renderCredentials(showAll = false) {
             Array.from(tabsNav.children).forEach((btn, i) => {
-                const accent  = GROUP_ACCENTS[i];
-                const accent2 = GROUP_ACCENTS_2[i];
-                const accentRgb = i % 2 === 0 ? '166,140,255' : '255,89,227';
+                const accent = GROUP_ACCENTS[i];
                 if (i === activeTabIdx) {
-                    btn.style.cssText = `display:inline-flex;align-items:center;padding:9px 18px;border-radius:99px;font-size:13px;font-weight:700;background:linear-gradient(135deg,${accent},${accent2});color:#ffffff;border:none;cursor:pointer;transition:all 0.2s;box-shadow:0 0 20px rgba(${accentRgb},0.25);`;
+                    btn.style.color = '#ffffff';
+                    btn.style.borderBottomColor = accent;
+                    btn.style.fontWeight = '700';
                 } else {
-                    btn.style.cssText = `display:inline-flex;align-items:center;padding:9px 18px;border-radius:99px;font-size:13px;font-weight:600;background:#1a191b;color:#adaaab;border:1px solid rgba(72,72,73,0.2);cursor:pointer;transition:all 0.2s;`;
+                    btn.style.color = '#484849';
+                    btn.style.borderBottomColor = 'transparent';
+                    btn.style.fontWeight = '600';
                 }
             });
 
             Array.from(tabsContent.children).forEach((panel, i) => {
                 if (i !== activeTabIdx) { panel.style.display = 'none'; return; }
 
-                panel.style.cssText = 'display:block;animation:tabFadeIn 0.25s ease forwards;';
+                panel.style.cssText = 'display:block;';
                 const grid   = panel.firstChild;
                 const items  = credentialGroups[i].items;
                 const accent = GROUP_ACCENTS[i];
@@ -2068,9 +2266,16 @@
                 grid.innerHTML = '';
                 const visible = (showAll || items.length <= LIMIT) ? items : items.slice(0, LIMIT);
 
-                visible.forEach(cred => {
+                visible.forEach((cred, ci) => {
                     const card = document.createElement('div');
                     card.className = 'cred-card flex flex-col';
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(16px)';
+                    card.style.transition = `opacity 0.35s ease ${ci * 60}ms, transform 0.35s cubic-bezier(0.22,1,0.36,1) ${ci * 60}ms`;
+                    requestAnimationFrame(() => requestAnimationFrame(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }));
                     card.style.border = `1px solid rgba(72,72,73,0.18)`;
                     card.innerHTML = `
                         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
