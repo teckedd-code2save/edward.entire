@@ -9,15 +9,47 @@
         content="Edward Twumasi — Senior Backend & Systems Engineer crafting resilient, scalable systems. Accra, Ghana.">
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "background": "#0e0e0f",
+                        "surface": "#0e0e0f",
+                        "surface-dim": "#0e0e0f",
+                        "surface-container-lowest": "#000000",
+                        "surface-container-low": "#131314",
+                        "surface-container": "#1a191b",
+                        "surface-container-high": "#201f21",
+                        "surface-container-highest": "#262627",
+                        "surface-bright": "#2c2c2d",
+                        "on-surface": "#ffffff",
+                        "on-surface-variant": "#adaaab",
+                        "outline-variant": "#484849",
+                        "primary": "#a68cff",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#c084fc",
+                        "secondary": "#a68cff",
+                        "tertiary": "#ff59e3",
+                    }
+                }
+            }
+        }
+    </script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800;900&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
         *,
         *::before,
         *::after {
@@ -26,8 +58,8 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
+            background: #0e0e0f;
+            color: #ffffff;
             margin: 0;
         }
 
@@ -35,7 +67,7 @@
         h2,
         h3,
         h4 {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Epilogue', sans-serif;
             font-weight: 700;
         }
 
@@ -44,13 +76,12 @@
             position: fixed;
             width: 26px;
             height: 26px;
-            border: 1.5px solid #3b82f6;
+            border: 1.5px solid #a68cff;
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
             left: 0;
             top: 0;
-            mix-blend-mode: multiply;
             transition: background 0.2s, transform 0.1s;
         }
 
@@ -59,7 +90,7 @@
             position: absolute;
             width: 5px;
             height: 5px;
-            background: #3b82f6;
+            background: #a68cff;
             border-radius: 50%;
             top: 50%;
             left: 50%;
@@ -72,11 +103,11 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #f1f5f9;
+            background: #131314;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #3b82f6;
+            background: #a68cff;
             border-radius: 99px;
         }
 
@@ -93,15 +124,8 @@
 
         /* Float animation */
         @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-14px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-14px); }
         }
 
         .image-float {
@@ -124,7 +148,7 @@
         .card-stage {
             position: relative;
             width: 100%;
-            height: 420px;
+            height: 440px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -133,9 +157,10 @@
         .project-card {
             position: absolute;
             width: min(580px, 86vw);
-            background: #fff;
+            background: #1a191b;
             border-radius: 22px;
             padding: 36px 40px;
+            border: 1px solid rgba(72, 72, 73, 0.2);
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
                 opacity 0.5s ease,
                 box-shadow 0.5s ease;
@@ -146,24 +171,22 @@
             transform: translateX(0) scale(1);
             opacity: 1;
             z-index: 10;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.10), 0 4px 16px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 20px 40px rgba(166, 140, 255, 0.08);
             cursor: default;
         }
 
         .project-card[data-pos="-1"] {
             transform: translateX(-60%) scale(0.86);
-            opacity: 0.5;
+            opacity: 0.45;
             z-index: 5;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
             cursor: pointer;
             pointer-events: auto;
         }
 
         .project-card[data-pos="1"] {
             transform: translateX(60%) scale(0.86);
-            opacity: 0.5;
+            opacity: 0.45;
             z-index: 5;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
             cursor: pointer;
             pointer-events: auto;
         }
@@ -183,21 +206,22 @@
             width: 42px;
             height: 42px;
             border-radius: 50%;
-            background: #fff;
-            border: 1px solid #e2e8f0;
+            background: #1a191b;
+            border: 1px solid rgba(72, 72, 73, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             z-index: 20;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
-            transition: box-shadow 0.2s, background 0.2s;
-            color: #374151;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: box-shadow 0.2s, background 0.2s, color 0.2s;
+            color: #adaaab;
         }
 
         .carousel-nav-btn:hover {
-            background: #f8fafc;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+            background: #2c2c2d;
+            box-shadow: 0 0 15px rgba(166, 140, 255, 0.2);
+            color: #a68cff;
         }
 
         .carousel-nav-btn.prev {
@@ -208,31 +232,120 @@
             right: 4px;
         }
 
+        @keyframes tabFadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Core Tech — Background Shapes ─────────── */
+        @keyframes blobMorph {
+            0%   { border-radius: 42% 58% 65% 35% / 38% 54% 46% 62%; }
+            20%  { border-radius: 65% 35% 42% 58% / 55% 42% 58% 45%; }
+            40%  { border-radius: 35% 65% 58% 42% / 28% 72% 38% 62%; }
+            60%  { border-radius: 72% 28% 38% 62% / 52% 38% 62% 48%; }
+            80%  { border-radius: 48% 52% 28% 72% / 65% 35% 55% 45%; }
+            100% { border-radius: 42% 58% 65% 35% / 38% 54% 46% 62%; }
+        }
+        @keyframes shardDrift {
+            0%   { transform: translateY(0px) rotate(var(--r)) scale(1); opacity: var(--o); }
+            33%  { transform: translateY(-22px) rotate(calc(var(--r) + 38deg)) scale(1.12); opacity: calc(var(--o) * 1.5); }
+            66%  { transform: translateY(10px) rotate(calc(var(--r) - 22deg)) scale(0.88); }
+            100% { transform: translateY(0px) rotate(var(--r)) scale(1); opacity: var(--o); }
+        }
+        @keyframes ringBreath {
+            0%, 100% { transform: scale(1) rotate(0deg);   opacity: 0.3; }
+            50%       { transform: scale(1.18) rotate(8deg); opacity: 0.07; }
+        }
+
+        .tech-blob {
+            position: absolute;
+            filter: blur(72px);
+            pointer-events: none;
+            will-change: border-radius;
+        }
+        .tech-shard {
+            position: absolute;
+            pointer-events: none;
+            border-radius: 2px;
+        }
+        .tech-ring {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* ── Core Tech — Group Cards ─────────────── */
+        .tech-group-card {
+            background: #1a191b;
+            border: 1px solid rgba(72, 72, 73, 0.18);
+            padding: 26px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tech-group-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.75) 0%, transparent 80%);
+        }
+        .tech-group-card:hover {
+            border-color: rgba(var(--accent-rgb), 0.22);
+            box-shadow: 0 10px 40px rgba(var(--accent-rgb), 0.07), inset 0 0 40px rgba(var(--accent-rgb), 0.02);
+        }
+        .tech-group-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .tech-group-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+        .tech-group-sub {
+            font-size: 11px;
+            color: #484849;
+            font-style: italic;
+        }
+        .tech-group-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
         /* ── Credential Cards ─────────────────────── */
         .cred-group-label {
             font-size: 10px;
             font-weight: 700;
             letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: #94a3b8;
+            color: #adaaab;
         }
 
         .cred-card {
-            background: #fff;
-            border-radius: 14px;
-            padding: 20px 22px;
-            border: 1px solid #f1f5f9;
-            transition: box-shadow 0.22s, transform 0.22s;
+            background: #1a191b;
+            border-radius: 12px;
+            padding: 22px 24px;
+            border: 1px solid rgba(72, 72, 73, 0.12);
+            transition: box-shadow 0.2s, transform 0.2s;
+            position: relative;
         }
-
         .cred-card:hover {
-            box-shadow: 0 12px 40px rgba(59, 130, 246, 0.15);
-            transform: translateY(-5px) scale(1.02);
-            border-color: #93c5fd;
+            box-shadow: 0 10px 36px rgba(0,0,0,0.35);
+            transform: translateY(-3px);
         }
 
         .project-title-gradient {
-            background: linear-gradient(135deg, #0f172a 0%, #3b82f6 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #a68cff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -241,8 +354,8 @@
         .skill-pill {
             display: inline-block;
             padding: 3px 10px;
-            background: #eff6ff;
-            color: #2563eb;
+            background: #262627;
+            color: #a68cff;
             border-radius: 99px;
             font-size: 11px;
             font-weight: 600;
@@ -254,6 +367,7 @@
             display: inline-block;
             padding-bottom: 14px;
             margin-bottom: 52px;
+            letter-spacing: -0.03em;
         }
 
         .section-title::after {
@@ -263,21 +377,22 @@
             left: 0;
             width: 48px;
             height: 3px;
-            background: #3b82f6;
+            background: linear-gradient(90deg, #a68cff, #ff59e3);
             border-radius: 99px;
         }
 
         /* ── Stat cards ────────────────────── */
         .stat-card {
             padding: 24px;
-            background: #fff;
+            background: #1a191b;
             border-radius: 20px;
-            border: 1px solid #f1f5f9;
-            transition: box-shadow 0.2s;
+            border: 1px solid rgba(72, 72, 73, 0.15);
+            transition: box-shadow 0.2s, border-color 0.2s;
         }
 
         .stat-card:hover {
-            box-shadow: 0 6px 24px rgba(59, 130, 246, 0.09);
+            box-shadow: 0 0 20px rgba(166, 140, 255, 0.08);
+            border-color: rgba(166, 140, 255, 0.15);
         }
 
         /* ── Nav ──────────────────────────── */
@@ -285,7 +400,7 @@
             position: relative;
             font-size: 14px;
             font-weight: 500;
-            color: #64748b;
+            color: #adaaab;
             text-decoration: none;
             transition: color 0.2s;
         }
@@ -297,12 +412,12 @@
             left: 0;
             width: 0;
             height: 1.5px;
-            background: #3b82f6;
+            background: #a68cff;
             transition: width 0.25s;
         }
 
         .nav-link:hover {
-            color: #1e293b;
+            color: #ffffff;
         }
 
         .nav-link:hover::after {
@@ -325,20 +440,20 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: #3b82f6;
-            color: white;
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+            background: linear-gradient(135deg, #a68cff, #c084fc);
+            color: #ffffff;
+            box-shadow: 0 10px 25px rgba(166, 140, 255, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
             border: none;
         }
 
         #chat-btn:hover {
             transform: scale(1.1);
-            background: #2563eb;
+            box-shadow: 0 0 30px rgba(166, 140, 255, 0.5);
         }
 
         #chat-btn svg {
@@ -359,9 +474,9 @@
             height: 520px;
             max-width: calc(100vw - 40px);
             max-height: calc(100vh - 120px);
-            background: white;
+            background: #131314;
             border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12), 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(72, 72, 73, 0.2);
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -370,7 +485,6 @@
             opacity: 0;
             pointer-events: none;
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
-            border: 1px solid #f1f5f9;
         }
 
         #chat-window.open {
@@ -380,13 +494,14 @@
         }
 
         #chat-header {
-            background: #0a0f1e;
+            background: #0e0e0f;
             color: white;
             padding: 20px;
-            font-family: 'Syne', sans-serif;
+            font-family: 'Epilogue', sans-serif;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid rgba(72, 72, 73, 0.2);
         }
 
         #chat-header h3 {
@@ -400,25 +515,17 @@
         .status-dot {
             width: 8px;
             height: 8px;
-            background: #10b981;
+            background: #a68cff;
             border-radius: 50%;
             display: inline-block;
-            box-shadow: 0 0 10px #10b981;
+            box-shadow: 0 0 10px #a68cff;
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-            }
-
-            70% {
-                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
-            }
-
-            100% {
-                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-            }
+            0% { box-shadow: 0 0 0 0 rgba(166, 140, 255, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(166, 140, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(166, 140, 255, 0); }
         }
 
         #chat-messages {
@@ -428,7 +535,7 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
-            background: #f8fafc;
+            background: #131314;
         }
 
         .message {
@@ -442,26 +549,25 @@
         }
 
         .message.system {
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            color: #334155;
+            background: #1a191b;
+            border: 1px solid rgba(72, 72, 73, 0.2);
+            color: #adaaab;
             align-self: flex-start;
             border-bottom-left-radius: 4px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
         }
 
         .message.user {
-            background: #3b82f6;
-            color: white;
+            background: linear-gradient(135deg, #a68cff, #c084fc);
+            color: #ffffff;
             align-self: flex-end;
             border-bottom-right-radius: 4px;
-            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+            font-weight: 500;
         }
 
         #loading-indicator {
             align-self: flex-start;
-            background: #fff;
-            border: 1px solid #e2e8f0;
+            background: #1a191b;
+            border: 1px solid rgba(72, 72, 73, 0.2);
             padding: 12px 16px;
             border-radius: 16px;
             border-bottom-left-radius: 4px;
@@ -472,53 +578,29 @@
         .dot {
             width: 6px;
             height: 6px;
-            background: #cbd5e1;
+            background: #484849;
             border-radius: 50%;
             animation: bounce 1.4s infinite ease-in-out both;
         }
 
-        .dot:nth-child(1) {
-            animation-delay: -0.32s;
-        }
-
-        .dot:nth-child(2) {
-            animation-delay: -0.16s;
-        }
-
-        .dot:nth-child(3) {
-            animation-delay: 0s;
-        }
+        .dot:nth-child(1) { animation-delay: -0.32s; }
+        .dot:nth-child(2) { animation-delay: -0.16s; }
+        .dot:nth-child(3) { animation-delay: 0s; }
 
         @keyframes bounce {
-
-            0%,
-            80%,
-            100% {
-                transform: scale(0);
-            }
-
-            40% {
-                transform: scale(1);
-                background: #3b82f6;
-            }
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); background: #a68cff; }
         }
 
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         #chat-input-area {
             padding: 16px;
-            background: white;
-            border-top: 1px solid #f1f5f9;
+            background: #0e0e0f;
+            border-top: 1px solid rgba(72, 72, 73, 0.2);
             display: flex;
             gap: 10px;
         }
@@ -526,40 +608,43 @@
         #chat-input {
             flex: 1;
             padding: 12px 16px;
-            border: 1px solid #e2e8f0;
+            border: none;
             border-radius: 99px;
             outline: none;
             font-size: 14px;
-            transition: border-color 0.2s;
-            background: #f8fafc;
+            background: #1a191b;
+            color: #ffffff;
+            transition: box-shadow 0.2s;
         }
 
+        #chat-input::placeholder { color: #484849; }
+
         #chat-input:focus {
-            border-color: #3b82f6;
-            background: white;
+            box-shadow: 0 0 0 1px rgba(166, 140, 255, 0.4);
         }
 
         #send-btn {
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background: #3b82f6;
-            color: white;
+            background: linear-gradient(135deg, #a68cff, #c084fc);
+            color: #ffffff;
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s, transform 0.2s;
+            transition: box-shadow 0.2s, transform 0.2s;
         }
 
         #send-btn:hover {
-            background: #2563eb;
+            box-shadow: 0 0 15px rgba(166, 140, 255, 0.4);
             transform: scale(1.05);
         }
 
         #send-btn:disabled {
-            background: #cbd5e1;
+            background: #262627;
+            color: #484849;
             cursor: not-allowed;
             transform: none;
         }
@@ -590,7 +675,7 @@
         #article-drawer-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(15, 23, 42, 0.4);
+            background: rgba(0, 0, 0, 0.65);
             backdrop-filter: blur(4px);
             z-index: 1000;
             opacity: 0;
@@ -610,15 +695,14 @@
             bottom: 0;
             width: 100%;
             max-width: 500px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
+            background: #131314;
             z-index: 1001;
             transform: translateX(100%);
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
-            border-left: 1px solid rgba(255, 255, 255, 0.5);
+            border-left: 1px solid rgba(72, 72, 73, 0.15);
         }
 
         #article-drawer.open {
@@ -627,7 +711,7 @@
 
         .drawer-header {
             padding: 30px;
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 1px solid rgba(72, 72, 73, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -637,19 +721,19 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
+            background: #1a191b;
+            border: 1px solid rgba(72, 72, 73, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            color: #64748b;
+            color: #adaaab;
             transition: all 0.2s;
         }
 
         .drawer-close:hover {
-            background: #f1f5f9;
-            color: #0f172a;
+            background: #2c2c2d;
+            color: #ffffff;
             transform: rotate(90deg);
         }
 
@@ -664,7 +748,7 @@
             font-weight: 700;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: #3b82f6;
+            color: #a68cff;
             margin-bottom: 15px;
             display: block;
         }
@@ -672,72 +756,129 @@
         .article-link-item {
             display: block;
             padding: 16px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid rgba(72, 72, 73, 0.15);
             border-radius: 12px;
             margin-bottom: 12px;
             transition: all 0.2s;
-            background: #fff;
+            background: #1a191b;
             text-decoration: none;
         }
 
         .article-link-item:hover {
-            border-color: #93c5fd;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.08);
+            border-color: rgba(166, 140, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(166, 140, 255, 0.05);
             transform: translateX(4px);
         }
 
         .article-link-title {
-            color: #0f172a;
+            color: #ffffff;
             font-weight: 600;
             font-size: 15px;
             margin-bottom: 4px;
-            font-family: 'Syne', sans-serif;
+            font-family: 'Epilogue', sans-serif;
             display: flex;
             justify-content: space-between;
         }
 
         .article-link-desc {
-            color: #64748b;
+            color: #adaaab;
             font-size: 13px;
             line-height: 1.5;
         }
 
-        /* ── Project Breakdown Drawer ──────────────── */
+        /* ── Project Breakdown Modal ──────────────── */
         #project-drawer {
             position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            max-width: 550px;
-            background: #fff;
+            top: 50%;
+            left: 50%;
+            width: 92%;
+            max-width: 720px;
+            max-height: 85vh;
+            background: #131314;
             z-index: 1100;
-            transform: translateX(100%);
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+            transform: translate(-50%, -48%) scale(0.96);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(72,72,73,0.2);
             display: flex;
             flex-direction: column;
             overflow-y: auto;
+            border-radius: 20px;
         }
+
         #project-drawer.open {
-            transform: translateX(0);
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            pointer-events: auto;
         }
+
         .breakdown-section {
             padding: 30px;
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 1px solid rgba(72, 72, 73, 0.15);
         }
+
         .breakdown-title {
             font-size: 12px;
             font-weight: 700;
-            color: #3b82f6;
+            color: #a68cff;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             margin-bottom: 12px;
         }
+
         .breakdown-content {
             font-size: 15px;
-            color: #334155;
+            color: #adaaab;
             line-height: 1.6;
+        }
+
+        /* ── Tech Tooltip ──────────────────────── */
+        #tech-tip {
+            position: fixed;
+            background: #1a191b;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(166, 140, 255, 0.18);
+            border-radius: 12px;
+            padding: 12px 16px;
+            max-width: 260px;
+            font-size: 12.5px;
+            color: #adaaab;
+            line-height: 1.65;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(8px) scale(0.97);
+            transition: opacity 0.18s ease, transform 0.18s ease;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 20px rgba(166,140,255,0.06);
+            font-family: 'Inter', sans-serif;
+        }
+
+        #tech-tip.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        #tech-tip-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #a68cff;
+            margin-bottom: 6px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(166,140,255,0.12);
+        }
+
+        [data-tip] {
+            cursor: default;
+            transition: color 0.2s, box-shadow 0.2s, background 0.2s;
+        }
+
+        [data-tip]:hover {
+            background: #2c2c2d !important;
+            box-shadow: 0 0 14px rgba(166, 140, 255, 0.2);
+            color: #ffffff !important;
         }
     </style>
 </head>
@@ -746,9 +887,9 @@
     <div id="cursor"></div>
 
     <!-- ══ NAV ════════════════════════════════════════ -->
-    <header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-lg border-b border-gray-100">
+    <header class="fixed top-0 w-full z-50 bg-[#0e0e0f]/80 backdrop-blur-xl" style="box-shadow: 0 1px 0 rgba(72,72,73,0.15);">
         <nav class="max-w-6xl mx-auto px-8 py-4 flex justify-between items-center">
-            <a href="#hero" class="text-xl font-bold text-gray-900" style="font-family:Syne,sans-serif;">ET</a>
+            <a href="#hero" class="text-xl font-black text-white tracking-tight" style="font-family:'Epilogue',sans-serif;">ET</a>
             <ul class="hidden md:flex gap-10">
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
@@ -757,155 +898,235 @@
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <a href="staticfiles/Edward_Twumasi_CV_Latest.pdf" target="_blank"
-                class="px-5 py-2 text-sm font-semibold border border-gray-200 rounded-lg hover:border-blue-500 hover:text-blue-600 transition text-gray-700">
+                class="px-5 py-2 text-sm font-bold rounded-full transition text-white hover:shadow-[0_0_15px_rgba(166,140,255,0.4)] hover:scale-105"
+                style="background: linear-gradient(135deg, #a68cff, #c084fc);">
                 View CV
             </a>
         </nav>
     </header>
 
     <!-- ══ HERO ═══════════════════════════════════════ -->
-    <section class="min-h-screen flex items-center justify-center px-8 pt-20 relative overflow-hidden bg-white"
-        id="hero">
+    <section class="min-h-screen flex items-center justify-center px-8 pt-20 relative overflow-hidden"
+        id="hero"
+        style="background: radial-gradient(circle at 20% 40%, rgba(166,140,255,0.06) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(166,140,255,0.06) 0%, transparent 50%), #0e0e0f;">
         <canvas id="hero-canvas"></canvas>
         <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center w-full relative z-10">
             <div class="fade-in text-center md:text-left">
-                <p class="text-blue-500 font-semibold text-sm uppercase tracking-widest mb-5">Senior Backend & Systems
-                    Engineer · Accra,
-                    Ghana</p>
-                <h1 class="text-6xl lg:text-7xl text-gray-950 mb-6 leading-[1.05]">Edward<br>Twumasi</h1>
-                <p class="text-lg text-slate-500 mb-10 leading-relaxed max-w-md">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8" style="background:#1a191b; border: 1px solid rgba(72,72,73,0.3);">
+                    <span class="flex h-2 w-2 rounded-full animate-pulse" style="background:#a68cff;"></span>
+                    <span class="text-[0.7rem] uppercase tracking-[0.1em] font-medium" style="color:#adaaab;">Senior Backend &amp; Systems Engineer · Accra, Ghana</span>
+                </div>
+                <h1 class="text-5xl lg:text-7xl mb-6 leading-[0.95] font-black" style="font-family:'Epilogue',sans-serif; letter-spacing:-0.04em;">
+                    Edward<br>
+                    <span style="background: linear-gradient(135deg, #a68cff, #ff59e3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Twumasi</span>
+                </h1>
+                <p class="text-lg mb-10 leading-relaxed max-w-md" style="color:#adaaab;">
                     Architecting resilient backend systems. Helping teams scale from thousands to millions of requests —
                     optimize, ship, and lead.
                 </p>
                 <div class="flex gap-4 flex-wrap">
                     <a href="#projects"
-                        class="px-7 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition shadow-md hover:shadow-lg text-sm">
+                        class="px-7 py-3 font-bold rounded-full transition text-sm hover:scale-105"
+                        style="background: linear-gradient(135deg, #a68cff, #c084fc); color:#ffffff; transition: box-shadow 0.3s, transform 0.3s;"
+                        onmouseover="this.style.boxShadow='0 0 25px rgba(166,140,255,0.4)'" onmouseout="this.style.boxShadow='none'">
                         See My Work
                     </a>
                     <a href="#contact"
-                        class="px-7 py-3 border border-gray-200 text-gray-700 font-semibold rounded-xl hover:border-blue-500 hover:text-blue-600 transition text-sm">
+                        class="px-7 py-3 font-bold rounded-full transition text-sm hover:bg-[rgba(166,140,255,0.05)]"
+                        style="border: 1px solid rgba(166,140,255,0.3); color:#a68cff;">
                         Get in Touch
                     </a>
                     <a href="staticfiles/Edward_Twumasi_CV_Latest.pdf" target="_blank"
-                        class="px-7 py-3 bg-gray-950 text-white font-semibold rounded-xl hover:bg-gray-800 transition text-sm">
+                        class="px-7 py-3 font-bold rounded-full transition text-sm text-white hover:bg-[#2c2c2d]"
+                        style="background:#1a191b; border: 1px solid rgba(72,72,73,0.3);">
                         View CV
                     </a>
                 </div>
             </div>
             <div class="fade-in hidden md:flex justify-center items-center">
                 <div class="relative">
-                    <div class="absolute inset-0 bg-blue-100 rounded-3xl blur-2xl opacity-40 scale-110"></div>
+                    <div class="absolute inset-0 rounded-3xl blur-3xl opacity-25 scale-110"
+                        style="background: linear-gradient(135deg, rgba(166,140,255,0.5), rgba(166,140,255,0.5));"></div>
                     <img id="edward-image" src="staticfiles/1719185128651.jpeg" alt="Edward Twumasi"
-                        class="relative w-72 h-72 rounded-3xl object-cover object-top shadow-2xl image-float">
+                        class="relative w-72 h-72 rounded-3xl object-cover object-top image-float"
+                        style="box-shadow: 0 20px 40px rgba(166,140,255,0.15), 0 0 0 1px rgba(72,72,73,0.2);">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ══ ABOUT ══════════════════════════════════════ -->
-    <section class="py-28 bg-white" id="about">
+    <section class="py-28" id="about" style="background:#131314;">
         <div class="max-w-6xl mx-auto px-8">
-            <h2 class="text-5xl text-gray-950 section-title">About</h2>
+            <h2 class="text-5xl text-white section-title">About</h2>
 
             <div class="grid md:grid-cols-2 gap-16">
                 <!-- Left: Text -->
                 <div class="fade-in space-y-5">
-                    <p class="text-gray-600 leading-relaxed text-lg">
-                        Senior engineer with <strong class="text-gray-900 font-semibold">6+ years</strong> shipping production systems at the intersection of backend infrastructure and AI tooling.
+                    <p class="leading-relaxed text-lg" style="color:#adaaab;">
+                        Senior engineer with <strong class="text-white font-semibold">6+ years</strong> shipping production systems at the intersection of backend infrastructure and AI tooling.
                     </p>
-                    <p class="text-gray-600 leading-relaxed">
-                        I specialize in <strong class="text-gray-900 font-semibold">architecting AI-assisted developer workflows</strong> — including <strong class="text-gray-900 font-semibold">b2dp</strong>, an orchestrator that enables AI agents to generate full-stack platforms from a business spec. 
+                    <p class="leading-relaxed" style="color:#adaaab;">
+                        I specialize in <strong class="text-white font-semibold">architecting AI-assisted developer workflows</strong> — including <strong class="text-white font-semibold">b2dp</strong>, an orchestrator that enables AI agents to generate full-stack platforms from a business spec.
                     </p>
-                    <p class="text-gray-600 leading-relaxed">
-                        My expertise spans <strong class="text-gray-900 font-semibold">event-driven architectures</strong>, <strong class="text-gray-900 font-semibold">CI/CD automation</strong>, and resilient backend systems. I work on hard problems in production and bring teams along in the process.
+                    <p class="leading-relaxed" style="color:#adaaab;">
+                        My expertise spans <strong class="text-white font-semibold">event-driven architectures</strong>, <strong class="text-white font-semibold">CI/CD automation</strong>, and resilient backend systems. I work on hard problems in production and bring teams along in the process.
                     </p>
                 </div>
 
                 <!-- Right: Stats -->
                 <div class="grid grid-cols-2 gap-4 md:gap-5 self-start mt-2 md:mt-0 xl:mt-4">
                     <div class="stat-card fade-in flex flex-col items-center justify-center py-6">
-                        <div class="text-4xl md:text-5xl font-bold text-blue-600 mb-2"
-                            style="font-family:Syne,sans-serif;">
+                        <div class="text-4xl md:text-5xl font-bold mb-2" style="font-family:'Epilogue',sans-serif; color:#a68cff;">
                             <span class="stat-number" data-target="6">0</span><span>+</span>
                         </div>
-                        <div
-                            class="text-[10px] md:text-[11px] text-gray-400 uppercase font-bold tracking-widest text-center">
+                        <div class="text-[10px] md:text-[11px] uppercase font-bold tracking-widest text-center" style="color:#adaaab;">
                             Years Exp.</div>
                     </div>
                     <div class="stat-card fade-in flex flex-col items-center justify-center py-6">
-                        <div class="text-4xl md:text-5xl font-bold text-blue-600 mb-2"
-                            style="font-family:Syne,sans-serif;">
+                        <div class="text-4xl md:text-5xl font-bold mb-2" style="font-family:'Epilogue',sans-serif; color:#a68cff;">
                             <span class="stat-number" data-target="8">0</span><span>+</span>
                         </div>
-                        <div
-                            class="text-[10px] md:text-[11px] text-gray-400 uppercase font-bold tracking-widest text-center">
+                        <div class="text-[10px] md:text-[11px] uppercase font-bold tracking-widest text-center" style="color:#adaaab;">
                             Mentored</div>
                     </div>
                     <div class="stat-card fade-in flex flex-col items-center justify-center py-6">
-                        <div class="text-4xl md:text-5xl font-bold text-blue-600 mb-2"
-                            style="font-family:Syne,sans-serif;">
+                        <div class="text-4xl md:text-5xl font-bold mb-2" style="font-family:'Epilogue',sans-serif; color:#a68cff;">
                             <span class="stat-number" data-target="15">0</span><span>+</span>
                         </div>
-                        <div
-                            class="text-[10px] md:text-[11px] text-gray-400 uppercase font-bold tracking-widest text-center">
+                        <div class="text-[10px] md:text-[11px] uppercase font-bold tracking-widest text-center" style="color:#adaaab;">
                             Deployments</div>
                     </div>
                     <div class="stat-card fade-in flex flex-col items-center justify-center py-6">
-                        <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2"
-                            style="font-family:Syne,sans-serif;">99.99%</div>
-                        <div
-                            class="text-[10px] md:text-[11px] text-gray-400 uppercase font-bold tracking-widest text-center">
+                        <div class="text-3xl md:text-4xl font-bold mb-2" style="font-family:'Epilogue',sans-serif; color:#ff59e3;">99.99%</div>
+                        <div class="text-[10px] md:text-[11px] uppercase font-bold tracking-widest text-center" style="color:#adaaab;">
                             SLA Uptime</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Bottom: Core Technologies (Full Width 3-Column Grid) -->
-            <div class="mt-20 pt-16 border-t border-gray-100 fade-in">
-                <h3 class="text-sm font-bold text-gray-900 uppercase tracking-widest mb-10 text-center md:text-left">
-                    Core Technologies</h3>
-                <div class="grid md:grid-cols-3 gap-10">
-                    <div>
-                        <p class="cred-group-label mb-4">Languages & Frameworks</p>
+            <!-- Bottom: Core Technologies -->
+            <div class="mt-20 pt-16 fade-in" style="border-top: 1px solid rgba(72,72,73,0.15); position:relative; overflow:hidden;">
+
+                <!-- Ambient morphing blobs -->
+                <div aria-hidden="true" class="tech-blob" style="width:380px;height:380px;top:-120px;left:-100px;background:rgba(166,140,255,0.04);animation:blobMorph 20s ease-in-out infinite;"></div>
+                <div aria-hidden="true" class="tech-blob" style="width:260px;height:260px;top:30%;right:-80px;background:rgba(166,140,255,0.05);animation:blobMorph 14s ease-in-out infinite reverse;animation-delay:-5s;"></div>
+                <div aria-hidden="true" class="tech-blob" style="width:200px;height:200px;bottom:-60px;left:38%;background:rgba(255,89,227,0.04);animation:blobMorph 17s ease-in-out infinite;animation-delay:-9s;"></div>
+
+                <!-- Floating angular shards -->
+                <div aria-hidden="true" class="tech-shard" style="width:7px;height:7px;top:12%;left:18%;border:1px solid rgba(166,140,255,0.28);--r:28deg;--o:0.28;animation:shardDrift 7s ease-in-out infinite;"></div>
+                <div aria-hidden="true" class="tech-shard" style="width:11px;height:4px;top:55%;left:6%;border:1px solid rgba(166,140,255,0.22);--r:-18deg;--o:0.22;animation:shardDrift 9s ease-in-out infinite reverse;animation-delay:-2s;"></div>
+                <div aria-hidden="true" class="tech-shard" style="width:9px;height:9px;top:28%;right:8%;border:1px solid rgba(255,89,227,0.2);--r:48deg;--o:0.2;animation:shardDrift 8s ease-in-out infinite;animation-delay:-3.5s;"></div>
+                <div aria-hidden="true" class="tech-shard" style="width:5px;height:14px;bottom:18%;right:22%;border:1px solid rgba(166,140,255,0.18);--r:-35deg;--o:0.18;animation:shardDrift 11s ease-in-out infinite reverse;animation-delay:-1s;"></div>
+                <div aria-hidden="true" class="tech-shard" style="width:13px;height:5px;bottom:10%;left:42%;border:1px solid rgba(166,140,255,0.18);--r:62deg;--o:0.18;animation:shardDrift 6s ease-in-out infinite;animation-delay:-4s;"></div>
+                <div aria-hidden="true" class="tech-shard" style="width:8px;height:8px;top:18%;left:58%;border:1px solid rgba(255,89,227,0.14);--r:15deg;--o:0.14;animation:shardDrift 12s ease-in-out infinite reverse;animation-delay:-6s;"></div>
+                <div aria-hidden="true" class="tech-shard" style="width:6px;height:10px;top:70%;left:28%;border:1px solid rgba(166,140,255,0.15);--r:-50deg;--o:0.15;animation:shardDrift 8.5s ease-in-out infinite;animation-delay:-2.5s;"></div>
+
+                <!-- Pulsing rings -->
+                <div aria-hidden="true" class="tech-ring" style="width:90px;height:90px;top:4%;right:4%;border:1px solid rgba(166,140,255,0.08);animation:ringBreath 5s ease-in-out infinite;"></div>
+                <div aria-hidden="true" class="tech-ring" style="width:130px;height:130px;bottom:-20px;left:3%;border:1px solid rgba(166,140,255,0.06);animation:ringBreath 7s ease-in-out infinite reverse;"></div>
+                <div aria-hidden="true" class="tech-ring" style="width:60px;height:60px;top:45%;left:47%;border:1px solid rgba(255,89,227,0.07);animation:ringBreath 4s ease-in-out infinite;animation-delay:-2s;"></div>
+
+                <!-- Header -->
+                <div class="flex items-center gap-3 mb-10 relative" style="z-index:2;">
+                    <h3 class="text-sm font-bold uppercase tracking-widest" style="color:#adaaab;">Core Technologies</h3>
+                    <span class="text-xs" style="color:#adaaab;">— hover any skill for context</span>
+                </div>
+
+                <!-- 2×2 group grid -->
+                <div class="grid md:grid-cols-2 gap-5 relative" style="z-index:2;">
+
+                    <!-- Group 1: Languages & Runtimes -->
+                    <div class="tech-group-card" style="border-radius:20px 6px 20px 6px; --accent-rgb:166,140,255;">
+                        <div class="tech-group-header">
+                            <div class="tech-group-icon" style="background:rgba(166,140,255,0.1);">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a68cff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                            </div>
+                            <div>
+                                <p class="tech-group-label" style="color:#a68cff;">Languages &amp; Runtimes</p>
+                                <p class="tech-group-sub">The execution layer</p>
+                            </div>
+                        </div>
                         <div class="flex flex-wrap gap-2">
-                            <span class="skill-pill">C# (.NET Core)</span>
-                            <span class="skill-pill">Node.js/TypeScript</span>
-                            <span class="skill-pill">Python (FastAPI)</span>
-                            <span class="skill-pill">Go</span>
-                            <span class="skill-pill">Java</span>
+                            <span class="skill-pill" data-tip="ASP.NET Core REST APIs · Event-driven services with Kafka · Production microservices for enterprise clients">C# (.NET Core)</span>
+                            <span class="skill-pill" data-tip="b2dp CLI orchestrator · Datafy MCP server · AgentMart multi-agent economy · Strict-mode TypeScript throughout">Node.js / TypeScript</span>
+                            <span class="skill-pill" data-tip="REACHY AI speech platform · ML model serving with BentoML · Async inference endpoints · Celery task queues">Python / FastAPI</span>
+                            <span class="skill-pill" data-tip="High-throughput backend services · Concurrent data processing pipelines · Low-latency API gateways">Go</span>
+                            <span class="skill-pill" data-tip="Enterprise Spring Boot microservices · JPA/Hibernate ORM · RESTful and event-driven service patterns">Java / Spring Boot</span>
                         </div>
                     </div>
-                    <div>
-                        <p class="cred-group-label mb-4">Event-Driven & Architecture</p>
+
+                    <!-- Group 2: Systems & Architecture -->
+                    <div class="tech-group-card" style="border-radius:6px 20px 6px 20px; --accent-rgb:255,89,227;">
+                        <div class="tech-group-header">
+                            <div class="tech-group-icon" style="background:rgba(255,89,227,0.1);">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff59e3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><line x1="12" y1="7" x2="5" y2="17"/><line x1="12" y1="7" x2="19" y2="17"/></svg>
+                            </div>
+                            <div>
+                                <p class="tech-group-label" style="color:#ff59e3;">Systems &amp; Architecture</p>
+                                <p class="tech-group-sub">Patterns that scale to millions</p>
+                            </div>
+                        </div>
                         <div class="flex flex-wrap gap-2">
-                            <span class="skill-pill">Apache Kafka</span>
-                            <span class="skill-pill">Microservices</span>
-                            <span class="skill-pill">WebSockets</span>
-                            <span class="skill-pill">Domain-Driven Design</span>
+                            <span class="skill-pill" data-tip="Distributed system design · Service mesh patterns · API gateway composition · Independent deployability at scale">Microservices</span>
+                            <span class="skill-pill" data-tip="Bounded context design · Aggregate root modelling · Event sourcing · Applied in complex enterprise domain systems">Domain-Driven Design</span>
+                            <span class="skill-pill" data-tip="Real-time event streaming for high-throughput systems · Producer-consumer pipelines · Async message queues between microservices">Apache Kafka</span>
+                            <span class="skill-pill" data-tip="Real-time bidirectional communication · Live AgentMart payment dashboard · Push notifications and streaming responses">WebSockets</span>
+                            <span class="skill-pill" data-tip="Decoupled service boundaries · CQRS and outbox patterns · Reliable async workflows at scale">Event-Driven Design</span>
                         </div>
                     </div>
-                    <div>
-                        <p class="cred-group-label mb-4">Cloud, CI/CD & Databases</p>
+
+                    <!-- Group 3: Cloud & Infrastructure -->
+                    <div class="tech-group-card" style="border-radius:6px 20px 6px 20px; --accent-rgb:166,140,255;">
+                        <div class="tech-group-header">
+                            <div class="tech-group-icon" style="background:rgba(166,140,255,0.1);">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a68cff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+                            </div>
+                            <div>
+                                <p class="tech-group-label" style="color:#a68cff;">Cloud &amp; Infrastructure</p>
+                                <p class="tech-group-sub">From code to production</p>
+                            </div>
+                        </div>
                         <div class="flex flex-wrap gap-2">
-                            <span class="skill-pill">AWS</span>
-                            <span class="skill-pill">Azure</span>
-                            <span class="skill-pill">Docker/Kubernetes</span>
-                            <span class="skill-pill">GitHub Actions</span>
-                            <span class="skill-pill">PostgreSQL</span>
-                            <span class="skill-pill">Redis</span>
-                            <span class="skill-pill">Elasticsearch</span>
+                            <span class="skill-pill" data-tip="EC2 for ML inference workloads · S3 for model artifacts · RDS PostgreSQL · Lambda serverless · REACHY AI production deployment">AWS</span>
+                            <span class="skill-pill" data-tip="Cloud Run serverless containers · Cloud SQL managed Postgres · GKE for container orchestration · Vertex AI for ML · Cloud Shell · Directions API integration">GCP</span>
+                            <span class="skill-pill" data-tip="Azure DevOps pipelines · Managed PostgreSQL · Cloud compute for enterprise client workloads and staging environments">Azure</span>
+                            <span class="skill-pill" data-tip="Containerised Whisper ML models · K8s deployments with GitOps · Self-healing infrastructure · BentoML container serving">Docker / Kubernetes</span>
+                            <span class="skill-pill" data-tip="IaC for AWS and Azure environments · Module-based infrastructure design · Reproducible cloud provisioning from zero">Terraform</span>
+                            <span class="skill-pill" data-tip="Full ECR + EC2 deploy pipeline · IAM roles and least-privilege policies · GitHub Secrets integration · Automated image build, push, and rolling deploy to EC2">GitHub Actions</span>
                         </div>
                     </div>
+
+                    <!-- Group 4: Data & AI Layer -->
+                    <div class="tech-group-card" style="border-radius:20px 6px 20px 6px; --accent-rgb:255,89,227;">
+                        <div class="tech-group-header">
+                            <div class="tech-group-icon" style="background:rgba(255,89,227,0.1);">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff59e3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                            </div>
+                            <div>
+                                <p class="tech-group-label" style="color:#ff59e3;">Data &amp; AI Layer</p>
+                                <p class="tech-group-sub">Where data lives, intelligence runs</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-pill" data-tip="Primary relational store across multiple production systems · RDS in AWS · Complex query optimisation and indexing strategies">PostgreSQL</span>
+                            <span class="skill-pill" data-tip="Caching layer and session management · Celery broker for REACHY AI · Datafy MCP data source for AI-driven cache inspection">Redis</span>
+                            <span class="skill-pill" data-tip="Full-text search and log analysis · Datafy MCP data source · Aggregation pipelines for analytics · Extended DBHub with native ES support">Elasticsearch</span>
+                            <span class="skill-pill" data-tip="Serving containerised Whisper STT models · Multi-model runner for REACHY AI · Production ML model packaging and deployment">BentoML</span>
+                            <span class="skill-pill" data-tip="Core protocol behind b2dp and Datafy · Enables Claude, Cursor, VS Code to interact with databases and orchestrate full-stack dev workflows">MCP Protocol</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ══ PROJECTS ════════════════════════════════════ -->
-    <section class="py-28 bg-slate-50 overflow-hidden relative" id="projects">
+    <section class="py-28 overflow-hidden relative" id="projects" style="background:#0e0e0f;">
         <canvas id="projects-canvas" class="absolute inset-0 pointer-events-none"></canvas>
         <div class="max-w-6xl mx-auto px-8 mb-16">
-            <h2 class="text-5xl text-gray-950 section-title">Impact &amp; Contributions</h2>
+            <h2 class="text-5xl text-white section-title">Impact &amp; Contributions</h2>
         </div>
 
         <div class="relative max-w-5xl mx-auto px-16">
@@ -923,10 +1144,11 @@
                 </svg>
             </button>
         </div>
-        <p class="text-center mt-8 text-xs text-gray-400 font-medium tracking-widest" id="card-counter"></p>
+        <p class="text-center mt-8 text-xs font-medium tracking-widest" id="card-counter" style="color:#484849;"></p>
         <div class="mt-12 text-center">
             <a href="https://github.com/teckedd-code2save" target="_blank"
-                class="inline-flex items-center gap-2 px-6 py-3 border border-gray-200 text-gray-700 font-semibold rounded-xl hover:border-blue-500 hover:text-blue-600 transition text-sm">
+                class="inline-flex items-center gap-2 px-6 py-3 font-semibold rounded-full transition text-sm text-[#adaaab] hover:text-white hover:border-[rgba(166,140,255,0.3)]"
+                style="border: 1px solid rgba(72,72,73,0.3);">
                 See All Projects on GitHub
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
             </a>
@@ -934,66 +1156,61 @@
     </section>
 
     <!-- ══ TOOLS ════════════════════════════════════════ -->
-    <section class="py-24 bg-slate-950 relative" id="tools">
-        <canvas id="tools-canvas" class="absolute inset-0 pointer-events-none opacity-40"></canvas>
+    <section class="py-24 relative" id="tools" style="background:#131314;">
+        <canvas id="tools-canvas" class="absolute inset-0 pointer-events-none opacity-30"></canvas>
         <div class="max-w-6xl mx-auto px-8">
-            <h2 class="text-4xl text-white mb-2" style="font-family:Syne,sans-serif;font-weight:700;">Tools &amp;
+            <h2 class="text-4xl text-white mb-2" style="font-family:'Epilogue',sans-serif;font-weight:700;">Tools &amp;
                 Packages</h2>
-            <div class="h-1 w-12 bg-blue-500 mb-10 rounded-full"></div>
+            <div class="h-px w-12 mb-10 rounded-full" style="background: linear-gradient(90deg, #a68cff, #ff59e3);"></div>
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Tool Card: Datafy -->
-                <div
-                    class="fade-in p-8 rounded-2xl border border-slate-800 hover:border-slate-600 hover:shadow-2xl transition-all duration-300 bg-slate-900 flex flex-col">
+                <div class="fade-in p-8 rounded-2xl flex flex-col transition-all duration-300"
+                    style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
+                    onmouseover="this.style.borderColor='rgba(166,140,255,0.2)'; this.style.boxShadow='0 20px 40px rgba(166,140,255,0.06)';"
+                    onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
                     <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs font-bold text-blue-400 tracking-widest uppercase">NPM Package</span>
+                        <span class="text-xs font-bold tracking-widest uppercase" style="color:#a68cff;">NPM Package</span>
                         <a href="https://www.npmjs.com/package/@teckedd-code2save/datafy" target="_blank"
-                            class="text-slate-500 hover:text-blue-400 transition-colors">↗</a>
+                            class="transition-colors" style="color:#484849;" onmouseover="this.style.color='#a68cff'" onmouseout="this.style.color='#484849'">↗</a>
                     </div>
                     <div class="flex items-center gap-3 mb-3">
-                        <h3 class="text-2xl text-white" style="font-family:Syne,sans-serif;">@teckedd-code2save/datafy
-                        </h3>
+                        <h3 class="text-2xl text-white" style="font-family:'Epilogue',sans-serif;">@teckedd-code2save/datafy</h3>
                     </div>
-                    <p class="text-sm text-slate-400 leading-relaxed mb-6">Minimal, token-efficient Database MCP Server
-                        for PostgreSQL, MySQL, SQL Server, SQLite, MariaDB, Redis, and Elasticsearch with code
-                        generation.</p>
+                    <p class="text-sm leading-relaxed mb-6" style="color:#adaaab;">Built on top of DBHub — a zero-dependency, token-efficient MCP gateway between AI dev tools and databases. Enables Claude Desktop, VS Code, and Cursor to query and explore PostgreSQL, MySQL, SQL Server, SQLite, MariaDB, Redis, and Elasticsearch via a minimal two-tool interface.</p>
                     <div class="flex flex-wrap gap-2 mb-8">
-                        <span
-                            class="px-3 py-1 bg-slate-800 text-blue-300 border border-slate-700 rounded-full text-xs font-semibold">MCP</span>
-                        <span
-                            class="px-3 py-1 bg-slate-800 text-blue-300 border border-slate-700 rounded-full text-xs font-semibold">Node.js</span>
+                        <span class="skill-pill">MCP</span>
+                        <span class="skill-pill">Node.js</span>
                     </div>
                     <div class="flex gap-4 mt-auto">
                         <a href="https://www.npmjs.com/package/@teckedd-code2save/datafy" target="_blank"
-                            class="px-5 py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition text-sm text-center">View
-                            on NPM</a>
+                            class="px-5 py-2.5 font-bold rounded-full transition text-sm text-center text-white hover:shadow-[0_0_15px_rgba(166,140,255,0.4)]"
+                            style="background: linear-gradient(135deg, #a68cff, #c084fc);">View on NPM</a>
                     </div>
                 </div>
 
                 <!-- Tool Card: B2DP -->
-                <div
-                    class="fade-in p-8 rounded-2xl border border-slate-800 hover:border-slate-600 hover:shadow-2xl transition-all duration-300 bg-slate-900 flex flex-col">
+                <div class="fade-in p-8 rounded-2xl flex flex-col transition-all duration-300"
+                    style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
+                    onmouseover="this.style.borderColor='rgba(166,140,255,0.2)'; this.style.boxShadow='0 20px 40px rgba(166,140,255,0.06)';"
+                    onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
                     <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs font-bold text-blue-400 tracking-widest uppercase">NPM Package</span>
+                        <span class="text-xs font-bold tracking-widest uppercase" style="color:#a68cff;">NPM Package</span>
                         <a href="https://www.npmjs.com/package/@teckedd-code2save/b2dp" target="_blank"
-                            class="text-slate-500 hover:text-blue-400 transition-colors">↗</a>
+                            class="transition-colors" style="color:#484849;" onmouseover="this.style.color='#a68cff'" onmouseout="this.style.color='#484849'">↗</a>
                     </div>
                     <div class="flex items-center gap-3 mb-3">
-                        <h3 class="text-2xl text-white" style="font-family:Syne,sans-serif;">@teckedd-code2save/b2dp
-                        </h3>
+                        <h3 class="text-2xl text-white" style="font-family:'Epilogue',sans-serif;">@teckedd-code2save/b2dp</h3>
                     </div>
-                    <p class="text-sm text-slate-400 leading-relaxed mb-6">Business-to-Data-Platform CLI. One-command setup for the b2dp skill ecosystem across Antigravity, Claude, and Cursor.</p>
+                    <p class="text-sm leading-relaxed mb-6" style="color:#adaaab;">Business-to-Data-Platform CLI. One-command setup for the b2dp skill ecosystem across Antigravity, Claude, and Cursor.</p>
                     <div class="flex flex-wrap gap-2 mb-8">
-                        <span
-                            class="px-3 py-1 bg-slate-800 text-blue-300 border border-slate-700 rounded-full text-xs font-semibold">CLI</span>
-                        <span
-                            class="px-3 py-1 bg-slate-800 text-blue-300 border border-slate-700 rounded-full text-xs font-semibold">AI Workflow</span>
-                        <span
-                            class="px-3 py-1 bg-slate-800 text-blue-300 border border-slate-700 rounded-full text-xs font-semibold">Skill SDK</span>
+                        <span class="skill-pill" style="color:#a68cff;">CLI</span>
+                        <span class="skill-pill" style="color:#a68cff;">AI Workflow</span>
+                        <span class="skill-pill" style="color:#a68cff;">Skill SDK</span>
                     </div>
                     <div class="flex gap-4 mt-auto">
                         <a href="https://www.npmjs.com/package/@teckedd-code2save/b2dp" target="_blank"
-                            class="px-5 py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition text-sm text-center">View
-                            on NPM</a>
+                            class="px-5 py-2.5 font-bold rounded-full transition text-sm text-center text-white hover:shadow-[0_0_15px_rgba(166,140,255,0.3)]"
+                            style="background: linear-gradient(135deg, #a68cff, #591adc);">View on NPM</a>
                     </div>
                 </div>
             </div>
@@ -1001,33 +1218,37 @@
     </section>
 
     <!-- ══ CREDENTIALS ══════════════════════════════════ -->
-    <section class="py-28 bg-slate-50 relative" id="credentials">
+    <section class="py-28 relative" id="credentials" style="background:#0e0e0f;">
         <canvas id="credentials-canvas" class="absolute inset-0 pointer-events-none"></canvas>
         <div class="max-w-6xl mx-auto px-8">
-            <h2 class="text-5xl text-gray-950 section-title">Credentials &amp; Learning</h2>
+            <h2 class="text-5xl text-white section-title">Credentials &amp; Learning</h2>
             <div id="credentials-container"></div>
-            <div class="mt-12 text-center" id="credentials-see-all-container" style="display:none;">
-                <button id="credentials-see-all-btn" class="px-6 py-3 bg-white border border-gray-200 text-gray-800 font-semibold rounded-xl hover:border-blue-500 hover:text-blue-600 transition shadow-sm text-sm">
-                    See All Certifications
+            <div class="mt-10 text-center" id="credentials-see-all-container" style="display:none;">
+                <button id="credentials-see-all-btn"
+                    style="padding:10px 28px;border-radius:99px;font-size:13px;font-weight:700;background:linear-gradient(135deg,#a68cff,#ff59e3);color:#ffffff;border:none;cursor:pointer;box-shadow:0 0 24px rgba(166,140,255,0.2);transition:opacity 0.2s;"
+                    onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                    Show All Certifications
                 </button>
             </div>
         </div>
     </section>
 
     <!-- ══ CV SECTION ══════════════════════════════════ -->
-    <section class="py-20 bg-slate-950" id="cv-section">
+    <section class="py-20" id="cv-section" style="background:#131314;">
         <div class="max-w-4xl mx-auto px-8 text-center">
-            <p class="text-blue-400 text-xs font-bold uppercase tracking-widest mb-4">Curriculum Vitae</p>
-            <h2 class="text-4xl text-white mb-5">Full Professional Profile</h2>
-            <p class="text-slate-400 mb-10 leading-relaxed max-w-xl mx-auto">Detailed work history, system design
+            <p class="text-xs font-bold uppercase tracking-widest mb-4" style="color:#a68cff;">Curriculum Vitae</p>
+            <h2 class="text-4xl text-white mb-5" style="font-family:'Epilogue',sans-serif;">Full Professional Profile</h2>
+            <p class="mb-10 leading-relaxed max-w-xl mx-auto" style="color:#adaaab;">Detailed work history, system design
                 experience, stack depth, and references available on request or via the link below.</p>
             <div class="flex flex-wrap gap-4 justify-center">
                 <a href="https://www.linkedin.com/in/edward-twumasi/" target="_blank" rel="noopener"
-                    class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition text-sm">
+                    class="px-8 py-3 font-bold rounded-full transition text-sm text-white hover:shadow-[0_0_20px_rgba(166,140,255,0.4)]"
+                    style="background: linear-gradient(135deg, #a68cff, #c084fc);">
                     View on LinkedIn
                 </a>
                 <a href="staticfiles/Edward_Twumasi_CV_Latest.pdf" target="_blank" id="cv-download-btn"
-                    class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition text-sm">
+                    class="px-8 py-3 font-bold rounded-full transition text-sm text-white hover:bg-[#2c2c2d] hover:border-[rgba(166,140,255,0.3)]"
+                    style="background:#1a191b; border: 1px solid rgba(72,72,73,0.2);">
                     Download PDF CV
                 </a>
             </div>
@@ -1035,16 +1256,17 @@
     </section>
 
     <!-- ══ INSIGHTS & WRITING ══════════════════════════ -->
-    <section class="py-28 bg-slate-50 border-t border-b border-gray-100" id="insights">
+    <section class="py-28" id="insights" style="background:#0e0e0f; border-top: 1px solid rgba(72,72,73,0.1); border-bottom: 1px solid rgba(72,72,73,0.1);">
         <div class="max-w-6xl mx-auto px-8">
             <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-12">
                 <div>
-                    <h2 class="text-5xl text-gray-950 section-title mb-0">Insights &amp; Writing</h2>
-                    <p class="text-gray-500 mt-4 max-w-xl">Deep dives into production systems, MLOps, and agentic
+                    <h2 class="text-5xl text-white section-title mb-0">Insights &amp; Writing</h2>
+                    <p class="mt-4 max-w-xl" style="color:#adaaab;">Deep dives into production systems, MLOps, and agentic
                         workflows. Featuring the latest series on deploying high-performance Whisper models.</p>
                 </div>
                 <button id="open-drawer-btn"
-                    class="mt-8 md:mt-0 px-6 py-3 bg-white border border-gray-200 text-gray-800 font-semibold rounded-xl hover:border-blue-500 hover:text-blue-600 hover:shadow-md transition shadow-sm text-sm inline-flex items-center gap-2 w-fit">
+                    class="mt-8 md:mt-0 px-6 py-3 font-semibold rounded-full transition shadow-sm text-sm inline-flex items-center gap-2 w-fit text-[#adaaab] hover:text-white hover:border-[rgba(166,140,255,0.3)]"
+                    style="background:#1a191b; border: 1px solid rgba(72,72,73,0.2);">
                     View Entire Series
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -1057,28 +1279,34 @@
                 <!-- Featured Article 1 -->
                 <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/1_mlops_foundation/1_the_strategy.md"
                     target="_blank"
-                    class="group block p-8 bg-white rounded-2xl border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300">
+                    class="group block p-8 rounded-2xl transition-all duration-300"
+                    style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
+                    onmouseover="this.style.borderColor='rgba(166,140,255,0.2)'; this.style.boxShadow='0 20px 40px rgba(166,140,255,0.06)';"
+                    onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
                     <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs font-bold text-blue-600 tracking-widest uppercase">MLOps Foundation</span>
-                        <span class="text-gray-400 group-hover:text-blue-500 transition-colors">↗</span>
+                        <span class="text-xs font-bold tracking-widest uppercase" style="color:#a68cff;">MLOps Foundation</span>
+                        <span style="color:#484849;" class="group-hover:text-[#a68cff] transition-colors">↗</span>
                     </div>
-                    <h3 class="text-xl text-gray-900 mb-3 group-hover:text-blue-600 transition-colors"
-                        style="font-family:Syne,sans-serif;">The Strategy: Why Models Belong in Containers</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Discover how to transform heavy ML models into
+                    <h3 class="text-xl text-white mb-3 transition-colors"
+                        style="font-family:'Epilogue',sans-serif;">The Strategy: Why Models Belong in Containers</h3>
+                    <p class="text-sm leading-relaxed" style="color:#adaaab;">Discover how to transform heavy ML models into
                         lightweight, high-performance microservices, focusing on scalable inference architecture.</p>
                 </a>
 
                 <!-- Featured Article 2 -->
                 <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/2_agent_sandboxing/6_building_the_workbench.md"
                     target="_blank"
-                    class="group block p-8 bg-white rounded-2xl border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300">
+                    class="group block p-8 rounded-2xl transition-all duration-300"
+                    style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
+                    onmouseover="this.style.borderColor='rgba(166,140,255,0.2)'; this.style.boxShadow='0 20px 40px rgba(166,140,255,0.06)';"
+                    onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
                     <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs font-bold text-blue-600 tracking-widest uppercase">Agent Sandboxing</span>
-                        <span class="text-gray-400 group-hover:text-blue-500 transition-colors">↗</span>
+                        <span class="text-xs font-bold tracking-widest uppercase" style="color:#a68cff;">Agent Sandboxing</span>
+                        <span style="color:#484849;" class="group-hover:text-[#a68cff] transition-colors">↗</span>
                     </div>
-                    <h3 class="text-xl text-gray-900 mb-3 group-hover:text-blue-600 transition-colors"
-                        style="font-family:Syne,sans-serif;">Building the Workbench</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Moving from "Chat" to "Action" by providing agents
+                    <h3 class="text-xl text-white mb-3 transition-colors"
+                        style="font-family:'Epilogue',sans-serif;">Building the Workbench</h3>
+                    <p class="text-sm leading-relaxed" style="color:#adaaab;">Moving from "Chat" to "Action" by providing agents
                         with safe, ephemeral Docker environments for secure LLM code execution.</p>
                 </a>
             </div>
@@ -1086,74 +1314,87 @@
     </section>
 
     <!-- ══ CONTACT ═════════════════════════════════════ -->
-    <section class="py-28 bg-white" id="contact">
+    <section class="py-28" id="contact" style="background:#131314;">
         <div class="max-w-4xl mx-auto px-8">
-            <h2 class="text-5xl text-gray-950 section-title">Let's Build Together</h2>
-            <p class="text-gray-500 mb-12 leading-relaxed text-lg max-w-2xl">
+            <h2 class="text-5xl text-white section-title">Let's Build Together</h2>
+            <p class="mb-12 leading-relaxed text-lg max-w-2xl" style="color:#adaaab;">
                 Open to collaborating on projects in backend engineering, distributed systems,
                 and AI tooling.
             </p>
             <div class="grid md:grid-cols-3 gap-4">
                 <a href="mailto:edwardktwumasi1000@gmail.com"
-                    class="group p-6 rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-lg transition bg-white">
-                    <div class="text-2xl mb-3">📧</div>
-                    <h3 class="font-bold text-gray-900 text-sm mb-1">Email</h3>
-                    <p class="text-xs text-gray-500 group-hover:text-blue-500 transition break-all">
-                        edwardktwumasi1000@gmail.com</p>
+                    class="group p-6 rounded-2xl transition-all duration-300"
+                    style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
+                    onmouseover="this.style.borderColor='rgba(166,140,255,0.2)'; this.style.boxShadow='0 12px 30px rgba(166,140,255,0.06)';"
+                    onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
+                    <div class="mb-3">
+                        <span class="material-symbols-outlined" style="color:#a68cff; font-size:28px; font-variation-settings:'FILL' 1;">mail</span>
+                    </div>
+                    <h3 class="font-bold text-white text-sm mb-1">Email</h3>
+                    <p class="text-xs transition break-all" style="color:#adaaab;">edwardktwumasi1000@gmail.com</p>
                 </a>
                 <a href="https://www.linkedin.com/in/edward-twumasi/" target="_blank" rel="noopener"
-                    class="group p-6 rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-lg transition bg-white">
-                    <div class="text-2xl mb-3">💼</div>
-                    <h3 class="font-bold text-gray-900 text-sm mb-1">LinkedIn</h3>
-                    <p class="text-xs text-gray-500 group-hover:text-blue-500 transition">edward-twumasi</p>
+                    class="group p-6 rounded-2xl transition-all duration-300"
+                    style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
+                    onmouseover="this.style.borderColor='rgba(166,140,255,0.2)'; this.style.boxShadow='0 12px 30px rgba(166,140,255,0.06)';"
+                    onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
+                    <div class="mb-3">
+                        <span class="material-symbols-outlined" style="color:#a68cff; font-size:28px; font-variation-settings:'FILL' 1;">work</span>
+                    </div>
+                    <h3 class="font-bold text-white text-sm mb-1">LinkedIn</h3>
+                    <p class="text-xs transition" style="color:#adaaab;">edward-twumasi</p>
                 </a>
                 <a href="https://github.com/teckedd-code2save" target="_blank" rel="noopener"
-                    class="group p-6 rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-lg transition bg-white">
-                    <div class="text-2xl mb-3">🐱</div>
-                    <h3 class="font-bold text-gray-900 text-sm mb-1">GitHub</h3>
-                    <p class="text-xs text-gray-500 group-hover:text-blue-500 transition">edwardtwumasi</p>
+                    class="group p-6 rounded-2xl transition-all duration-300"
+                    style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
+                    onmouseover="this.style.borderColor='rgba(255,89,227,0.2)'; this.style.boxShadow='0 12px 30px rgba(255,89,227,0.06)';"
+                    onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
+                    <div class="mb-3">
+                        <span class="material-symbols-outlined" style="color:#ff59e3; font-size:28px; font-variation-settings:'FILL' 1;">code</span>
+                    </div>
+                    <h3 class="font-bold text-white text-sm mb-1">GitHub</h3>
+                    <p class="text-xs transition" style="color:#adaaab;">teckedd-code2save</p>
                 </a>
             </div>
         </div>
     </section>
 
     <!-- ══ FOOTER ══════════════════════════════════════ -->
-    <footer>
+    <footer style="background:#0e0e0f; border-top: 1px solid rgba(72,72,73,0.1);">
         <div class="max-w-6xl mx-auto px-8 py-16 grid md:grid-cols-3 gap-12">
             <div>
-                <div class="text-2xl font-bold text-white mb-3" style="font-family:Syne,sans-serif;">ET</div>
-                <p class="text-slate-500 text-sm leading-relaxed">Platform & Systems Engineer<br>building systems that
+                <div class="text-2xl font-black text-white mb-3" style="font-family:'Epilogue',sans-serif;">ET</div>
+                <p class="text-sm leading-relaxed" style="color:#484849;">Platform &amp; Systems Engineer<br>building systems that
                     scale.</p>
             </div>
             <div>
-                <p class="cred-group-label text-slate-600 mb-5">Navigate</p>
+                <p class="cred-group-label mb-5">Navigate</p>
                 <ul class="space-y-3 text-sm">
-                    <li><a href="#about" class="text-slate-400 hover:text-white transition">About</a></li>
-                    <li><a href="#projects" class="text-slate-400 hover:text-white transition">Projects</a></li>
-                    <li><a href="#tools" class="text-slate-400 hover:text-white transition">Tools</a></li>
-                    <li><a href="#credentials" class="text-slate-400 hover:text-white transition">Credentials</a></li>
-                    <li><a href="#cv-section" class="text-slate-400 hover:text-white transition">CV</a></li>
-                    <li><a href="#contact" class="text-slate-400 hover:text-white transition">Contact</a></li>
+                    <li><a href="#about" class="transition" style="color:#484849;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#484849'">About</a></li>
+                    <li><a href="#projects" class="transition" style="color:#484849;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#484849'">Projects</a></li>
+                    <li><a href="#tools" class="transition" style="color:#484849;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#484849'">Tools</a></li>
+                    <li><a href="#credentials" class="transition" style="color:#484849;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#484849'">Credentials</a></li>
+                    <li><a href="#cv-section" class="transition" style="color:#484849;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#484849'">CV</a></li>
+                    <li><a href="#contact" class="transition" style="color:#484849;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#484849'">Contact</a></li>
                 </ul>
             </div>
             <div>
-                <p class="cred-group-label text-slate-600 mb-5">Connect</p>
+                <p class="cred-group-label mb-5">Connect</p>
                 <ul class="space-y-3 text-sm">
                     <li><a href="mailto:edwardktwumasi1000@gmail.com"
-                            class="text-slate-400 hover:text-white transition">Email</a></li>
+                            class="transition" style="color:#484849;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#484849'">Email</a></li>
                     <li><a href="https://www.linkedin.com/in/edward-twumasi/" target="_blank"
-                            class="text-slate-400 hover:text-white transition">LinkedIn</a></li>
+                            class="transition" style="color:#484849;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#484849'">LinkedIn</a></li>
                     <li><a href="https://github.com/teckedd-code2save" target="_blank"
-                            class="text-slate-400 hover:text-white transition">GitHub</a></li>
-                    <li><a href="tel:+233552489602" class="text-slate-400 hover:text-white transition">+233 552 489
-                            602</a></li>
+                            class="transition" style="color:#484849;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#484849'">GitHub</a></li>
+                    <li><a href="tel:+233552489602" class="transition" style="color:#484849;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#484849'">+233 552 489 602</a></li>
                 </ul>
             </div>
         </div>
-        <div class="border-t border-white/5">
+        <div style="border-top: 1px solid rgba(72,72,73,0.08);">
             <div class="max-w-6xl mx-auto px-8 py-5 flex justify-between items-center">
-                <p class="text-xs text-slate-700">© 2026 Edward Twumasi</p>
-                <p class="text-xs text-slate-700">Accra, Ghana</p>
+                <p class="text-xs" style="color:#262627;">© 2026 Edward Twumasi</p>
+                <p class="text-xs" style="color:#262627;">Accra, Ghana</p>
             </div>
         </div>
     </footer>
@@ -1163,7 +1404,7 @@
         <div id="chat-window">
             <div id="chat-header">
                 <h3><span class="status-dot"></span>Edward's Digital Twin</h3>
-                <button id="close-chat" class="text-gray-400 hover:text-white transition hidden close-chat-mobile"
+                <button id="close-chat" class="transition hidden close-chat-mobile" style="color:#adaaab;"
                     aria-label="Close Chat">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M18 6L6 18M6 6l12 12" />
@@ -1206,8 +1447,8 @@
     <aside id="article-drawer">
         <div class="drawer-header">
             <div>
-                <h3 class="text-2xl font-bold text-gray-900" style="font-family:Syne,sans-serif;">The MLOps Stack</h3>
-                <p class="text-xs text-slate-500 mt-1 uppercase tracking-widest font-semibold">Complete Series</p>
+                <h3 class="text-2xl font-bold text-white" style="font-family:'Epilogue',sans-serif;">The MLOps Stack</h3>
+                <p class="text-xs mt-1 uppercase tracking-widest font-semibold" style="color:#a68cff;">Complete Series</p>
             </div>
             <button class="drawer-close" aria-label="Close Drawer">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -1221,51 +1462,51 @@
             <span class="chapter-label">Chapter 1: The MLOps Foundation</span>
             <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/1_mlops_foundation/1_the_strategy.md"
                 target="_blank" class="article-link-item">
-                <div class="article-link-title">1. The Strategy <span class="text-gray-400">↗</span></div>
+                <div class="article-link-title">1. The Strategy <span style="color:#484849;">↗</span></div>
                 <div class="article-link-desc">Why models belong in containers.</div>
             </a>
             <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/1_mlops_foundation/2_implementation.md"
                 target="_blank" class="article-link-item">
-                <div class="article-link-title">2. Implementation <span class="text-gray-400">↗</span></div>
+                <div class="article-link-title">2. Implementation <span style="color:#484849;">↗</span></div>
                 <div class="article-link-desc">Building the Twi ASR server with BentoML.</div>
             </a>
             <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/1_mlops_foundation/3_deep_dive_whisper_twi.md"
                 target="_blank" class="article-link-item">
-                <div class="article-link-title">3. Deep Dive: Whisper Twi <span class="text-gray-400">↗</span></div>
+                <div class="article-link-title">3. Deep Dive: Whisper Twi <span style="color:#484849;">↗</span></div>
                 <div class="article-link-desc">Model architecture and FP16 optimizations.</div>
             </a>
             <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/1_mlops_foundation/4_scaling_ops.md"
                 target="_blank" class="article-link-item">
-                <div class="article-link-title">4. Scaling & Ops <span class="text-gray-400">↗</span></div>
+                <div class="article-link-title">4. Scaling &amp; Ops <span style="color:#484849;">↗</span></div>
                 <div class="article-link-desc">Health checks, resource limits, and RTF tracking.</div>
             </a>
 
             <span class="chapter-label mt-8">Chapter 2: The Agentic Layer</span>
             <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/2_agent_sandboxing/5_why_sandboxing.md"
                 target="_blank" class="article-link-item">
-                <div class="article-link-title">5. Why Sandboxing? <span class="text-gray-400">↗</span></div>
+                <div class="article-link-title">5. Why Sandboxing? <span style="color:#484849;">↗</span></div>
                 <div class="article-link-desc">Solving the security risks of LLM code execution.</div>
             </a>
             <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/2_agent_sandboxing/6_building_the_workbench.md"
                 target="_blank" class="article-link-item">
-                <div class="article-link-title">6. Building the Workbench <span class="text-gray-400">↗</span></div>
+                <div class="article-link-title">6. Building the Workbench <span style="color:#484849;">↗</span></div>
                 <div class="article-link-desc">Ephemeral Docker environments for agents.</div>
             </a>
             <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/2_agent_sandboxing/7_advanced_isolation.md"
                 target="_blank" class="article-link-item">
-                <div class="article-link-title">7. Advanced Isolation <span class="text-gray-400">↗</span></div>
+                <div class="article-link-title">7. Advanced Isolation <span style="color:#484849;">↗</span></div>
                 <div class="article-link-desc">Managed state, network egress, and human interaction.</div>
             </a>
 
-            <span class="chapter-label mt-8">Chapter 3: Integration & Deployment</span>
+            <span class="chapter-label mt-8">Chapter 3: Integration &amp; Deployment</span>
             <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/3_integration_deployment/8_the_agentic_bridge.md"
                 target="_blank" class="article-link-item">
-                <div class="article-link-title">8. The Agentic Bridge <span class="text-gray-400">↗</span></div>
+                <div class="article-link-title">8. The Agentic Bridge <span style="color:#484849;">↗</span></div>
                 <div class="article-link-desc">Orchestrating inference models via sandboxed agents.</div>
             </a>
             <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/3_integration_deployment/9_one_click_deployment.md"
                 target="_blank" class="article-link-item">
-                <div class="article-link-title">9. One-Click Deployment <span class="text-gray-400">↗</span></div>
+                <div class="article-link-title">9. One-Click Deployment <span style="color:#484849;">↗</span></div>
                 <div class="article-link-desc">Launching the full stack with Docker Compose.</div>
             </a>
 
@@ -1276,8 +1517,8 @@
     <aside id="project-drawer">
         <div class="drawer-header">
             <div id="project-drawer-header-content">
-                <h3 class="text-2xl font-bold text-gray-900" style="font-family:Syne,sans-serif;">Project Breakdown</h3>
-                <p class="text-xs text-slate-500 mt-1 uppercase tracking-widest font-semibold" id="project-drawer-tag"></p>
+                <h3 class="text-2xl font-bold text-white" style="font-family:'Epilogue',sans-serif;">Project Breakdown</h3>
+                <p class="text-xs mt-1 uppercase tracking-widest font-semibold" id="project-drawer-tag" style="color:#a68cff;"></p>
             </div>
             <button class="drawer-close" id="project-drawer-close" aria-label="Close Drawer">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -1291,13 +1532,15 @@
         </div>
     </aside>
 
+    <div id="tech-tip"><div id="tech-tip-label"></div><div id="tech-tip-text"></div></div>
+
     <script>
         gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
         /* ════════════════════════════════════════════════
            THREE.JS — Background Engine
         ════════════════════════════════════════════════ */
-        function initBackgroundCanvas(canvasId, sectionId, color = 0x3b82f6, lineColor = 0x93c5fd) {
+        function initBackgroundCanvas(canvasId, sectionId, color = 0xa68cff, lineColor = 0xa68cff) {
             const canvas = document.getElementById(canvasId);
             const section = document.getElementById(sectionId);
             if (!canvas || !section) return;
@@ -1330,14 +1573,14 @@
 
             const pGeo = new THREE.BufferGeometry();
             pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-            const pMat = new THREE.PointsMaterial({ color: color, size: 0.06, transparent: true, opacity: 0.4 });
+            const pMat = new THREE.PointsMaterial({ color: color, size: 0.06, transparent: true, opacity: 0.35 });
             scene.add(new THREE.Points(pGeo, pMat));
 
             const lGeo = new THREE.BufferGeometry();
             const lAttr = new THREE.BufferAttribute(linePositions, 3);
             lAttr.setUsage(THREE.DynamicDrawUsage);
             lGeo.setAttribute('position', lAttr);
-            const lMat = new THREE.LineBasicMaterial({ color: lineColor, transparent: true, opacity: 0.1 });
+            const lMat = new THREE.LineBasicMaterial({ color: lineColor, transparent: true, opacity: 0.07 });
             const lines = new THREE.LineSegments(lGeo, lMat);
             scene.add(lines);
 
@@ -1394,53 +1637,130 @@
 
         // Initialize all background canvases
         window.addEventListener('DOMContentLoaded', () => {
-            initBackgroundCanvas('hero-canvas', 'hero', 0x3b82f6, 0x93c5fd);
-            initBackgroundCanvas('projects-canvas', 'projects', 0x6366f1, 0x818cf8);
-            initBackgroundCanvas('tools-canvas', 'tools', 0x3b82f6, 0x2563eb);
-            initBackgroundCanvas('credentials-canvas', 'credentials', 0x10b981, 0x34d399);
+            initBackgroundCanvas('hero-canvas', 'hero', 0xa68cff, 0xff59e3);
+            initBackgroundCanvas('projects-canvas', 'projects', 0xa68cff, 0xff59e3);
+            initBackgroundCanvas('tools-canvas', 'tools', 0xff59e3, 0xa68cff);
+            initBackgroundCanvas('credentials-canvas', 'credentials', 0xff59e3, 0xa68cff);
         });
 
         /* ════════════════════════════════════════════════
            PROJECTS — Stacked Card Carousel
         ════════════════════════════════════════════════ */
+        const diagBox = (color, items) => items.map(([label, val]) =>
+            `<div style="background:#1a191b;border:1px solid rgba(${color},0.2);border-radius:6px;padding:5px 8px;font-size:9px;color:rgba(${color},1);font-weight:600;">${label}${val ? `<span style="color:#484849;font-weight:400;"> ${val}</span>` : ''}</div>`
+        ).join('');
+
+        const diagFlow = (nodes, color) => nodes.map((n, i) =>
+            (i > 0 ? `<div style="color:rgba(${color},1);font-size:18px;padding:0 2px;">→</div>` : '') +
+            `<div style="background:#1a191b;border:1px solid rgba(${color},${n.main ? '0.4' : '0.2'});border-radius:8px;padding:8px 10px;text-align:center;${n.main ? `box-shadow:0 0 12px rgba(${color},0.1);` : ''}">
+                <div style="font-size:10px;color:rgba(${color},1);font-weight:700;">${n.label}</div>
+                ${n.sub ? `<div style="font-size:9px;color:#484849;margin-top:2px;">${n.sub}</div>` : ''}
+             </div>`
+        ).join('');
+
         const projects = [
             {
                 tag: 'B2DP CLI',
                 title: 'Business-to-Data-Platform (b2dp) Orchestrator',
-                desc: 'A powerful CLI tool that transforms high-level business requirements into production-grade technical implementations. Automates skill installation (MCP servers) for AI coding agents.',
-                stack: ['CLI', 'AI Workflow', 'Node.js', 'GitHub Actions'],
+                desc: 'A CLI orchestrator that converts business specs into production-grade platforms — automating schema design, DB provisioning, ORM setup, tests, frontend scaffolding, and IaC in one command.',
+                stack: ['CLI', 'Node.js', 'MCP Protocol', 'GitHub Actions'],
                 link: 'https://www.npmjs.com/package/@teckedd-code2save/b2dp',
-                accent: '#3b82f6',
+                accent: '#a68cff',
                 breakdown: {
-                    architecture: 'Architected as a multi-agent orchestrator utilizing the Model Context Protocol (MCP). It uses a modular skill system and a singleton configuration manager for agent discovery.',
-                    challenges: 'Handling cross-agent configuration (Antigravity, Claude, Cursor) and automated dependency resolution across different OS environments.',
-                    highlights: 'Pioneered "Orchestrator Skills" that allow AI agents to provision their own technical sibling skills.'
+                    architecture: 'Multi-agent orchestrator built on the Model Context Protocol (MCP). Uses a modular skill system and singleton configuration manager for agent discovery across Claude, Cursor, and Antigravity.',
+                    challenges: 'Cross-agent configuration (Antigravity, Claude, Cursor) and automated dependency resolution across OS environments while keeping the setup to a single command.',
+                    highlights: 'Pioneered "Orchestrator Skills" — AI agents provision their own sibling skills. Ships pre-configured with Datafy, Prisma, GitHub, and Context7 MCP servers.',
+                    diagram: `<div style="margin-top:16px;padding:16px;background:#0e0e0f;border-radius:12px;overflow-x:auto;">
+  <div style="font-size:10px;font-weight:700;color:#adaaab;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;">Orchestration Flow</div>
+  <div style="display:flex;gap:8px;align-items:center;min-width:380px;">
+    ${diagFlow([{label:'Business Spec'},{label:'b2dp CLI',sub:'Orchestrator',main:true}],'166,140,255')}
+    <div style="color:#a68cff;font-size:18px;padding:0 2px;">→</div>
+    <div style="display:flex;flex-direction:column;gap:4px;">${diagBox('166,140,255',[['Schema + DB'],['ORM + Tests'],['Frontend + Infra']])}</div>
+  </div>
+  <div style="margin-top:10px;padding:8px 10px;background:#1a191b;border-radius:8px;font-size:10px;color:#484849;">
+    <span style="color:#a68cff;font-weight:700;">MCP Stack: </span>Datafy · Prisma · GitHub · Context7
+  </div>
+</div>`
                 }
             },
             {
                 tag: 'AI Tooling',
-                title: 'DBHub AI MCP — Elasticsearch & Redis Extension',
-                desc: 'Extended the open-source DBHub AI MCP tool to add native Elasticsearch and Redis data source support. Abstracted database integration patterns and implemented MCP protocol handlers.',
-                stack: ['MCP Protocol', 'Elasticsearch', 'Redis', 'Python'],
+                title: 'Datafy — MCP Database Gateway',
+                desc: 'Built on top of DBHub — a zero-dependency, token-efficient MCP server acting as a gateway between AI tools (Claude Desktop, VS Code, Cursor) and 7 database backends via two core tools.',
+                stack: ['MCP Protocol', 'Node.js', 'PostgreSQL', 'Redis', 'Elasticsearch'],
                 link: 'https://www.npmjs.com/package/@teckedd-code2save/datafy',
-                accent: '#10b981',
+                accent: '#a68cff',
                 breakdown: {
-                    architecture: 'Built on the FastMCP framework. Implemented dynamic schema discovery for NoSQL databases and token-efficient query abstraction layers.',
-                    challenges: 'Mapping Elasticsearch\'s query DSL and Redis HGETALL/SCAN patterns into a unified natural language interface for LLMs.',
-                    highlights: 'Enabled AI models to perform real-time cache analysis and log-level troubleshooting directly through the MCP interface.'
+                    architecture: 'MCP gateway pattern rooted in DBHub. Two primary tools — execute_sql and search_objects — provide a unified interface to PostgreSQL, MySQL, SQL Server, SQLite, MariaDB, Redis, and Elasticsearch.',
+                    challenges: 'Mapping Elasticsearch query DSL and Redis HGETALL/SCAN patterns into a token-efficient natural language interface while keeping the server truly zero-dependency.',
+                    highlights: 'Supports read-only mode, query timeouts, and dynamic schema discovery across all 7 backends. Used by AI agents for real-time DB exploration and code generation.',
+                    diagram: `<div style="margin-top:16px;padding:16px;background:#0e0e0f;border-radius:12px;overflow-x:auto;">
+  <div style="font-size:10px;font-weight:700;color:#adaaab;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;">MCP Gateway Architecture</div>
+  <div style="display:flex;gap:8px;align-items:stretch;min-width:360px;">
+    <div style="flex:1;background:#1a191b;border:1px solid rgba(166,140,255,0.15);border-radius:8px;padding:10px;">
+      <div style="font-size:10px;color:#a68cff;font-weight:700;margin-bottom:6px;">AI Clients</div>
+      <div style="font-size:9px;color:#adaaab;line-height:1.8;">Claude Desktop<br>VS Code / Cursor<br>Copilot CLI</div>
+    </div>
+    <div style="display:flex;align-items:center;color:#a68cff;font-size:16px;padding:0 4px;">→</div>
+    <div style="flex:1.3;background:#1a191b;border:1px solid rgba(166,140,255,0.4);border-radius:8px;padding:10px;box-shadow:0 0 15px rgba(166,140,255,0.07);">
+      <div style="font-size:10px;color:#a68cff;font-weight:700;margin-bottom:6px;">Datafy (DBHub)</div>
+      <div style="font-size:9px;color:#adaaab;line-height:1.8;">execute_sql<br>search_objects<br>read-only mode</div>
+    </div>
+    <div style="display:flex;align-items:center;color:#a68cff;font-size:16px;padding:0 4px;">→</div>
+    <div style="flex:1;background:#1a191b;border:1px solid rgba(166,140,255,0.15);border-radius:8px;padding:10px;">
+      <div style="font-size:10px;color:#a68cff;font-weight:700;margin-bottom:6px;">7 Backends</div>
+      <div style="font-size:9px;color:#adaaab;line-height:1.8;">PG · MySQL · SQLite<br>Redis · Elastic<br>SQL Server</div>
+    </div>
+  </div>
+</div>`
+                }
+            },
+            {
+                tag: 'Agentic Systems',
+                title: 'AgentMart — Autonomous AI Agent Economy',
+                desc: 'A proof-of-concept agent economy where AI agents autonomously hire, pay, and work with each other. A Master Orchestrator decomposes tasks and contracts specialist agents via a real-time payment ledger.',
+                stack: ['TypeScript', 'Next.js 14', 'Express', 'SQLite'],
+                link: 'https://github.com/teckedd-code2save/agentmart',
+                accent: '#a68cff',
+                breakdown: {
+                    architecture: 'Three-service architecture: Registry (Express, :3001) manages agent registration and the payment ledger; Agents Service (:3002) hosts specialist endpoints; Dashboard (Next.js, :3000) provides real-time monitoring refreshing every 2 seconds.',
+                    challenges: 'Implementing the Machine Payments Protocol (MPP) from Stripe for machine-to-machine transactions, and designing task decomposition that correctly scopes and budgets agent contracts.',
+                    highlights: 'Four specialist agents (Research $0.30, Analysis $0.50, Report $0.20) autonomously hire each other, self-balance budgets, and complete multi-step work without human intervention.',
+                    diagram: `<div style="margin-top:16px;padding:16px;background:#0e0e0f;border-radius:12px;overflow-x:auto;">
+  <div style="font-size:10px;font-weight:700;color:#adaaab;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;">Agent Economy Flow</div>
+  <div style="display:flex;gap:8px;align-items:center;min-width:380px;">
+    ${diagFlow([{label:'Task Input'},{label:'Master Orchestrator',sub:'Decomposes + hires',main:true}],'166,140,255')}
+    <div style="color:#a68cff;font-size:18px;padding:0 2px;">→</div>
+    <div style="display:flex;flex-direction:column;gap:4px;">${diagBox('166,140,255',[['Research Agent','$0.30/call'],['Analysis Agent','$0.50/call'],['Report Agent','$0.20/call']])}</div>
+  </div>
+  <div style="margin-top:10px;padding:8px 10px;background:#1a191b;border-radius:8px;font-size:10px;color:#484849;">
+    <span style="color:#a68cff;font-weight:700;">Stack: </span>TypeScript · Next.js · SQLite · MPP Protocol (Stripe)
+  </div>
+</div>`
                 }
             },
             {
                 tag: 'AI & Healthcare',
                 title: 'REACHY AI — Multi-lingual Speech Platform',
-                desc: 'Voice-enabled healthcare platform supporting English, French, Twi, and Hausa. Fine-tuned Whisper Small on a custom Twi dataset for low-resource settings.',
-                stack: ['Python', 'FastAPI', 'Whisper/HuggingFace', 'Docker'],
+                desc: 'Voice-enabled healthcare platform supporting English, French, Twi, and Hausa. Fine-tuned Whisper Small on a custom Twi dataset for low-resource settings in local healthcare centres.',
+                stack: ['Python', 'FastAPI', 'Whisper/HuggingFace', 'Docker', 'Celery'],
                 link: 'https://github.com/teckedd-code2save/serendepify-frontend.git',
-                accent: '#f43f5e',
+                accent: '#ff59e3',
                 breakdown: {
-                    architecture: 'Microservices architecture with FastAPI backends. Asynchronous speech processing utilizing Celery and Redis for background transcription tasks.',
-                    challenges: 'Optimizing inference speed for Whisper models on CPU-constrained environments in local healthcare centers.',
-                    highlights: 'Achieved high accuracy for Twi (Akan) language transcription, significantly bridging the healthcare communication gap.'
+                    architecture: 'Microservices architecture with FastAPI backends. Asynchronous speech processing via Celery and Redis as the task broker. Whisper Small served via BentoML for containerised inference.',
+                    challenges: 'Optimising Whisper inference speed on CPU-constrained hardware in local healthcare settings, and building a high-quality Twi transcription dataset from scratch.',
+                    highlights: 'Achieved high accuracy for Twi (Akan) — a low-resource language — significantly bridging the healthcare communication gap for Ghana\'s most-spoken local language.',
+                    diagram: `<div style="margin-top:16px;padding:16px;background:#0e0e0f;border-radius:12px;overflow-x:auto;">
+  <div style="font-size:10px;font-weight:700;color:#adaaab;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;">Inference Pipeline</div>
+  <div style="display:flex;gap:8px;align-items:center;min-width:400px;">
+    ${diagFlow([
+      {label:'Audio Input',sub:'EN·FR·Twi·Hausa'},
+      {label:'Whisper Small',sub:'Fine-tuned on Twi',main:true},
+      {label:'FastAPI',sub:'Celery + Redis'},
+      {label:'Healthcare App',sub:'BentoML · Docker'}
+    ],'255,89,227')}
+  </div>
+</div>`
                 }
             }
         ];
@@ -1467,24 +1787,25 @@
                 if (pos === -1) card.onclick = () => navigate(-1);
                 if (pos === 1) card.onclick = () => navigate(1);
                 card.innerHTML = `
-                <div class="flex items-center gap-3 mb-5">
-                    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${p.accent};flex-shrink:0;"></span>
-                    <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#94a3b8;">${p.tag}</span>
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+                    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${p.accent};flex-shrink:0;box-shadow:0 0 8px ${p.accent}80;"></span>
+                    <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#adaaab;">${p.tag}</span>
                 </div>
-                <h3 class="project-title-gradient" style="font-family:Syne,sans-serif;font-size:1.2rem;margin-bottom:12px;line-height:1.3;">${p.title}</h3>
-                <p style="font-size:14px;color:#64748b;line-height:1.7;margin-bottom:20px;">${p.desc}</p>
+                <h3 class="project-title-gradient" style="font-family:'Epilogue',sans-serif;font-size:1.2rem;margin-bottom:12px;line-height:1.3;">${p.title}</h3>
+                <p style="font-size:14px;color:#adaaab;line-height:1.7;margin-bottom:20px;">${p.desc}</p>
                 <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;">
-                    ${p.stack.map(s => `<span style="padding:4px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:99px;font-size:11px;color:#64748b;font-weight:500;">${s}</span>`).join('')}
+                    ${p.stack.map(s => `<span style="padding:4px 12px;background:#262627;border-radius:99px;font-size:11px;color:${p.accent};font-weight:600;">${s}</span>`).join('')}
                 </div>
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;">
                     <a href="${p.link}" target="_blank" rel="noopener"
                        style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:${p.accent};text-decoration:none;transition:opacity .2s;"
                        onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">
-                        ${p.linkText || 'Visit'}
+                        Visit
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
                     <button class="see-more-btn" data-index="${i}"
-                        style="font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.05em;border:none;background:none;cursor:pointer;padding:8px 0;">
+                        style="font-size:12px;font-weight:700;color:#adaaab;text-transform:uppercase;letter-spacing:0.05em;border:none;background:none;cursor:pointer;padding:8px 0;transition:color 0.2s;"
+                        onmouseover="this.style.color='${p.accent}'" onmouseout="this.style.color='#adaaab'">
                         See More
                     </button>
                 </div>
@@ -1516,8 +1837,9 @@
 
             projectDrawerContent.innerHTML = `
                 <div class="breakdown-section">
-                    <div class="breakdown-title">Core Architecture</div>
+                    <div class="breakdown-title">Architecture</div>
                     <div class="breakdown-content">${p.breakdown.architecture}</div>
+                    ${p.breakdown.diagram || ''}
                 </div>
                 <div class="breakdown-section">
                     <div class="breakdown-title">Technical Challenges</div>
@@ -1529,7 +1851,7 @@
                 </div>
                 <div class="breakdown-section" style="border-bottom:none;">
                     <div class="breakdown-title">Tech Stack</div>
-                    <div class="flex flex-wrap gap-2 mt-2">
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
                         ${p.stack.map(s => `<span class="skill-pill">${s}</span>`).join('')}
                     </div>
                 </div>
@@ -1686,87 +2008,97 @@
         ];
 
         const credsContainer = document.getElementById('credentials-container');
+        const GROUP_ACCENTS   = ['#a68cff','#ff59e3','#a68cff','#ff59e3','#a68cff'];
+        const GROUP_ACCENTS_2 = ['#ff59e3','#a68cff','#ff59e3','#a68cff','#ff59e3']; // gradient pair
 
-        // Create Tabs Container
+        // Tab nav
         const tabsNav = document.createElement('div');
-        tabsNav.className = 'flex flex-wrap gap-2 md:gap-3 mb-10 fade-in';
+        tabsNav.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;margin-bottom:36px;';
         credsContainer.appendChild(tabsNav);
 
-        // Create Content Container
+        // Content area
         const tabsContent = document.createElement('div');
-        tabsContent.className = 'relative min-h-[300px] fade-in';
         credsContainer.appendChild(tabsContent);
 
         let activeTabIdx = 0;
 
-        // Initialize empty tabs
         credentialGroups.forEach((group, index) => {
+            const accent = GROUP_ACCENTS[index];
+            const accentRgb = index % 2 === 0 ? '166,140,255' : '255,89,227';
+
             const tabBtn = document.createElement('button');
-            tabBtn.innerHTML = `<span class="mr-1">${group.icon}</span> <span>${group.group}</span>`;
+            tabBtn.innerHTML = `
+                <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${accent};margin-right:8px;vertical-align:middle;flex-shrink:0;"></span>
+                <span style="vertical-align:middle;">${group.group}</span>`;
+            tabBtn.style.cssText = `display:inline-flex;align-items:center;padding:9px 18px;border-radius:99px;font-size:13px;font-weight:600;background:#1a191b;color:#adaaab;border:1px solid rgba(72,72,73,0.2);cursor:pointer;transition:all 0.2s;`;
+            tabBtn.onmouseover = () => { if (index !== activeTabIdx) { tabBtn.style.color='#ffffff'; tabBtn.style.borderColor=`rgba(${accentRgb},0.3)`; } };
+            tabBtn.onmouseout  = () => { if (index !== activeTabIdx) { tabBtn.style.color='#adaaab'; tabBtn.style.borderColor='rgba(72,72,73,0.2)'; } };
             tabsNav.appendChild(tabBtn);
 
             const panel = document.createElement('div');
-            const grid = document.createElement('div');
-            grid.className = 'grid md:grid-cols-2 lg:grid-cols-3 gap-4';
+            const grid  = document.createElement('div');
+            grid.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;';
             panel.appendChild(grid);
             tabsContent.appendChild(panel);
 
-            tabBtn.addEventListener('click', () => {
-                activeTabIdx = index;
-                renderCredentials();
-            });
+            tabBtn.addEventListener('click', () => { activeTabIdx = index; renderCredentials(); });
         });
 
         function renderCredentials(showAll = false) {
             Array.from(tabsNav.children).forEach((btn, i) => {
-                const isActive = i === activeTabIdx;
-                btn.className = `px-5 py-2.5 rounded-full text-sm font-semibold transition-all border ${isActive ? 'bg-blue-600 text-white border-blue-600 shadow-md' : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300 hover:text-blue-600'}`;
+                const accent  = GROUP_ACCENTS[i];
+                const accent2 = GROUP_ACCENTS_2[i];
+                const accentRgb = i % 2 === 0 ? '166,140,255' : '255,89,227';
+                if (i === activeTabIdx) {
+                    btn.style.cssText = `display:inline-flex;align-items:center;padding:9px 18px;border-radius:99px;font-size:13px;font-weight:700;background:linear-gradient(135deg,${accent},${accent2});color:#ffffff;border:none;cursor:pointer;transition:all 0.2s;box-shadow:0 0 20px rgba(${accentRgb},0.25);`;
+                } else {
+                    btn.style.cssText = `display:inline-flex;align-items:center;padding:9px 18px;border-radius:99px;font-size:13px;font-weight:600;background:#1a191b;color:#adaaab;border:1px solid rgba(72,72,73,0.2);cursor:pointer;transition:all 0.2s;`;
+                }
             });
 
             Array.from(tabsContent.children).forEach((panel, i) => {
-                if (i === activeTabIdx) {
-                    panel.className = 'transition-opacity duration-300 block opacity-100';
-                    const grid = panel.firstChild;
-                    const items = credentialGroups[i].items;
-                    const LIMIT = 3;
-                    grid.innerHTML = '';
-                    const itemsToShow = (showAll || items.length <= LIMIT) ? items : items.slice(0, LIMIT);
-                    
-                    itemsToShow.forEach(cred => {
-                        const card = document.createElement('div');
-                        card.className = 'cred-card flex flex-col h-full';
-                        card.innerHTML = `
-                            <p class="text-sm font-semibold text-gray-900 mb-1 leading-snug">${cred.title}</p>
-                            <p class="text-xs text-blue-500 font-semibold mb-3">${cred.issuer} · ${cred.date}</p>
-                            ${cred.id ? `<p class="text-xs text-gray-400 font-mono mb-3 truncate">${cred.id}</p>` : ''}
-                            <div class="flex flex-wrap gap-1.5 mb-4">
-                                ${cred.skills.map(s => `<span class="skill-pill">${s}</span>`).join('')}
-                            </div>
-                            ${cred.url ? `
-                                <a href="${cred.url}" target="_blank" rel="noopener"
-                                   class="inline-flex items-center gap-1 text-xs font-semibold text-blue-500 hover:text-blue-700 transition mt-auto pt-2">
-                                    Show credential
-                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                                </a>` : ''}
-                        `;
-                        grid.appendChild(card);
-                    });
+                if (i !== activeTabIdx) { panel.style.display = 'none'; return; }
 
-                    const seeAllContainer = document.getElementById('credentials-see-all-container');
-                    if (items.length > LIMIT && !showAll) {
-                        seeAllContainer.style.display = 'block';
-                    } else {
-                        seeAllContainer.style.display = 'none';
-                    }
-                } else {
-                    panel.className = 'transition-opacity duration-300 hidden opacity-0 h-0 overflow-hidden';
-                }
+                panel.style.cssText = 'display:block;animation:tabFadeIn 0.25s ease forwards;';
+                const grid   = panel.firstChild;
+                const items  = credentialGroups[i].items;
+                const accent = GROUP_ACCENTS[i];
+                const accentRgb = i % 2 === 0 ? '166,140,255' : '255,89,227';
+                const LIMIT  = 3;
+                grid.innerHTML = '';
+                const visible = (showAll || items.length <= LIMIT) ? items : items.slice(0, LIMIT);
+
+                visible.forEach(cred => {
+                    const card = document.createElement('div');
+                    card.className = 'cred-card flex flex-col';
+                    card.style.border = `1px solid rgba(72,72,73,0.18)`;
+                    card.innerHTML = `
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                            <span style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:${accent};">${cred.issuer}</span>
+                            <span style="font-size:11px;color:#484849;font-weight:500;">${cred.date}</span>
+                        </div>
+                        <p style="font-size:14px;font-weight:600;color:#ffffff;line-height:1.45;margin-bottom:14px;font-family:'Epilogue',sans-serif;">${cred.title}</p>
+                        ${cred.id ? `<p style="font-size:10px;font-family:monospace;color:#484849;margin-bottom:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${cred.id}">ID: ${cred.id}</p>` : ''}
+                        <div style="display:flex;flex-wrap:wrap;gap:6px;flex:1;align-content:flex-start;">
+                            ${cred.skills.map(s => `<span class="skill-pill">${s}</span>`).join('')}
+                        </div>
+                        ${cred.url ? `
+                        <a href="${cred.url}" target="_blank" rel="noopener"
+                           style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:${accent};text-decoration:none;margin-top:18px;padding-top:14px;border-top:1px solid rgba(72,72,73,0.12);transition:opacity 0.2s;"
+                           onmouseover="this.style.opacity='0.65'" onmouseout="this.style.opacity='1'">
+                            View Certificate
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>` : ''}
+                    `;
+                    grid.appendChild(card);
+                });
+
+                const seeAllContainer = document.getElementById('credentials-see-all-container');
+                seeAllContainer.style.display = (items.length > LIMIT && !showAll) ? 'block' : 'none';
             });
         }
 
-        document.getElementById('credentials-see-all-btn').onclick = () => {
-            renderCredentials(true);
-        };
+        document.getElementById('credentials-see-all-btn').onclick = () => renderCredentials(true);
 
         renderCredentials();
 
@@ -1844,7 +2176,6 @@
             chatBtn.classList.toggle('open');
             if (chatWindow.classList.contains('open')) {
                 chatInput.focus();
-                // Custom close icon toggle
                 chatBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>';
             } else {
                 chatBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>';
@@ -1858,11 +2189,8 @@
         function addMessageToUI(text, sender) {
             const msgDiv = document.createElement('div');
             msgDiv.className = `message ${sender}`;
-            // Simple markdown-like parsing for bold text
             const formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
             msgDiv.innerHTML = formattedText;
-
-            // Insert before loading indicator
             chatMessages.insertBefore(msgDiv, loadingIndicator);
             scrollToBottom();
         }
@@ -1876,7 +2204,6 @@
             const text = chatInput.value.trim();
             if (!text) return;
 
-            // UI Updates
             chatInput.value = '';
             chatInput.disabled = true;
             sendBtn.disabled = true;
@@ -1884,11 +2211,9 @@
             loadingIndicator.style.display = 'flex';
             scrollToBottom();
 
-            // Update History
             messageHistory.push({ role: 'user', content: text });
 
             try {
-                // Call our Vercel Serverless Function
                 const response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -1900,8 +2225,6 @@
                 }
 
                 const data = await response.json();
-
-                // Add AI response to UI and history
                 addMessageToUI(data.content, 'system');
                 messageHistory.push({ role: 'assistant', content: data.content });
 
@@ -1909,7 +2232,6 @@
                 console.error('Chat Error:', error);
                 addMessageToUI("Sorry, I'm having trouble connecting right now. Please try again later.", 'system');
             } finally {
-                // Restore UI
                 loadingIndicator.style.display = 'none';
                 chatInput.disabled = false;
                 sendBtn.disabled = false;
@@ -1934,7 +2256,7 @@
         function openDrawer() {
             drawerOverlay.classList.add('open');
             drawer.classList.add('open');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
         }
 
         function closeDrawer() {
@@ -1947,12 +2269,37 @@
         closeDrawerBtn.addEventListener('click', closeDrawer);
         drawerOverlay.addEventListener('click', closeDrawer);
 
-        // Escape key to close drawer
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && drawer.classList.contains('open')) {
-                closeDrawer();
+            if (e.key === 'Escape') {
+                if (drawer.classList.contains('open')) closeDrawer();
+                if (projectDrawer.classList.contains('open')) {
+                    projectDrawer.classList.remove('open');
+                    document.getElementById('article-drawer-overlay').classList.remove('open');
+                }
             }
         });
+
+        // Tech tooltip — init after DOM is ready (div lives above this script)
+        const techTip = document.getElementById('tech-tip');
+        const techTipLabel = document.getElementById('tech-tip-label');
+        const techTipText2 = document.getElementById('tech-tip-text');
+        if (techTip) {
+            document.querySelectorAll('[data-tip]').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    techTipLabel.textContent = el.textContent.trim();
+                    techTipText2.textContent = el.dataset.tip;
+                    techTip.classList.add('show');
+                });
+                el.addEventListener('mousemove', (e) => {
+                    const x = e.clientX + 16;
+                    const y = e.clientY - 12;
+                    const tipW = techTip.offsetWidth;
+                    techTip.style.left = (x + tipW > window.innerWidth ? e.clientX - tipW - 8 : x) + 'px';
+                    techTip.style.top = Math.max(8, y) + 'px';
+                });
+                el.addEventListener('mouseleave', () => techTip.classList.remove('show'));
+            });
+        }
 
     </script>
 </body>
