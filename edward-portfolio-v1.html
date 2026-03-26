@@ -26,11 +26,11 @@
                         "on-surface": "#ffffff",
                         "on-surface-variant": "#adaaab",
                         "outline-variant": "#484849",
-                        "primary": "#a68cff",
+                        "primary": "#163a63",
                         "on-primary": "#ffffff",
-                        "primary-container": "#c084fc",
-                        "secondary": "#a68cff",
-                        "tertiary": "#ff59e3",
+                        "primary-container": "#244f7e",
+                        "secondary": "#163a63",
+                        "tertiary": "#244f7e",
                     }
                 }
             }
@@ -61,6 +61,10 @@
             background: #0e0e0f;
             color: #ffffff;
             margin: 0;
+            --accent: #163a63;
+            --accent-strong: #244f7e;
+            --accent-soft: rgba(22, 58, 99, 0.18);
+            --accent-faint: rgba(22, 58, 99, 0.08);
         }
 
         h1,
@@ -76,7 +80,7 @@
             position: fixed;
             width: 26px;
             height: 26px;
-            border: 1.5px solid #a68cff;
+            border: 1.5px solid var(--accent);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
@@ -90,7 +94,7 @@
             position: absolute;
             width: 5px;
             height: 5px;
-            background: #a68cff;
+            background: var(--accent);
             border-radius: 50%;
             top: 50%;
             left: 50%;
@@ -107,7 +111,7 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #a68cff;
+            background: var(--accent);
             border-radius: 99px;
         }
 
@@ -220,8 +224,8 @@
 
         .carousel-nav-btn:hover {
             background: #2c2c2d;
-            box-shadow: 0 0 15px rgba(166, 140, 255, 0.2);
-            color: #a68cff;
+            box-shadow: 0 0 15px rgba(22, 58, 99, 0.22);
+            color: #87acd6;
         }
 
         .carousel-nav-btn.prev {
@@ -332,20 +336,20 @@
         }
 
         .cred-card {
-            background: #1a191b;
-            border-radius: 12px;
-            padding: 22px 24px;
-            border: 1px solid rgba(72, 72, 73, 0.12);
+            background: linear-gradient(180deg, rgba(22, 58, 99, 0.22), rgba(22, 58, 99, 0.08));
+            border-radius: 20px;
+            padding: 28px 30px;
+            border: none;
             transition: box-shadow 0.2s, transform 0.2s;
             position: relative;
         }
         .cred-card:hover {
-            box-shadow: 0 10px 36px rgba(0,0,0,0.35);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.35);
             transform: translateY(-3px);
         }
 
         .project-title-gradient {
-            background: linear-gradient(135deg, #ffffff 0%, #a68cff 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #87acd6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -353,9 +357,9 @@
 
         .skill-pill {
             display: inline-block;
-            padding: 3px 10px;
-            background: #262627;
-            color: #a68cff;
+            padding: 7px 14px;
+            background: rgba(255, 255, 255, 0.06);
+            color: #ffffff;
             border-radius: 99px;
             font-size: 11px;
             font-weight: 600;
@@ -377,22 +381,49 @@
             left: 0;
             width: 48px;
             height: 3px;
-            background: linear-gradient(90deg, #a68cff, #ff59e3);
+            background: linear-gradient(90deg, #163a63, #244f7e);
             border-radius: 99px;
         }
 
         /* ── Stat cards ────────────────────── */
+        .stats-shell {
+            background: linear-gradient(180deg, #f6f1e8 0%, #efe8dc 100%);
+            border-radius: 28px;
+            padding: 18px;
+            box-shadow: inset 0 0 0 1px rgba(23, 23, 23, 0.06);
+        }
+
         .stat-card {
-            padding: 24px;
-            background: #1a191b;
-            border-radius: 20px;
-            border: 1px solid rgba(72, 72, 73, 0.15);
-            transition: box-shadow 0.2s, border-color 0.2s;
+            padding: 24px 18px 22px;
+            background: rgba(255, 255, 255, 0.46);
+            border-radius: 22px;
+            border: 1px solid rgba(16, 17, 20, 0.06);
+            transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
         }
 
         .stat-card:hover {
-            box-shadow: 0 0 20px rgba(166, 140, 255, 0.08);
-            border-color: rgba(166, 140, 255, 0.15);
+            background: rgba(255, 255, 255, 0.72);
+            box-shadow: 0 16px 28px rgba(16, 17, 20, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .stat-value {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            line-height: 0.95;
+            font-weight: 800;
+            letter-spacing: -0.06em;
+            color: #101114;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            line-height: 1.5;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-weight: 700;
+            color: #5d6268;
         }
 
         /* ── Nav ──────────────────────────── */
@@ -412,7 +443,7 @@
             left: 0;
             width: 0;
             height: 1.5px;
-            background: #a68cff;
+            background: var(--accent);
             transition: width 0.25s;
         }
 
@@ -440,9 +471,9 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #a68cff, #c084fc);
+            background: linear-gradient(135deg, #163a63, #244f7e);
             color: #ffffff;
-            box-shadow: 0 10px 25px rgba(166, 140, 255, 0.3);
+            box-shadow: 0 10px 25px rgba(22, 58, 99, 0.35);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -453,7 +484,7 @@
 
         #chat-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(166, 140, 255, 0.5);
+            box-shadow: 0 0 30px rgba(22, 58, 99, 0.45);
         }
 
         #chat-btn svg {
@@ -515,17 +546,17 @@
         .status-dot {
             width: 8px;
             height: 8px;
-            background: #a68cff;
+            background: var(--accent-strong);
             border-radius: 50%;
             display: inline-block;
-            box-shadow: 0 0 10px #a68cff;
+            box-shadow: 0 0 10px var(--accent-strong);
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(166, 140, 255, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(166, 140, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(166, 140, 255, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(22, 58, 99, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(22, 58, 99, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(22, 58, 99, 0); }
         }
 
         #chat-messages {
@@ -557,7 +588,7 @@
         }
 
         .message.user {
-            background: linear-gradient(135deg, #a68cff, #c084fc);
+            background: linear-gradient(135deg, #163a63, #244f7e);
             color: #ffffff;
             align-self: flex-end;
             border-bottom-right-radius: 4px;
@@ -589,7 +620,7 @@
 
         @keyframes bounce {
             0%, 80%, 100% { transform: scale(0); }
-            40% { transform: scale(1); background: #a68cff; }
+            40% { transform: scale(1); background: var(--accent-strong); }
         }
 
         @keyframes slideIn {
@@ -627,7 +658,7 @@
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #a68cff, #c084fc);
+            background: linear-gradient(135deg, #163a63, #244f7e);
             color: #ffffff;
             border: none;
             cursor: pointer;
@@ -638,7 +669,7 @@
         }
 
         #send-btn:hover {
-            box-shadow: 0 0 15px rgba(166, 140, 255, 0.4);
+            box-shadow: 0 0 15px rgba(22, 58, 99, 0.35);
             transform: scale(1.05);
         }
 
@@ -748,7 +779,7 @@
             font-weight: 700;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: #a68cff;
+            color: #87acd6;
             margin-bottom: 15px;
             display: block;
         }
@@ -765,8 +796,8 @@
         }
 
         .article-link-item:hover {
-            border-color: rgba(166, 140, 255, 0.2);
-            box-shadow: 0 4px 15px rgba(166, 140, 255, 0.05);
+            border-color: rgba(22, 58, 99, 0.28);
+            box-shadow: 0 4px 15px rgba(22, 58, 99, 0.12);
             transform: translateX(4px);
         }
 
@@ -821,7 +852,7 @@
         .breakdown-title {
             font-size: 12px;
             font-weight: 700;
-            color: #a68cff;
+            color: #87acd6;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             margin-bottom: 12px;
@@ -838,7 +869,7 @@
             position: fixed;
             background: #1a191b;
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(166, 140, 255, 0.18);
+            border: 1px solid rgba(22, 58, 99, 0.22);
             border-radius: 12px;
             padding: 12px 16px;
             max-width: 260px;
@@ -850,7 +881,7 @@
             opacity: 0;
             transform: translateY(8px) scale(0.97);
             transition: opacity 0.18s ease, transform 0.18s ease;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 20px rgba(166,140,255,0.06);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 20px rgba(22,58,99,0.14);
             font-family: 'Inter', sans-serif;
         }
 
@@ -864,10 +895,10 @@
             font-weight: 700;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: #a68cff;
+            color: #87acd6;
             margin-bottom: 6px;
             padding-bottom: 6px;
-            border-bottom: 1px solid rgba(166,140,255,0.12);
+            border-bottom: 1px solid rgba(22,58,99,0.18);
         }
 
         [data-tip] {
@@ -898,8 +929,8 @@
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <a href="staticfiles/Edward_Twumasi_CV_Latest.pdf" target="_blank"
-                class="px-5 py-2 text-sm font-bold rounded-full transition text-white hover:shadow-[0_0_15px_rgba(166,140,255,0.4)] hover:scale-105"
-                style="background: linear-gradient(135deg, #a68cff, #c084fc);">
+                class="px-5 py-2 text-sm font-bold rounded-full transition text-white hover:shadow-[0_0_15px_rgba(22,58,99,0.35)] hover:scale-105"
+                style="background: linear-gradient(135deg, #163a63, #244f7e);">
                 View CV
             </a>
         </nav>
@@ -908,17 +939,17 @@
     <!-- ══ HERO ═══════════════════════════════════════ -->
     <section class="min-h-screen flex items-center justify-center px-8 pt-20 relative overflow-hidden"
         id="hero"
-        style="background: radial-gradient(circle at 20% 40%, rgba(166,140,255,0.06) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(166,140,255,0.06) 0%, transparent 50%), #0e0e0f;">
+        style="background: radial-gradient(circle at 20% 40%, rgba(22,58,99,0.18) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(22,58,99,0.12) 0%, transparent 50%), #0e0e0f;">
         <canvas id="hero-canvas"></canvas>
         <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center w-full relative z-10">
             <div class="fade-in text-center md:text-left">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8" style="background:#1a191b; border: 1px solid rgba(72,72,73,0.3);">
-                    <span class="flex h-2 w-2 rounded-full animate-pulse" style="background:#a68cff;"></span>
+                    <span class="flex h-2 w-2 rounded-full animate-pulse" style="background:#244f7e;"></span>
                     <span class="text-[0.7rem] uppercase tracking-[0.1em] font-medium" style="color:#adaaab;">Senior Backend &amp; Systems Engineer · Accra, Ghana</span>
                 </div>
                 <h1 class="text-5xl lg:text-7xl mb-6 leading-[0.95] font-black" style="font-family:'Epilogue',sans-serif; letter-spacing:-0.04em;">
                     Edward<br>
-                    <span style="background: linear-gradient(135deg, #a68cff, #ff59e3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Twumasi</span>
+                    <span style="background: linear-gradient(135deg, #ffffff, #87acd6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Twumasi</span>
                 </h1>
                 <p class="text-lg mb-10 leading-relaxed max-w-md" style="color:#adaaab;">
                     Architecting resilient backend systems. Helping teams scale from thousands to millions of requests —
@@ -927,13 +958,13 @@
                 <div class="flex gap-4 flex-wrap">
                     <a href="#projects"
                         class="px-7 py-3 font-bold rounded-full transition text-sm hover:scale-105"
-                        style="background: linear-gradient(135deg, #a68cff, #c084fc); color:#ffffff; transition: box-shadow 0.3s, transform 0.3s;"
-                        onmouseover="this.style.boxShadow='0 0 25px rgba(166,140,255,0.4)'" onmouseout="this.style.boxShadow='none'">
+                        style="background: linear-gradient(135deg, #163a63, #244f7e); color:#ffffff; transition: box-shadow 0.3s, transform 0.3s;"
+                        onmouseover="this.style.boxShadow='0 0 25px rgba(22,58,99,0.35)'" onmouseout="this.style.boxShadow='none'">
                         See My Work
                     </a>
                     <a href="#contact"
-                        class="px-7 py-3 font-bold rounded-full transition text-sm hover:bg-[rgba(166,140,255,0.05)]"
-                        style="border: 1px solid rgba(166,140,255,0.3); color:#a68cff;">
+                        class="px-7 py-3 font-bold rounded-full transition text-sm hover:bg-[rgba(22,58,99,0.12)]"
+                        style="border: 1px solid rgba(22,58,99,0.35); color:#ffffff;">
                         Get in Touch
                     </a>
                     <a href="staticfiles/Edward_Twumasi_CV_Latest.pdf" target="_blank"
@@ -946,10 +977,10 @@
             <div class="fade-in hidden md:flex justify-center items-center">
                 <div class="relative">
                     <div class="absolute inset-0 rounded-3xl blur-3xl opacity-25 scale-110"
-                        style="background: linear-gradient(135deg, rgba(166,140,255,0.5), rgba(166,140,255,0.5));"></div>
+                        style="background: linear-gradient(135deg, rgba(22,58,99,0.58), rgba(36,79,126,0.42));"></div>
                     <img id="edward-image" src="staticfiles/1719185128651.jpeg" alt="Edward Twumasi"
                         class="relative w-72 h-72 rounded-3xl object-cover object-top image-float"
-                        style="box-shadow: 0 20px 40px rgba(166,140,255,0.15), 0 0 0 1px rgba(72,72,73,0.2);">
+                        style="box-shadow: 0 20px 40px rgba(22,58,99,0.22), 0 0 0 1px rgba(72,72,73,0.2);">
                 </div>
             </div>
         </div>
@@ -975,159 +1006,207 @@
                 </div>
 
                 <!-- Right: Stats -->
-                <div class="grid grid-cols-2 gap-4 md:gap-5 self-start mt-2 md:mt-0 xl:mt-4">
-                    <div class="stat-card fade-in flex flex-col items-center justify-center py-6">
-                        <div class="text-4xl md:text-5xl font-bold mb-2" style="font-family:'Epilogue',sans-serif; color:#a68cff;">
+                <div class="stats-shell fade-in self-start mt-2 md:mt-0 xl:mt-4">
+                    <div class="grid grid-cols-2 gap-4 md:gap-5">
+                    <div class="stat-card flex flex-col items-center justify-center">
+                        <div class="stat-value">
                             <span class="stat-number" data-target="6">0</span><span>+</span>
                         </div>
-                        <div class="text-[10px] md:text-[11px] uppercase font-bold tracking-widest text-center" style="color:#adaaab;">
+                        <div class="stat-label text-center">
                             Years Exp.</div>
                     </div>
-                    <div class="stat-card fade-in flex flex-col items-center justify-center py-6">
-                        <div class="text-4xl md:text-5xl font-bold mb-2" style="font-family:'Epilogue',sans-serif; color:#a68cff;">
+                    <div class="stat-card flex flex-col items-center justify-center">
+                        <div class="stat-value">
                             <span class="stat-number" data-target="8">0</span><span>+</span>
                         </div>
-                        <div class="text-[10px] md:text-[11px] uppercase font-bold tracking-widest text-center" style="color:#adaaab;">
+                        <div class="stat-label text-center">
                             Mentored</div>
                     </div>
-                    <div class="stat-card fade-in flex flex-col items-center justify-center py-6">
-                        <div class="text-4xl md:text-5xl font-bold mb-2" style="font-family:'Epilogue',sans-serif; color:#a68cff;">
+                    <div class="stat-card flex flex-col items-center justify-center">
+                        <div class="stat-value">
                             <span class="stat-number" data-target="15">0</span><span>+</span>
                         </div>
-                        <div class="text-[10px] md:text-[11px] uppercase font-bold tracking-widest text-center" style="color:#adaaab;">
+                        <div class="stat-label text-center">
                             Deployments</div>
                     </div>
-                    <div class="stat-card fade-in flex flex-col items-center justify-center py-6">
-                        <div class="text-3xl md:text-4xl font-bold mb-2" style="font-family:'Epilogue',sans-serif; color:#ff59e3;">99.99%</div>
-                        <div class="text-[10px] md:text-[11px] uppercase font-bold tracking-widest text-center" style="color:#adaaab;">
+                    <div class="stat-card flex flex-col items-center justify-center">
+                        <div class="stat-value">99.99%</div>
+                        <div class="stat-label text-center">
                             SLA Uptime</div>
+                    </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Bottom: Core Technologies — Bento Skill Grid -->
+            <!-- Bottom: Core Technologies — Interactive Cloud -->
             <div class="mt-20 pt-16 fade-in" id="tech-section" style="border-top: 1px solid rgba(72,72,73,0.15); position:relative;">
 
                 <style>
-                /* ── Skill Bento ──────────────────────────── */
-                .skill-bento-grid {
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 14px;
+                /* ── Core Tech Cloud ─────────────────────── */
+                .tech-cloud-shell {
+                    background: linear-gradient(180deg, #f6f1e8 0%, #efe8dc 100%);
+                    color: #171717;
+                    border-radius: 32px;
+                    padding: 34px 28px 30px;
+                    box-shadow: inset 0 0 0 1px rgba(23, 23, 23, 0.06);
                 }
-                @media (max-width: 640px) {
-                    .skill-bento-grid { grid-template-columns: 1fr; }
+                .tech-cloud-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-end;
+                    gap: 18px;
+                    margin-bottom: 24px;
                 }
-                .skill-bento-card {
-                    border-radius: 18px;
-                    padding: 24px 26px 22px;
-                    border: 1px solid rgba(72,72,73,0.14);
-                    position: relative;
-                    overflow: hidden;
-                    background: #131314;
-                    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
-                    cursor: default;
-                }
-                .skill-bento-card::after {
-                    content: '';
-                    position: absolute;
-                    inset: 0;
-                    border-radius: 18px;
-                    opacity: 0;
-                    transition: opacity 0.4s;
-                    pointer-events: none;
-                }
-                .skill-bento-card:hover {
-                    transform: translateY(-3px);
-                }
-                .skill-bento-card:hover::after { opacity: 1; }
-
-                .skill-bento-title {
-                    font-size: 10px;
-                    font-weight: 700;
-                    letter-spacing: 0.12em;
-                    text-transform: uppercase;
-                    margin-bottom: 2px;
-                }
-                .skill-bento-sub {
+                .tech-cloud-kicker {
                     font-size: 11px;
-                    color: #484849;
-                    margin-bottom: 18px;
-                    font-style: italic;
+                    font-weight: 700;
+                    letter-spacing: 0.14em;
+                    text-transform: uppercase;
+                    color: #4f5f72;
+                    margin-bottom: 10px;
                 }
-                .skill-bento-chips {
+                .tech-cloud-title {
+                    font-family: 'Epilogue', sans-serif;
+                    font-size: clamp(1.8rem, 3vw, 2.8rem);
+                    line-height: 1;
+                    letter-spacing: -0.04em;
+                    color: #101114;
+                    margin: 0;
+                }
+                .tech-cloud-copy {
+                    max-width: 620px;
+                    color: #5e615c;
+                    font-size: 14px;
+                    line-height: 1.7;
+                    margin-top: 12px;
+                }
+                .tech-legend {
                     display: flex;
                     flex-wrap: wrap;
-                    gap: 7px;
+                    gap: 10px;
+                    margin-bottom: 24px;
                 }
-                .skill-chip {
+                .tech-legend-btn {
+                    appearance: none;
+                    border: none;
+                    border-radius: 999px;
+                    padding: 10px 14px;
+                    font-size: 12px;
+                    font-weight: 700;
+                    letter-spacing: 0.04em;
+                    cursor: pointer;
+                    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, filter 0.2s ease;
+                    color: #101114;
+                }
+                .tech-legend-btn:hover,
+                .tech-legend-btn.active {
+                    transform: translateY(-1px);
+                    box-shadow: 0 12px 24px rgba(16, 17, 20, 0.14);
+                    filter: saturate(1.05);
+                }
+                .tech-cloud-grid {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 14px 12px;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 260px;
+                }
+                .tech-cloud-chip {
                     position: relative;
                     display: inline-flex;
                     align-items: center;
-                    gap: 5px;
-                    padding: 5px 11px 5px 9px;
+                    gap: 8px;
+                    padding: 12px 16px;
                     border-radius: 99px;
-                    font-size: 11.5px;
-                    font-weight: 500;
-                    border: 1px solid;
+                    font-size: 13px;
+                    font-weight: 700;
+                    border: none;
                     cursor: pointer;
-                    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+                    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, filter 0.2s ease;
                     user-select: none;
                 }
-                .skill-chip:hover {
+                .tech-cloud-chip:hover,
+                .tech-cloud-chip.focused {
                     transform: translateY(-2px) scale(1.04);
+                    box-shadow: 0 18px 30px rgba(16, 17, 20, 0.16);
                 }
-                .skill-chip-dot {
-                    width: 5px;
-                    height: 5px;
+                .tech-cloud-chip.dimmed {
+                    opacity: 0.12;
+                    filter: saturate(0.35) blur(0.4px);
+                }
+                .tech-cloud-chip.focused {
+                    box-shadow: 0 0 0 2px rgba(255,255,255,0.85), 0 18px 30px rgba(16, 17, 20, 0.16);
+                    filter: saturate(1.15);
+                }
+                .tech-cloud-chip-dot {
+                    width: 7px;
+                    height: 7px;
                     border-radius: 50%;
                     flex-shrink: 0;
                 }
-                /* Chip tooltip */
-                .skill-chip-tooltip {
+                .tech-cloud-chip[data-size="lg"] { font-size: 16px; padding: 15px 20px; }
+                .tech-cloud-chip[data-size="md"] { font-size: 14px; padding: 13px 17px; }
+                .tech-cloud-chip[data-size="sm"] { font-size: 12px; padding: 11px 14px; }
+                .tech-cloud-tooltip {
                     position: fixed;
                     pointer-events: none;
                     display: none;
-                    background: rgba(20,19,21,0.98);
-                    border-radius: 12px;
-                    padding: 12px 15px;
-                    max-width: 260px;
+                    background: rgba(248, 243, 235, 0.98);
+                    border-radius: 16px;
+                    padding: 14px 16px;
+                    max-width: 280px;
                     z-index: 9999;
-                    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+                    box-shadow: 0 18px 40px rgba(16,17,20,0.14);
                     backdrop-filter: blur(12px);
-                    border: 1px solid rgba(72,72,73,0.3);
+                    border: 1px solid rgba(16,17,20,0.08);
                 }
-                .skill-chip-tooltip p { margin: 0; }
-                .skill-chip-tooltip .tt-name {
-                    font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 6px;
+                .tech-cloud-tooltip p { margin: 0; }
+                .tech-cloud-tooltip .tt-name {
+                    font-size: 12px; font-weight: 700; color: #101114; margin-bottom: 6px;
                 }
-                .skill-chip-tooltip .tt-desc {
-                    font-size: 11px; color: #adaaab; line-height: 1.6;
+                .tech-cloud-tooltip .tt-desc {
+                    font-size: 11px; color: #5e615c; line-height: 1.6;
                 }
-                /* Bento entrance animation */
-                @keyframes bentoIn {
+                @keyframes cloudIn {
                     from { opacity: 0; transform: translateY(18px) scale(0.97); }
                     to   { opacity: 1; transform: translateY(0) scale(1); }
                 }
-                .skill-bento-card.bento-animate {
-                    animation: bentoIn 0.45s cubic-bezier(0.22,1,0.36,1) both;
+                .tech-cloud-chip.cloud-animate {
+                    animation: cloudIn 0.45s cubic-bezier(0.22,1,0.36,1) both;
+                }
+                @media (max-width: 768px) {
+                    .tech-cloud-header {
+                        display: block;
+                    }
+                    .tech-cloud-shell {
+                        padding: 26px 18px 22px;
+                        border-radius: 24px;
+                    }
+                    .tech-cloud-grid {
+                        justify-content: flex-start;
+                    }
                 }
                 </style>
 
-                <!-- Header -->
-                <div class="flex items-center gap-3 mb-10" style="z-index:2; position:relative;">
-                    <h3 class="text-sm font-bold uppercase tracking-widest" style="color:#adaaab;">Core Technologies</h3>
-                    <span class="text-xs" style="color:#484849;">— hover any skill</span>
-                </div>
+                <div class="tech-cloud-shell">
+                    <div class="tech-cloud-header">
+                        <div>
+                            <div class="tech-cloud-kicker">Core Technologies</div>
+                            <h3 class="tech-cloud-title">A living stack map</h3>
+                            <p class="tech-cloud-copy">Hover or click a category in the legend to focus the related technologies in the cloud.</p>
+                        </div>
+                    </div>
 
-                <!-- Chip tooltip (shared) -->
-                <div id="chip-tooltip" class="skill-chip-tooltip">
-                    <p class="tt-name" id="chip-tt-name"></p>
-                    <p class="tt-desc" id="chip-tt-desc"></p>
-                </div>
+                    <div class="tech-legend" id="tech-legend"></div>
 
-                <!-- Bento grid -->
-                <div class="skill-bento-grid" id="skill-bento-grid"></div>
+                    <div id="chip-tooltip" class="tech-cloud-tooltip">
+                        <p class="tt-name" id="chip-tt-name"></p>
+                        <p class="tt-desc" id="chip-tt-desc"></p>
+                    </div>
+
+                    <div class="tech-cloud-grid" id="skill-bento-grid"></div>
+                </div>
 
             </div>
         </div>
@@ -1135,7 +1214,7 @@
 
     <script>
     /* ═══════════════════════════════════════════════════
-       SKILL BENTO GRID
+       CORE TECH CLOUD
     ═══════════════════════════════════════════════════ */
     (function() {
         const GROUPS = [
@@ -1143,13 +1222,9 @@
                 key: 'languages',
                 label: 'Languages & Runtimes',
                 sub: 'The execution layer',
-                color: '#a68cff',
-                bg: 'rgba(166,140,255,0.04)',
-                border: 'rgba(166,140,255,0.14)',
-                hoverShadow: 'rgba(166,140,255,0.12)',
-                chipBg: 'rgba(166,140,255,0.08)',
-                chipBorder: 'rgba(166,140,255,0.2)',
-                chipHoverBg: 'rgba(166,140,255,0.16)',
+                color: '#315c85',
+                bg: 'rgba(49,92,133,0.13)',
+                hoverShadow: 'rgba(49,92,133,0.14)',
                 icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
                 skills: [
                     { name: 'C# (.NET Core)',      desc: 'ASP.NET Core REST APIs · Event-driven services with Kafka · Production microservices for enterprise clients' },
@@ -1164,13 +1239,9 @@
                 key: 'arch',
                 label: 'Systems & Architecture',
                 sub: 'Patterns that scale to millions',
-                color: '#ff59e3',
-                bg: 'rgba(255,89,227,0.04)',
-                border: 'rgba(255,89,227,0.14)',
-                hoverShadow: 'rgba(255,89,227,0.12)',
-                chipBg: 'rgba(255,89,227,0.08)',
-                chipBorder: 'rgba(255,89,227,0.2)',
-                chipHoverBg: 'rgba(255,89,227,0.16)',
+                color: '#8b5e3c',
+                bg: 'rgba(139,94,60,0.14)',
+                hoverShadow: 'rgba(139,94,60,0.14)',
                 icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><line x1="12" y1="7" x2="5" y2="17"/><line x1="12" y1="7" x2="19" y2="17"/></svg>`,
                 skills: [
                     { name: 'Microservices',        desc: 'Distributed system design · Service mesh patterns · API gateway composition · Independent deployability at scale' },
@@ -1184,13 +1255,9 @@
                 key: 'cloud',
                 label: 'Cloud & Infrastructure',
                 sub: 'From code to production',
-                color: '#38bdf8',
-                bg: 'rgba(56,189,248,0.04)',
-                border: 'rgba(56,189,248,0.14)',
-                hoverShadow: 'rgba(56,189,248,0.12)',
-                chipBg: 'rgba(56,189,248,0.08)',
-                chipBorder: 'rgba(56,189,248,0.2)',
-                chipHoverBg: 'rgba(56,189,248,0.16)',
+                color: '#3e7a67',
+                bg: 'rgba(62,122,103,0.14)',
+                hoverShadow: 'rgba(62,122,103,0.14)',
                 icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>`,
                 skills: [
                     { name: 'AWS',                  desc: 'EC2 for ML inference workloads · S3 for model artifacts · RDS PostgreSQL · Lambda serverless · REACHY AI production deployment' },
@@ -1205,13 +1272,9 @@
                 key: 'data',
                 label: 'Data & AI Layer',
                 sub: 'Where data lives, intelligence runs',
-                color: '#34d399',
-                bg: 'rgba(52,211,153,0.04)',
-                border: 'rgba(52,211,153,0.14)',
-                hoverShadow: 'rgba(52,211,153,0.12)',
-                chipBg: 'rgba(52,211,153,0.08)',
-                chipBorder: 'rgba(52,211,153,0.2)',
-                chipHoverBg: 'rgba(52,211,153,0.16)',
+                color: '#76508f',
+                bg: 'rgba(118,80,143,0.14)',
+                hoverShadow: 'rgba(118,80,143,0.14)',
                 icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>`,
                 skills: [
                     { name: 'PostgreSQL',           desc: 'Primary relational store across multiple production systems · RDS in AWS · Complex query optimisation and indexing strategies' },
@@ -1225,95 +1288,106 @@
         ];
 
         const grid = document.getElementById('skill-bento-grid');
+        const legend = document.getElementById('tech-legend');
         const tooltip = document.getElementById('chip-tooltip');
         const ttName  = document.getElementById('chip-tt-name');
         const ttDesc  = document.getElementById('chip-tt-desc');
+        let activeGroup = null;
 
-        if (!grid) return;
+        if (!grid || !legend) return;
 
-        // Build cards
+        GROUPS.forEach((g) => {
+            const btn = document.createElement('button');
+            btn.className = 'tech-legend-btn';
+            btn.dataset.group = g.key;
+            btn.style.background = g.bg;
+            btn.style.color = g.color;
+            btn.innerHTML = `${g.label}`;
+
+            btn.addEventListener('mouseenter', () => !activeGroup && setFocusGroup(g.key));
+            btn.addEventListener('mouseleave', () => !activeGroup && setFocusGroup(null));
+            btn.addEventListener('click', () => {
+                activeGroup = activeGroup === g.key ? null : g.key;
+                setFocusGroup(activeGroup);
+                syncLegend();
+            });
+
+            legend.appendChild(btn);
+        });
+
         GROUPS.forEach((g, gi) => {
-            const card = document.createElement('div');
-            card.className = 'skill-bento-card';
-            card.style.background = g.bg;
-            card.style.borderColor = g.border;
-            card.style.setProperty('--accent', g.color);
-            card.style.animationDelay = (gi * 80) + 'ms';
-
-            // Top-edge accent line
-            const line = document.createElement('div');
-            line.style.cssText = `position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,${g.color}55,transparent);border-radius:18px 18px 0 0;`;
-            card.appendChild(line);
-
-            // Hover glow via JS (::after replacement)
-            card.addEventListener('mouseenter', () => {
-                card.style.borderColor = g.border.replace('0.14', '0.3');
-                card.style.boxShadow = `0 16px 48px ${g.hoverShadow}, inset 0 0 60px ${g.bg}`;
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.borderColor = g.border;
-                card.style.boxShadow = '';
-            });
-
-            // Header
-            const header = document.createElement('div');
-            header.style.cssText = 'display:flex;align-items:center;gap:10px;margin-bottom:6px;';
-            header.innerHTML = `
-                <div style="width:30px;height:30px;border-radius:8px;background:${g.bg.replace('0.04','0.12')};display:flex;align-items:center;justify-content:center;color:${g.color};flex-shrink:0;">${g.icon}</div>
-                <div>
-                    <p class="skill-bento-title" style="color:${g.color};">${g.label}</p>
-                    <p class="skill-bento-sub">${g.sub}</p>
-                </div>`;
-            card.appendChild(header);
-
-            // Chips
-            const chips = document.createElement('div');
-            chips.className = 'skill-bento-chips';
-            g.skills.forEach(s => {
-                const chip = document.createElement('span');
-                chip.className = 'skill-chip';
-                chip.style.cssText = `background:${g.chipBg};border-color:${g.chipBorder};color:${g.color};`;
-                chip.innerHTML = `<span class="skill-chip-dot" style="background:${g.color};opacity:0.7;"></span>${s.name}`;
+            g.skills.forEach((s, si) => {
+                const chip = document.createElement('button');
+                chip.type = 'button';
+                chip.className = 'tech-cloud-chip';
+                chip.dataset.group = g.key;
+                chip.dataset.size = (si % 5 === 0) ? 'lg' : (si % 2 === 0 ? 'md' : 'sm');
+                chip.style.background = g.bg;
+                chip.style.color = g.color;
+                chip.style.animationDelay = ((gi * 120) + (si * 45)) + 'ms';
+                chip.innerHTML = `<span class="tech-cloud-chip-dot" style="background:${g.color};"></span>${s.name}`;
 
                 chip.addEventListener('mouseenter', e => {
-                    chip.style.background = g.chipHoverBg;
-                    chip.style.boxShadow = `0 4px 16px ${g.hoverShadow}`;
+                    chip.classList.add('focused');
                     ttName.textContent = s.name;
                     ttName.style.color = g.color;
                     ttDesc.textContent = s.desc;
                     positionTooltip(e);
                     tooltip.style.display = 'block';
+                    if (!activeGroup) setFocusGroup(g.key);
                 });
                 chip.addEventListener('mousemove', positionTooltip);
                 chip.addEventListener('mouseleave', () => {
-                    chip.style.background = g.chipBg;
-                    chip.style.boxShadow = '';
+                    chip.classList.remove('focused');
                     tooltip.style.display = 'none';
+                    if (!activeGroup) setFocusGroup(null);
+                });
+                chip.addEventListener('click', () => {
+                    activeGroup = activeGroup === g.key ? null : g.key;
+                    setFocusGroup(activeGroup);
+                    syncLegend();
                 });
 
-                chips.appendChild(chip);
+                grid.appendChild(chip);
             });
-            card.appendChild(chips);
-            grid.appendChild(card);
         });
 
         function positionTooltip(e) {
-            const margin = 14;
+            const margin = 8;
+            const tw = 290, th = 110;
             let x = e.clientX + margin;
-            let y = e.clientY - 10;
-            const tw = 270, th = 90;
+            let y = e.clientY - th - margin;
             if (x + tw > window.innerWidth)  x = e.clientX - tw - margin;
-            if (y + th > window.innerHeight) y = e.clientY - th - margin;
+            if (y < margin) y = e.clientY + margin;
             tooltip.style.left = x + 'px';
             tooltip.style.top  = y + 'px';
         }
 
-        // Trigger entrance animations when section scrolls into view
+        function setFocusGroup(groupKey) {
+            document.querySelectorAll('.tech-cloud-chip').forEach((chip) => {
+                const match = !groupKey || chip.dataset.group === groupKey;
+                chip.classList.toggle('dimmed', !match);
+                chip.classList.toggle('focused', !!groupKey && match);
+                chip.style.zIndex = match ? '2' : '1';
+            });
+            document.querySelectorAll('.tech-legend-btn').forEach((btn) => {
+                btn.classList.toggle('active', !!groupKey && btn.dataset.group === groupKey);
+                btn.style.opacity = !groupKey || btn.dataset.group === groupKey ? '1' : '0.22';
+                btn.style.filter = !groupKey || btn.dataset.group === groupKey ? 'none' : 'grayscale(0.15)';
+            });
+        }
+
+        function syncLegend() {
+            document.querySelectorAll('.tech-legend-btn').forEach((btn) => {
+                btn.classList.toggle('active', !!activeGroup && btn.dataset.group === activeGroup);
+            });
+        }
+
         const observer = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting) {
-                document.querySelectorAll('.skill-bento-card').forEach((card, i) => {
-                    card.style.animationDelay = (i * 90) + 'ms';
-                    card.classList.add('bento-animate');
+                document.querySelectorAll('.tech-cloud-chip').forEach((chip, i) => {
+                    chip.style.animationDelay = (i * 35) + 'ms';
+                    chip.classList.add('cloud-animate');
                 });
                 observer.disconnect();
             }
@@ -1348,7 +1422,7 @@
         <p class="text-center mt-8 text-xs font-medium tracking-widest" id="card-counter" style="color:#484849;"></p>
         <div class="mt-12 text-center">
             <a href="https://github.com/teckedd-code2save" target="_blank"
-                class="inline-flex items-center gap-2 px-6 py-3 font-semibold rounded-full transition text-sm text-[#adaaab] hover:text-white hover:border-[rgba(166,140,255,0.3)]"
+                class="inline-flex items-center gap-2 px-6 py-3 font-semibold rounded-full transition text-sm text-[#adaaab] hover:text-white hover:border-[rgba(22,58,99,0.35)]"
                 style="border: 1px solid rgba(72,72,73,0.3);">
                 See All Projects on GitHub
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
@@ -1362,17 +1436,17 @@
         <div class="max-w-6xl mx-auto px-8">
             <h2 class="text-4xl text-white mb-2" style="font-family:'Epilogue',sans-serif;font-weight:700;">Tools &amp;
                 Packages</h2>
-            <div class="h-px w-12 mb-10 rounded-full" style="background: linear-gradient(90deg, #a68cff, #ff59e3);"></div>
+            <div class="h-px w-12 mb-10 rounded-full" style="background: linear-gradient(90deg, #163a63, #244f7e);"></div>
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Tool Card: Datafy -->
                 <div class="fade-in p-8 rounded-2xl flex flex-col transition-all duration-300"
                     style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
-                    onmouseover="this.style.borderColor='rgba(166,140,255,0.2)'; this.style.boxShadow='0 20px 40px rgba(166,140,255,0.06)';"
+                    onmouseover="this.style.borderColor='rgba(22,58,99,0.26)'; this.style.boxShadow='0 20px 40px rgba(22,58,99,0.14)';"
                     onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
                     <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs font-bold tracking-widest uppercase" style="color:#a68cff;">NPM Package</span>
+                        <span class="text-xs font-bold tracking-widest uppercase" style="color:#87acd6;">NPM Package</span>
                         <a href="https://www.npmjs.com/package/@teckedd-code2save/datafy" target="_blank"
-                            class="transition-colors" style="color:#484849;" onmouseover="this.style.color='#a68cff'" onmouseout="this.style.color='#484849'">↗</a>
+                            class="transition-colors" style="color:#484849;" onmouseover="this.style.color='#87acd6'" onmouseout="this.style.color='#484849'">↗</a>
                     </div>
                     <div class="flex items-center gap-3 mb-3">
                         <h3 class="text-2xl text-white" style="font-family:'Epilogue',sans-serif;">@teckedd-code2save/datafy</h3>
@@ -1384,34 +1458,34 @@
                     </div>
                     <div class="flex gap-4 mt-auto">
                         <a href="https://www.npmjs.com/package/@teckedd-code2save/datafy" target="_blank"
-                            class="px-5 py-2.5 font-bold rounded-full transition text-sm text-center text-white hover:shadow-[0_0_15px_rgba(166,140,255,0.4)]"
-                            style="background: linear-gradient(135deg, #a68cff, #c084fc);">View on NPM</a>
+                            class="px-5 py-2.5 font-bold rounded-full transition text-sm text-center text-white hover:shadow-[0_0_15px_rgba(22,58,99,0.35)]"
+                            style="background: linear-gradient(135deg, #163a63, #244f7e);">View on NPM</a>
                     </div>
                 </div>
 
                 <!-- Tool Card: B2DP -->
                 <div class="fade-in p-8 rounded-2xl flex flex-col transition-all duration-300"
                     style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
-                    onmouseover="this.style.borderColor='rgba(166,140,255,0.2)'; this.style.boxShadow='0 20px 40px rgba(166,140,255,0.06)';"
+                    onmouseover="this.style.borderColor='rgba(22,58,99,0.26)'; this.style.boxShadow='0 20px 40px rgba(22,58,99,0.14)';"
                     onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
                     <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs font-bold tracking-widest uppercase" style="color:#a68cff;">NPM Package</span>
+                        <span class="text-xs font-bold tracking-widest uppercase" style="color:#87acd6;">NPM Package</span>
                         <a href="https://www.npmjs.com/package/@teckedd-code2save/b2dp" target="_blank"
-                            class="transition-colors" style="color:#484849;" onmouseover="this.style.color='#a68cff'" onmouseout="this.style.color='#484849'">↗</a>
+                            class="transition-colors" style="color:#484849;" onmouseover="this.style.color='#87acd6'" onmouseout="this.style.color='#484849'">↗</a>
                     </div>
                     <div class="flex items-center gap-3 mb-3">
                         <h3 class="text-2xl text-white" style="font-family:'Epilogue',sans-serif;">@teckedd-code2save/b2dp</h3>
                     </div>
                     <p class="text-sm leading-relaxed mb-6" style="color:#adaaab;">Business-to-Data-Platform CLI. One-command setup for the b2dp skill ecosystem across Antigravity, Claude, and Cursor.</p>
                     <div class="flex flex-wrap gap-2 mb-8">
-                        <span class="skill-pill" style="color:#a68cff;">CLI</span>
-                        <span class="skill-pill" style="color:#a68cff;">AI Workflow</span>
-                        <span class="skill-pill" style="color:#a68cff;">Skill SDK</span>
+                        <span class="skill-pill">CLI</span>
+                        <span class="skill-pill">AI Workflow</span>
+                        <span class="skill-pill">Skill SDK</span>
                     </div>
                     <div class="flex gap-4 mt-auto">
                         <a href="https://www.npmjs.com/package/@teckedd-code2save/b2dp" target="_blank"
-                            class="px-5 py-2.5 font-bold rounded-full transition text-sm text-center text-white hover:shadow-[0_0_15px_rgba(166,140,255,0.3)]"
-                            style="background: linear-gradient(135deg, #a68cff, #591adc);">View on NPM</a>
+                            class="px-5 py-2.5 font-bold rounded-full transition text-sm text-center text-white hover:shadow-[0_0_15px_rgba(22,58,99,0.35)]"
+                            style="background: linear-gradient(135deg, #163a63, #244f7e);">View on NPM</a>
                     </div>
                 </div>
             </div>
@@ -1426,7 +1500,7 @@
             <div id="credentials-container"></div>
             <div class="mt-10 text-center" id="credentials-see-all-container" style="display:none;">
                 <button id="credentials-see-all-btn"
-                    style="padding:10px 28px;border-radius:99px;font-size:13px;font-weight:700;background:linear-gradient(135deg,#a68cff,#ff59e3);color:#ffffff;border:none;cursor:pointer;box-shadow:0 0 24px rgba(166,140,255,0.2);transition:opacity 0.2s;"
+                    style="padding:10px 28px;border-radius:99px;font-size:13px;font-weight:700;background:linear-gradient(135deg,#163a63,#244f7e);color:#ffffff;border:none;cursor:pointer;box-shadow:0 0 24px rgba(22,58,99,0.2);transition:opacity 0.2s;"
                     onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
                     Show All Certifications
                 </button>
@@ -1437,18 +1511,18 @@
     <!-- ══ CV SECTION ══════════════════════════════════ -->
     <section class="py-20" id="cv-section" style="background:#131314;">
         <div class="max-w-4xl mx-auto px-8 text-center">
-            <p class="text-xs font-bold uppercase tracking-widest mb-4" style="color:#a68cff;">Curriculum Vitae</p>
+            <p class="text-xs font-bold uppercase tracking-widest mb-4" style="color:#87acd6;">Curriculum Vitae</p>
             <h2 class="text-4xl text-white mb-5" style="font-family:'Epilogue',sans-serif;">Full Professional Profile</h2>
             <p class="mb-10 leading-relaxed max-w-xl mx-auto" style="color:#adaaab;">Detailed work history, system design
                 experience, stack depth, and references available on request or via the link below.</p>
             <div class="flex flex-wrap gap-4 justify-center">
                 <a href="https://www.linkedin.com/in/edward-twumasi/" target="_blank" rel="noopener"
-                    class="px-8 py-3 font-bold rounded-full transition text-sm text-white hover:shadow-[0_0_20px_rgba(166,140,255,0.4)]"
-                    style="background: linear-gradient(135deg, #a68cff, #c084fc);">
+                    class="px-8 py-3 font-bold rounded-full transition text-sm text-white hover:shadow-[0_0_20px_rgba(22,58,99,0.35)]"
+                    style="background: linear-gradient(135deg, #163a63, #244f7e);">
                     View on LinkedIn
                 </a>
                 <a href="staticfiles/Edward_Twumasi_CV_Latest.pdf" target="_blank" id="cv-download-btn"
-                    class="px-8 py-3 font-bold rounded-full transition text-sm text-white hover:bg-[#2c2c2d] hover:border-[rgba(166,140,255,0.3)]"
+                    class="px-8 py-3 font-bold rounded-full transition text-sm text-white hover:bg-[#2c2c2d] hover:border-[rgba(22,58,99,0.35)]"
                     style="background:#1a191b; border: 1px solid rgba(72,72,73,0.2);">
                     Download PDF CV
                 </a>
@@ -1466,7 +1540,7 @@
                         workflows. Featuring the latest series on deploying high-performance Whisper models.</p>
                 </div>
                 <button id="open-drawer-btn"
-                    class="mt-8 md:mt-0 px-6 py-3 font-semibold rounded-full transition shadow-sm text-sm inline-flex items-center gap-2 w-fit text-[#adaaab] hover:text-white hover:border-[rgba(166,140,255,0.3)]"
+                    class="mt-8 md:mt-0 px-6 py-3 font-semibold rounded-full transition shadow-sm text-sm inline-flex items-center gap-2 w-fit text-[#adaaab] hover:text-white hover:border-[rgba(22,58,99,0.35)]"
                     style="background:#1a191b; border: 1px solid rgba(72,72,73,0.2);">
                     View Entire Series
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -1482,11 +1556,11 @@
                     target="_blank"
                     class="group block p-8 rounded-2xl transition-all duration-300"
                     style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
-                    onmouseover="this.style.borderColor='rgba(166,140,255,0.2)'; this.style.boxShadow='0 20px 40px rgba(166,140,255,0.06)';"
+                    onmouseover="this.style.borderColor='rgba(22,58,99,0.26)'; this.style.boxShadow='0 20px 40px rgba(22,58,99,0.14)';"
                     onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
                     <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs font-bold tracking-widest uppercase" style="color:#a68cff;">MLOps Foundation</span>
-                        <span style="color:#484849;" class="group-hover:text-[#a68cff] transition-colors">↗</span>
+                        <span class="text-xs font-bold tracking-widest uppercase" style="color:#87acd6;">MLOps Foundation</span>
+                        <span style="color:#484849;" class="group-hover:text-[#87acd6] transition-colors">↗</span>
                     </div>
                     <h3 class="text-xl text-white mb-3 transition-colors"
                         style="font-family:'Epilogue',sans-serif;">The Strategy: Why Models Belong in Containers</h3>
@@ -1499,11 +1573,11 @@
                     target="_blank"
                     class="group block p-8 rounded-2xl transition-all duration-300"
                     style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
-                    onmouseover="this.style.borderColor='rgba(166,140,255,0.2)'; this.style.boxShadow='0 20px 40px rgba(166,140,255,0.06)';"
+                    onmouseover="this.style.borderColor='rgba(22,58,99,0.26)'; this.style.boxShadow='0 20px 40px rgba(22,58,99,0.14)';"
                     onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
                     <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs font-bold tracking-widest uppercase" style="color:#a68cff;">Agent Sandboxing</span>
-                        <span style="color:#484849;" class="group-hover:text-[#a68cff] transition-colors">↗</span>
+                        <span class="text-xs font-bold tracking-widest uppercase" style="color:#87acd6;">Agent Sandboxing</span>
+                        <span style="color:#484849;" class="group-hover:text-[#87acd6] transition-colors">↗</span>
                     </div>
                     <h3 class="text-xl text-white mb-3 transition-colors"
                         style="font-family:'Epilogue',sans-serif;">Building the Workbench</h3>
@@ -1526,10 +1600,10 @@
                 <a href="mailto:edwardktwumasi1000@gmail.com"
                     class="group p-6 rounded-2xl transition-all duration-300"
                     style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
-                    onmouseover="this.style.borderColor='rgba(166,140,255,0.2)'; this.style.boxShadow='0 12px 30px rgba(166,140,255,0.06)';"
+                    onmouseover="this.style.borderColor='rgba(22,58,99,0.26)'; this.style.boxShadow='0 12px 30px rgba(22,58,99,0.14)';"
                     onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
                     <div class="mb-3">
-                        <span class="material-symbols-outlined" style="color:#a68cff; font-size:28px; font-variation-settings:'FILL' 1;">mail</span>
+                        <span class="material-symbols-outlined" style="color:#87acd6; font-size:28px; font-variation-settings:'FILL' 1;">mail</span>
                     </div>
                     <h3 class="font-bold text-white text-sm mb-1">Email</h3>
                     <p class="text-xs transition break-all" style="color:#adaaab;">edwardktwumasi1000@gmail.com</p>
@@ -1537,10 +1611,10 @@
                 <a href="https://www.linkedin.com/in/edward-twumasi/" target="_blank" rel="noopener"
                     class="group p-6 rounded-2xl transition-all duration-300"
                     style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
-                    onmouseover="this.style.borderColor='rgba(166,140,255,0.2)'; this.style.boxShadow='0 12px 30px rgba(166,140,255,0.06)';"
+                    onmouseover="this.style.borderColor='rgba(22,58,99,0.26)'; this.style.boxShadow='0 12px 30px rgba(22,58,99,0.14)';"
                     onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
                     <div class="mb-3">
-                        <span class="material-symbols-outlined" style="color:#a68cff; font-size:28px; font-variation-settings:'FILL' 1;">work</span>
+                        <span class="material-symbols-outlined" style="color:#87acd6; font-size:28px; font-variation-settings:'FILL' 1;">work</span>
                     </div>
                     <h3 class="font-bold text-white text-sm mb-1">LinkedIn</h3>
                     <p class="text-xs transition" style="color:#adaaab;">edward-twumasi</p>
@@ -1548,10 +1622,10 @@
                 <a href="https://github.com/teckedd-code2save" target="_blank" rel="noopener"
                     class="group p-6 rounded-2xl transition-all duration-300"
                     style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
-                    onmouseover="this.style.borderColor='rgba(255,89,227,0.2)'; this.style.boxShadow='0 12px 30px rgba(255,89,227,0.06)';"
+                    onmouseover="this.style.borderColor='rgba(22,58,99,0.26)'; this.style.boxShadow='0 12px 30px rgba(22,58,99,0.14)';"
                     onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
                     <div class="mb-3">
-                        <span class="material-symbols-outlined" style="color:#ff59e3; font-size:28px; font-variation-settings:'FILL' 1;">code</span>
+                        <span class="material-symbols-outlined" style="color:#87acd6; font-size:28px; font-variation-settings:'FILL' 1;">code</span>
                     </div>
                     <h3 class="font-bold text-white text-sm mb-1">GitHub</h3>
                     <p class="text-xs transition" style="color:#adaaab;">teckedd-code2save</p>
@@ -1649,7 +1723,7 @@
         <div class="drawer-header">
             <div>
                 <h3 class="text-2xl font-bold text-white" style="font-family:'Epilogue',sans-serif;">The MLOps Stack</h3>
-                <p class="text-xs mt-1 uppercase tracking-widest font-semibold" style="color:#a68cff;">Complete Series</p>
+                <p class="text-xs mt-1 uppercase tracking-widest font-semibold" style="color:#87acd6;">Complete Series</p>
             </div>
             <button class="drawer-close" aria-label="Close Drawer">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -1719,7 +1793,7 @@
         <div class="drawer-header">
             <div id="project-drawer-header-content">
                 <h3 class="text-2xl font-bold text-white" style="font-family:'Epilogue',sans-serif;">Project Breakdown</h3>
-                <p class="text-xs mt-1 uppercase tracking-widest font-semibold" id="project-drawer-tag" style="color:#a68cff;"></p>
+                <p class="text-xs mt-1 uppercase tracking-widest font-semibold" id="project-drawer-tag" style="color:#87acd6;"></p>
             </div>
             <button class="drawer-close" id="project-drawer-close" aria-label="Close Drawer">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -1741,7 +1815,7 @@
         /* ════════════════════════════════════════════════
            THREE.JS — Background Engine
         ════════════════════════════════════════════════ */
-        function initBackgroundCanvas(canvasId, sectionId, color = 0xa68cff, lineColor = 0xa68cff) {
+        function initBackgroundCanvas(canvasId, sectionId, color = 0x163a63, lineColor = 0x244f7e) {
             const canvas = document.getElementById(canvasId);
             const section = document.getElementById(sectionId);
             if (!canvas || !section) return;
@@ -1838,10 +1912,10 @@
 
         // Initialize all background canvases
         window.addEventListener('DOMContentLoaded', () => {
-            initBackgroundCanvas('hero-canvas', 'hero', 0xa68cff, 0xff59e3);
-            initBackgroundCanvas('projects-canvas', 'projects', 0xa68cff, 0xff59e3);
-            initBackgroundCanvas('tools-canvas', 'tools', 0xff59e3, 0xa68cff);
-            initBackgroundCanvas('credentials-canvas', 'credentials', 0xff59e3, 0xa68cff);
+            initBackgroundCanvas('hero-canvas', 'hero', 0x163a63, 0x244f7e);
+            initBackgroundCanvas('projects-canvas', 'projects', 0x163a63, 0x244f7e);
+            initBackgroundCanvas('tools-canvas', 'tools', 0x163a63, 0x244f7e);
+            initBackgroundCanvas('credentials-canvas', 'credentials', 0x163a63, 0x244f7e);
         });
 
         /* ════════════════════════════════════════════════
@@ -1866,7 +1940,7 @@
                 desc: 'A CLI orchestrator that converts business specs into production-grade platforms — automating schema design, DB provisioning, ORM setup, tests, frontend scaffolding, and IaC in one command.',
                 stack: ['CLI', 'Node.js', 'MCP Protocol', 'GitHub Actions'],
                 link: 'https://www.npmjs.com/package/@teckedd-code2save/b2dp',
-                accent: '#a68cff',
+                accent: '#87acd6',
                 breakdown: {
                     architecture: 'Multi-agent orchestrator built on the Model Context Protocol (MCP). Uses a modular skill system and singleton configuration manager for agent discovery across Claude, Cursor, and Antigravity.',
                     challenges: 'Cross-agent configuration (Antigravity, Claude, Cursor) and automated dependency resolution across OS environments while keeping the setup to a single command.',
@@ -1874,12 +1948,12 @@
                     diagram: `<div style="margin-top:16px;padding:16px;background:#0e0e0f;border-radius:12px;overflow-x:auto;">
   <div style="font-size:10px;font-weight:700;color:#adaaab;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;">Orchestration Flow</div>
   <div style="display:flex;gap:8px;align-items:center;min-width:380px;">
-    ${diagFlow([{label:'Business Spec'},{label:'b2dp CLI',sub:'Orchestrator',main:true}],'166,140,255')}
-    <div style="color:#a68cff;font-size:18px;padding:0 2px;">→</div>
-    <div style="display:flex;flex-direction:column;gap:4px;">${diagBox('166,140,255',[['Schema + DB'],['ORM + Tests'],['Frontend + Infra']])}</div>
+    ${diagFlow([{label:'Business Spec'},{label:'b2dp CLI',sub:'Orchestrator',main:true}],'36,79,126')}
+    <div style="color:#87acd6;font-size:18px;padding:0 2px;">→</div>
+    <div style="display:flex;flex-direction:column;gap:4px;">${diagBox('36,79,126',[['Schema + DB'],['ORM + Tests'],['Frontend + Infra']])}</div>
   </div>
   <div style="margin-top:10px;padding:8px 10px;background:#1a191b;border-radius:8px;font-size:10px;color:#484849;">
-    <span style="color:#a68cff;font-weight:700;">MCP Stack: </span>Datafy · Prisma · GitHub · Context7
+    <span style="color:#87acd6;font-weight:700;">MCP Stack: </span>Datafy · Prisma · GitHub · Context7
   </div>
 </div>`
                 }
@@ -1890,7 +1964,7 @@
                 desc: 'Built on top of DBHub — a zero-dependency, token-efficient MCP server acting as a gateway between AI tools (Claude Desktop, VS Code, Cursor) and 7 database backends via two core tools.',
                 stack: ['MCP Protocol', 'Node.js', 'PostgreSQL', 'Redis', 'Elasticsearch'],
                 link: 'https://www.npmjs.com/package/@teckedd-code2save/datafy',
-                accent: '#a68cff',
+                accent: '#87acd6',
                 breakdown: {
                     architecture: 'MCP gateway pattern rooted in DBHub. Two primary tools — execute_sql and search_objects — provide a unified interface to PostgreSQL, MySQL, SQL Server, SQLite, MariaDB, Redis, and Elasticsearch.',
                     challenges: 'Mapping Elasticsearch query DSL and Redis HGETALL/SCAN patterns into a token-efficient natural language interface while keeping the server truly zero-dependency.',
@@ -1898,20 +1972,42 @@
                     diagram: `<div style="margin-top:16px;padding:16px;background:#0e0e0f;border-radius:12px;overflow-x:auto;">
   <div style="font-size:10px;font-weight:700;color:#adaaab;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;">MCP Gateway Architecture</div>
   <div style="display:flex;gap:8px;align-items:stretch;min-width:360px;">
-    <div style="flex:1;background:#1a191b;border:1px solid rgba(166,140,255,0.15);border-radius:8px;padding:10px;">
-      <div style="font-size:10px;color:#a68cff;font-weight:700;margin-bottom:6px;">AI Clients</div>
+    <div style="flex:1;background:#1a191b;border:1px solid rgba(36,79,126,0.2);border-radius:8px;padding:10px;">
+      <div style="font-size:10px;color:#87acd6;font-weight:700;margin-bottom:6px;">AI Clients</div>
       <div style="font-size:9px;color:#adaaab;line-height:1.8;">Claude Desktop<br>VS Code / Cursor<br>Copilot CLI</div>
     </div>
-    <div style="display:flex;align-items:center;color:#a68cff;font-size:16px;padding:0 4px;">→</div>
-    <div style="flex:1.3;background:#1a191b;border:1px solid rgba(166,140,255,0.4);border-radius:8px;padding:10px;box-shadow:0 0 15px rgba(166,140,255,0.07);">
-      <div style="font-size:10px;color:#a68cff;font-weight:700;margin-bottom:6px;">Datafy (DBHub)</div>
+    <div style="display:flex;align-items:center;color:#87acd6;font-size:16px;padding:0 4px;">→</div>
+    <div style="flex:1.3;background:#1a191b;border:1px solid rgba(36,79,126,0.45);border-radius:8px;padding:10px;box-shadow:0 0 15px rgba(22,58,99,0.12);">
+      <div style="font-size:10px;color:#87acd6;font-weight:700;margin-bottom:6px;">Datafy (DBHub)</div>
       <div style="font-size:9px;color:#adaaab;line-height:1.8;">execute_sql<br>search_objects<br>read-only mode</div>
     </div>
-    <div style="display:flex;align-items:center;color:#a68cff;font-size:16px;padding:0 4px;">→</div>
-    <div style="flex:1;background:#1a191b;border:1px solid rgba(166,140,255,0.15);border-radius:8px;padding:10px;">
-      <div style="font-size:10px;color:#a68cff;font-weight:700;margin-bottom:6px;">7 Backends</div>
+    <div style="display:flex;align-items:center;color:#87acd6;font-size:16px;padding:0 4px;">→</div>
+    <div style="flex:1;background:#1a191b;border:1px solid rgba(36,79,126,0.2);border-radius:8px;padding:10px;">
+      <div style="font-size:10px;color:#87acd6;font-weight:700;margin-bottom:6px;">7 Backends</div>
       <div style="font-size:9px;color:#adaaab;line-height:1.8;">PG · MySQL · SQLite<br>Redis · Elastic<br>SQL Server</div>
     </div>
+  </div>
+</div>`
+                }
+            },
+            {
+                tag: 'Open Source',
+                title: 'Ghana API — Real-Time Crypto Prices Contribution',
+                desc: 'Contributed and merged the crypto prices module into Ghana API, adding live CoinGecko-backed pricing, automatic USD-to-GHS conversion, caching, and test coverage for a public developer platform serving Ghana-focused data.',
+                stack: ['NestJS', 'TypeScript', 'CoinGecko API', 'Caching', 'Testing'],
+                link: 'https://github.com/teebhagg/GhanaAPI',
+                accent: '#244f7e',
+                breakdown: {
+                    architecture: 'Built a dedicated crypto module inside the NestJS backend, exposing a typed controller and service flow that fetches market prices from CoinGecko, converts them through the existing exchange-rate service, and returns a Ghana-ready response in both USD and GHS.',
+                    challenges: 'The contribution had to fit an existing multi-domain API cleanly while staying resilient to third-party rate limits. I handled that by introducing caching, graceful fallback data, and test coverage across the controller and service paths.',
+                    highlights: 'Merged on March 19, 2026 from my feature branch after shipping the initial contribution on March 17, 2026. The work added seven backend files, real-time crypto support, and production-minded reliability through fallback handling and automated tests.',
+                    diagram: `<div style="margin-top:16px;padding:16px;background:#0e0e0f;border-radius:12px;overflow-x:auto;">
+  <div style="font-size:10px;font-weight:700;color:#adaaab;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;">Contribution Flow</div>
+  <div style="display:flex;gap:8px;align-items:center;min-width:420px;">
+    ${diagFlow([{label:'Client Request'},{label:'Crypto Module',sub:'NestJS service',main:true},{label:'CoinGecko',sub:'USD prices'},{label:'Exchange Rates',sub:'USD to GHS'}],'36,79,126')}
+  </div>
+  <div style="margin-top:10px;padding:8px 10px;background:#1a191b;border-radius:8px;font-size:10px;color:#484849;">
+    <span style="color:#87acd6;font-weight:700;">Shipped:</span> controller + service + module + tests + cache-backed fallback flow
   </div>
 </div>`
                 }
@@ -1922,7 +2018,7 @@
                 desc: 'A proof-of-concept agent economy where AI agents autonomously hire, pay, and work with each other. A Master Orchestrator decomposes tasks and contracts specialist agents via a real-time payment ledger.',
                 stack: ['TypeScript', 'Next.js 14', 'Express', 'SQLite'],
                 link: 'https://github.com/teckedd-code2save/agentmart',
-                accent: '#a68cff',
+                accent: '#87acd6',
                 breakdown: {
                     architecture: 'Three-service architecture: Registry (Express, :3001) manages agent registration and the payment ledger; Agents Service (:3002) hosts specialist endpoints; Dashboard (Next.js, :3000) provides real-time monitoring refreshing every 2 seconds.',
                     challenges: 'Implementing the Machine Payments Protocol (MPP) from Stripe for machine-to-machine transactions, and designing task decomposition that correctly scopes and budgets agent contracts.',
@@ -1930,12 +2026,12 @@
                     diagram: `<div style="margin-top:16px;padding:16px;background:#0e0e0f;border-radius:12px;overflow-x:auto;">
   <div style="font-size:10px;font-weight:700;color:#adaaab;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;">Agent Economy Flow</div>
   <div style="display:flex;gap:8px;align-items:center;min-width:380px;">
-    ${diagFlow([{label:'Task Input'},{label:'Master Orchestrator',sub:'Decomposes + hires',main:true}],'166,140,255')}
-    <div style="color:#a68cff;font-size:18px;padding:0 2px;">→</div>
-    <div style="display:flex;flex-direction:column;gap:4px;">${diagBox('166,140,255',[['Research Agent','$0.30/call'],['Analysis Agent','$0.50/call'],['Report Agent','$0.20/call']])}</div>
+    ${diagFlow([{label:'Task Input'},{label:'Master Orchestrator',sub:'Decomposes + hires',main:true}],'36,79,126')}
+    <div style="color:#87acd6;font-size:18px;padding:0 2px;">→</div>
+    <div style="display:flex;flex-direction:column;gap:4px;">${diagBox('36,79,126',[['Research Agent','$0.30/call'],['Analysis Agent','$0.50/call'],['Report Agent','$0.20/call']])}</div>
   </div>
   <div style="margin-top:10px;padding:8px 10px;background:#1a191b;border-radius:8px;font-size:10px;color:#484849;">
-    <span style="color:#a68cff;font-weight:700;">Stack: </span>TypeScript · Next.js · SQLite · MPP Protocol (Stripe)
+    <span style="color:#87acd6;font-weight:700;">Stack: </span>TypeScript · Next.js · SQLite · MPP Protocol (Stripe)
   </div>
 </div>`
                 }
@@ -1946,7 +2042,7 @@
                 desc: 'Voice-enabled healthcare platform supporting English, French, Twi, and Hausa. Fine-tuned Whisper Small on a custom Twi dataset for low-resource settings in local healthcare centres.',
                 stack: ['Python', 'FastAPI', 'Whisper/HuggingFace', 'Docker', 'Celery'],
                 link: 'https://github.com/teckedd-code2save/serendepify-frontend.git',
-                accent: '#ff59e3',
+                accent: '#87acd6',
                 breakdown: {
                     architecture: 'Microservices architecture with FastAPI backends. Asynchronous speech processing via Celery and Redis as the task broker. Whisper Small served via BentoML for containerised inference.',
                     challenges: 'Optimising Whisper inference speed on CPU-constrained hardware in local healthcare settings, and building a high-quality Twi transcription dataset from scratch.',
@@ -1959,7 +2055,7 @@
       {label:'Whisper Small',sub:'Fine-tuned on Twi',main:true},
       {label:'FastAPI',sub:'Celery + Redis'},
       {label:'Healthcare App',sub:'BentoML · Docker'}
-    ],'255,89,227')}
+    ],'36,79,126')}
   </div>
 </div>`
                 }
@@ -2101,25 +2197,35 @@
         const credentialGroups = [
             {
                 provider: 'Google',
-                group: 'Google & AI Engineering',
+                group: 'Google & Cloud Engineering',
                 icon: '🤖',
                 items: [
+                    {
+                        title: 'Getting Started with Terraform for Google Cloud',
+                        issuer: 'Google Cloud / Coursera', date: 'Mar 2026', id: 'QV7GTSK9A0AG',
+                        url: 'https://www.coursera.org/account/accomplishments/certificate/QV7GTSK9A0AG',
+                        summary: 'Completed by Edward Twumasi on March 25, 2026 with practical labs, 6 hours of work, and a 100% grade.',
+                        skills: ['Terraform', 'Google Cloud Platform', 'Infrastructure as Code', 'Configuration Management', 'Cloud Storage']
+                    },
                     {
                         title: 'Foundations of Open Generative AI Engineering',
                         issuer: 'Google/Coursera', date: 'Feb 2026', id: 'YMOK2TV2T0JK',
                         url: 'https://www.coursera.org/account/accomplishments/certificate/YMOK2TV2T0JK',
+                        summary: 'Google-backed credential covering modern generative AI engineering foundations.',
                         skills: ['Generative AI', 'AI-Powered Development', 'LLMs']
                     },
                     {
                         title: 'Preparing Text for AI Models',
                         issuer: 'Google/Coursera', date: 'Feb 2026', id: '31WARUPH6SZC',
                         url: 'https://www.coursera.org/account/accomplishments/verify/31WARUPH6SZC',
+                        summary: 'Focused on preparing and cleaning text data for model performance.',
                         skills: ['Generative AI', 'Data Cleansing', 'Hugging Face']
                     },
                     {
                         title: 'Understanding Open AI Workspaces',
                         issuer: 'Google/Coursera', date: 'Feb 2026', id: '2VN2JD7NFZNI',
                         url: 'https://www.coursera.org/account/accomplishments/certificate/2VN2JD7NFZNI',
+                        summary: 'Explored workspace patterns for fine-tuning and applied AI workflows.',
                         skills: ['Generative AI', 'Fine Tuning', 'OpenAI']
                     }
                 ]
@@ -2133,18 +2239,21 @@
                         title: 'AWS Foundations and Core Services',
                         issuer: 'AWS/Coursera', date: 'Feb 2026', id: 'CK4LVBUM6CFH',
                         url: 'https://www.coursera.org/account/accomplishments/certificate/CK4LVBUM6CFH',
+                        summary: 'Core AWS infrastructure credential covering compute, storage, and databases.',
                         skills: ['AWS', 'EC2', 'S3', 'RDS']
                     },
                     {
                         title: 'Kubernetes From Basics to Guru',
                         issuer: 'Coursera', date: 'Feb 2026', id: 'DFX1W42R91VU',
                         url: 'https://www.coursera.org/account/accomplishments/certificate/DFX1W42R91VU',
+                        summary: 'Container orchestration and GitOps-oriented Kubernetes learning track.',
                         skills: ['Kubernetes', 'GitOps', 'Jenkins']
                     },
                     {
                         title: 'Build a CI/CD Pipeline with Docker',
                         issuer: 'Coursera', date: 'Jan 2026', id: 'KJVWV84YKH9J',
                         url: 'https://www.coursera.org/account/accomplishments/certificate/KJVWV84YKH9J',
+                        summary: 'Hands-on CI/CD course for containerized delivery workflows.',
                         skills: ['DevOps', 'Docker', 'GitHub Actions']
                     }
                 ]
@@ -2209,12 +2318,11 @@
         ];
 
         const credsContainer = document.getElementById('credentials-container');
-        const GROUP_ACCENTS   = ['#a68cff','#ff59e3','#a68cff','#ff59e3','#a68cff'];
-        const GROUP_ACCENTS_2 = ['#ff59e3','#a68cff','#ff59e3','#a68cff','#ff59e3']; // gradient pair
+        const GROUP_ACCENTS   = ['#87acd6','#87acd6','#87acd6','#87acd6','#87acd6'];
 
         // Tab nav — clean underline style
         const tabsNav = document.createElement('div');
-        tabsNav.style.cssText = 'display:flex;flex-wrap:wrap;gap:0;margin-bottom:40px;border-bottom:1px solid rgba(72,72,73,0.18);position:relative;';
+        tabsNav.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;position:relative;';
         credsContainer.appendChild(tabsNav);
 
         // Content area
@@ -2228,14 +2336,14 @@
 
             const tabBtn = document.createElement('button');
             tabBtn.innerHTML = `${group.group}`;
-            tabBtn.style.cssText = `display:inline-flex;align-items:center;padding:12px 20px;font-size:13px;font-weight:600;background:transparent;color:#484849;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;transition:color 0.2s,border-color 0.2s;letter-spacing:0.01em;`;
+            tabBtn.style.cssText = `display:inline-flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:600;background:rgba(255,255,255,0.04);color:#6f7378;border:none;border-radius:999px;cursor:pointer;transition:color 0.2s,background 0.2s;letter-spacing:0.01em;`;
             tabBtn.onmouseover = () => { if (index !== activeTabIdx) tabBtn.style.color='#adaaab'; };
             tabBtn.onmouseout  = () => { if (index !== activeTabIdx) tabBtn.style.color='#484849'; };
             tabsNav.appendChild(tabBtn);
 
             const panel = document.createElement('div');
             const grid  = document.createElement('div');
-            grid.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;';
+            grid.style.cssText = 'display:flex;flex-direction:column;gap:18px;';
             panel.appendChild(grid);
             tabsContent.appendChild(panel);
 
@@ -2247,11 +2355,11 @@
                 const accent = GROUP_ACCENTS[i];
                 if (i === activeTabIdx) {
                     btn.style.color = '#ffffff';
-                    btn.style.borderBottomColor = accent;
+                    btn.style.background = 'linear-gradient(135deg, rgba(22,58,99,0.95), rgba(36,79,126,0.9))';
                     btn.style.fontWeight = '700';
                 } else {
-                    btn.style.color = '#484849';
-                    btn.style.borderBottomColor = 'transparent';
+                    btn.style.color = '#6f7378';
+                    btn.style.background = 'rgba(255,255,255,0.04)';
                     btn.style.fontWeight = '600';
                 }
             });
@@ -2263,10 +2371,8 @@
                 const grid   = panel.firstChild;
                 const items  = credentialGroups[i].items;
                 const accent = GROUP_ACCENTS[i];
-                const accentRgb = i % 2 === 0 ? '166,140,255' : '255,89,227';
-                const LIMIT  = 3;
                 grid.innerHTML = '';
-                const visible = (showAll || items.length <= LIMIT) ? items : items.slice(0, LIMIT);
+                const visible = items;
 
                 visible.forEach((cred, ci) => {
                     const card = document.createElement('div');
@@ -2278,20 +2384,22 @@
                         card.style.opacity = '1';
                         card.style.transform = 'translateY(0)';
                     }));
-                    card.style.border = `1px solid rgba(72,72,73,0.18)`;
                     card.innerHTML = `
-                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-                            <span style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:${accent};">${cred.issuer}</span>
-                            <span style="font-size:11px;color:#484849;font-weight:500;">${cred.date}</span>
+                        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:16px;flex-wrap:wrap;">
+                            <div>
+                                <span style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:${accent};">${cred.issuer}</span>
+                                <p style="font-size:1.15rem;font-weight:700;color:#ffffff;line-height:1.35;margin:10px 0 0;font-family:'Epilogue',sans-serif;max-width:760px;">${cred.title}</p>
+                            </div>
+                            <span style="font-size:12px;color:#8c9094;font-weight:600;white-space:nowrap;">${cred.date}</span>
                         </div>
-                        <p style="font-size:14px;font-weight:600;color:#ffffff;line-height:1.45;margin-bottom:14px;font-family:'Epilogue',sans-serif;">${cred.title}</p>
-                        ${cred.id ? `<p style="font-size:10px;font-family:monospace;color:#484849;margin-bottom:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${cred.id}">ID: ${cred.id}</p>` : ''}
-                        <div style="display:flex;flex-wrap:wrap;gap:6px;flex:1;align-content:flex-start;">
+                        ${cred.summary ? `<p style="font-size:15px;color:#c3c8ce;line-height:1.7;margin:0 0 16px;max-width:900px;">${cred.summary}</p>` : ''}
+                        ${cred.id ? `<p style="font-size:11px;font-family:monospace;color:#6f7378;margin:0 0 16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${cred.id}">Credential ID: ${cred.id}</p>` : ''}
+                        <div style="display:flex;flex-wrap:wrap;gap:8px;flex:1;align-content:flex-start;">
                             ${cred.skills.map(s => `<span class="skill-pill">${s}</span>`).join('')}
                         </div>
                         ${cred.url ? `
                         <a href="${cred.url}" target="_blank" rel="noopener"
-                           style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:${accent};text-decoration:none;margin-top:18px;padding-top:14px;border-top:1px solid rgba(72,72,73,0.12);transition:opacity 0.2s;"
+                           style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:${accent};text-decoration:none;margin-top:20px;transition:opacity 0.2s;"
                            onmouseover="this.style.opacity='0.65'" onmouseout="this.style.opacity='1'">
                             View Certificate
                             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -2301,7 +2409,7 @@
                 });
 
                 const seeAllContainer = document.getElementById('credentials-see-all-container');
-                seeAllContainer.style.display = (items.length > LIMIT && !showAll) ? 'block' : 'none';
+                seeAllContainer.style.display = 'none';
             });
         }
 
