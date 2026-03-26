@@ -37,7 +37,7 @@
         }
     </script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800;900&family=Inter:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800;900&family=Great+Vibes&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -73,6 +73,33 @@
         h4 {
             font-family: 'Epilogue', sans-serif;
             font-weight: 700;
+        }
+
+        .signature-name {
+            display: inline-block;
+            font-family: 'Great Vibes', cursive;
+            font-weight: 400;
+            letter-spacing: 0;
+            margin-left: 0.18em;
+            line-height: 0.9;
+            white-space: nowrap;
+            transform: translateY(0.06em);
+        }
+
+        .hero-signature {
+            font-family: 'Great Vibes', cursive !important;
+            font-weight: 400 !important;
+            letter-spacing: 0 !important;
+            line-height: 1.02 !important;
+        }
+
+        .hero-signature .signature-name {
+            margin-left: 0.08em;
+            transform: none;
+        }
+
+        .rounded-full {
+            border-radius: 6px !important;
         }
 
         /* Custom cursor */
@@ -337,7 +364,7 @@
 
         .cred-card {
             background: linear-gradient(180deg, rgba(22, 58, 99, 0.22), rgba(22, 58, 99, 0.08));
-            border-radius: 20px;
+            border-radius: 12px;
             padding: 28px 30px;
             border: none;
             transition: box-shadow 0.2s, transform 0.2s;
@@ -360,7 +387,7 @@
             padding: 7px 14px;
             background: rgba(255, 255, 255, 0.06);
             color: #ffffff;
-            border-radius: 99px;
+            border-radius: 6px;
             font-size: 11px;
             font-weight: 600;
         }
@@ -388,7 +415,7 @@
         /* ── Stat cards ────────────────────── */
         .stats-shell {
             background: linear-gradient(180deg, #f6f1e8 0%, #efe8dc 100%);
-            border-radius: 28px;
+            border-radius: 16px;
             padding: 18px;
             box-shadow: inset 0 0 0 1px rgba(23, 23, 23, 0.06);
         }
@@ -396,7 +423,7 @@
         .stat-card {
             padding: 24px 18px 22px;
             background: rgba(255, 255, 255, 0.46);
-            border-radius: 22px;
+            border-radius: 10px;
             border: 1px solid rgba(16, 17, 20, 0.06);
             transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
         }
@@ -947,9 +974,8 @@
                     <span class="flex h-2 w-2 rounded-full animate-pulse" style="background:#244f7e;"></span>
                     <span class="text-[0.7rem] uppercase tracking-[0.1em] font-medium" style="color:#adaaab;">Senior Backend &amp; Systems Engineer · Accra, Ghana</span>
                 </div>
-                <h1 class="text-5xl lg:text-7xl mb-6 leading-[0.95] font-black" style="font-family:'Epilogue',sans-serif; letter-spacing:-0.04em;">
-                    Edward<br>
-                    <span style="background: linear-gradient(135deg, #ffffff, #87acd6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Twumasi</span>
+                <h1 class="text-5xl lg:text-7xl mb-6 hero-signature">
+                    Edward <span class="signature-name" style="background: linear-gradient(135deg, #ffffff, #87acd6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Twumasi</span>
                 </h1>
                 <p class="text-lg mb-10 leading-relaxed max-w-md" style="color:#adaaab;">
                     Architecting resilient backend systems. Helping teams scale from thousands to millions of requests —
@@ -995,13 +1021,16 @@
                 <!-- Left: Text -->
                 <div class="fade-in space-y-5">
                     <p class="leading-relaxed text-lg" style="color:#adaaab;">
-                        Senior engineer with <strong class="text-white font-semibold">6+ years</strong> shipping production systems at the intersection of backend infrastructure and AI tooling.
+                        I build backend platforms that stay reliable under load and remain usable for the teams shipping on top of them.
                     </p>
                     <p class="leading-relaxed" style="color:#adaaab;">
-                        I specialize in <strong class="text-white font-semibold">architecting AI-assisted developer workflows</strong> — including <strong class="text-white font-semibold">b2dp</strong>, an orchestrator that enables AI agents to generate full-stack platforms from a business spec.
+                        Over the last <strong class="text-white font-semibold">6+ years</strong>, I have worked across distributed systems, cloud infrastructure, developer tooling, and AI-assisted workflows, with a bias for systems that are fast, observable, and practical in production.
                     </p>
                     <p class="leading-relaxed" style="color:#adaaab;">
-                        My expertise spans <strong class="text-white font-semibold">event-driven architectures</strong>, <strong class="text-white font-semibold">CI/CD automation</strong>, and resilient backend systems. I work on hard problems in production and bring teams along in the process.
+                        My work ranges from <strong class="text-white font-semibold">event-driven architectures</strong> and <strong class="text-white font-semibold">CI/CD automation</strong> to open-source packages like <strong class="text-white font-semibold">b2dp</strong> and contributions that make complex engineering workflows simpler to operate and scale.
+                    </p>
+                    <p class="leading-relaxed" style="color:#adaaab;">
+                        I care about clear architecture, strong execution, and building systems that help products move with confidence.
                     </p>
                 </div>
 
@@ -1046,7 +1075,7 @@
                 .tech-cloud-shell {
                     background: linear-gradient(180deg, #f6f1e8 0%, #efe8dc 100%);
                     color: #171717;
-                    border-radius: 32px;
+                    border-radius: 18px;
                     padding: 34px 28px 30px;
                     box-shadow: inset 0 0 0 1px rgba(23, 23, 23, 0.06);
                 }
@@ -1089,7 +1118,7 @@
                 .tech-legend-btn {
                     appearance: none;
                     border: none;
-                    border-radius: 999px;
+                    border-radius: 6px;
                     padding: 10px 14px;
                     font-size: 12px;
                     font-weight: 700;
@@ -1118,7 +1147,7 @@
                     align-items: center;
                     gap: 8px;
                     padding: 12px 16px;
-                    border-radius: 99px;
+                    border-radius: 6px;
                     font-size: 13px;
                     font-weight: 700;
                     border: none;
@@ -1153,7 +1182,7 @@
                     pointer-events: none;
                     display: none;
                     background: rgba(248, 243, 235, 0.98);
-                    border-radius: 16px;
+                    border-radius: 10px;
                     padding: 14px 16px;
                     max-width: 280px;
                     z-index: 9999;
@@ -1181,7 +1210,7 @@
                     }
                     .tech-cloud-shell {
                         padding: 26px 18px 22px;
-                        border-radius: 24px;
+                        border-radius: 14px;
                     }
                     .tech-cloud-grid {
                         justify-content: flex-start;
@@ -2091,7 +2120,7 @@
                 <h3 class="project-title-gradient" style="font-family:'Epilogue',sans-serif;font-size:1.2rem;margin-bottom:12px;line-height:1.3;">${p.title}</h3>
                 <p style="font-size:14px;color:#adaaab;line-height:1.7;margin-bottom:20px;">${p.desc}</p>
                 <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;">
-                    ${p.stack.map(s => `<span style="padding:4px 12px;background:#262627;border-radius:99px;font-size:11px;color:${p.accent};font-weight:600;">${s}</span>`).join('')}
+                    ${p.stack.map(s => `<span style="padding:6px 12px;background:#262627;border-radius:10px;font-size:11px;color:${p.accent};font-weight:600;">${s}</span>`).join('')}
                 </div>
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;">
                     <a href="${p.link}" target="_blank" rel="noopener"
@@ -2322,7 +2351,7 @@
 
         // Tab nav — clean underline style
         const tabsNav = document.createElement('div');
-        tabsNav.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;position:relative;';
+        tabsNav.style.cssText = 'display:flex;flex-wrap:wrap;gap:22px;margin-bottom:32px;position:relative;border-bottom:1px solid rgba(72,72,73,0.18);';
         credsContainer.appendChild(tabsNav);
 
         // Content area
@@ -2336,7 +2365,7 @@
 
             const tabBtn = document.createElement('button');
             tabBtn.innerHTML = `${group.group}`;
-            tabBtn.style.cssText = `display:inline-flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:600;background:rgba(255,255,255,0.04);color:#6f7378;border:none;border-radius:999px;cursor:pointer;transition:color 0.2s,background 0.2s;letter-spacing:0.01em;`;
+            tabBtn.style.cssText = `display:inline-flex;align-items:center;padding:0 0 14px;font-size:13px;font-weight:600;background:transparent;color:#6f7378;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:color 0.2s,border-color 0.2s;letter-spacing:0.01em;`;
             tabBtn.onmouseover = () => { if (index !== activeTabIdx) tabBtn.style.color='#adaaab'; };
             tabBtn.onmouseout  = () => { if (index !== activeTabIdx) tabBtn.style.color='#484849'; };
             tabsNav.appendChild(tabBtn);
@@ -2355,11 +2384,11 @@
                 const accent = GROUP_ACCENTS[i];
                 if (i === activeTabIdx) {
                     btn.style.color = '#ffffff';
-                    btn.style.background = 'linear-gradient(135deg, rgba(22,58,99,0.95), rgba(36,79,126,0.9))';
+                    btn.style.borderBottomColor = accent;
                     btn.style.fontWeight = '700';
                 } else {
                     btn.style.color = '#6f7378';
-                    btn.style.background = 'rgba(255,255,255,0.04)';
+                    btn.style.borderBottomColor = 'transparent';
                     btn.style.fontWeight = '600';
                 }
             });
