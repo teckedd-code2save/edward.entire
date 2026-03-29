@@ -440,12 +440,12 @@
             100% { background-position: 250% center; }
         }
         .name-glint {
-            background: linear-gradient(90deg, #87acd6 0%, #ffffff 28%, #87acd6 45%, #ffffff 62%, #87acd6 100%);
+            background: linear-gradient(90deg, #87acd6 0%, #ffffff 25%, #c8daf0 42%, #ffffff 58%, #87acd6 100%);
             background-size: 250% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: glintSweep 2s cubic-bezier(0.4,0,0.2,1) 1.25s 1 both;
+            animation: glintSweep 2.2s cubic-bezier(0.4,0,0.2,1) 1.1s 1 both;
         }
 
         /* ── Section heading underline ──────────────── */
@@ -1054,9 +1054,9 @@
                 <p style="font-size:11px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#87acd6; margin-bottom:20px;">
                     Backend &amp; Systems Engineer · Accra, Ghana
                 </p>
-                <h1 style="font-family:'Epilogue',sans-serif; font-size:clamp(2.4rem,5vw,4.4rem); font-weight:800; letter-spacing:-0.03em; line-height:0.92; color:#ffffff; margin-bottom:24px;">
-                    <span class="hero-line-wrap"><span class="hero-line">Edward</span></span><br>
-                    <span class="hero-line-wrap"><span class="hero-line name-glint">Twumasi</span></span>
+                <h1 style="font-family:'Epilogue',sans-serif; font-size:clamp(2.6rem,5.5vw,5rem); font-weight:800; letter-spacing:-0.03em; line-height:0.88; margin-bottom:28px;">
+                    <span class="hero-line-wrap"><span class="hero-line" style="-webkit-text-stroke:1.5px rgba(255,255,255,0.55); color:transparent; display:block;">Edward</span></span>
+                    <span class="hero-line-wrap"><span class="hero-line name-glint" style="display:block; font-size:1.1em;">Twumasi</span></span>
                 </h1>
                 <p style="font-size:clamp(0.88rem,1.3vw,1rem); color:rgba(255,255,255,0.48); max-width:360px; line-height:1.7; margin-bottom:36px;">
                     Architecting resilient systems — scaling from thousands to millions of requests.
@@ -1132,13 +1132,7 @@
 
                 <style>
                 /* ── Core Tech Cloud ─────────────────────── */
-                .tech-cloud-shell {
-                    background: linear-gradient(160deg, #f0ece4 0%, #e8e2d9 100%);
-                    color: #171717;
-                    border-radius: 18px;
-                    padding: 30px 28px 28px;
-                    box-shadow: inset 0 0 0 1px rgba(23,23,23,0.07), 0 2px 20px rgba(0,0,0,0.12);
-                }
+                .tech-cloud-shell { display: contents; }
                 .tech-cloud-header {
                     display: flex;
                     justify-content: space-between;
@@ -1151,7 +1145,7 @@
                     font-weight: 700;
                     letter-spacing: 0.14em;
                     text-transform: uppercase;
-                    color: #4f5f72;
+                    color: #87acd6;
                     margin-bottom: 10px;
                 }
                 .tech-cloud-title {
@@ -1159,9 +1153,13 @@
                     font-size: clamp(1.8rem, 3vw, 2.8rem);
                     line-height: 1;
                     letter-spacing: -0.04em;
-                    color: #101114;
+                    color: #ffffff;
                     margin: 0;
                 }
+                /* flat layout — no shell card */
+                .tech-cloud-header { padding: 0; }
+                .tech-legend { margin-top: 20px; }
+                .tech-grid-clip { margin-top: 4px; }
                 .tech-cloud-copy {
                     max-width: 620px;
                     color: #5e615c;
@@ -1190,9 +1188,9 @@
                 .tech-legend-btn:hover,
                 .tech-legend-btn.active {
                     transform: translateY(-1px);
-                    box-shadow: 0 6px 16px rgba(16,17,20,0.14);
-                    background: rgba(16,17,20,0.14) !important;
-                    color: #111 !important;
+                    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+                    background: rgba(255,255,255,0.12) !important;
+                    color: #fff !important;
                 }
                 .tech-cloud-grid {
                     display: flex;
@@ -1219,16 +1217,16 @@
                 .tech-cloud-chip:hover,
                 .tech-cloud-chip.focused {
                     transform: translateY(-2px) scale(1.03);
-                    box-shadow: 0 8px 20px rgba(16,17,20,0.14);
-                    background: rgba(16,17,20,0.13) !important;
-                    color: #111 !important;
+                    background: rgba(255,255,255,0.13) !important;
+                    color: #fff !important;
+                    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
                 }
                 .tech-cloud-chip.dimmed {
-                    opacity: 0.18;
+                    opacity: 0.15;
                     filter: none;
                 }
                 .tech-cloud-chip.focused {
-                    box-shadow: 0 0 0 1.5px rgba(16,17,20,0.35), 0 8px 20px rgba(16,17,20,0.12);
+                    box-shadow: 0 0 0 1.5px rgba(255,255,255,0.22), 0 6px 18px rgba(0,0,0,0.2);
                 }
                 .tech-cloud-chip-dot {
                     width: 7px;
@@ -1243,21 +1241,21 @@
                     position: fixed;
                     pointer-events: none;
                     display: none;
-                    background: rgba(248, 243, 235, 0.98);
+                    background: rgba(18,20,30,0.97);
                     border-radius: 10px;
                     padding: 14px 16px;
                     max-width: 280px;
                     z-index: 9999;
-                    box-shadow: 0 18px 40px rgba(16,17,20,0.14);
+                    box-shadow: 0 18px 40px rgba(0,0,0,0.5);
                     backdrop-filter: blur(12px);
-                    border: 1px solid rgba(16,17,20,0.08);
+                    border: 1px solid rgba(255,255,255,0.08);
                 }
                 .tech-cloud-tooltip p { margin: 0; }
                 .tech-cloud-tooltip .tt-name {
-                    font-size: 12px; font-weight: 700; color: #101114; margin-bottom: 6px;
+                    font-size: 12px; font-weight: 700; color: #ffffff; margin-bottom: 6px;
                 }
                 .tech-cloud-tooltip .tt-desc {
-                    font-size: 11px; color: #5e615c; line-height: 1.6;
+                    font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.6;
                 }
                 @keyframes cloudIn {
                     from { opacity: 0; transform: translateY(18px) scale(0.97); }
@@ -1287,9 +1285,8 @@
                         left: 0;
                         right: 0;
                         height: 90px;
-                        background: linear-gradient(to bottom, transparent 0%, #e8e2d9 100%);
+                        background: linear-gradient(to bottom, transparent 0%, #131314 100%);
                         pointer-events: none;
-                        border-radius: 0 0 8px 8px;
                     }
                 }
                 @media (max-width: 768px) {
@@ -1331,25 +1328,23 @@
                 }
                 </style>
 
-                <div class="tech-cloud-shell">
-                    <div class="tech-cloud-header">
-                        <div>
-                            <div class="tech-cloud-kicker">What I ship with</div>
-                            <h3 class="tech-cloud-title">The Stack</h3>
-                        </div>
+                <div class="tech-cloud-header">
+                    <div>
+                        <div class="tech-cloud-kicker">What I ship with</div>
+                        <h3 class="tech-cloud-title">The Stack</h3>
                     </div>
+                </div>
 
-                    <div class="tech-legend" id="tech-legend"></div>
+                <div class="tech-legend" id="tech-legend"></div>
 
-                    <div id="chip-tooltip" class="tech-cloud-tooltip">
-                        <p class="tt-name" id="chip-tt-name"></p>
-                        <p class="tt-desc" id="chip-tt-desc"></p>
-                    </div>
+                <div id="chip-tooltip" class="tech-cloud-tooltip">
+                    <p class="tt-name" id="chip-tt-name"></p>
+                    <p class="tt-desc" id="chip-tt-desc"></p>
+                </div>
 
-                    <div class="tech-grid-clip">
-                        <div class="tech-cloud-grid" id="skill-bento-grid"></div>
-                        <div class="tech-grid-fade"></div>
-                    </div>
+                <div class="tech-grid-clip">
+                    <div class="tech-cloud-grid" id="skill-bento-grid"></div>
+                    <div class="tech-grid-fade"></div>
                 </div>
 
             </div>
@@ -1444,8 +1439,8 @@
             const btn = document.createElement('button');
             btn.className = 'tech-legend-btn';
             btn.dataset.group = g.key;
-            btn.style.background = 'rgba(16,17,20,0.07)';
-            btn.style.color = '#3a3a3a';
+            btn.style.background = 'rgba(255,255,255,0.08)';
+            btn.style.color = 'rgba(255,255,255,0.6)';
             btn.innerHTML = `${g.label}`;
 
             btn.addEventListener('mouseenter', () => !activeGroup && setFocusGroup(g.key));
@@ -1466,8 +1461,8 @@
                 chip.className = 'tech-cloud-chip';
                 chip.dataset.group = g.key;
                 chip.dataset.size = (si % 5 === 0) ? 'lg' : (si % 2 === 0 ? 'md' : 'sm');
-                chip.style.background = 'rgba(16,17,20,0.07)';
-                chip.style.color = '#2a2a2a';
+                chip.style.background = 'rgba(255,255,255,0.07)';
+                chip.style.color = 'rgba(255,255,255,0.68)';
                 chip.style.animationDelay = ((gi * 120) + (si * 45)) + 'ms';
                 chip.innerHTML = s.name;
 
@@ -1519,8 +1514,8 @@
                 btn.classList.toggle('active', isActive);
                 btn.style.opacity = !groupKey || btn.dataset.group === groupKey ? '1' : '0.28';
                 btn.style.filter = 'none';
-                btn.style.background = isActive ? 'rgba(16,17,20,0.15)' : 'rgba(16,17,20,0.07)';
-                btn.style.color = isActive ? '#111' : '#3a3a3a';
+                btn.style.background = isActive ? 'rgba(255,255,255,0.13)' : 'rgba(255,255,255,0.07)';
+                btn.style.color = isActive ? '#fff' : 'rgba(255,255,255,0.65)';
             });
         }
 
