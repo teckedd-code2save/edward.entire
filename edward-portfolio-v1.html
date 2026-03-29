@@ -98,10 +98,6 @@
             transform: none;
         }
 
-        .rounded-full {
-            border-radius: 6px !important;
-        }
-
         /* Custom cursor */
         #cursor {
             position: fixed;
@@ -163,16 +159,21 @@
             animation: float 4s ease-in-out infinite;
         }
 
-        /* Fade-in base */
+        /* Fade-in base — initial hidden state; GSAP animates to final */
         .fade-in {
             opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+            transform: translateY(32px);
         }
 
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+        /* Hero text line reveal (LN style) */
+        .hero-line-wrap {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: bottom;
+        }
+        .hero-line {
+            display: inline-block;
+            transform: translateY(110%);
         }
 
         /* ── Stacked Card Carousel ─────────────────────── */
@@ -384,12 +385,67 @@
 
         .skill-pill {
             display: inline-block;
-            padding: 7px 14px;
-            background: rgba(255, 255, 255, 0.06);
-            color: #ffffff;
-            border-radius: 6px;
+            padding: 4px 10px;
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.58);
+            border-radius: 3px;
             font-size: 11px;
             font-weight: 600;
+            letter-spacing: 0.03em;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* ── Shared button styles ─────────────────── */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 20px;
+            background: #ffffff;
+            color: #0a0a0b;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.01em;
+            border-radius: 4px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s, gap 0.25s;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-primary:hover { background: #e4eaf2; gap: 13px; }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding-bottom: 2px;
+            color: rgba(255,255,255,0.5);
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 0.01em;
+            text-decoration: none;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.18);
+            background: transparent;
+            cursor: pointer;
+            transition: color 0.2s, border-color 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-ghost:hover { color: #ffffff; border-color: rgba(255,255,255,0.48); }
+
+        /* ── Name glint sweep ─────────────────────── */
+        @keyframes glintSweep {
+            0%   { background-position: -250% center; }
+            100% { background-position: 250% center; }
+        }
+        .name-glint {
+            background: linear-gradient(90deg, #87acd6 0%, #ffffff 28%, #87acd6 45%, #ffffff 62%, #87acd6 100%);
+            background-size: 250% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glintSweep 2s cubic-bezier(0.4,0,0.2,1) 1.25s 1 both;
         }
 
         /* ── Section heading underline ──────────────── */
@@ -955,82 +1011,86 @@
                 <li><a href="#credentials" class="nav-link">Credentials</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <a href="staticfiles/Edward_Twumasi_CV_Latest.pdf" target="_blank"
-                class="px-5 py-2 text-sm font-bold rounded-full transition text-white hover:shadow-[0_0_15px_rgba(22,58,99,0.35)] hover:scale-105"
-                style="background: linear-gradient(135deg, #163a63, #244f7e);">
+            <a href="staticfiles/Edward_Twumasi_CV_Latest.pdf" target="_blank" class="btn-ghost" style="font-size:12px;">
                 View CV
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
             </a>
         </nav>
     </header>
 
     <!-- ══ HERO ═══════════════════════════════════════ -->
-    <section class="min-h-screen flex items-center justify-center px-8 pt-20 relative overflow-hidden"
-        id="hero"
-        style="background: radial-gradient(circle at 20% 40%, rgba(22,58,99,0.18) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(22,58,99,0.12) 0%, transparent 50%), #0e0e0f;">
-        <canvas id="hero-canvas"></canvas>
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center w-full relative z-10">
-            <div class="fade-in text-center md:text-left">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8" style="background:#1a191b; border: 1px solid rgba(72,72,73,0.3);">
-                    <span class="flex h-2 w-2 rounded-full animate-pulse" style="background:#244f7e;"></span>
-                    <span class="text-[0.7rem] uppercase tracking-[0.1em] font-medium" style="color:#adaaab;">Senior Backend &amp; Systems Engineer · Accra, Ghana</span>
+    <section class="relative overflow-hidden flex items-end" id="hero" style="min-height:100vh; background:#0a0a0b;">
+
+        <!-- Portrait image — fills right column on desktop, top strip on mobile -->
+        <div class="absolute inset-0">
+            <!-- Mobile: top image strip -->
+            <div class="md:hidden absolute top-0 left-0 right-0" style="height:56vh; overflow:hidden;">
+                <img src="staticfiles/1719185128651.jpeg" alt="Edward Twumasi"
+                     style="width:100%; height:100%; object-fit:cover; object-position:center 12%; filter:brightness(0.82);">
+                <div style="position:absolute;inset:0;background:linear-gradient(to bottom, transparent 30%, #0a0a0b 100%);"></div>
+            </div>
+            <!-- Desktop: right image column -->
+            <div id="hero-img-col" class="hidden md:block absolute top-0 right-0 bottom-0" style="width:50%; overflow:hidden; perspective:1100px;">
+                <div id="hero-img-3d" style="width:100%; height:100%; will-change:transform; transform-style:preserve-3d;">
+                    <img src="staticfiles/1719185128651.jpeg" alt="Edward Twumasi"
+                         style="width:100%; height:100%; object-fit:cover; object-position:center 8%; filter:brightness(0.85) contrast(1.04); display:block;">
+                    <!-- Cursor shine overlay -->
+                    <div id="hero-img-shine" style="position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(circle 380px at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.07), transparent 70%);transition:opacity 0.4s;z-index:3;"></div>
                 </div>
-                <h1 class="text-5xl lg:text-7xl mb-6 hero-signature">
-                    Edward <span class="signature-name" style="background: linear-gradient(135deg, #ffffff, #87acd6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Twumasi</span>
-                </h1>
-                <p class="text-lg mb-10 leading-relaxed max-w-md" style="color:#adaaab;">
-                    Architecting resilient backend systems. Helping teams scale from thousands to millions of requests —
-                    optimize, ship, and lead.
+                <!-- Fade left into dark -->
+                <div style="position:absolute;inset:0;background:linear-gradient(to right, #0a0a0b 0%, rgba(10,10,11,0.55) 45%, transparent 100%);pointer-events:none;z-index:4;"></div>
+                <!-- Fade bottom -->
+                <div style="position:absolute;inset:0;background:linear-gradient(to top, #0a0a0b 0%, transparent 28%);pointer-events:none;z-index:4;"></div>
+            </div>
+        </div>
+
+        <!-- Text content — sits in the lower-left -->
+        <style>
+            .hero-text-wrap { padding-top: 58vh; }
+            @media (min-width: 768px) { .hero-text-wrap { padding-top: 0; } }
+        </style>
+        <div class="hero-text-wrap relative z-10 w-full max-w-6xl mx-auto px-8 pb-16 md:pb-24 flex md:items-end md:min-h-screen">
+            <div id="hero-content" style="max-width:520px; opacity:0;">
+                <p style="font-size:11px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#87acd6; margin-bottom:20px;">
+                    Backend &amp; Systems Engineer · Accra, Ghana
                 </p>
-                <div class="flex gap-4 flex-wrap">
-                    <a href="#projects"
-                        class="px-7 py-3 font-bold rounded-full transition text-sm hover:scale-105"
-                        style="background: linear-gradient(135deg, #163a63, #244f7e); color:#ffffff; transition: box-shadow 0.3s, transform 0.3s;"
-                        onmouseover="this.style.boxShadow='0 0 25px rgba(22,58,99,0.35)'" onmouseout="this.style.boxShadow='none'">
+                <h1 style="font-family:'Epilogue',sans-serif; font-size:clamp(2.4rem,5vw,4.4rem); font-weight:800; letter-spacing:-0.03em; line-height:0.92; color:#ffffff; margin-bottom:24px;">
+                    <span class="hero-line-wrap"><span class="hero-line">Edward</span></span><br>
+                    <span class="hero-line-wrap"><span class="hero-line name-glint">Twumasi</span></span>
+                </h1>
+                <p style="font-size:clamp(0.88rem,1.3vw,1rem); color:rgba(255,255,255,0.48); max-width:360px; line-height:1.7; margin-bottom:36px;">
+                    Architecting resilient systems — scaling from thousands to millions of requests.
+                </p>
+                <div style="display:flex; gap:20px; flex-wrap:wrap; align-items:center;">
+                    <a href="#projects" id="hero-btn-work"
+                       style="display:inline-flex; align-items:center; gap:9px; padding:12px 22px; background:#ffffff; color:#0a0a0b; font-weight:700; font-size:13px; letter-spacing:0.01em; border-radius:4px; text-decoration:none; transition:background 0.2s, gap 0.25s;"
+                       onmouseover="this.style.background='#e8eef5'; this.style.gap='14px'"
+                       onmouseout="this.style.background='#ffffff'; this.style.gap='9px'">
                         See My Work
-                    </a>
-                    <a href="#contact"
-                        class="px-7 py-3 font-bold rounded-full transition text-sm hover:bg-[rgba(22,58,99,0.12)]"
-                        style="border: 1px solid rgba(22,58,99,0.35); color:#ffffff;">
-                        Get in Touch
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
                     <a href="staticfiles/Edward_Twumasi_CV_Latest.pdf" target="_blank"
-                        class="px-7 py-3 font-bold rounded-full transition text-sm text-white hover:bg-[#2c2c2d]"
-                        style="background:#1a191b; border: 1px solid rgba(72,72,73,0.3);">
+                       style="display:inline-flex; align-items:center; gap:7px; color:rgba(255,255,255,0.55); font-weight:600; font-size:13px; letter-spacing:0.01em; text-decoration:none; padding-bottom:2px; border-bottom:1px solid rgba(255,255,255,0.2); transition:color 0.2s, border-color 0.2s;"
+                       onmouseover="this.style.color='#ffffff'; this.style.borderColor='rgba(255,255,255,0.55)'"
+                       onmouseout="this.style.color='rgba(255,255,255,0.55)'; this.style.borderColor='rgba(255,255,255,0.2)'">
                         View CV
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
                     </a>
-                </div>
-            </div>
-            <div class="fade-in hidden md:flex justify-center items-center">
-                <div class="relative">
-                    <div class="absolute inset-0 rounded-3xl blur-3xl opacity-25 scale-110"
-                        style="background: linear-gradient(135deg, rgba(22,58,99,0.58), rgba(36,79,126,0.42));"></div>
-                    <img id="edward-image" src="staticfiles/1719185128651.jpeg" alt="Edward Twumasi"
-                        class="relative w-72 h-72 rounded-3xl object-cover object-top image-float"
-                        style="box-shadow: 0 20px 40px rgba(22,58,99,0.22), 0 0 0 1px rgba(72,72,73,0.2);">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ══ ABOUT ══════════════════════════════════════ -->
-    <section class="py-28" id="about" style="background:#131314;">
+    <section class="py-20" id="about" style="background:#131314;">
         <div class="max-w-6xl mx-auto px-8">
             <h2 class="text-5xl text-white section-title">About</h2>
 
             <div class="grid md:grid-cols-2 gap-16">
                 <!-- Left: Text -->
-                <div class="fade-in space-y-5">
-                    <p class="leading-relaxed text-lg" style="color:#adaaab;">
-                        I build backend platforms that stay reliable under load and remain usable for the teams shipping on top of them.
-                    </p>
-                    <p class="leading-relaxed" style="color:#adaaab;">
-                        Over the last <strong class="text-white font-semibold">6+ years</strong>, I have worked across distributed systems, cloud infrastructure, developer tooling, and AI-assisted workflows, with a bias for systems that are fast, observable, and practical in production.
-                    </p>
-                    <p class="leading-relaxed" style="color:#adaaab;">
-                        My work ranges from <strong class="text-white font-semibold">event-driven architectures</strong> and <strong class="text-white font-semibold">CI/CD automation</strong> to open-source packages like <strong class="text-white font-semibold">b2dp</strong> and contributions that make complex engineering workflows simpler to operate and scale.
-                    </p>
-                    <p class="leading-relaxed" style="color:#adaaab;">
-                        I care about clear architecture, strong execution, and building systems that help products move with confidence.
+                <div class="fade-in">
+                    <p class="leading-relaxed text-lg" style="color:#adaaab; max-width:440px;">
+                        6+ years building backend systems that hold up under pressure. Distributed systems, cloud infrastructure, developer tooling, and AI workflows — with a bias for things that are fast, observable, and honest in production.
                     </p>
                 </div>
 
@@ -1068,23 +1128,23 @@
             </div>
 
             <!-- Bottom: Core Technologies — Interactive Cloud -->
-            <div class="mt-20 pt-16 fade-in" id="tech-section" style="border-top: 1px solid rgba(72,72,73,0.15); position:relative;">
+            <div class="mt-12 pt-10 fade-in" id="tech-section" style="border-top: 1px solid rgba(72,72,73,0.15); position:relative;">
 
                 <style>
                 /* ── Core Tech Cloud ─────────────────────── */
                 .tech-cloud-shell {
-                    background: linear-gradient(180deg, #f6f1e8 0%, #efe8dc 100%);
+                    background: linear-gradient(160deg, #f0ece4 0%, #e8e2d9 100%);
                     color: #171717;
                     border-radius: 18px;
-                    padding: 34px 28px 30px;
-                    box-shadow: inset 0 0 0 1px rgba(23, 23, 23, 0.06);
+                    padding: 30px 28px 28px;
+                    box-shadow: inset 0 0 0 1px rgba(23,23,23,0.07), 0 2px 20px rgba(0,0,0,0.12);
                 }
                 .tech-cloud-header {
                     display: flex;
                     justify-content: space-between;
                     align-items: flex-end;
                     gap: 18px;
-                    margin-bottom: 24px;
+                    margin-bottom: 20px;
                 }
                 .tech-cloud-kicker {
                     font-size: 11px;
@@ -1130,8 +1190,9 @@
                 .tech-legend-btn:hover,
                 .tech-legend-btn.active {
                     transform: translateY(-1px);
-                    box-shadow: 0 12px 24px rgba(16, 17, 20, 0.14);
-                    filter: saturate(1.05);
+                    box-shadow: 0 6px 16px rgba(16,17,20,0.14);
+                    background: rgba(16,17,20,0.14) !important;
+                    color: #111 !important;
                 }
                 .tech-cloud-grid {
                     display: flex;
@@ -1157,16 +1218,17 @@
                 }
                 .tech-cloud-chip:hover,
                 .tech-cloud-chip.focused {
-                    transform: translateY(-2px) scale(1.04);
-                    box-shadow: 0 18px 30px rgba(16, 17, 20, 0.16);
+                    transform: translateY(-2px) scale(1.03);
+                    box-shadow: 0 8px 20px rgba(16,17,20,0.14);
+                    background: rgba(16,17,20,0.13) !important;
+                    color: #111 !important;
                 }
                 .tech-cloud-chip.dimmed {
-                    opacity: 0.12;
-                    filter: saturate(0.35) blur(0.4px);
+                    opacity: 0.18;
+                    filter: none;
                 }
                 .tech-cloud-chip.focused {
-                    box-shadow: 0 0 0 2px rgba(255,255,255,0.85), 0 18px 30px rgba(16, 17, 20, 0.16);
-                    filter: saturate(1.15);
+                    box-shadow: 0 0 0 1.5px rgba(16,17,20,0.35), 0 8px 20px rgba(16,17,20,0.12);
                 }
                 .tech-cloud-chip-dot {
                     width: 7px;
@@ -1204,26 +1266,76 @@
                 .tech-cloud-chip.cloud-animate {
                     animation: cloudIn 0.45s cubic-bezier(0.22,1,0.36,1) both;
                 }
+
+                /* Grid clip wrapper */
+                .tech-grid-clip {
+                    position: relative;
+                }
+                .tech-grid-fade {
+                    display: none;
+                }
+                @media (max-width: 768px) {
+                    .tech-grid-clip {
+                        max-height: 210px;
+                        overflow: hidden;
+                        border-radius: 8px;
+                    }
+                    .tech-grid-fade {
+                        display: block;
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        height: 90px;
+                        background: linear-gradient(to bottom, transparent 0%, #e8e2d9 100%);
+                        pointer-events: none;
+                        border-radius: 0 0 8px 8px;
+                    }
+                }
                 @media (max-width: 768px) {
                     .tech-cloud-header {
                         display: block;
                     }
                     .tech-cloud-shell {
-                        padding: 26px 18px 22px;
+                        padding: 22px 14px 18px;
                         border-radius: 14px;
+                    }
+                    .tech-cloud-title {
+                        font-size: 1.5rem;
+                    }
+                    .tech-cloud-copy {
+                        font-size: 13px;
+                    }
+                    .tech-legend {
+                        flex-wrap: nowrap;
+                        overflow-x: auto;
+                        -webkit-overflow-scrolling: touch;
+                        padding-bottom: 4px;
+                        gap: 8px;
+                    }
+                    .tech-legend-btn {
+                        flex-shrink: 0;
+                        white-space: nowrap;
+                        padding: 8px 12px;
+                        font-size: 11px;
                     }
                     .tech-cloud-grid {
                         justify-content: flex-start;
+                        min-height: auto;
+                        gap: 9px 7px;
                     }
+                    .tech-cloud-chip[data-size="lg"] { font-size: 13px; padding: 10px 13px; }
+                    .tech-cloud-chip[data-size="md"] { font-size: 12px; padding: 9px 12px; }
+                    .tech-cloud-chip[data-size="sm"] { font-size: 11px; padding: 8px 11px; }
+                    .tech-cloud-chip { padding: 9px 12px; font-size: 12px; }
                 }
                 </style>
 
                 <div class="tech-cloud-shell">
                     <div class="tech-cloud-header">
                         <div>
-                            <div class="tech-cloud-kicker">Core Technologies</div>
-                            <h3 class="tech-cloud-title">A living stack map</h3>
-                            <p class="tech-cloud-copy">Hover or click a category in the legend to focus the related technologies in the cloud.</p>
+                            <div class="tech-cloud-kicker">What I ship with</div>
+                            <h3 class="tech-cloud-title">The Stack</h3>
                         </div>
                     </div>
 
@@ -1234,7 +1346,10 @@
                         <p class="tt-desc" id="chip-tt-desc"></p>
                     </div>
 
-                    <div class="tech-cloud-grid" id="skill-bento-grid"></div>
+                    <div class="tech-grid-clip">
+                        <div class="tech-cloud-grid" id="skill-bento-grid"></div>
+                        <div class="tech-grid-fade"></div>
+                    </div>
                 </div>
 
             </div>
@@ -1329,8 +1444,8 @@
             const btn = document.createElement('button');
             btn.className = 'tech-legend-btn';
             btn.dataset.group = g.key;
-            btn.style.background = g.bg;
-            btn.style.color = g.color;
+            btn.style.background = 'rgba(16,17,20,0.07)';
+            btn.style.color = '#3a3a3a';
             btn.innerHTML = `${g.label}`;
 
             btn.addEventListener('mouseenter', () => !activeGroup && setFocusGroup(g.key));
@@ -1351,15 +1466,15 @@
                 chip.className = 'tech-cloud-chip';
                 chip.dataset.group = g.key;
                 chip.dataset.size = (si % 5 === 0) ? 'lg' : (si % 2 === 0 ? 'md' : 'sm');
-                chip.style.background = g.bg;
-                chip.style.color = g.color;
+                chip.style.background = 'rgba(16,17,20,0.07)';
+                chip.style.color = '#2a2a2a';
                 chip.style.animationDelay = ((gi * 120) + (si * 45)) + 'ms';
-                chip.innerHTML = `<span class="tech-cloud-chip-dot" style="background:${g.color};"></span>${s.name}`;
+                chip.innerHTML = s.name;
 
                 chip.addEventListener('mouseenter', e => {
                     chip.classList.add('focused');
                     ttName.textContent = s.name;
-                    ttName.style.color = g.color;
+                    ttName.style.color = '#101114';
                     ttDesc.textContent = s.desc;
                     positionTooltip(e);
                     tooltip.style.display = 'block';
@@ -1400,9 +1515,12 @@
                 chip.style.zIndex = match ? '2' : '1';
             });
             document.querySelectorAll('.tech-legend-btn').forEach((btn) => {
-                btn.classList.toggle('active', !!groupKey && btn.dataset.group === groupKey);
-                btn.style.opacity = !groupKey || btn.dataset.group === groupKey ? '1' : '0.22';
-                btn.style.filter = !groupKey || btn.dataset.group === groupKey ? 'none' : 'grayscale(0.15)';
+                const isActive = !!groupKey && btn.dataset.group === groupKey;
+                btn.classList.toggle('active', isActive);
+                btn.style.opacity = !groupKey || btn.dataset.group === groupKey ? '1' : '0.28';
+                btn.style.filter = 'none';
+                btn.style.background = isActive ? 'rgba(16,17,20,0.15)' : 'rgba(16,17,20,0.07)';
+                btn.style.color = isActive ? '#111' : '#3a3a3a';
             });
         }
 
@@ -1450,11 +1568,9 @@
         </div>
         <p class="text-center mt-8 text-xs font-medium tracking-widest" id="card-counter" style="color:#484849;"></p>
         <div class="mt-12 text-center">
-            <a href="https://github.com/teckedd-code2save" target="_blank"
-                class="inline-flex items-center gap-2 px-6 py-3 font-semibold rounded-full transition text-sm text-[#adaaab] hover:text-white hover:border-[rgba(22,58,99,0.35)]"
-                style="border: 1px solid rgba(72,72,73,0.3);">
-                See All Projects on GitHub
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            <a href="https://github.com/teckedd-code2save" target="_blank" class="btn-ghost">
+                All Projects on GitHub
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
             </a>
         </div>
     </section>
@@ -1486,9 +1602,10 @@
                         <span class="skill-pill">Node.js</span>
                     </div>
                     <div class="flex gap-4 mt-auto">
-                        <a href="https://www.npmjs.com/package/@teckedd-code2save/datafy" target="_blank"
-                            class="px-5 py-2.5 font-bold rounded-full transition text-sm text-center text-white hover:shadow-[0_0_15px_rgba(22,58,99,0.35)]"
-                            style="background: linear-gradient(135deg, #163a63, #244f7e);">View on NPM</a>
+                        <a href="https://www.npmjs.com/package/@teckedd-code2save/datafy" target="_blank" class="btn-primary">
+                            View on NPM
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
                     </div>
                 </div>
 
@@ -1512,9 +1629,10 @@
                         <span class="skill-pill">Skill SDK</span>
                     </div>
                     <div class="flex gap-4 mt-auto">
-                        <a href="https://www.npmjs.com/package/@teckedd-code2save/b2dp" target="_blank"
-                            class="px-5 py-2.5 font-bold rounded-full transition text-sm text-center text-white hover:shadow-[0_0_15px_rgba(22,58,99,0.35)]"
-                            style="background: linear-gradient(135deg, #163a63, #244f7e);">View on NPM</a>
+                        <a href="https://www.npmjs.com/package/@teckedd-code2save/b2dp" target="_blank" class="btn-primary">
+                            View on NPM
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -1528,10 +1646,9 @@
             <h2 class="text-5xl text-white section-title">Credentials &amp; Learning</h2>
             <div id="credentials-container"></div>
             <div class="mt-10 text-center" id="credentials-see-all-container" style="display:none;">
-                <button id="credentials-see-all-btn"
-                    style="padding:10px 28px;border-radius:99px;font-size:13px;font-weight:700;background:linear-gradient(135deg,#163a63,#244f7e);color:#ffffff;border:none;cursor:pointer;box-shadow:0 0 24px rgba(22,58,99,0.2);transition:opacity 0.2s;"
-                    onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
-                    Show All Certifications
+                <button id="credentials-see-all-btn" class="btn-primary">
+                    Show All
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </button>
             </div>
         </div>
@@ -1545,15 +1662,13 @@
             <p class="mb-10 leading-relaxed max-w-xl mx-auto" style="color:#adaaab;">Detailed work history, system design
                 experience, stack depth, and references available on request or via the link below.</p>
             <div class="flex flex-wrap gap-4 justify-center">
-                <a href="https://www.linkedin.com/in/edward-twumasi/" target="_blank" rel="noopener"
-                    class="px-8 py-3 font-bold rounded-full transition text-sm text-white hover:shadow-[0_0_20px_rgba(22,58,99,0.35)]"
-                    style="background: linear-gradient(135deg, #163a63, #244f7e);">
+                <a href="https://www.linkedin.com/in/edward-twumasi/" target="_blank" rel="noopener" class="btn-primary">
                     View on LinkedIn
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
-                <a href="staticfiles/Edward_Twumasi_CV_Latest.pdf" target="_blank" id="cv-download-btn"
-                    class="px-8 py-3 font-bold rounded-full transition text-sm text-white hover:bg-[#2c2c2d] hover:border-[rgba(22,58,99,0.35)]"
-                    style="background:#1a191b; border: 1px solid rgba(72,72,73,0.2);">
-                    Download PDF CV
+                <a href="staticfiles/Edward_Twumasi_CV_Latest.pdf" target="_blank" id="cv-download-btn" class="btn-ghost">
+                    Download PDF
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
                 </a>
             </div>
         </div>
@@ -1568,14 +1683,9 @@
                     <p class="mt-4 max-w-xl" style="color:#adaaab;">Deep dives into production systems, MLOps, and agentic
                         workflows. Featuring the latest series on deploying high-performance Whisper models.</p>
                 </div>
-                <button id="open-drawer-btn"
-                    class="mt-8 md:mt-0 px-6 py-3 font-semibold rounded-full transition shadow-sm text-sm inline-flex items-center gap-2 w-fit text-[#adaaab] hover:text-white hover:border-[rgba(22,58,99,0.35)]"
-                    style="background:#1a191b; border: 1px solid rgba(72,72,73,0.2);">
+                <button id="open-drawer-btn" class="btn-ghost mt-8 md:mt-0">
                     View Entire Series
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </button>
             </div>
 
@@ -1941,7 +2051,6 @@
 
         // Initialize all background canvases
         window.addEventListener('DOMContentLoaded', () => {
-            initBackgroundCanvas('hero-canvas', 'hero', 0x163a63, 0x244f7e);
             initBackgroundCanvas('projects-canvas', 'projects', 0x163a63, 0x244f7e);
             initBackgroundCanvas('tools-canvas', 'tools', 0x163a63, 0x244f7e);
             initBackgroundCanvas('credentials-canvas', 'credentials', 0x163a63, 0x244f7e);
@@ -2469,18 +2578,177 @@
         });
 
         /* ════════════════════════════════════════════════
-           FADE-IN via IntersectionObserver
+           HERO ENTRANCE — LN-style staggered reveal
         ════════════════════════════════════════════════ */
-        const io = new IntersectionObserver(entries => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                    io.unobserve(e.target);
+        window.addEventListener('DOMContentLoaded', () => {
+            // Hero image: subtle scale-in
+            gsap.from('#hero .hidden.md\\:block img', {
+                scale: 1.07,
+                opacity: 0,
+                duration: 1.6,
+                ease: 'power3.out',
+                delay: 0.05
+            });
+
+            // Hero image mobile: fade up
+            gsap.from('#hero .md\\:hidden img', {
+                opacity: 0,
+                duration: 1.2,
+                ease: 'power3.out',
+                delay: 0.05
+            });
+
+            // Make hero container visible
+            gsap.set('#hero-content', { opacity: 1 });
+
+            // Hero text kicker
+            gsap.from('#hero-content > p:first-child', {
+                y: 18,
+                opacity: 0,
+                duration: 0.7,
+                ease: 'power3.out',
+                delay: 0.3
+            });
+
+            // Hero name lines: slide up from clip
+            gsap.to('#hero-content .hero-line', {
+                y: '0%',
+                duration: 1.0,
+                ease: 'power4.out',
+                stagger: 0.14,
+                delay: 0.48
+            });
+
+            // Hero tagline
+            gsap.from('#hero-content > p:nth-of-type(2)', {
+                y: 20,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                delay: 0.82
+            });
+
+            // Hero buttons
+            gsap.from('#hero-content > div:last-child', {
+                y: 20,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                delay: 1.0
+            });
+
+            // 3D tilt + cursor shine on hero image
+            const heroSection   = document.getElementById('hero');
+            const heroImgCol    = document.getElementById('hero-img-col');
+            const heroImg3d     = document.getElementById('hero-img-3d');
+            const heroImgShine  = document.getElementById('hero-img-shine');
+
+            if (heroSection && heroImgCol && heroImg3d) {
+                heroSection.addEventListener('mousemove', (e) => {
+                    const rect = heroImgCol.getBoundingClientRect();
+                    const cx = rect.left + rect.width / 2;
+                    const cy = rect.top  + rect.height / 2;
+                    const dx = (e.clientX - cx) / (rect.width  / 2);
+                    const dy = (e.clientY - cy) / (rect.height / 2);
+
+                    gsap.to(heroImg3d, {
+                        rotateY:  dx * 6,
+                        rotateX: -dy * 4,
+                        duration: 0.65,
+                        ease: 'power2.out',
+                        overwrite: 'auto'
+                    });
+
+                    if (heroImgShine) {
+                        const lx = e.clientX - rect.left;
+                        const ly = e.clientY - rect.top;
+                        heroImgShine.style.setProperty('--mx', lx + 'px');
+                        heroImgShine.style.setProperty('--my', ly + 'px');
+                        heroImgShine.style.opacity = '1';
+                    }
+                });
+
+                heroSection.addEventListener('mouseleave', () => {
+                    gsap.to(heroImg3d, {
+                        rotateY: 0, rotateX: 0,
+                        duration: 1.1, ease: 'power3.out', overwrite: 'auto'
+                    });
+                    if (heroImgShine) heroImgShine.style.opacity = '0';
+                });
+            }
+
+            // Hero image parallax on scroll
+            gsap.to('#hero .hidden.md\\:block img', {
+                yPercent: 12,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true
                 }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        });
 
-        document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+        /* ════════════════════════════════════════════════
+           SCROLL REVEALS via GSAP ScrollTrigger (LN style)
+        ════════════════════════════════════════════════ */
+        gsap.utils.toArray('.fade-in').forEach((el) => {
+            gsap.fromTo(el,
+                { y: 40, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.85,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 90%',
+                        toggleActions: 'play none none none'
+                    }
+                }
+            );
+        });
+
+        // Section headings: slide in from left
+        gsap.utils.toArray('.section-title').forEach((el) => {
+            gsap.fromTo(el,
+                { x: -28, opacity: 0 },
+                {
+                    x: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 88%',
+                        toggleActions: 'play none none none'
+                    }
+                }
+            );
+        });
+
+        // Card stagger inside card grids
+        gsap.utils.toArray('.grid').forEach((grid) => {
+            const cards = grid.querySelectorAll('.fade-in');
+            if (cards.length > 1) {
+                gsap.fromTo(cards,
+                    { y: 35, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.75,
+                        ease: 'power3.out',
+                        stagger: 0.1,
+                        scrollTrigger: {
+                            trigger: grid,
+                            start: 'top 88%',
+                            toggleActions: 'play none none none'
+                        }
+                    }
+                );
+            }
+        });
 
         /* ════════════════════════════════════════════════
            STAT COUNTERS
