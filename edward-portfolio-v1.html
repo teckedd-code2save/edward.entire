@@ -1127,233 +1127,117 @@
                 </div>
             </div>
 
-            <!-- Bottom: Core Technologies — Interactive Cloud -->
-            <div class="mt-12 pt-10 fade-in" id="tech-section" style="border-top: 1px solid rgba(72,72,73,0.15); position:relative;">
-
+            <!-- Bottom: The Stack -->
+            <div class="mt-12 pt-10 fade-in" id="tech-section" style="border-top: 1px solid rgba(72,72,73,0.15);">
                 <style>
-                /* ── Core Tech Cloud ─────────────────────── */
-                .tech-cloud-shell { display: contents; }
-                .tech-cloud-header {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: flex-end;
-                    gap: 18px;
-                    margin-bottom: 20px;
+                /* ── Stack Section ──────────────────────── */
+                .stack-kicker {
+                    font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+                    text-transform: uppercase; color: #87acd6; margin: 0 0 8px;
                 }
-                .tech-cloud-kicker {
-                    font-size: 11px;
-                    font-weight: 700;
-                    letter-spacing: 0.14em;
-                    text-transform: uppercase;
-                    color: #87acd6;
-                    margin-bottom: 10px;
-                }
-                .tech-cloud-title {
+                .stack-title {
                     font-family: 'Epilogue', sans-serif;
-                    font-size: clamp(1.8rem, 3vw, 2.8rem);
-                    line-height: 1;
-                    letter-spacing: -0.04em;
-                    color: #ffffff;
-                    margin: 0;
+                    font-size: clamp(1.5rem, 2.5vw, 2rem);
+                    font-weight: 700; letter-spacing: -0.03em;
+                    color: #ffffff; margin: 0 0 24px;
                 }
-                /* flat layout — no shell card */
-                .tech-cloud-header { padding: 0; }
-                .tech-legend { margin-top: 20px; }
-                .tech-grid-clip { margin-top: 4px; }
-                .tech-cloud-copy {
-                    max-width: 620px;
-                    color: #5e615c;
-                    font-size: 14px;
-                    line-height: 1.7;
-                    margin-top: 12px;
-                }
-                .tech-legend {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 10px;
+                /* Filter tabs */
+                .stack-tabs {
+                    display: flex; gap: 8px;
+                    overflow-x: auto; flex-wrap: nowrap;
+                    -webkit-overflow-scrolling: touch;
+                    scrollbar-width: none;
+                    padding-bottom: 2px;
                     margin-bottom: 24px;
                 }
-                .tech-legend-btn {
-                    appearance: none;
-                    border: none;
-                    border-radius: 6px;
-                    padding: 10px 14px;
-                    font-size: 12px;
-                    font-weight: 700;
-                    letter-spacing: 0.04em;
-                    cursor: pointer;
-                    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, filter 0.2s ease;
-                    color: #101114;
-                }
-                .tech-legend-btn:hover,
-                .tech-legend-btn.active {
-                    transform: translateY(-1px);
-                    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
-                    background: rgba(255,255,255,0.12) !important;
-                    color: #fff !important;
-                }
-                .tech-cloud-grid {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 14px 12px;
-                    align-items: center;
-                    justify-content: center;
-                    min-height: 260px;
-                }
-                .tech-cloud-chip {
-                    position: relative;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 8px;
-                    padding: 12px 16px;
-                    border-radius: 6px;
-                    font-size: 13px;
-                    font-weight: 700;
-                    border: none;
-                    cursor: pointer;
-                    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, filter 0.2s ease;
-                    user-select: none;
-                }
-                .tech-cloud-chip:hover,
-                .tech-cloud-chip.focused {
-                    transform: translateY(-2px) scale(1.03);
-                    background: rgba(255,255,255,0.13) !important;
-                    color: #fff !important;
-                    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-                }
-                .tech-cloud-chip.dimmed {
-                    opacity: 0.15;
-                    filter: none;
-                }
-                .tech-cloud-chip.focused {
-                    box-shadow: 0 0 0 1.5px rgba(255,255,255,0.22), 0 6px 18px rgba(0,0,0,0.2);
-                }
-                .tech-cloud-chip-dot {
-                    width: 7px;
-                    height: 7px;
-                    border-radius: 50%;
+                .stack-tabs::-webkit-scrollbar { display: none; }
+                .stack-tab {
                     flex-shrink: 0;
+                    padding: 6px 14px;
+                    border-radius: 4px;
+                    border: 1px solid rgba(255,255,255,0.1);
+                    background: transparent;
+                    color: rgba(255,255,255,0.4);
+                    font-size: 12px; font-weight: 600;
+                    cursor: pointer; white-space: nowrap;
+                    transition: background 0.2s, color 0.2s, border-color 0.2s;
+                    font-family: 'Inter', sans-serif;
                 }
-                .tech-cloud-chip[data-size="lg"] { font-size: 16px; padding: 15px 20px; }
-                .tech-cloud-chip[data-size="md"] { font-size: 14px; padding: 13px 17px; }
-                .tech-cloud-chip[data-size="sm"] { font-size: 12px; padding: 11px 14px; }
-                .tech-cloud-tooltip {
-                    position: fixed;
-                    pointer-events: none;
-                    display: none;
-                    background: rgba(18,20,30,0.97);
-                    border-radius: 10px;
-                    padding: 14px 16px;
-                    max-width: 280px;
-                    z-index: 9999;
-                    box-shadow: 0 18px 40px rgba(0,0,0,0.5);
-                    backdrop-filter: blur(12px);
+                .stack-tab:hover { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.22); }
+                .stack-tab.active {
+                    background: rgba(255,255,255,0.1);
+                    color: #ffffff;
+                    border-color: rgba(255,255,255,0.22);
+                }
+                /* Chip grid */
+                .stack-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+                    gap: 8px;
+                }
+                .stack-chip {
+                    padding: 11px 14px;
+                    border-radius: 6px;
                     border: 1px solid rgba(255,255,255,0.08);
+                    background: rgba(255,255,255,0.04);
+                    color: rgba(255,255,255,0.62);
+                    font-size: 12px; font-weight: 600;
+                    cursor: pointer; text-align: left;
+                    transition: background 0.18s, color 0.18s, border-color 0.18s, transform 0.18s, opacity 0.18s;
+                    font-family: 'Inter', sans-serif;
+                    opacity: 0;
                 }
-                .tech-cloud-tooltip p { margin: 0; }
-                .tech-cloud-tooltip .tt-name {
-                    font-size: 12px; font-weight: 700; color: #ffffff; margin-bottom: 6px;
+                .stack-chip.chip-in {
+                    animation: chipIn 0.4s cubic-bezier(0.22,1,0.36,1) forwards;
                 }
-                .tech-cloud-tooltip .tt-desc {
-                    font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.6;
+                @keyframes chipIn {
+                    from { opacity: 0; transform: translateY(14px); }
+                    to   { opacity: 1; transform: translateY(0); }
                 }
-                @keyframes cloudIn {
-                    from { opacity: 0; transform: translateY(18px) scale(0.97); }
-                    to   { opacity: 1; transform: translateY(0) scale(1); }
+                .stack-chip:hover {
+                    background: rgba(255,255,255,0.09);
+                    color: #ffffff;
+                    border-color: rgba(255,255,255,0.18);
+                    transform: translateY(-1px);
                 }
-                .tech-cloud-chip.cloud-animate {
-                    animation: cloudIn 0.45s cubic-bezier(0.22,1,0.36,1) both;
-                }
-
-                /* Grid clip wrapper */
-                .tech-grid-clip {
-                    position: relative;
-                }
-                .tech-grid-fade {
+                .stack-chip.dimmed { opacity: 0.12 !important; }
+                /* Tooltip */
+                .stack-tooltip {
+                    position: fixed; pointer-events: none;
+                    background: rgba(14,14,15,0.97);
+                    border: 1px solid rgba(255,255,255,0.1);
+                    border-radius: 10px; padding: 12px 15px;
+                    max-width: 260px; z-index: 9999;
                     display: none;
+                    box-shadow: 0 16px 40px rgba(0,0,0,0.55);
+                    backdrop-filter: blur(16px);
                 }
-                @media (max-width: 768px) {
-                    .tech-grid-clip {
-                        max-height: 210px;
-                        overflow: hidden;
-                        border-radius: 8px;
-                    }
-                    .tech-grid-fade {
-                        display: block;
-                        position: absolute;
-                        bottom: 0;
-                        left: 0;
-                        right: 0;
-                        height: 90px;
-                        background: linear-gradient(to bottom, transparent 0%, #131314 100%);
-                        pointer-events: none;
-                    }
-                }
-                @media (max-width: 768px) {
-                    .tech-cloud-header {
-                        display: block;
-                    }
-                    .tech-cloud-shell {
-                        padding: 22px 14px 18px;
-                        border-radius: 14px;
-                    }
-                    .tech-cloud-title {
-                        font-size: 1.5rem;
-                    }
-                    .tech-cloud-copy {
-                        font-size: 13px;
-                    }
-                    .tech-legend {
-                        flex-wrap: nowrap;
-                        overflow-x: auto;
-                        -webkit-overflow-scrolling: touch;
-                        padding-bottom: 4px;
-                        gap: 8px;
-                    }
-                    .tech-legend-btn {
-                        flex-shrink: 0;
-                        white-space: nowrap;
-                        padding: 8px 12px;
-                        font-size: 11px;
-                    }
-                    .tech-cloud-grid {
-                        justify-content: flex-start;
-                        min-height: auto;
-                        gap: 9px 7px;
-                    }
-                    .tech-cloud-chip[data-size="lg"] { font-size: 13px; padding: 10px 13px; }
-                    .tech-cloud-chip[data-size="md"] { font-size: 12px; padding: 9px 12px; }
-                    .tech-cloud-chip[data-size="sm"] { font-size: 11px; padding: 8px 11px; }
-                    .tech-cloud-chip { padding: 9px 12px; font-size: 12px; }
+                .stack-tooltip .tt-name { font-size:12px; font-weight:700; color:#fff; margin:0 0 5px; }
+                .stack-tooltip .tt-desc { font-size:11px; color:rgba(255,255,255,0.48); margin:0; line-height:1.65; }
+                @media (max-width: 640px) {
+                    .stack-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 7px; }
+                    .stack-chip { padding: 10px 12px; font-size: 11px; }
                 }
                 </style>
 
-                <div class="tech-cloud-header">
-                    <div>
-                        <div class="tech-cloud-kicker">What I ship with</div>
-                        <h3 class="tech-cloud-title">The Stack</h3>
-                    </div>
-                </div>
+                <p class="stack-kicker">What I ship with</p>
+                <h3 class="stack-title">The Stack</h3>
 
-                <div class="tech-legend" id="tech-legend"></div>
+                <div class="stack-tabs" id="stack-tabs"></div>
 
-                <div id="chip-tooltip" class="tech-cloud-tooltip">
+                <div class="stack-grid" id="skill-bento-grid"></div>
+
+                <div id="chip-tooltip" class="stack-tooltip">
                     <p class="tt-name" id="chip-tt-name"></p>
                     <p class="tt-desc" id="chip-tt-desc"></p>
                 </div>
-
-                <div class="tech-grid-clip">
-                    <div class="tech-cloud-grid" id="skill-bento-grid"></div>
-                    <div class="tech-grid-fade"></div>
-                </div>
-
             </div>
         </div>
     </section>
 
     <script>
     /* ═══════════════════════════════════════════════════
-       CORE TECH CLOUD
+       THE STACK
     ═══════════════════════════════════════════════════ */
     (function() {
         const GROUPS = [
@@ -1426,116 +1310,89 @@
             },
         ];
 
-        const grid = document.getElementById('skill-bento-grid');
-        const legend = document.getElementById('tech-legend');
+        const grid    = document.getElementById('skill-bento-grid');
+        const tabsEl  = document.getElementById('stack-tabs');
         const tooltip = document.getElementById('chip-tooltip');
         const ttName  = document.getElementById('chip-tt-name');
         const ttDesc  = document.getElementById('chip-tt-desc');
+        if (!grid || !tabsEl) return;
+
         let activeGroup = null;
 
-        if (!grid || !legend) return;
+        // ── Build "All" tab ──
+        const allTab = document.createElement('button');
+        allTab.className = 'stack-tab active';
+        allTab.textContent = 'All';
+        allTab.addEventListener('click', () => { activeGroup = null; updateFilter(); setActiveTab(allTab); });
+        tabsEl.appendChild(allTab);
 
-        GROUPS.forEach((g) => {
-            const btn = document.createElement('button');
-            btn.className = 'tech-legend-btn';
-            btn.dataset.group = g.key;
-            btn.style.background = 'rgba(255,255,255,0.08)';
-            btn.style.color = 'rgba(255,255,255,0.6)';
-            btn.innerHTML = `${g.label}`;
-
-            btn.addEventListener('mouseenter', () => !activeGroup && setFocusGroup(g.key));
-            btn.addEventListener('mouseleave', () => !activeGroup && setFocusGroup(null));
-            btn.addEventListener('click', () => {
+        // ── Build category tabs ──
+        GROUPS.forEach(g => {
+            const tab = document.createElement('button');
+            tab.className = 'stack-tab';
+            tab.textContent = g.label;
+            tab.dataset.group = g.key;
+            tab.addEventListener('click', () => {
                 activeGroup = activeGroup === g.key ? null : g.key;
-                setFocusGroup(activeGroup);
-                syncLegend();
+                setActiveTab(activeGroup ? tab : allTab);
+                updateFilter();
             });
-
-            legend.appendChild(btn);
+            tabsEl.appendChild(tab);
         });
 
-        GROUPS.forEach((g, gi) => {
-            g.skills.forEach((s, si) => {
+        // ── Build chips ──
+        GROUPS.forEach(g => {
+            g.skills.forEach(s => {
                 const chip = document.createElement('button');
-                chip.type = 'button';
-                chip.className = 'tech-cloud-chip';
+                chip.className = 'stack-chip';
                 chip.dataset.group = g.key;
-                chip.dataset.size = (si % 5 === 0) ? 'lg' : (si % 2 === 0 ? 'md' : 'sm');
-                chip.style.background = 'rgba(255,255,255,0.07)';
-                chip.style.color = 'rgba(255,255,255,0.68)';
-                chip.style.animationDelay = ((gi * 120) + (si * 45)) + 'ms';
-                chip.innerHTML = s.name;
+                chip.textContent = s.name;
 
                 chip.addEventListener('mouseenter', e => {
-                    chip.classList.add('focused');
                     ttName.textContent = s.name;
-                    ttName.style.color = '#101114';
                     ttDesc.textContent = s.desc;
                     positionTooltip(e);
                     tooltip.style.display = 'block';
-                    if (!activeGroup) setFocusGroup(g.key);
                 });
                 chip.addEventListener('mousemove', positionTooltip);
-                chip.addEventListener('mouseleave', () => {
-                    chip.classList.remove('focused');
-                    tooltip.style.display = 'none';
-                    if (!activeGroup) setFocusGroup(null);
-                });
-                chip.addEventListener('click', () => {
-                    activeGroup = activeGroup === g.key ? null : g.key;
-                    setFocusGroup(activeGroup);
-                    syncLegend();
-                });
+                chip.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
 
                 grid.appendChild(chip);
             });
         });
 
+        function setActiveTab(tab) {
+            tabsEl.querySelectorAll('.stack-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+        }
+
+        function updateFilter() {
+            document.querySelectorAll('.stack-chip').forEach(chip => {
+                chip.classList.toggle('dimmed', !!activeGroup && chip.dataset.group !== activeGroup);
+            });
+        }
+
         function positionTooltip(e) {
-            const margin = 8;
-            const tw = 290, th = 110;
-            let x = e.clientX + margin;
-            let y = e.clientY - th - margin;
-            if (x + tw > window.innerWidth)  x = e.clientX - tw - margin;
-            if (y < margin) y = e.clientY + margin;
+            const m = 10, tw = 270, th = 100;
+            let x = e.clientX + m, y = e.clientY - th - m;
+            if (x + tw > window.innerWidth) x = e.clientX - tw - m;
+            if (y < m) y = e.clientY + m;
             tooltip.style.left = x + 'px';
             tooltip.style.top  = y + 'px';
         }
 
-        function setFocusGroup(groupKey) {
-            document.querySelectorAll('.tech-cloud-chip').forEach((chip) => {
-                const match = !groupKey || chip.dataset.group === groupKey;
-                chip.classList.toggle('dimmed', !match);
-                chip.classList.toggle('focused', !!groupKey && match);
-                chip.style.zIndex = match ? '2' : '1';
-            });
-            document.querySelectorAll('.tech-legend-btn').forEach((btn) => {
-                const isActive = !!groupKey && btn.dataset.group === groupKey;
-                btn.classList.toggle('active', isActive);
-                btn.style.opacity = !groupKey || btn.dataset.group === groupKey ? '1' : '0.28';
-                btn.style.filter = 'none';
-                btn.style.background = isActive ? 'rgba(255,255,255,0.13)' : 'rgba(255,255,255,0.07)';
-                btn.style.color = isActive ? '#fff' : 'rgba(255,255,255,0.65)';
-            });
-        }
-
-        function syncLegend() {
-            document.querySelectorAll('.tech-legend-btn').forEach((btn) => {
-                btn.classList.toggle('active', !!activeGroup && btn.dataset.group === activeGroup);
-            });
-        }
-
-        const observer = new IntersectionObserver(entries => {
+        // ── Stagger animate chips on scroll ──
+        const io = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting) {
-                document.querySelectorAll('.tech-cloud-chip').forEach((chip, i) => {
-                    chip.style.animationDelay = (i * 35) + 'ms';
-                    chip.classList.add('cloud-animate');
+                document.querySelectorAll('.stack-chip').forEach((chip, i) => {
+                    chip.style.animationDelay = (i * 28) + 'ms';
+                    chip.classList.add('chip-in');
                 });
-                observer.disconnect();
+                io.disconnect();
             }
-        }, { threshold: 0.15 });
-        const techSection = document.getElementById('tech-section');
-        if (techSection) observer.observe(techSection);
+        }, { threshold: 0.1 });
+        const sec = document.getElementById('tech-section');
+        if (sec) io.observe(sec);
     })();
     </script>
 
