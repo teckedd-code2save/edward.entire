@@ -37,7 +37,7 @@
         }
     </script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800;900&family=Great+Vibes&family=Inter:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Epilogue:wght@400;700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -57,7 +57,7 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Instrument Sans', sans-serif;
             background: #0e0e0f;
             color: #ffffff;
             margin: 0;
@@ -75,53 +75,9 @@
             font-weight: 700;
         }
 
-        .signature-name {
-            display: inline-block;
-            font-family: 'Great Vibes', cursive;
-            font-weight: 400;
-            letter-spacing: 0;
-            margin-left: 0.18em;
-            line-height: 0.9;
-            white-space: nowrap;
-            transform: translateY(0.06em);
-        }
-
-        .hero-signature {
-            font-family: 'Great Vibes', cursive !important;
-            font-weight: 400 !important;
-            letter-spacing: 0 !important;
-            line-height: 1.02 !important;
-        }
-
-        .hero-signature .signature-name {
-            margin-left: 0.08em;
-            transform: none;
-        }
-
         /* Custom cursor */
         #cursor {
-            position: fixed;
-            width: 26px;
-            height: 26px;
-            border: 1.5px solid var(--accent);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            left: 0;
-            top: 0;
-            transition: background 0.2s, transform 0.1s;
-        }
-
-        #cursor::before {
-            content: '';
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: var(--accent);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            display: none;
         }
 
         /* Scrollbar */
@@ -138,17 +94,169 @@
             border-radius: 99px;
         }
 
-        /* Hero canvas */
+        /* Hero */
         #hero-canvas {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             z-index: 0;
             pointer-events: none;
         }
-
+        .hero-shell {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 124px 32px 20px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+            gap: 28px;
+            align-items: center;
+            min-height: 76vh;
+        }
+        .hero-copy {
+            max-width: 560px;
+        }
+        .hero-title {
+            margin: 0 0 20px;
+            color: #ffffff;
+        }
+        .hero-name-display {
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.14em;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3.6rem, 7vw, 6.2rem);
+            font-weight: 600;
+            line-height: 0.88;
+            letter-spacing: -0.035em;
+            white-space: normal;
+        }
+        .hero-title .hero-line {
+            display: inline-block;
+        }
+        .hero-typed {
+            display: inline-flex;
+            align-items: center;
+            min-height: 1.6rem;
+            margin: 0 0 20px;
+            color: #9eb6d2;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+        .hero-typed-text {
+            display: inline-block;
+        }
+        .hero-typed-caret {
+            display: inline-block;
+            width: 1px;
+            height: 1.1em;
+            margin-left: 8px;
+            background: rgba(255,255,255,0.72);
+            animation: blinkCaret 1s steps(1) infinite;
+            transform: translateY(1px);
+        }
+        @keyframes blinkCaret {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+        .hero-summary {
+            max-width: 470px;
+            margin: 0 0 28px;
+            font-size: 0.98rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,0.62);
+        }
+        .hero-portrait-wrap {
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .hero-portrait {
+            position: relative;
+            width: min(420px, 100%);
+            aspect-ratio: 1.02;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: #111214;
+            overflow: hidden;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.28);
+            transform-origin: center center;
+            border-radius: 18px;
+            animation: portraitGlow 6s ease-in-out infinite;
+            will-change: transform, width, border-radius;
+        }
+        .hero-portrait img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 12%;
+            display: block;
+            filter: saturate(0.9) brightness(0.94) contrast(1.02);
+        }
+        .hero-portrait::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(10,10,11,0.02), rgba(10,10,11,0.18));
+            pointer-events: none;
+        }
+        @keyframes portraitGlow {
+            0%, 100% {
+                box-shadow: 0 24px 60px rgba(0,0,0,0.28);
+                border-color: rgba(255,255,255,0.08);
+            }
+            50% {
+                box-shadow: 0 28px 72px rgba(0,0,0,0.34);
+                border-color: rgba(135,172,214,0.16);
+            }
+        }
+        @media (max-width: 900px) {
+            .hero-shell {
+                grid-template-columns: 1fr;
+                gap: 6px;
+                padding: 88px 20px 0;
+                min-height: auto;
+            }
+            .hero-copy {
+                max-width: none;
+            }
+            .hero-portrait-wrap {
+                justify-content: center;
+            }
+            .hero-portrait {
+                width: 100%;
+                max-width: 252px;
+                aspect-ratio: 0.86;
+                border-radius: 16px;
+            }
+            .hero-title {
+                margin-bottom: 14px;
+            }
+            .hero-name-display {
+                font-size: clamp(3.1rem, 14vw, 4.8rem);
+                white-space: normal;
+            }
+            .hero-subline {
+                margin-bottom: 18px;
+                font-size: 10px;
+                gap: 8px;
+            }
+            .hero-summary {
+                max-width: none;
+                margin-bottom: 0;
+            }
+        }
+        @media (max-width: 640px) {
+            .hero-shell {
+                padding: 82px 20px 0;
+            }
+            .hero-portrait-wrap {
+                display: none;
+            }
+        }
         /* Float animation */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
@@ -176,92 +284,187 @@
             transform: translateY(110%);
         }
 
-        /* ── Stacked Card Carousel ─────────────────────── */
-        .card-stage {
+        .projects-carousel {
             position: relative;
-            width: 100%;
-            height: 440px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 0 52px;
         }
-
-        .project-card {
+        .projects-carousel::before,
+        .projects-carousel::after {
+            content: '';
             position: absolute;
-            width: min(580px, 86vw);
-            background: #1a191b;
-            border-radius: 22px;
-            padding: 36px 40px;
-            border: 1px solid rgba(72, 72, 73, 0.2);
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.5s ease,
-                box-shadow 0.5s ease;
-            will-change: transform, opacity;
-        }
-
-        .project-card[data-pos="0"] {
-            transform: translateX(0) scale(1);
-            opacity: 1;
-            z-index: 10;
-            box-shadow: 0 20px 40px rgba(166, 140, 255, 0.08);
-            cursor: default;
-        }
-
-        .project-card[data-pos="-1"] {
-            transform: translateX(-60%) scale(0.86);
-            opacity: 0.45;
-            z-index: 5;
-            cursor: pointer;
-            pointer-events: auto;
-        }
-
-        .project-card[data-pos="1"] {
-            transform: translateX(60%) scale(0.86);
-            opacity: 0.45;
-            z-index: 5;
-            cursor: pointer;
-            pointer-events: auto;
-        }
-
-        .project-card[data-pos="-2"],
-        .project-card[data-pos="2"] {
-            transform: translateX(0) scale(0.72);
-            opacity: 0;
-            z-index: 1;
+            top: 60px;
+            bottom: 52px;
+            width: 68px;
+            z-index: 2;
             pointer-events: none;
+            backdrop-filter: blur(8px);
         }
-
-        .carousel-nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: #1a191b;
-            border: 1px solid rgba(72, 72, 73, 0.3);
+        .projects-carousel::before {
+            left: 0;
+            background: linear-gradient(90deg, rgba(14,14,15,0.95), rgba(14,14,15,0));
+        }
+        .projects-carousel::after {
+            right: 0;
+            background: linear-gradient(270deg, rgba(14,14,15,0.95), rgba(14,14,15,0));
+        }
+        .projects-grid {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: minmax(520px, 620px);
+            gap: 24px;
+            overflow-x: auto;
+            padding: 4px 0 12px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin;
+            scroll-behavior: smooth;
+        }
+        .project-item {
+            display: grid;
+            grid-template-columns: minmax(180px, 210px) minmax(0, 1fr);
+            gap: 24px;
+            padding: 24px 26px;
+            min-height: 100%;
+            scroll-snap-align: start;
+            background: rgba(255,255,255,0.025);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+        }
+        .project-item-side {
             display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 18px;
+        }
+        .project-item-main {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .project-item-title {
+            font-family: 'Epilogue', sans-serif;
+            font-size: 1.48rem;
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+            color: #ffffff;
+            margin: 0;
+        }
+        .project-item-copy {
+            font-size: 14px;
+            line-height: 1.78;
+            color: #c3c8ce;
+            margin: 0;
+        }
+        .project-item-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #8f959c;
+        }
+        .project-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .project-item-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .projects-controls {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            pointer-events: none;
+            z-index: 3;
+        }
+        .projects-nav-btn {
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 999px;
+            background: rgba(10,10,11,0.78);
+            backdrop-filter: blur(14px);
+            color: #d6dbe1;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            z-index: 20;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            transition: box-shadow 0.2s, background 0.2s, color 0.2s;
-            color: #adaaab;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.28);
+            transition: color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
+            pointer-events: auto;
         }
-
-        .carousel-nav-btn:hover {
-            background: #2c2c2d;
-            box-shadow: 0 0 15px rgba(22, 58, 99, 0.22);
-            color: #87acd6;
+        .projects-nav-btn:hover {
+            color: #ffffff;
+            border-color: rgba(135,172,214,0.34);
+            background: rgba(18,27,39,0.92);
+            box-shadow: 0 16px 34px rgba(0,0,0,0.36);
         }
-
-        .carousel-nav-btn.prev {
-            left: 4px;
+        .projects-nav-btn:disabled {
+            opacity: 0.28;
+            cursor: default;
+            box-shadow: none;
         }
-
-        .carousel-nav-btn.next {
-            right: 4px;
+        .projects-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 18px;
+        }
+        .projects-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            border: none;
+            background: rgba(255,255,255,0.18);
+            padding: 0;
+            cursor: pointer;
+            transition: width 0.2s, background 0.2s;
+        }
+        .projects-dot.active {
+            width: 28px;
+            background: #87acd6;
+        }
+        @media (max-width: 900px) {
+            .projects-carousel {
+                padding: 0 36px;
+            }
+            .projects-carousel::before,
+            .projects-carousel::after {
+                width: 40px;
+                top: 52px;
+                bottom: 46px;
+            }
+            .projects-grid {
+                grid-auto-columns: 88%;
+                gap: 18px;
+            }
+            .project-item {
+                grid-template-columns: 1fr;
+                gap: 18px;
+                padding: 22px 20px;
+            }
+            .project-item-actions {
+                align-items: flex-start;
+            }
+        }
+        @media (max-width: 640px) {
+            .projects-carousel {
+                padding: 0 24px;
+            }
+            .projects-carousel::before,
+            .projects-carousel::after {
+                width: 24px;
+            }
+            .projects-grid {
+                grid-auto-columns: 92%;
+            }
         }
 
         @keyframes tabFadeIn {
@@ -372,8 +575,7 @@
             position: relative;
         }
         .cred-card:hover {
-            box-shadow: 0 18px 40px rgba(0,0,0,0.35);
-            transform: translateY(-3px);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.26);
         }
 
         .project-title-gradient {
@@ -411,7 +613,7 @@
             border: none;
             cursor: pointer;
             transition: background 0.2s, gap 0.25s;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Instrument Sans', sans-serif;
         }
         .btn-primary:hover { background: #e4eaf2; gap: 13px; }
 
@@ -430,9 +632,97 @@
             background: transparent;
             cursor: pointer;
             transition: color 0.2s, border-color 0.2s;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Instrument Sans', sans-serif;
         }
         .btn-ghost:hover { color: #ffffff; border-color: rgba(255,255,255,0.48); }
+
+        .surface-card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
+        .surface-card:hover {
+            border-color: rgba(135,172,214,0.28);
+            box-shadow: 0 16px 30px rgba(22,58,99,0.1);
+        }
+        .product-grid {
+            display: grid;
+            gap: 26px;
+        }
+        .product-item {
+            display: grid;
+            grid-template-columns: minmax(320px, 1.05fr) minmax(0, 0.95fr);
+            gap: 36px;
+            padding: 0 0 26px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .product-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .product-side {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .product-summary {
+            color: #c3c8ce;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+        .product-detail-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(220px, 240px);
+            gap: 24px;
+            align-items: start;
+        }
+        .product-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 18px 0 0;
+        }
+        .product-metrics {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        .product-metric {
+            padding: 0 0 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: transparent;
+        }
+        .product-metric:last-child { border-bottom: none; padding-bottom: 0; }
+        .product-metric strong {
+            display: block;
+            font-size: 18px;
+            color: #ffffff;
+            letter-spacing: -0.04em;
+            margin-bottom: 3px;
+        }
+        .product-metric span {
+            display: block;
+            font-size: 10px;
+            color: rgba(255,255,255,0.52);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 700;
+        }
+        @media (max-width: 900px) {
+            .product-item {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            .product-detail-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            .product-summary {
+                font-size: 14px;
+                line-height: 1.72;
+            }
+        }
 
         /* ── Name glint sweep ─────────────────────── */
         @keyframes glintSweep {
@@ -449,12 +739,22 @@
         }
 
         /* ── Section heading underline ──────────────── */
+        .section-kicker {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #87acd6;
+            margin: 0 0 10px;
+        }
+
         .section-title {
             position: relative;
             display: inline-block;
             padding-bottom: 14px;
-            margin-bottom: 52px;
+            margin-bottom: 18px;
             letter-spacing: -0.03em;
+            font-size: clamp(2.3rem, 5vw, 3.6rem);
         }
 
         .section-title::after {
@@ -467,46 +767,50 @@
             background: linear-gradient(90deg, #163a63, #244f7e);
             border-radius: 99px;
         }
-
-        /* ── Stat cards ────────────────────── */
-        .stats-shell {
-            background: linear-gradient(180deg, #f6f1e8 0%, #efe8dc 100%);
-            border-radius: 16px;
-            padding: 18px;
-            box-shadow: inset 0 0 0 1px rgba(23, 23, 23, 0.06);
+        .section-title.centered::after {
+            left: 50%;
+            transform: translateX(-50%);
         }
-
-        .stat-card {
-            padding: 24px 18px 22px;
-            background: rgba(255, 255, 255, 0.46);
-            border-radius: 10px;
-            border: 1px solid rgba(16, 17, 20, 0.06);
-            transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+        .section-intro {
+            max-width: 640px;
+            margin: 0 0 44px;
+            color: #8f959c;
+            line-height: 1.75;
+            font-size: 15px;
         }
-
-        .stat-card:hover {
-            background: rgba(255, 255, 255, 0.72);
-            box-shadow: 0 16px 28px rgba(16, 17, 20, 0.08);
-            transform: translateY(-2px);
-        }
-
-        .stat-value {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(2rem, 4vw, 3.2rem);
-            line-height: 0.95;
-            font-weight: 800;
-            letter-spacing: -0.06em;
-            color: #101114;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            font-size: 10px;
-            line-height: 1.5;
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            font-weight: 700;
-            color: #5d6268;
+        @media (max-width: 640px) {
+            .section-title {
+                font-size: clamp(1.9rem, 10vw, 2.6rem);
+                padding-bottom: 12px;
+                margin-bottom: 14px;
+            }
+            .section-intro {
+                margin-bottom: 24px;
+                font-size: 14px;
+                line-height: 1.65;
+                max-width: none;
+            }
+            .max-w-6xl.mx-auto.px-8,
+            .max-w-4xl.mx-auto.px-8 {
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+            }
+            #projects,
+            #credentials,
+            #insights,
+            #contact {
+                padding-top: 72px !important;
+                padding-bottom: 72px !important;
+            }
+            #tools,
+            #cv-section {
+                padding-top: 64px !important;
+                padding-bottom: 64px !important;
+            }
+            #project-drawer-content .skill-pill,
+            .product-stack .skill-pill {
+                font-size: 10px;
+            }
         }
 
         /* ── Nav ──────────────────────────── */
@@ -547,7 +851,7 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Instrument Sans', sans-serif;
         }
 
         #chat-btn {
@@ -734,7 +1038,7 @@
         #chat-input::placeholder { color: #484849; }
 
         #chat-input:focus {
-            box-shadow: 0 0 0 1px rgba(166, 140, 255, 0.4);
+            box-shadow: 0 0 0 1px rgba(22, 58, 99, 0.4);
         }
 
         #send-btn {
@@ -906,19 +1210,19 @@
             top: 50%;
             left: 50%;
             width: 92%;
-            max-width: 720px;
-            max-height: 85vh;
-            background: #131314;
+            max-width: 860px;
+            max-height: 88vh;
+            background: #101113;
             z-index: 1100;
             transform: translate(-50%, -48%) scale(0.96);
             opacity: 0;
             pointer-events: none;
             transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(72,72,73,0.2);
+            box-shadow: 0 32px 90px rgba(0, 0, 0, 0.64), 0 0 0 1px rgba(72,72,73,0.16);
             display: flex;
             flex-direction: column;
             overflow-y: auto;
-            border-radius: 20px;
+            border-radius: 18px;
         }
 
         #project-drawer.open {
@@ -927,24 +1231,107 @@
             pointer-events: auto;
         }
 
-        .breakdown-section {
-            padding: 30px;
-            border-bottom: 1px solid rgba(72, 72, 73, 0.15);
+        #project-drawer .drawer-header {
+            padding: 28px 30px 22px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            gap: 20px;
+            position: sticky;
+            top: 0;
+            background: rgba(16,17,19,0.92);
+            backdrop-filter: blur(14px);
+            z-index: 2;
         }
-
+        #project-drawer .drawer-close {
+            border-radius: 999px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+            flex-shrink: 0;
+        }
+        #project-drawer .drawer-close:hover {
+            background: rgba(255,255,255,0.08);
+            color: #ffffff;
+            border-color: rgba(135,172,214,0.34);
+            transform: none;
+        }
+        #project-drawer-content {
+            padding: 0 30px 30px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        .project-overview {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 220px;
+            gap: 24px;
+            padding: 26px 0 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .project-overview-copy {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #c3c8ce;
+        }
+        .project-overview-side {
+            display: grid;
+            gap: 10px;
+            align-content: start;
+        }
+        .project-overview-metric {
+            padding: 0 0 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .project-overview-metric:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .project-overview-metric strong {
+            display: block;
+            color: #ffffff;
+            font-size: 16px;
+            letter-spacing: -0.03em;
+            margin-bottom: 4px;
+        }
+        .project-overview-metric span {
+            display: block;
+            color: rgba(255,255,255,0.5);
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .breakdown-section {
+            padding: 22px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
         .breakdown-title {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             color: #87acd6;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 12px;
+            letter-spacing: 0.16em;
+            margin-bottom: 10px;
         }
-
         .breakdown-content {
             font-size: 15px;
-            color: #adaaab;
-            line-height: 1.6;
+            color: #c3c8ce;
+            line-height: 1.8;
+        }
+        @media (max-width: 760px) {
+            #project-drawer {
+                width: calc(100% - 20px);
+                max-height: 92vh;
+            }
+            #project-drawer .drawer-header {
+                padding: 22px 20px 18px;
+            }
+            #project-drawer-content {
+                padding: 0 20px 22px;
+            }
+            .project-overview {
+                grid-template-columns: 1fr;
+                gap: 18px;
+                padding: 22px 0 20px;
+            }
         }
 
         /* ── Tech Tooltip ──────────────────────── */
@@ -965,7 +1352,7 @@
             transform: translateY(8px) scale(0.97);
             transition: opacity 0.18s ease, transform 0.18s ease;
             box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 20px rgba(22,58,99,0.14);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Instrument Sans', sans-serif;
         }
 
         #tech-tip.show {
@@ -991,7 +1378,7 @@
 
         [data-tip]:hover {
             background: #2c2c2d !important;
-            box-shadow: 0 0 14px rgba(166, 140, 255, 0.2);
+            box-shadow: 0 0 14px rgba(22, 58, 99, 0.2);
             color: #ffffff !important;
         }
     </style>
@@ -1005,9 +1392,9 @@
         <nav class="max-w-6xl mx-auto px-8 py-4 flex justify-between items-center">
             <a href="#hero" class="text-xl font-black text-white tracking-tight" style="font-family:'Epilogue',sans-serif;">ET</a>
             <ul class="hidden md:flex gap-10">
-                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#about" class="nav-link">Stack</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#tools" class="nav-link">Tools</a></li>
+                <li><a href="#tools" class="nav-link">Products</a></li>
                 <li><a href="#credentials" class="nav-link">Credentials</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
@@ -1019,116 +1406,38 @@
     </header>
 
     <!-- ══ HERO ═══════════════════════════════════════ -->
-    <section class="relative overflow-hidden flex items-end" id="hero" style="min-height:100vh; background:#0a0a0b;">
-
-        <!-- Portrait image — fills right column on desktop, top strip on mobile -->
-        <div class="absolute inset-0">
-            <!-- Mobile: top image strip -->
-            <div class="md:hidden absolute top-0 left-0 right-0" style="height:56vh; overflow:hidden;">
-                <img src="staticfiles/1719185128651.jpeg" alt="Edward Twumasi"
-                     style="width:100%; height:100%; object-fit:cover; object-position:center 12%; filter:brightness(0.82);">
-                <div style="position:absolute;inset:0;background:linear-gradient(to bottom, transparent 30%, #0a0a0b 100%);"></div>
-            </div>
-            <!-- Desktop: right image column -->
-            <div id="hero-img-col" class="hidden md:block absolute top-0 right-0 bottom-0" style="width:50%; overflow:hidden; perspective:1100px;">
-                <div id="hero-img-3d" style="width:100%; height:100%; will-change:transform; transform-style:preserve-3d;">
-                    <img src="staticfiles/1719185128651.jpeg" alt="Edward Twumasi"
-                         style="width:100%; height:100%; object-fit:cover; object-position:center 8%; filter:brightness(0.85) contrast(1.04); display:block;">
-                    <!-- Cursor shine overlay -->
-                    <div id="hero-img-shine" style="position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(circle 380px at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.07), transparent 70%);transition:opacity 0.4s;z-index:3;"></div>
-                </div>
-                <!-- Fade left into dark -->
-                <div style="position:absolute;inset:0;background:linear-gradient(to right, #0a0a0b 0%, rgba(10,10,11,0.55) 45%, transparent 100%);pointer-events:none;z-index:4;"></div>
-                <!-- Fade bottom -->
-                <div style="position:absolute;inset:0;background:linear-gradient(to top, #0a0a0b 0%, transparent 28%);pointer-events:none;z-index:4;"></div>
-            </div>
-        </div>
-
-        <!-- Text content — sits in the lower-left -->
-        <style>
-            .hero-text-wrap { padding-top: 58vh; }
-            @media (min-width: 768px) { .hero-text-wrap { padding-top: 0; } }
-        </style>
-        <div class="hero-text-wrap relative z-10 w-full max-w-6xl mx-auto px-8 pb-16 md:pb-24 flex md:items-end md:min-h-screen">
-            <div id="hero-content" style="max-width:520px; opacity:0;">
-                <p style="font-size:11px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#87acd6; margin-bottom:20px;">
-                    Backend &amp; Systems Engineer · Accra, Ghana
-                </p>
-                <h1 style="font-family:'Epilogue',sans-serif; font-size:clamp(2.6rem,5.5vw,5rem); font-weight:800; letter-spacing:-0.03em; line-height:0.88; margin-bottom:28px;">
-                    <span class="hero-line-wrap"><span class="hero-line" style="-webkit-text-stroke:1.5px rgba(255,255,255,0.55); color:transparent; display:block;">Edward</span></span>
-                    <span class="hero-line-wrap"><span class="hero-line name-glint" style="display:block; font-size:1.1em;">Twumasi</span></span>
+    <section class="relative overflow-hidden" id="hero" style="min-height:100vh; background:radial-gradient(circle at 15% 20%, rgba(22,58,99,0.18), transparent 32%), #0a0a0b;">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-shell">
+            <div id="hero-content" class="hero-copy" style="opacity:0;">
+                <h1 class="hero-title">
+                    <span class="hero-name-display">
+                        <span class="hero-line-wrap"><span class="hero-line">Edward</span></span>
+                        <span class="hero-line-wrap"><span class="hero-line name-glint">Twumasi</span></span>
+                    </span>
                 </h1>
-                <p style="font-size:clamp(0.88rem,1.3vw,1rem); color:rgba(255,255,255,0.48); max-width:360px; line-height:1.7; margin-bottom:36px;">
-                    Architecting resilient systems — scaling from thousands to millions of requests.
+                <div class="hero-typed" aria-label="Role specialties">
+                    <span class="hero-typed-text" id="hero-typed-text"></span>
+                    <span class="hero-typed-caret" aria-hidden="true"></span>
+                </div>
+                <p class="hero-summary">
+                    I build production-grade backend systems, developer tooling, and AI workflows with a focus on reliability, throughput, and operational clarity.
                 </p>
-                <div style="display:flex; gap:20px; flex-wrap:wrap; align-items:center;">
-                    <a href="#projects" id="hero-btn-work"
-                       style="display:inline-flex; align-items:center; gap:9px; padding:12px 22px; background:#ffffff; color:#0a0a0b; font-weight:700; font-size:13px; letter-spacing:0.01em; border-radius:4px; text-decoration:none; transition:background 0.2s, gap 0.25s;"
-                       onmouseover="this.style.background='#e8eef5'; this.style.gap='14px'"
-                       onmouseout="this.style.background='#ffffff'; this.style.gap='9px'">
-                        See My Work
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </a>
-                    <a href="staticfiles/Edward_Twumasi_CV_Latest.pdf" target="_blank"
-                       style="display:inline-flex; align-items:center; gap:7px; color:rgba(255,255,255,0.55); font-weight:600; font-size:13px; letter-spacing:0.01em; text-decoration:none; padding-bottom:2px; border-bottom:1px solid rgba(255,255,255,0.2); transition:color 0.2s, border-color 0.2s;"
-                       onmouseover="this.style.color='#ffffff'; this.style.borderColor='rgba(255,255,255,0.55)'"
-                       onmouseout="this.style.color='rgba(255,255,255,0.55)'; this.style.borderColor='rgba(255,255,255,0.2)'">
-                        View CV
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
-                    </a>
+            </div>
+
+            <div class="hero-portrait-wrap">
+                <div class="hero-portrait">
+                    <img src="staticfiles/1719185128651.jpeg" alt="Edward Twumasi">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ══ ABOUT ══════════════════════════════════════ -->
-    <section class="py-20" id="about" style="background:#131314;">
+    <section class="pt-0 pb-16" id="about" style="background:#0a0a0b;">
         <div class="max-w-6xl mx-auto px-8">
-            <h2 class="text-5xl text-white section-title">About</h2>
-
-            <div class="grid md:grid-cols-2 gap-16">
-                <!-- Left: Text -->
-                <div class="fade-in">
-                    <p class="leading-relaxed text-lg" style="color:#adaaab; max-width:440px;">
-                        6+ years building backend systems that hold up under pressure. Distributed systems, cloud infrastructure, developer tooling, and AI workflows — with a bias for things that are fast, observable, and honest in production.
-                    </p>
-                </div>
-
-                <!-- Right: Stats -->
-                <div class="stats-shell fade-in self-start mt-2 md:mt-0 xl:mt-4">
-                    <div class="grid grid-cols-2 gap-4 md:gap-5">
-                    <div class="stat-card flex flex-col items-center justify-center">
-                        <div class="stat-value">
-                            <span class="stat-number" data-target="6">0</span><span>+</span>
-                        </div>
-                        <div class="stat-label text-center">
-                            Years Exp.</div>
-                    </div>
-                    <div class="stat-card flex flex-col items-center justify-center">
-                        <div class="stat-value">
-                            <span class="stat-number" data-target="8">0</span><span>+</span>
-                        </div>
-                        <div class="stat-label text-center">
-                            Mentored</div>
-                    </div>
-                    <div class="stat-card flex flex-col items-center justify-center">
-                        <div class="stat-value">
-                            <span class="stat-number" data-target="15">0</span><span>+</span>
-                        </div>
-                        <div class="stat-label text-center">
-                            Deployments</div>
-                    </div>
-                    <div class="stat-card flex flex-col items-center justify-center">
-                        <div class="stat-value">99.99%</div>
-                        <div class="stat-label text-center">
-                            SLA Uptime</div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Bottom: The Stack -->
-            <div class="mt-12 pt-10 fade-in" id="tech-section" style="border-top: 1px solid rgba(72,72,73,0.15);">
+            <div class="pt-0 fade-in" id="tech-section" style="border-top: 1px solid rgba(72,72,73,0.15);">
                 <style>
                 /* ── Stack Section ──────────────────────── */
                 .stack-kicker {
@@ -1161,7 +1470,7 @@
                     font-size: 12px; font-weight: 600;
                     cursor: pointer; white-space: nowrap;
                     transition: background 0.2s, color 0.2s, border-color 0.2s;
-                    font-family: 'Inter', sans-serif;
+                    font-family: 'Instrument Sans', sans-serif;
                 }
                 .stack-tab:hover { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.22); }
                 .stack-tab.active {
@@ -1184,7 +1493,7 @@
                     font-size: 12px; font-weight: 600;
                     cursor: pointer; text-align: left;
                     transition: background 0.18s, color 0.18s, border-color 0.18s, transform 0.18s, opacity 0.18s;
-                    font-family: 'Inter', sans-serif;
+                    font-family: 'Instrument Sans', sans-serif;
                     opacity: 0;
                 }
                 .stack-chip.chip-in {
@@ -1215,8 +1524,29 @@
                 .stack-tooltip .tt-name { font-size:12px; font-weight:700; color:#fff; margin:0 0 5px; }
                 .stack-tooltip .tt-desc { font-size:11px; color:rgba(255,255,255,0.48); margin:0; line-height:1.65; }
                 @media (max-width: 640px) {
-                    .stack-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 7px; }
-                    .stack-chip { padding: 10px 12px; font-size: 11px; }
+                    .stack-kicker { margin-bottom: 6px; }
+                    .stack-title { margin-bottom: 18px; }
+                    .stack-tabs { margin-bottom: 18px; }
+                    .stack-grid {
+                        display: flex;
+                        gap: 8px;
+                        overflow-x: auto;
+                        overflow-y: hidden;
+                        padding-bottom: 6px;
+                        scroll-snap-type: x proximity;
+                        -webkit-overflow-scrolling: touch;
+                        scrollbar-width: none;
+                    }
+                    .stack-grid::-webkit-scrollbar { display: none; }
+                    .stack-chip {
+                        flex: 0 0 auto;
+                        width: 132px;
+                        min-height: 54px;
+                        padding: 8px 10px;
+                        font-size: 10px;
+                        line-height: 1.3;
+                        scroll-snap-align: start;
+                    }
                 }
                 </style>
 
@@ -1399,26 +1729,30 @@
     <!-- ══ PROJECTS ════════════════════════════════════ -->
     <section class="py-28 overflow-hidden relative" id="projects" style="background:#0e0e0f;">
         <canvas id="projects-canvas" class="absolute inset-0 pointer-events-none"></canvas>
-        <div class="max-w-6xl mx-auto px-8 mb-16">
-            <h2 class="text-5xl text-white section-title">Impact &amp; Contributions</h2>
+        <div class="max-w-6xl mx-auto px-8">
+            <p class="section-kicker">Projects</p>
+            <h2 class="text-white section-title">Projects</h2>
+            <p class="section-intro">A focused set of production systems, open-source tools, and delivery work with clear technical scope and measurable engineering impact.</p>
         </div>
 
-        <div class="relative max-w-5xl mx-auto px-16">
-            <div class="card-stage" id="card-stage"></div>
-            <button class="carousel-nav-btn prev" id="prev-btn" aria-label="Previous">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="15 18 9 12 15 6" />
-                </svg>
-            </button>
-            <button class="carousel-nav-btn next" id="next-btn" aria-label="Next">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="9 18 15 12 9 6" />
-                </svg>
-            </button>
+        <div class="max-w-6xl mx-auto px-8">
+            <div class="projects-carousel">
+                <div class="projects-controls">
+                    <button class="projects-nav-btn" id="projects-prev-btn" aria-label="Previous projects">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6" />
+                        </svg>
+                    </button>
+                    <button class="projects-nav-btn" id="projects-next-btn" aria-label="Next projects">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="projects-grid" id="projects-grid"></div>
+                <div class="projects-dots" id="projects-dots" aria-label="Project navigation"></div>
+            </div>
         </div>
-        <p class="text-center mt-8 text-xs font-medium tracking-widest" id="card-counter" style="color:#484849;"></p>
         <div class="mt-12 text-center">
             <a href="https://github.com/teckedd-code2save" target="_blank" class="btn-ghost">
                 All Projects on GitHub
@@ -1427,66 +1761,88 @@
         </div>
     </section>
 
-    <!-- ══ TOOLS ════════════════════════════════════════ -->
+    <!-- ══ PRODUCTS ═════════════════════════════════════ -->
     <section class="py-24 relative" id="tools" style="background:#131314;">
         <canvas id="tools-canvas" class="absolute inset-0 pointer-events-none opacity-30"></canvas>
         <div class="max-w-6xl mx-auto px-8">
-            <h2 class="text-4xl text-white mb-2" style="font-family:'Epilogue',sans-serif;font-weight:700;">Tools &amp;
-                Packages</h2>
-            <div class="h-px w-12 mb-10 rounded-full" style="background: linear-gradient(90deg, #163a63, #244f7e);"></div>
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Tool Card: Datafy -->
-                <div class="fade-in p-8 rounded-2xl flex flex-col transition-all duration-300"
-                    style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
-                    onmouseover="this.style.borderColor='rgba(22,58,99,0.26)'; this.style.boxShadow='0 20px 40px rgba(22,58,99,0.14)';"
-                    onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs font-bold tracking-widest uppercase" style="color:#87acd6;">NPM Package</span>
-                        <a href="https://www.npmjs.com/package/@teckedd-code2save/datafy" target="_blank"
-                            class="transition-colors" style="color:#484849;" onmouseover="this.style.color='#87acd6'" onmouseout="this.style.color='#484849'">↗</a>
-                    </div>
-                    <div class="flex items-center gap-3 mb-3">
-                        <h3 class="text-2xl text-white" style="font-family:'Epilogue',sans-serif;">@teckedd-code2save/datafy</h3>
-                    </div>
-                    <p class="text-sm leading-relaxed mb-6" style="color:#adaaab;">Built on top of DBHub — a zero-dependency, token-efficient MCP gateway between AI dev tools and databases. Enables Claude Desktop, VS Code, and Cursor to query and explore PostgreSQL, MySQL, SQL Server, SQLite, MariaDB, Redis, and Elasticsearch via a minimal two-tool interface.</p>
-                    <div class="flex flex-wrap gap-2 mb-8">
-                        <span class="skill-pill">MCP</span>
-                        <span class="skill-pill">Node.js</span>
-                    </div>
-                    <div class="flex gap-4 mt-auto">
-                        <a href="https://www.npmjs.com/package/@teckedd-code2save/datafy" target="_blank" class="btn-primary">
-                            View on NPM
-                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <p class="section-kicker">Products</p>
+            <h2 class="text-white section-title">Products</h2>
+            <p class="section-intro">Tools built to make engineering delivery faster, cleaner, and easier to automate across teams and AI-driven workflows.</p>
+            <div class="product-grid">
+                <article class="product-item fade-in">
+                    <div class="product-side">
+                        <p class="text-xs font-bold tracking-[0.18em] uppercase" style="color:#87acd6;">Featured Product</p>
+                        <h3 class="text-3xl text-white" style="font-family:'Epilogue',sans-serif; line-height:1.02; margin:0;">Datafy</h3>
+                        <a href="https://www.npmjs.com/package/@teckedd-code2save/datafy" target="_blank" class="btn-ghost" style="font-size:12px; width:max-content;">Open
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
                         </a>
                     </div>
-                </div>
+                    <div class="product-detail-grid">
+                        <div>
+                            <p class="product-summary">
+                                An MCP database gateway for AI development tools. Datafy gives agents and editors a minimal, production-usable path into relational and search backends without dragging in a heavy integration layer.
+                            </p>
+                            <div class="product-stack">
+                                <span class="skill-pill">MCP</span>
+                                <span class="skill-pill">Node.js</span>
+                                <span class="skill-pill">PostgreSQL</span>
+                                <span class="skill-pill">Redis</span>
+                                <span class="skill-pill">Elasticsearch</span>
+                            </div>
+                        </div>
+                        <div class="product-metrics">
+                            <div class="product-metric">
+                                <strong>2 tools</strong>
+                                <span>Minimal interface</span>
+                            </div>
+                            <div class="product-metric">
+                                <strong>7 backends</strong>
+                                <span>Connected systems</span>
+                            </div>
+                            <div class="product-metric">
+                                <strong>Zero-dependency</strong>
+                                <span>Lean runtime</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
 
-                <!-- Tool Card: B2DP -->
-                <div class="fade-in p-8 rounded-2xl flex flex-col transition-all duration-300"
-                    style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
-                    onmouseover="this.style.borderColor='rgba(22,58,99,0.26)'; this.style.boxShadow='0 20px 40px rgba(22,58,99,0.14)';"
-                    onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs font-bold tracking-widest uppercase" style="color:#87acd6;">NPM Package</span>
-                        <a href="https://www.npmjs.com/package/@teckedd-code2save/b2dp" target="_blank"
-                            class="transition-colors" style="color:#484849;" onmouseover="this.style.color='#87acd6'" onmouseout="this.style.color='#484849'">↗</a>
-                    </div>
-                    <div class="flex items-center gap-3 mb-3">
-                        <h3 class="text-2xl text-white" style="font-family:'Epilogue',sans-serif;">@teckedd-code2save/b2dp</h3>
-                    </div>
-                    <p class="text-sm leading-relaxed mb-6" style="color:#adaaab;">Business-to-Data-Platform CLI. One-command setup for the b2dp skill ecosystem across Antigravity, Claude, and Cursor.</p>
-                    <div class="flex flex-wrap gap-2 mb-8">
-                        <span class="skill-pill">CLI</span>
-                        <span class="skill-pill">AI Workflow</span>
-                        <span class="skill-pill">Skill SDK</span>
-                    </div>
-                    <div class="flex gap-4 mt-auto">
-                        <a href="https://www.npmjs.com/package/@teckedd-code2save/b2dp" target="_blank" class="btn-primary">
-                            View on NPM
-                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <article class="product-item fade-in">
+                    <div class="product-side">
+                        <p class="text-xs font-bold tracking-[0.18em] uppercase mb-3" style="color:#87acd6;">Automation Product</p>
+                        <h3 class="text-3xl text-white" style="font-family:'Epilogue',sans-serif; line-height:1.02; margin:0;">b2dp</h3>
+                        <a href="https://www.npmjs.com/package/@teckedd-code2save/b2dp" target="_blank" class="btn-ghost" style="font-size:12px; width:max-content;">
+                            Open
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
                         </a>
                     </div>
-                </div>
+                    <div class="product-detail-grid">
+                        <div>
+                            <p class="product-summary">
+                            A CLI that turns business specs into working platform scaffolds across agents, tools, and environments.
+                            </p>
+                            <div class="product-stack">
+                                <span class="skill-pill">CLI</span>
+                                <span class="skill-pill">Agent Workflow</span>
+                                <span class="skill-pill">Skill SDK</span>
+                            </div>
+                        </div>
+                        <div class="product-metrics">
+                            <div class="product-metric">
+                                <strong>Spec to scaffold</strong>
+                                <span>Workflow conversion</span>
+                            </div>
+                            <div class="product-metric">
+                                <strong>Agent-first</strong>
+                                <span>Automation model</span>
+                            </div>
+                            <div class="product-metric">
+                                <strong>CLI package</strong>
+                                <span>Reusable delivery tool</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
@@ -1495,7 +1851,8 @@
     <section class="py-28 relative" id="credentials" style="background:#0e0e0f;">
         <canvas id="credentials-canvas" class="absolute inset-0 pointer-events-none"></canvas>
         <div class="max-w-6xl mx-auto px-8">
-            <h2 class="text-5xl text-white section-title">Credentials &amp; Learning</h2>
+            <p class="section-kicker">Credentials</p>
+            <h2 class="text-white section-title">Credentials &amp; Learning</h2>
             <div id="credentials-container"></div>
             <div class="mt-10 text-center" id="credentials-see-all-container" style="display:none;">
                 <button id="credentials-see-all-btn" class="btn-primary">
@@ -1509,8 +1866,8 @@
     <!-- ══ CV SECTION ══════════════════════════════════ -->
     <section class="py-20" id="cv-section" style="background:#131314;">
         <div class="max-w-4xl mx-auto px-8 text-center">
-            <p class="text-xs font-bold uppercase tracking-widest mb-4" style="color:#87acd6;">Curriculum Vitae</p>
-            <h2 class="text-4xl text-white mb-5" style="font-family:'Epilogue',sans-serif;">Full Professional Profile</h2>
+            <p class="section-kicker">Curriculum Vitae</p>
+            <h2 class="text-white section-title centered">Full Professional Profile</h2>
             <p class="mb-10 leading-relaxed max-w-xl mx-auto" style="color:#adaaab;">Detailed work history, system design
                 experience, stack depth, and references available on request or via the link below.</p>
             <div class="flex flex-wrap gap-4 justify-center">
@@ -1531,7 +1888,8 @@
         <div class="max-w-6xl mx-auto px-8">
             <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-12">
                 <div>
-                    <h2 class="text-5xl text-white section-title mb-0">Insights &amp; Writing</h2>
+                    <p class="section-kicker">Writing</p>
+                    <h2 class="text-white section-title mb-0">Insights &amp; Writing</h2>
                     <p class="mt-4 max-w-xl" style="color:#adaaab;">Deep dives into production systems, MLOps, and agentic
                         workflows. Featuring the latest series on deploying high-performance Whisper models.</p>
                 </div>
@@ -1545,10 +1903,7 @@
                 <!-- Featured Article 1 -->
                 <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/1_mlops_foundation/1_the_strategy.md"
                     target="_blank"
-                    class="group block p-8 rounded-2xl transition-all duration-300"
-                    style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
-                    onmouseover="this.style.borderColor='rgba(22,58,99,0.26)'; this.style.boxShadow='0 20px 40px rgba(22,58,99,0.14)';"
-                    onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
+                    class="surface-card group block p-8">
                     <div class="flex justify-between items-start mb-4">
                         <span class="text-xs font-bold tracking-widest uppercase" style="color:#87acd6;">MLOps Foundation</span>
                         <span style="color:#484849;" class="group-hover:text-[#87acd6] transition-colors">↗</span>
@@ -1562,10 +1917,7 @@
                 <!-- Featured Article 2 -->
                 <a href="https://github.com/teckedd-code2save/biblioteck/blob/main/2_agent_sandboxing/6_building_the_workbench.md"
                     target="_blank"
-                    class="group block p-8 rounded-2xl transition-all duration-300"
-                    style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
-                    onmouseover="this.style.borderColor='rgba(22,58,99,0.26)'; this.style.boxShadow='0 20px 40px rgba(22,58,99,0.14)';"
-                    onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
+                    class="surface-card group block p-8">
                     <div class="flex justify-between items-start mb-4">
                         <span class="text-xs font-bold tracking-widest uppercase" style="color:#87acd6;">Agent Sandboxing</span>
                         <span style="color:#484849;" class="group-hover:text-[#87acd6] transition-colors">↗</span>
@@ -1582,17 +1934,15 @@
     <!-- ══ CONTACT ═════════════════════════════════════ -->
     <section class="py-28" id="contact" style="background:#131314;">
         <div class="max-w-4xl mx-auto px-8">
-            <h2 class="text-5xl text-white section-title">Let's Build Together</h2>
+            <p class="section-kicker">Contact</p>
+            <h2 class="text-white section-title">Let's Build Together</h2>
             <p class="mb-12 leading-relaxed text-lg max-w-2xl" style="color:#adaaab;">
                 Open to collaborating on projects in backend engineering, distributed systems,
                 and AI tooling.
             </p>
             <div class="grid md:grid-cols-3 gap-4">
                 <a href="mailto:edwardktwumasi1000@gmail.com"
-                    class="group p-6 rounded-2xl transition-all duration-300"
-                    style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
-                    onmouseover="this.style.borderColor='rgba(22,58,99,0.26)'; this.style.boxShadow='0 12px 30px rgba(22,58,99,0.14)';"
-                    onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
+                    class="surface-card group p-6">
                     <div class="mb-3">
                         <span class="material-symbols-outlined" style="color:#87acd6; font-size:28px; font-variation-settings:'FILL' 1;">mail</span>
                     </div>
@@ -1600,10 +1950,7 @@
                     <p class="text-xs transition break-all" style="color:#adaaab;">edwardktwumasi1000@gmail.com</p>
                 </a>
                 <a href="https://www.linkedin.com/in/edward-twumasi/" target="_blank" rel="noopener"
-                    class="group p-6 rounded-2xl transition-all duration-300"
-                    style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
-                    onmouseover="this.style.borderColor='rgba(22,58,99,0.26)'; this.style.boxShadow='0 12px 30px rgba(22,58,99,0.14)';"
-                    onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
+                    class="surface-card group p-6">
                     <div class="mb-3">
                         <span class="material-symbols-outlined" style="color:#87acd6; font-size:28px; font-variation-settings:'FILL' 1;">work</span>
                     </div>
@@ -1611,10 +1958,7 @@
                     <p class="text-xs transition" style="color:#adaaab;">edward-twumasi</p>
                 </a>
                 <a href="https://github.com/teckedd-code2save" target="_blank" rel="noopener"
-                    class="group p-6 rounded-2xl transition-all duration-300"
-                    style="background:#1a191b; border: 1px solid rgba(72,72,73,0.15);"
-                    onmouseover="this.style.borderColor='rgba(22,58,99,0.26)'; this.style.boxShadow='0 12px 30px rgba(22,58,99,0.14)';"
-                    onmouseout="this.style.borderColor='rgba(72,72,73,0.15)'; this.style.boxShadow='none';">
+                    class="surface-card group p-6">
                     <div class="mb-3">
                         <span class="material-symbols-outlined" style="color:#87acd6; font-size:28px; font-variation-settings:'FILL' 1;">code</span>
                     </div>
@@ -2052,63 +2396,110 @@
             }
         ];
 
-        const stage = document.getElementById('card-stage');
-        const counter = document.getElementById('card-counter');
-        let current = 0;
-        const total = projects.length;
+        const projectsGrid = document.getElementById('projects-grid');
+        const projectsPrevBtn = document.getElementById('projects-prev-btn');
+        const projectsNextBtn = document.getElementById('projects-next-btn');
+        const projectsDots = document.getElementById('projects-dots');
 
-        function posOf(i) {
-            let raw = (i - current + total) % total;
-            if (raw > Math.floor(total / 2)) raw -= total;
-            return Math.max(-2, Math.min(2, raw));
+        function renderProjectsGrid() {
+            if (!projectsGrid) return;
+            projectsGrid.innerHTML = '';
+
+            projects.forEach((p, i) => {
+                const item = document.createElement('article');
+                item.className = 'project-item fade-in';
+                item.innerHTML = `
+                    <div class="project-item-side">
+                        <div>
+                            <div class="project-item-meta">
+                                <span style="display:inline-block;width:8px;height:8px;background:${p.accent};flex-shrink:0;"></span>
+                                <span>${p.tag}</span>
+                            </div>
+                            <h3 class="project-item-title" style="margin-top:14px;">${p.title}</h3>
+                        </div>
+                        <div class="project-item-actions">
+                            <a href="${p.link}" target="_blank" rel="noopener" class="btn-ghost" style="color:${p.accent};border-color:${p.accent}40;">
+                                Visit
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                            </a>
+                            <button class="see-more-btn" data-index="${i}" style="font-size:12px;font-weight:700;color:#ffffff;text-transform:uppercase;letter-spacing:0.12em;border:none;background:none;cursor:pointer;padding:0;border-bottom:1px solid rgba(255,255,255,0.22);">
+                                Details
+                            </button>
+                        </div>
+                    </div>
+                    <div class="project-item-main">
+                        <p class="project-item-copy">${p.desc}</p>
+                        <div class="project-item-stack">
+                            ${p.stack.map(s => `<span class="skill-pill">${s}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+                projectsGrid.appendChild(item);
+            });
+
+            projectsGrid.querySelectorAll('.see-more-btn').forEach(btn => {
+                btn.onclick = () => openProjectDrawer(btn.dataset.index);
+            });
+
+            if (projectsDots) {
+                projectsDots.innerHTML = projects.map((project, index) => `
+                    <button
+                        class="projects-dot${index === 0 ? ' active' : ''}"
+                        data-index="${index}"
+                        aria-label="Go to ${project.title}"
+                        aria-pressed="${index === 0 ? 'true' : 'false'}"
+                        type="button"
+                    ></button>
+                `).join('');
+
+                projectsDots.querySelectorAll('.projects-dot').forEach(dot => {
+                    dot.addEventListener('click', () => {
+                        scrollProjectsToIndex(Number(dot.dataset.index));
+                    });
+                });
+            }
+
+            requestAnimationFrame(updateProjectsCarouselState);
         }
 
-        function renderCards() {
-            stage.innerHTML = '';
-            projects.forEach((p, i) => {
-                const pos = posOf(i);
-                const card = document.createElement('div');
-                card.className = 'project-card';
-                card.dataset.pos = pos;
-                card.dataset.index = i;
-                if (pos === -1) card.onclick = () => navigate(-1);
-                if (pos === 1) card.onclick = () => navigate(1);
-                card.innerHTML = `
-                <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
-                    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${p.accent};flex-shrink:0;box-shadow:0 0 8px ${p.accent}80;"></span>
-                    <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#adaaab;">${p.tag}</span>
-                </div>
-                <h3 class="project-title-gradient" style="font-family:'Epilogue',sans-serif;font-size:1.2rem;margin-bottom:12px;line-height:1.3;">${p.title}</h3>
-                <p style="font-size:14px;color:#adaaab;line-height:1.7;margin-bottom:20px;">${p.desc}</p>
-                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;">
-                    ${p.stack.map(s => `<span style="padding:6px 12px;background:#262627;border-radius:10px;font-size:11px;color:${p.accent};font-weight:600;">${s}</span>`).join('')}
-                </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;">
-                    <a href="${p.link}" target="_blank" rel="noopener"
-                       style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:${p.accent};text-decoration:none;transition:opacity .2s;"
-                       onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">
-                        Visit
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </a>
-                    <button class="see-more-btn" data-index="${i}"
-                        style="font-size:12px;font-weight:700;color:#adaaab;text-transform:uppercase;letter-spacing:0.05em;border:none;background:none;cursor:pointer;padding:8px 0;transition:color 0.2s;"
-                        onmouseover="this.style.color='${p.accent}'" onmouseout="this.style.color='#adaaab'">
-                        See More
-                    </button>
-                </div>
-            `;
-                stage.appendChild(card);
-            });
+        function getProjectsStep() {
+            const firstCard = projectsGrid?.querySelector('.project-item');
+            if (!firstCard) return 360;
+            const styles = window.getComputedStyle(projectsGrid);
+            const gap = parseFloat(styles.columnGap || styles.gap || '20');
+            return firstCard.getBoundingClientRect().width + gap;
+        }
 
-            // Add listener for See More buttons
-            document.querySelectorAll('.see-more-btn').forEach(btn => {
-                btn.onclick = (e) => {
-                    e.stopPropagation();
-                    openProjectDrawer(btn.dataset.index);
-                };
-            });
+        function getCurrentProjectIndex() {
+            if (!projectsGrid) return 0;
+            const step = getProjectsStep();
+            return Math.max(0, Math.min(projects.length - 1, Math.round(projectsGrid.scrollLeft / step)));
+        }
 
-            counter.textContent = `${current + 1}  /  ${total}`;
+        function updateProjectsCarouselState() {
+            if (!projectsGrid || !projectsPrevBtn || !projectsNextBtn) return;
+            const maxScrollLeft = projectsGrid.scrollWidth - projectsGrid.clientWidth - 4;
+            projectsPrevBtn.disabled = projectsGrid.scrollLeft <= 4;
+            projectsNextBtn.disabled = projectsGrid.scrollLeft >= maxScrollLeft;
+
+            if (projectsDots) {
+                const activeIndex = getCurrentProjectIndex();
+                projectsDots.querySelectorAll('.projects-dot').forEach((dot, index) => {
+                    const isActive = index === activeIndex;
+                    dot.classList.toggle('active', isActive);
+                    dot.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+                });
+            }
+        }
+
+        function scrollProjects(direction) {
+            if (!projectsGrid) return;
+            projectsGrid.scrollBy({ left: getProjectsStep() * direction, behavior: 'smooth' });
+        }
+
+        function scrollProjectsToIndex(index) {
+            if (!projectsGrid) return;
+            projectsGrid.scrollTo({ left: getProjectsStep() * index, behavior: 'smooth' });
         }
 
         const projectDrawer = document.getElementById('project-drawer');
@@ -2123,6 +2514,28 @@
             projectDrawerTitle.textContent = p.title;
 
             projectDrawerContent.innerHTML = `
+                <div class="project-overview">
+                    <div class="project-overview-copy">
+                        ${p.desc}
+                        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;">
+                            ${p.stack.map(s => `<span class="skill-pill">${s}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="project-overview-side">
+                        <div class="project-overview-metric">
+                            <strong>${p.tag}</strong>
+                            <span>Project Type</span>
+                        </div>
+                        <div class="project-overview-metric">
+                            <strong>${p.stack.length} Technologies</strong>
+                            <span>Stack Depth</span>
+                        </div>
+                        <div class="project-overview-metric">
+                            <a href="${p.link}" target="_blank" rel="noopener" class="btn-ghost" style="width:max-content;color:${p.accent};border-color:${p.accent}40;">Visit project</a>
+                            <span style="margin-top:8px;">External Link</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="breakdown-section">
                     <div class="breakdown-title">Architecture</div>
                     <div class="breakdown-content">${p.breakdown.architecture}</div>
@@ -2135,12 +2548,6 @@
                 <div class="breakdown-section">
                     <div class="breakdown-title">Key Highlights</div>
                     <div class="breakdown-content">${p.breakdown.highlights}</div>
-                </div>
-                <div class="breakdown-section" style="border-bottom:none;">
-                    <div class="breakdown-title">Tech Stack</div>
-                    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
-                        ${p.stack.map(s => `<span class="skill-pill">${s}</span>`).join('')}
-                    </div>
                 </div>
             `;
             projectDrawer.classList.add('open');
@@ -2159,27 +2566,13 @@
             document.getElementById('article-drawer-overlay').classList.remove('open');
         });
 
-        function navigate(dir) {
-            current = (current + dir + total) % total;
-            renderCards();
+        renderProjectsGrid();
+        if (projectsPrevBtn && projectsNextBtn && projectsGrid) {
+            projectsPrevBtn.addEventListener('click', () => scrollProjects(-1));
+            projectsNextBtn.addEventListener('click', () => scrollProjects(1));
+            projectsGrid.addEventListener('scroll', updateProjectsCarouselState, { passive: true });
+            window.addEventListener('resize', updateProjectsCarouselState);
         }
-
-        document.getElementById('prev-btn').addEventListener('click', () => navigate(-1));
-        document.getElementById('next-btn').addEventListener('click', () => navigate(1));
-        document.addEventListener('keydown', e => {
-            if (e.key === 'ArrowLeft') navigate(-1);
-            if (e.key === 'ArrowRight') navigate(1);
-        });
-
-        // Touch/swipe
-        let swipeStartX = 0;
-        stage.addEventListener('touchstart', e => { swipeStartX = e.touches[0].clientX; }, { passive: true });
-        stage.addEventListener('touchend', e => {
-            const dx = swipeStartX - e.changedTouches[0].clientX;
-            if (Math.abs(dx) > 40) navigate(dx > 0 ? 1 : -1);
-        });
-
-        renderCards();
 
         /* ════════════════════════════════════════════════
            CREDENTIALS
@@ -2425,54 +2818,46 @@
            CURSOR
         ════════════════════════════════════════════════ */
         const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', e => {
-            gsap.to(cursor, { duration: 0.08, left: e.clientX - 13, top: e.clientY - 13, ease: 'none' });
-        });
+        if (cursor) {
+            document.addEventListener('mousemove', e => {
+                gsap.to(cursor, { duration: 0.08, left: e.clientX - 13, top: e.clientY - 13, ease: 'none' });
+            });
+        }
 
         /* ════════════════════════════════════════════════
            HERO ENTRANCE — LN-style staggered reveal
         ════════════════════════════════════════════════ */
         window.addEventListener('DOMContentLoaded', () => {
-            // Hero image: subtle scale-in
-            gsap.from('#hero .hidden.md\\:block img', {
-                scale: 1.07,
+            const heroMedia = gsap.matchMedia();
+            gsap.set('#hero .hero-portrait', { clearProps: 'width' });
+
+            gsap.from('#hero .hero-portrait', {
+                scale: 1.02,
                 opacity: 0,
-                duration: 1.6,
+                duration: 1.4,
                 ease: 'power3.out',
                 delay: 0.05
             });
 
-            // Hero image mobile: fade up
-            gsap.from('#hero .md\\:hidden img', {
-                opacity: 0,
-                duration: 1.2,
-                ease: 'power3.out',
-                delay: 0.05
-            });
-
-            // Make hero container visible
             gsap.set('#hero-content', { opacity: 1 });
 
-            // Hero text kicker
-            gsap.from('#hero-content > p:first-child', {
-                y: 18,
-                opacity: 0,
-                duration: 0.7,
-                ease: 'power3.out',
-                delay: 0.3
-            });
-
-            // Hero name lines: slide up from clip
             gsap.to('#hero-content .hero-line', {
                 y: '0%',
                 duration: 1.0,
                 ease: 'power4.out',
                 stagger: 0.14,
-                delay: 0.48
+                delay: 0.24
             });
 
-            // Hero tagline
-            gsap.from('#hero-content > p:nth-of-type(2)', {
+            gsap.from('#hero .hero-typed', {
+                y: 18,
+                opacity: 0,
+                duration: 0.72,
+                ease: 'power3.out',
+                delay: 0.62
+            });
+
+            gsap.from('#hero .hero-summary', {
                 y: 20,
                 opacity: 0,
                 duration: 0.8,
@@ -2480,67 +2865,94 @@
                 delay: 0.82
             });
 
-            // Hero buttons
-            gsap.from('#hero-content > div:last-child', {
-                y: 20,
-                opacity: 0,
-                duration: 0.8,
-                ease: 'power3.out',
-                delay: 1.0
-            });
-
-            // 3D tilt + cursor shine on hero image
-            const heroSection   = document.getElementById('hero');
-            const heroImgCol    = document.getElementById('hero-img-col');
-            const heroImg3d     = document.getElementById('hero-img-3d');
-            const heroImgShine  = document.getElementById('hero-img-shine');
-
-            if (heroSection && heroImgCol && heroImg3d) {
-                heroSection.addEventListener('mousemove', (e) => {
-                    const rect = heroImgCol.getBoundingClientRect();
-                    const cx = rect.left + rect.width / 2;
-                    const cy = rect.top  + rect.height / 2;
-                    const dx = (e.clientX - cx) / (rect.width  / 2);
-                    const dy = (e.clientY - cy) / (rect.height / 2);
-
-                    gsap.to(heroImg3d, {
-                        rotateY:  dx * 6,
-                        rotateX: -dy * 4,
-                        duration: 0.65,
-                        ease: 'power2.out',
-                        overwrite: 'auto'
-                    });
-
-                    if (heroImgShine) {
-                        const lx = e.clientX - rect.left;
-                        const ly = e.clientY - rect.top;
-                        heroImgShine.style.setProperty('--mx', lx + 'px');
-                        heroImgShine.style.setProperty('--my', ly + 'px');
-                        heroImgShine.style.opacity = '1';
+            heroMedia.add('(min-width: 901px)', () => {
+                gsap.to('#hero .hero-portrait img', {
+                    yPercent: 8,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: '#hero',
+                        start: 'top top',
+                        end: 'bottom top',
+                        scrub: true
                     }
                 });
 
-                heroSection.addEventListener('mouseleave', () => {
-                    gsap.to(heroImg3d, {
-                        rotateY: 0, rotateX: 0,
-                        duration: 1.1, ease: 'power3.out', overwrite: 'auto'
-                    });
-                    if (heroImgShine) heroImgShine.style.opacity = '0';
+                gsap.to('#hero .hero-portrait', {
+                    borderRadius: '999px',
+                    width: '188px',
+                    y: -42,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: '#hero',
+                        start: 'top top',
+                        end: 'bottom top',
+                        scrub: true
+                    }
                 });
-            }
+            });
 
-            // Hero image parallax on scroll
-            gsap.to('#hero .hidden.md\\:block img', {
-                yPercent: 12,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: '#hero',
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: true
-                }
+            heroMedia.add('(max-width: 900px)', () => {
+                gsap.to('#hero .hero-portrait img', {
+                    yPercent: 4,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: '#hero',
+                        start: 'top top',
+                        end: 'bottom top',
+                        scrub: true
+                    }
+                });
+
+                gsap.to('#hero .hero-portrait', {
+                    borderRadius: '999px',
+                    width: '116px',
+                    y: -10,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: '#hero',
+                        start: 'top top',
+                        end: 'bottom top',
+                        scrub: true
+                    }
+                });
             });
         });
+
+        (function heroType() {
+            const el = document.getElementById('hero-typed-text');
+            if (!el) return;
+            const phrases = [
+                'Backend Systems Engineer',
+                'Cloud Infrastructure Builder',
+                'AI Tooling Developer'
+            ];
+            let phraseIndex = 0;
+            let charIndex = 0;
+            let deleting = false;
+
+            function tick() {
+                const phrase = phrases[phraseIndex];
+                if (!deleting) {
+                    charIndex += 1;
+                    el.textContent = phrase.slice(0, charIndex);
+                    if (charIndex === phrase.length) {
+                        deleting = true;
+                        setTimeout(tick, 1100);
+                        return;
+                    }
+                } else {
+                    charIndex -= 1;
+                    el.textContent = phrase.slice(0, charIndex);
+                    if (charIndex === 0) {
+                        deleting = false;
+                        phraseIndex = (phraseIndex + 1) % phrases.length;
+                    }
+                }
+                setTimeout(tick, deleting ? 42 : 74);
+            }
+
+            tick();
+        })();
 
         /* ════════════════════════════════════════════════
            SCROLL REVEALS via GSAP ScrollTrigger (LN style)
