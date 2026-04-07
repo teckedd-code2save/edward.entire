@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edward Twumasi</title>
+  <meta name="description" content="Edward Twumasi — Senior Backend & Systems Engineer. Accra, Ghana.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Reset ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* ── Design Tokens ───────────────────────────────── */
+    :root {
+      --bg:       #000000;
+      --bg-1:     #050505;
+      --bg-2:     #0c0c0c;
+      --fg:       #f5f5f5;
+      --fg-2:     #888888;
+      --fg-3:     #3a3a3a;
+      --border:   rgba(255,255,255,0.07);
+      --border-2: rgba(255,255,255,0.13);
+      --border-3: rgba(255,255,255,0.22);
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+      --max-w:    820px;
+      --spine-offset: 56px;
+    }
+
+    /* ── Base ────────────────────────────────────────── */
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.88em;
+      color: var(--fg-2);
+    }
+
+    /* ── Scrollbar ───────────────────────────────────── */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--fg-3); border-radius: 2px; }
+
+    /* ── Nav ─────────────────────────────────────────── */
+    #nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 40px;
+      transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
+      border-bottom: 1px solid transparent;
+    }
+    #nav.scrolled {
+      background: rgba(0,0,0,0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-color: var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--fg);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--fg-2);
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--fg); }
+    .nav-links .nav-cv {
+      border: 1px solid var(--border-2);
+      padding: 5px 13px;
+      color: var(--fg-2);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-links .nav-cv:hover { color: var(--fg); border-color: var(--border-3); }
+
+    /* ── Graph Spine ─────────────────────────────────── */
+    #graph-spine {
+      position: fixed;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      pointer-events: none;
+      width: 32px;
+    }
+    #spine-svg { overflow: visible; display: block; }
+
+    .spine-label {
+      position: absolute;
+      left: 22px;
+      font-family: var(--font-mono);
+      font-size: 8px;
+      color: var(--fg-3);
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      transition: color 0.35s;
+      transform: translateY(-50%);
+    }
+    .spine-label.lit { color: var(--fg-2); }
+
+    /* ── Main ────────────────────────────────────────── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ── Section ─────────────────────────────────────── */
+    .section {
+      padding: 108px 0;
+      border-top: 1px solid var(--border);
+    }
+    #hero { border-top: none; padding-top: 150px; padding-bottom: 96px; }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--fg-3);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .section-label::after {
+      content: '';
+      display: inline-block;
+      width: 80px;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Hero ────────────────────────────────────────── */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 148px 1fr;
+      gap: 44px;
+      align-items: start;
+    }
+    .hero-photo {
+      width: 148px;
+      height: 148px;
+      border: 1px solid var(--border-2);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 12%;
+      filter: grayscale(1) brightness(0.85) contrast(1.1);
+      display: block;
+    }
+    .hero-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--fg-3);
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+    .hero-name {
+      font-family: var(--font-mono);
+      font-size: clamp(1.9rem, 3.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      margin-bottom: 18px;
+    }
+    .hero-bio {
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--fg-2);
+      max-width: 460px;
+      margin-bottom: 24px;
+    }
+    .hero-facts {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 28px;
+    }
+    .hero-facts li {
+      display: flex;
+      gap: 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      line-height: 1.4;
+      color: var(--fg-2);
+    }
+    .fact-k {
+      color: var(--fg-3);
+      min-width: 52px;
+      flex-shrink: 0;
+    }
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .hero-links a {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--fg-2);
+      border-bottom: 1px solid var(--border-2);
+      padding-bottom: 2px;
+      letter-spacing: 0.06em;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .hero-links a:hover { color: var(--fg); border-color: var(--fg-3); }
+
+    /* ── Accordion ───────────────────────────────────── */
+    .accordion { border-top: 1px solid var(--border); }
+
+    .acc-item { border-bottom: 1px solid var(--border); }
+
+    .acc-trigger {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 32px 1fr auto 28px;
+      align-items: center;
+      gap: 18px;
+      padding: 20px 0;
+      background: none;
+      border: none;
+      color: var(--fg);
+      cursor: pointer;
+      text-align: left;
+    }
+    .acc-trigger:hover .acc-title { color: var(--fg); }
+
+    .acc-num {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--fg-3);
+      letter-spacing: 0.06em;
+    }
+    .acc-title {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: -0.01em;
+      transition: color 0.2s;
+    }
+    .acc-badge {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--fg-3);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+    .acc-icon {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      color: var(--fg-3);
+      transition: transform 0.28s cubic-bezier(0.4,0,0.2,1), color 0.2s;
+      line-height: 1;
+      text-align: center;
+    }
+    .acc-item.is-open .acc-icon {
+      transform: rotate(45deg);
+      color: var(--fg-2);
+    }
+
+    .acc-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.38s cubic-bezier(0.4,0,0.2,1);
+    }
+    .acc-item.is-open .acc-body { grid-template-rows: 1fr; }
+    .acc-body-inner { overflow: hidden; }
+
+    .acc-content {
+      padding: 4px 0 32px 50px;
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 36px;
+    }
+
+    .acc-desc {
+      font-size: 12.5px;
+      line-height: 1.8;
+      color: var(--fg-2);
+      margin-bottom: 18px;
+    }
+    .acc-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 20px;
+    }
+    .stack-pill {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--fg-3);
+      border: 1px solid var(--border);
+      padding: 3px 7px;
+      letter-spacing: 0.04em;
+    }
+    .acc-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .acc-link {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--fg-2);
+      border-bottom: 1px solid var(--border-2);
+      padding-bottom: 1px;
+      letter-spacing: 0.04em;
+      transition: color 0.2s, border-color 0.2s;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      cursor: pointer;
+      font-family: var(--font-mono);
+    }
+    .acc-link:hover { color: var(--fg); border-color: var(--fg-3); }
+
+    .acc-side {
+      border-left: 1px solid var(--border);
+      padding-left: 28px;
+    }
+    .acc-side-label {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      color: var(--fg-3);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+      margin-top: 18px;
+    }
+    .acc-side-label:first-child { margin-top: 0; }
+    .acc-side-text {
+      font-size: 11.5px;
+      line-height: 1.7;
+      color: var(--fg-2);
+    }
+
+    /* ── Packages ────────────────────────────────────── */
+    .pkg-list { border-top: 1px solid var(--border); }
+
+    .pkg-item {
+      display: grid;
+      grid-template-columns: 1fr 100px;
+      gap: 24px;
+      align-items: start;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .pkg-name {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pkg-scope { color: var(--fg-3); font-weight: 400; }
+    .pkg-registry {
+      font-size: 9px;
+      color: var(--fg-3);
+      border: 1px solid var(--border);
+      padding: 2px 6px;
+      font-family: var(--font-mono);
+      letter-spacing: 0.06em;
+    }
+    .pkg-desc {
+      font-size: 12px;
+      line-height: 1.75;
+      color: var(--fg-2);
+      max-width: 520px;
+      margin-bottom: 14px;
+    }
+    .pkg-npm {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--fg-3);
+      border: 1px solid var(--border);
+      padding: 7px 14px;
+      text-align: center;
+      transition: color 0.2s, border-color 0.2s;
+      display: block;
+    }
+    .pkg-npm:hover { color: var(--fg); border-color: var(--border-3); }
+
+    /* ── Contact ─────────────────────────────────────── */
+    .contact-list { border-top: 1px solid var(--border); }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      padding: 17px 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .contact-row:hover .contact-val { color: var(--fg); }
+    .contact-key {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--fg-3);
+      letter-spacing: 0.12em;
+      min-width: 64px;
+    }
+    .contact-val {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--fg-2);
+      transition: color 0.2s;
+    }
+    .contact-arrow {
+      margin-left: auto;
+      font-size: 13px;
+      color: var(--fg-3);
+    }
+
+    /* ── Footer ──────────────────────────────────────── */
+    footer {
+      padding: 52px 0;
+      border-top: 1px solid var(--border);
+    }
+    .foot-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .foot-left {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--fg-3);
+    }
+    .foot-right {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--fg-3);
+      text-align: right;
+      line-height: 1.5;
+    }
+
+    /* ── Detail Panel ────────────────────────────────── */
+    #detail-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.72);
+      z-index: 400;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    #detail-overlay.open { opacity: 1; pointer-events: all; }
+
+    #detail-panel {
+      position: fixed;
+      top: 0; right: 0;
+      width: min(700px, 100vw);
+      height: 100svh;
+      background: var(--bg-1);
+      border-left: 1px solid var(--border-2);
+      z-index: 500;
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+      scrollbar-width: thin;
+    }
+    #detail-panel.open { transform: translateX(0); }
+
+    .dp-bar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 28px;
+      background: rgba(5,5,5,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .dp-bar-id {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--fg-3);
+      letter-spacing: 0.12em;
+    }
+    .dp-close {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--fg-3);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 5px 12px;
+      cursor: pointer;
+      letter-spacing: 0.06em;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .dp-close:hover { color: var(--fg); border-color: var(--border-3); }
+
+    /* Detail hero canvas area */
+    .dp-hero {
+      position: relative;
+      height: 300px;
+      overflow: hidden;
+    }
+    #dp-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .dp-hero-text {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 28px 36px;
+      background: linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.6) 55%, transparent 100%);
+    }
+    .dp-hero-tag {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .dp-hero-title {
+      font-family: var(--font-mono);
+      font-size: clamp(1.7rem, 5vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+    }
+
+    /* Detail body */
+    .dp-body { padding: 36px; }
+
+    .dp-section { margin-bottom: 32px; }
+    .dp-section-label {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      color: var(--fg-3);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 12px;
+    }
+    .dp-section p {
+      font-size: 12.5px;
+      line-height: 1.8;
+      color: var(--fg-2);
+    }
+    .dp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .dp-tag {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--fg-3);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      letter-spacing: 0.04em;
+    }
+    .dp-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .dp-link {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--fg-2);
+      border: 1px solid var(--border-2);
+      padding: 8px 18px;
+      letter-spacing: 0.06em;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .dp-link:hover { color: var(--fg); border-color: var(--border-3); }
+
+    /* ── Scroll-reveal ───────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ──────────────────────────────────── */
+    @media (max-width: 840px) {
+      :root { --spine-offset: 0px; }
+      #graph-spine { display: none; }
+      #nav { padding: 16px 20px; }
+      .nav-links a:not(.nav-cv) { display: none; }
+      .container { padding: 0 20px; }
+      .section { padding: 72px 0; }
+      #hero { padding-top: 110px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 24px; }
+      .hero-photo { width: 90px; height: 90px; }
+      .acc-content { grid-template-columns: 1fr; }
+      .acc-side {
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding-left: 0; padding-top: 20px;
+      }
+      .pkg-item { grid-template-columns: 1fr; }
+      .pkg-npm { width: 100%; text-align: center; padding: 10px; }
+      #detail-panel { width: 100vw; }
+      .foot-inner { flex-direction: column; gap: 10px; align-items: flex-start; }
+    }
+    @media (max-width: 500px) {
+      .acc-trigger { grid-template-columns: 28px 1fr 28px; }
+      .acc-badge { display: none; }
+      .acc-content { padding-left: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ───────────────────────────────────────────── -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">edward twumasi</a>
+  <div class="nav-links">
+    <a href="#projects">projects</a>
+    <a href="#packages">packages</a>
+    <a href="#contact">contact</a>
+    <a href="staticfiles/Edward_Twumasi_CV_Latest.pdf" target="_blank" class="nav-cv">cv ↗</a>
+  </div>
+</nav>
+
+<!-- ── GRAPH SPINE ───────────────────────────────────── -->
+<div id="graph-spine" aria-hidden="true">
+  <svg id="spine-svg" width="12" height="280" viewBox="0 0 12 280">
+    <!-- connecting lines — animated via JS -->
+    <line id="sl-0" x1="6" y1="18" x2="6" y2="108"
+      stroke="rgba(255,255,255,0.08)" stroke-width="1"
+      stroke-dasharray="90" stroke-dashoffset="90"/>
+    <line id="sl-1" x1="6" y1="108" x2="6" y2="198"
+      stroke="rgba(255,255,255,0.08)" stroke-width="1"
+      stroke-dasharray="90" stroke-dashoffset="90"/>
+    <line id="sl-2" x1="6" y1="198" x2="6" y2="280"
+      stroke="rgba(255,255,255,0.08)" stroke-width="1"
+      stroke-dasharray="82" stroke-dashoffset="82"/>
+    <!-- nodes -->
+    <circle id="sn-0" cx="6" cy="18"  r="3.5" fill="rgba(255,255,255,0.7)" stroke="none"/>
+    <circle id="sn-1" cx="6" cy="108" r="3.5" fill="transparent" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <circle id="sn-2" cx="6" cy="198" r="3.5" fill="transparent" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <circle id="sn-3" cx="6" cy="280" r="3.5" fill="transparent" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  </svg>
+  <!-- labels positioned absolutely via JS -->
+  <div class="spine-label lit"  id="sp-lbl-0" style="top:10px">_init</div>
+  <div class="spine-label"      id="sp-lbl-1" style="top:100px">work</div>
+  <div class="spine-label"      id="sp-lbl-2" style="top:190px">pkgs</div>
+  <div class="spine-label"      id="sp-lbl-3" style="top:272px">reach</div>
+</div>
+
+<!-- ── CONTENT ───────────────────────────────────────── -->
+<div style="padding-left: var(--spine-offset);">
+
+  <!-- HERO ────────────────────────────────────────────── -->
+  <section id="hero" class="section">
+    <div class="container">
+      <div class="hero-grid reveal">
+        <div class="hero-photo">
+          <img src="staticfiles/1719185128651.jpeg" alt="Edward Twumasi">
+        </div>
+        <div>
+          <p class="hero-tag">// senior backend &amp; systems engineer</p>
+          <h1 class="hero-name">Edward<br>Twumasi</h1>
+          <p class="hero-bio">
+            Production-grade backend systems, developer tooling, and AI workflows —
+            with a focus on reliability, throughput, and operational clarity.
+          </p>
+          <ul class="hero-facts">
+            <li><span class="fact-k">base</span>Accra, Ghana</li>
+            <li><span class="fact-k">focus</span>distributed systems · agentic workflows</li>
+            <li><span class="fact-k">stack</span>Go · TypeScript · Python · PostgreSQL</li>
+            <li><span class="fact-k">status</span>open to collaborate</li>
+          </ul>
+          <div class="hero-links">
+            <a href="https://github.com/teckedd-code2save" target="_blank" rel="noopener">github ↗</a>
+            <a href="https://www.linkedin.com/in/edward-twumasi/" target="_blank" rel="noopener">linkedin ↗</a>
+            <a href="mailto:edwardktwumasi1000@gmail.com">email ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS ────────────────────────────────────────── -->
+  <section id="projects" class="section">
+    <div class="container">
+      <p class="section-label">01 / projects</p>
+      <div class="accordion">
+
+        <!-- ── 01 AgentMart ── -->
+        <div class="acc-item" id="ap-0">
+          <button class="acc-trigger" type="button" aria-expanded="false">
+            <span class="acc-num">01</span>
+            <span class="acc-title">AgentMart</span>
+            <span class="acc-badge">agentic systems</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body" role="region">
+            <div class="acc-body-inner">
+              <div class="acc-content">
+                <div>
+                  <p class="acc-desc">
+                    Autonomous AI agent economy — agents hire, pay, and collaborate with each other.
+                    A Master Orchestrator decomposes tasks and contracts specialist agents via a
+                    real-time ledger built on Stripe's Machine Payments Protocol (MPP).
+                  </p>
+                  <div class="acc-stack">
+                    <span class="stack-pill">TypeScript</span>
+                    <span class="stack-pill">Next.js 14</span>
+                    <span class="stack-pill">Express</span>
+                    <span class="stack-pill">SQLite</span>
+                    <span class="stack-pill">Stripe MPP</span>
+                  </div>
+                  <div class="acc-actions">
+                    <a href="https://github.com/teckedd-code2save/agentmart" target="_blank" rel="noopener" class="acc-link">github ↗</a>
+                    <button class="acc-link" onclick="openDetail(0)">full details →</button>
+                  </div>
+                </div>
+                <div class="acc-side">
+                  <p class="acc-side-label">architecture</p>
+                  <p class="acc-side-text">Three-service architecture: Registry (:3001) manages agent registration and payment ledger; Agents Service (:3002) hosts specialist endpoints; Next.js Dashboard (:3000) provides real-time monitoring at 2s refresh.</p>
+                  <p class="acc-side-label">highlight</p>
+                  <p class="acc-side-text">Four specialist agents (Research $0.30, Analysis $0.50, Report $0.20) autonomously hire each other, self-balance budgets, complete multi-step work — zero human intervention.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 02 Agent Exchange ── -->
+        <div class="acc-item" id="ap-1">
+          <button class="acc-trigger" type="button" aria-expanded="false">
+            <span class="acc-num">02</span>
+            <span class="acc-title">Agent Exchange</span>
+            <span class="acc-badge">ai marketplace</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body" role="region">
+            <div class="acc-body-inner">
+              <div class="acc-content">
+                <div>
+                  <p class="acc-desc">
+                    Marketplace platform for AI agents — publish, discover, and compose agents
+                    into workflows. Typed TypeScript backend with a live web interface for agent
+                    orchestration, manifest management, and team sharing.
+                  </p>
+                  <div class="acc-stack">
+                    <span class="stack-pill">TypeScript</span>
+                    <span class="stack-pill">Next.js</span>
+                    <span class="stack-pill">Vercel</span>
+                  </div>
+                  <div class="acc-actions">
+                    <a href="https://github.com/teckedd-code2save/agent-exchange" target="_blank" rel="noopener" class="acc-link">github ↗</a>
+                    <a href="https://agent-exchange-web.vercel.app" target="_blank" rel="noopener" class="acc-link">live ↗</a>
+                    <button class="acc-link" onclick="openDetail(1)">full details →</button>
+                  </div>
+                </div>
+                <div class="acc-side">
+                  <p class="acc-side-label">what it does</p>
+                  <p class="acc-side-text">Agent discovery, composition, and marketplace mechanics for AI-first teams. Enables publishing reusable agents with typed interfaces and composing them into pipelines via a visual exchange interface.</p>
+                  <p class="acc-side-label">deployment</p>
+                  <p class="acc-side-text">Live on Vercel. Continuous deployment from main. Stateless architecture optimised for edge runtime.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 03 career-ops ── -->
+        <div class="acc-item" id="ap-2">
+          <button class="acc-trigger" type="button" aria-expanded="false">
+            <span class="acc-num">03</span>
+            <span class="acc-title">career-ops</span>
+            <span class="acc-badge">ai tooling · cli</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body" role="region">
+            <div class="acc-body-inner">
+              <div class="acc-content">
+                <div>
+                  <p class="acc-desc">
+                    AI-powered job search system built on Claude Code. 14 skill modes spanning
+                    job discovery, CV tailoring, cover letter generation, outreach automation,
+                    and batch processing. Includes a Go metrics dashboard and PDF generation pipeline.
+                  </p>
+                  <div class="acc-stack">
+                    <span class="stack-pill">Claude Code</span>
+                    <span class="stack-pill">Go</span>
+                    <span class="stack-pill">PDF Generation</span>
+                    <span class="stack-pill">Batch Processing</span>
+                    <span class="stack-pill">Skill SDK</span>
+                  </div>
+                  <div class="acc-actions">
+                    <a href="https://github.com/teckedd-code2save/career-ops" target="_blank" rel="noopener" class="acc-link">github ↗</a>
+                    <button class="acc-link" onclick="openDetail(2)">full details →</button>
+                  </div>
+                </div>
+                <div class="acc-side">
+                  <p class="acc-side-label">skill modes</p>
+                  <p class="acc-side-text">14 modes: job discovery, CV tailoring, cover letter generation, email outreach, follow-up tracking, interview prep, company research, salary analysis, and more — all orchestrated via Claude Code skills.</p>
+                  <p class="acc-side-label">dashboard</p>
+                  <p class="acc-side-text">Go-powered metrics dashboard surfacing pipeline health: applications sent, response rates, and batch job status in real time.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end accordion -->
+      <div style="padding: 24px 0 0; display:flex; gap:18px; align-items:center;">
+        <a href="https://github.com/teckedd-code2save" target="_blank" rel="noopener"
+           style="font-family:var(--font-mono);font-size:10px;color:var(--fg-3);border-bottom:1px solid var(--border);padding-bottom:2px;letter-spacing:0.06em;transition:color .2s,border-color .2s;"
+           onmouseover="this.style.color='var(--fg-2)';this.style.borderColor='var(--fg-3)'"
+           onmouseout="this.style.color='var(--fg-3)';this.style.borderColor='var(--border)'">
+          all projects on github ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGES ─────────────────────────────────────────── -->
+  <section id="packages" class="section">
+    <div class="container">
+      <p class="section-label">02 / packages</p>
+      <div class="pkg-list">
+
+        <div class="pkg-item reveal">
+          <div>
+            <div class="pkg-name">
+              <span class="pkg-scope">@teckedd-code2save/</span>datafy
+              <span class="pkg-registry">npm</span>
+            </div>
+            <p class="pkg-desc">
+              MCP database gateway for AI development tools. Gives agents and editors a
+              minimal, production-usable path into 7 relational and search backends —
+              PostgreSQL, MySQL, SQLite, Redis, Elasticsearch, SQL Server, MariaDB —
+              via two core tools: <code>execute_sql</code> and <code>search_objects</code>.
+              Zero external dependencies.
+            </p>
+            <div class="acc-stack">
+              <span class="stack-pill">MCP Protocol</span>
+              <span class="stack-pill">Node.js</span>
+              <span class="stack-pill">PostgreSQL</span>
+              <span class="stack-pill">Redis</span>
+              <span class="stack-pill">Elasticsearch</span>
+            </div>
+          </div>
+          <a href="https://www.npmjs.com/package/@teckedd-code2save/datafy"
+             target="_blank" rel="noopener" class="pkg-npm">npm ↗</a>
+        </div>
+
+        <div class="pkg-item reveal">
+          <div>
+            <div class="pkg-name">
+              <span class="pkg-scope">@teckedd-code2save/</span>b2dp
+              <span class="pkg-registry">npm</span>
+            </div>
+            <p class="pkg-desc">
+              CLI orchestrator that converts business specifications into production-grade
+              platform scaffolds. Automates schema design, DB provisioning, ORM setup,
+              integration tests, frontend scaffolding, and IaC — driven by a modular MCP
+              skill system, pre-configured with Datafy, Prisma, GitHub, and Context7 servers.
+            </p>
+            <div class="acc-stack">
+              <span class="stack-pill">CLI</span>
+              <span class="stack-pill">MCP Protocol</span>
+              <span class="stack-pill">Node.js</span>
+              <span class="stack-pill">Agent Workflow</span>
+            </div>
+          </div>
+          <a href="https://www.npmjs.com/package/@teckedd-code2save/b2dp"
+             target="_blank" rel="noopener" class="pkg-npm">npm ↗</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT ─────────────────────────────────────────── -->
+  <section id="contact" class="section">
+    <div class="container">
+      <p class="section-label">03 / contact</p>
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--fg-3);margin-bottom:32px;line-height:1.6;">
+        open to backend engineering, distributed systems, and AI tooling work.
+      </div>
+      <div class="contact-list">
+        <a href="mailto:edwardktwumasi1000@gmail.com" class="contact-row">
+          <span class="contact-key">email</span>
+          <span class="contact-val">edwardktwumasi1000@gmail.com</span>
+          <span class="contact-arrow">↗</span>
+        </a>
+        <a href="https://github.com/teckedd-code2save" target="_blank" rel="noopener" class="contact-row">
+          <span class="contact-key">github</span>
+          <span class="contact-val">teckedd-code2save</span>
+          <span class="contact-arrow">↗</span>
+        </a>
+        <a href="https://www.linkedin.com/in/edward-twumasi/" target="_blank" rel="noopener" class="contact-row">
+          <span class="contact-key">linkedin</span>
+          <span class="contact-val">edward-twumasi</span>
+          <span class="contact-arrow">↗</span>
+        </a>
+        <a href="tel:+233552489602" class="contact-row">
+          <span class="contact-key">phone</span>
+          <span class="contact-val">+233 552 489 602</span>
+          <span class="contact-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER ──────────────────────────────────────────── -->
+  <footer>
+    <div class="foot-inner">
+      <span class="foot-left">edward twumasi — accra, ghana</span>
+      <span class="foot-right">© 2026<br>backend · systems · ai</span>
+    </div>
+  </footer>
+
+</div><!-- end content wrapper -->
+
+<!-- ── DETAIL OVERLAY & PANEL ───────────────────────── -->
+<div id="detail-overlay"></div>
+
+<div id="detail-panel" role="dialog" aria-modal="true" aria-label="Project details">
+  <div class="dp-bar">
+    <span class="dp-bar-id" id="dp-bar-id">// project</span>
+    <button class="dp-close" id="dp-close-btn">close ×</button>
+  </div>
+
+  <div class="dp-hero">
+    <canvas id="dp-canvas"></canvas>
+    <div class="dp-hero-text">
+      <p class="dp-hero-tag" id="dp-tag"></p>
+      <h2 class="dp-hero-title" id="dp-title"></h2>
+    </div>
+  </div>
+
+  <div class="dp-body">
+    <div class="dp-section">
+      <p class="dp-section-label">overview</p>
+      <p id="dp-desc"></p>
+    </div>
+    <div class="dp-section">
+      <p class="dp-section-label">stack</p>
+      <div id="dp-tags" class="dp-tags"></div>
+    </div>
+    <div class="dp-section">
+      <p class="dp-section-label">architecture</p>
+      <p id="dp-arch"></p>
+    </div>
+    <div class="dp-section">
+      <p class="dp-section-label">highlights</p>
+      <p id="dp-highlights"></p>
+    </div>
+    <div class="dp-section">
+      <p class="dp-section-label">links</p>
+      <div id="dp-links" class="dp-links"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ───────────────────────────────────────────────────── -->
+<script>
+'use strict';
+
+/* ── Project data ──────────────────────────────────── */
+const PROJECTS = [
+  {
+    id: 'agentmart',
+    tag: 'agentic systems',
+    title: 'AgentMart',
+    desc: 'Autonomous AI agent economy — agents hire, pay, and collaborate with each other. A Master Orchestrator decomposes tasks and contracts specialist agents via a real-time ledger built on Stripe\'s Machine Payments Protocol (MPP).',
+    stack: ['TypeScript', 'Next.js 14', 'Express', 'SQLite', 'Stripe MPP'],
+    arch: 'Three-service architecture: Registry (Express, :3001) manages agent registration and the payment ledger; Agents Service (:3002) hosts specialist endpoints; Dashboard (Next.js, :3000) provides real-time monitoring refreshing every 2 seconds. SQLite persistence for agent state and transaction history.',
+    highlights: 'Four specialist agents — Research ($0.30), Analysis ($0.50), Report ($0.20) — autonomously hire each other, self-balance budgets, and complete multi-step work without human intervention. All inter-agent payments settle via the MPP real-time ledger.',
+    github: 'https://github.com/teckedd-code2save/agentmart',
+    live: null,
+    canvasMode: 'agents',
+  },
+  {
+    id: 'agent-exchange',
+    tag: 'ai marketplace',
+    title: 'Agent Exchange',
+    desc: 'Marketplace platform for AI agents — publish, discover, and compose agents into workflows. Typed TypeScript backend with a live web interface for agent orchestration, manifest management, and team-based sharing.',
+    stack: ['TypeScript', 'Next.js', 'Vercel'],
+    arch: 'Stateless Next.js frontend deployed on Vercel edge network. Typed API layer with server components for agent listing and composition UI. Agents are described via structured manifest files defining input/output schemas, capabilities, and pricing metadata.',
+    highlights: 'Live production deployment on Vercel. Visual agent composition interface with a typed manifest system for publishing reusable agents to the exchange. Supports agent versioning and dependency graphs for composable pipelines.',
+    github: 'https://github.com/teckedd-code2save/agent-exchange',
+    live: 'https://agent-exchange-web.vercel.app',
+    canvasMode: 'exchange',
+  },
+  {
+    id: 'career-ops',
+    tag: 'ai tooling · cli',
+    title: 'career-ops',
+    desc: 'AI-powered job search system built on Claude Code. 14 skill modes covering job discovery, CV tailoring, cover letter generation, outreach automation, follow-up tracking, and batch processing. Includes a Go metrics dashboard and PDF generation pipeline.',
+    stack: ['Claude Code', 'Go', 'PDF Generation', 'Batch Processing', 'Skill SDK'],
+    arch: '14 Claude Code skill modes orchestrating a full job search pipeline. Go backend aggregates metrics and powers the real-time dashboard. PDF generation service handles CV and cover letter output with per-application tailoring. Batch processing engine runs multi-target application campaigns from a single spec file.',
+    highlights: 'End-to-end automation from job discovery to submitted application. 14 skill modes including salary analysis, company research, and interview prep. The Go dashboard surfaces real-time pipeline health: applications sent, response rates, and batch job status.',
+    github: 'https://github.com/teckedd-code2save/career-ops',
+    live: null,
+    canvasMode: 'terminal',
+  },
+];
+
+/* ── Nav scroll ────────────────────────────────────── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', onScroll, { passive: true });
+
+function onScroll() {
+  nav.classList.toggle('scrolled', window.scrollY > 24);
+  updateSpine();
+}
+
+/* ── Graph spine ───────────────────────────────────── */
+const SECTIONS = ['hero', 'projects', 'packages', 'contact'];
+const snNodes  = SECTIONS.map((_, i) => document.getElementById(`sn-${i}`));
+const slLines  = [0,1,2].map(i => document.getElementById(`sl-${i}`));
+const spLabels = SECTIONS.map((_, i) => document.getElementById(`sp-lbl-${i}`));
+const LINE_LENS = [90, 90, 82];
+
+function getScrollProgress(idA, idB) {
+  const a = document.getElementById(idA);
+  const b = document.getElementById(idB);
+  if (!a || !b) return 0;
+  const mid   = window.scrollY + window.innerHeight * 0.5;
+  const start = a.offsetTop + a.offsetHeight * 0.35;
+  const end   = b.offsetTop + b.offsetHeight * 0.25;
+  return Math.max(0, Math.min(1, (mid - start) / Math.max(end - start, 1)));
+}
+
+function updateSpine() {
+  SECTIONS.forEach((id, i) => {
+    const prog = i > 0 ? getScrollProgress(SECTIONS[i-1], id) : 1;
+    const lit  = prog > 0.05;
+
+    // node
+    snNodes[i].setAttribute('fill', lit ? 'rgba(255,255,255,0.8)' : 'transparent');
+    snNodes[i].setAttribute('stroke', lit ? 'none' : 'rgba(255,255,255,0.1)');
+
+    // label
+    spLabels[i].classList.toggle('lit', lit);
+
+    // line leading INTO this node (index i-1)
+    if (i > 0) {
+      const line = slLines[i-1];
+      const len  = LINE_LENS[i-1];
+      const offset = len * (1 - prog);
+      line.setAttribute('stroke-dashoffset', String(Math.round(offset)));
+      line.setAttribute('stroke', prog > 0.02
+        ? `rgba(255,255,255,${0.08 + prog * 0.32})`
+        : 'rgba(255,255,255,0.06)');
+    }
+  });
+}
+updateSpine();
+
+/* ── Accordion ─────────────────────────────────────── */
+document.querySelectorAll('.acc-trigger').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.acc-item');
+    const isOpen = item.classList.contains('is-open');
+    // close all
+    document.querySelectorAll('.acc-item.is-open').forEach(el => {
+      el.classList.remove('is-open');
+      el.querySelector('.acc-trigger').setAttribute('aria-expanded', 'false');
+    });
+    // open clicked (toggle)
+    if (!isOpen) {
+      item.classList.add('is-open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+
+/* ── Reveal on scroll ──────────────────────────────── */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ── Detail panel ──────────────────────────────────── */
+const detailPanel   = document.getElementById('detail-panel');
+const detailOverlay = document.getElementById('detail-overlay');
+let   dpAnimId      = null;
+
+function openDetail(idx) {
+  const p = PROJECTS[idx];
+
+  document.getElementById('dp-bar-id').textContent = `// ${p.id}`;
+  document.getElementById('dp-tag').textContent = p.tag;
+  document.getElementById('dp-title').textContent = p.title;
+  document.getElementById('dp-desc').textContent = p.desc;
+  document.getElementById('dp-arch').textContent = p.arch;
+  document.getElementById('dp-highlights').textContent = p.highlights;
+
+  document.getElementById('dp-tags').innerHTML =
+    p.stack.map(s => `<span class="dp-tag">${s}</span>`).join('');
+
+  const linksEl = document.getElementById('dp-links');
+  linksEl.innerHTML = '';
+  if (p.github) {
+    linksEl.insertAdjacentHTML('beforeend',
+      `<a href="${p.github}" target="_blank" rel="noopener" class="dp-link">github ↗</a>`);
+  }
+  if (p.live) {
+    linksEl.insertAdjacentHTML('beforeend',
+      `<a href="${p.live}" target="_blank" rel="noopener" class="dp-link">live site ↗</a>`);
+  }
+
+  startCanvas(p.canvasMode);
+  detailPanel.scrollTop = 0;
+  detailPanel.classList.add('open');
+  detailOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetail() {
+  detailPanel.classList.remove('open');
+  detailOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+  if (dpAnimId) { cancelAnimationFrame(dpAnimId); dpAnimId = null; }
+}
+
+document.getElementById('dp-close-btn').addEventListener('click', closeDetail);
+detailOverlay.addEventListener('click', closeDetail);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
+
+/* ── Detail canvas art ─────────────────────────────── */
+function startCanvas(mode) {
+  if (dpAnimId) { cancelAnimationFrame(dpAnimId); dpAnimId = null; }
+
+  const canvas = document.getElementById('dp-canvas');
+  const ctx = canvas.getContext('2d');
+  const hero = canvas.parentElement;
+
+  function resize() {
+    canvas.width  = hero.offsetWidth;
+    canvas.height = hero.offsetHeight;
+  }
+  resize();
+  const W = () => canvas.width;
+  const H = () => canvas.height;
+
+  if (mode === 'agents') {
+    /* Agents — nodes representing 4 agents, packets travel along edges */
+    const agents = [
+      { label: 'orchestrator', x: 0.5,  y: 0.45, r: 22 },
+      { label: 'research',     x: 0.18, y: 0.72, r: 14 },
+      { label: 'analysis',     x: 0.5,  y: 0.82, r: 14 },
+      { label: 'report',       x: 0.82, y: 0.72, r: 14 },
+    ];
+    const edges = [[0,1],[0,2],[0,3],[1,2],[2,3]];
+    const packets = edges.map(([a, b]) => ({
+      from: a, to: b, t: Math.random(), speed: 0.003 + Math.random() * 0.004
+    }));
+
+    function draw() {
+      ctx.clearRect(0, 0, W(), H());
+
+      // dark bg
+      ctx.fillStyle = '#030303';
+      ctx.fillRect(0, 0, W(), H());
+
+      // subtle grid
+      ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+      ctx.lineWidth = 0.5;
+      for (let gx = 0; gx < W(); gx += 32) {
+        ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H()); ctx.stroke();
+      }
+      for (let gy = 0; gy < H(); gy += 32) {
+        ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W(), gy); ctx.stroke();
+      }
+
+      // resolve positions
+      const pos = agents.map(a => ({ x: a.x * W(), y: a.y * H(), r: a.r, label: a.label }));
+
+      // edges
+      edges.forEach(([ai, bi]) => {
+        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(pos[ai].x, pos[ai].y);
+        ctx.lineTo(pos[bi].x, pos[bi].y);
+        ctx.stroke();
+      });
+
+      // animate packets
+      packets.forEach(pk => {
+        pk.t = (pk.t + pk.speed) % 1;
+        const a = pos[pk.from], b = pos[pk.to];
+        const px = a.x + (b.x - a.x) * pk.t;
+        const py = a.y + (b.y - a.y) * pk.t;
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.beginPath();
+        ctx.arc(px, py, 2, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // agent nodes
+      pos.forEach((p, i) => {
+        // halo
+        ctx.strokeStyle = i === 0 ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.1)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r + 5, 0, Math.PI * 2);
+        ctx.stroke();
+        // node
+        ctx.fillStyle = i === 0 ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.07)';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = i === 0 ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.18)';
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.stroke();
+        // label
+        ctx.fillStyle = 'rgba(255,255,255,0.3)';
+        ctx.font = `300 9px 'JetBrains Mono', monospace`;
+        ctx.textAlign = 'center';
+        ctx.fillText(p.label, p.x, p.y + p.r + 14);
+      });
+
+      // bottom gradient for text readability
+      const grad = ctx.createLinearGradient(0, 0, 0, H());
+      grad.addColorStop(0,   'rgba(0,0,0,0)');
+      grad.addColorStop(0.6, 'rgba(0,0,0,0.15)');
+      grad.addColorStop(1,   'rgba(3,3,3,0.92)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W(), H());
+
+      dpAnimId = requestAnimationFrame(draw);
+    }
+    draw();
+
+  } else if (mode === 'exchange') {
+    /* Agent Exchange — two clusters with flowing arrows between them */
+    const leftNodes  = [[0.15, 0.3],[0.15, 0.55],[0.15, 0.78]];
+    const rightNodes = [[0.82, 0.3],[0.82, 0.55],[0.82, 0.78]];
+    const flows = leftNodes.map((ln, i) => ({
+      fromX: ln[0], fromY: ln[1],
+      toX: rightNodes[i][0], toY: rightNodes[i][1],
+      t: i * 0.33, speed: 0.005,
+    }));
+    // also cross flows
+    [[0,1],[1,2],[0,2]].forEach(([i,j]) => {
+      flows.push({ fromX: leftNodes[i][0], fromY: leftNodes[i][1], toX: rightNodes[j][0], toY: rightNodes[j][1], t: Math.random(), speed: 0.003 });
+    });
+
+    function draw() {
+      ctx.clearRect(0, 0, W(), H());
+      ctx.fillStyle = '#030303';
+      ctx.fillRect(0, 0, W(), H());
+
+      const all = [...leftNodes, ...rightNodes];
+
+      // draw all connection lines
+      flows.forEach(f => {
+        ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+        ctx.lineWidth = 0.7;
+        ctx.beginPath();
+        ctx.moveTo(f.fromX * W(), f.fromY * H());
+        ctx.lineTo(f.toX * W(), f.toY * H());
+        ctx.stroke();
+      });
+
+      // packets
+      flows.forEach(f => {
+        f.t = (f.t + f.speed) % 1;
+        const px = (f.fromX + (f.toX - f.fromX) * f.t) * W();
+        const py = (f.fromY + (f.toY - f.fromY) * f.t) * H();
+        ctx.fillStyle = 'rgba(255,255,255,0.65)';
+        ctx.beginPath();
+        ctx.arc(px, py, 1.8, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // vertical divider
+      ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+      ctx.lineWidth = 0.8;
+      ctx.setLineDash([4, 8]);
+      ctx.beginPath();
+      ctx.moveTo(W() * 0.5, 0);
+      ctx.lineTo(W() * 0.5, H());
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // nodes
+      all.forEach(([nx, ny], i) => {
+        const x = nx * W(), y = ny * H();
+        ctx.fillStyle = 'rgba(255,255,255,0.07)';
+        ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+        ctx.lineWidth = 0.8;
+        ctx.beginPath(); ctx.arc(x, y, 8, 0, Math.PI * 2);
+        ctx.fill(); ctx.stroke();
+      });
+
+      // label sides
+      ctx.fillStyle = 'rgba(255,255,255,0.2)';
+      ctx.font = `300 9px 'JetBrains Mono', monospace`;
+      ctx.textAlign = 'left';
+      ctx.fillText('publishers', leftNodes[0][0] * W() + 14, leftNodes[0][1] * H());
+      ctx.textAlign = 'right';
+      ctx.fillText('consumers', rightNodes[0][0] * W() - 14, rightNodes[0][1] * H());
+
+      const grad = ctx.createLinearGradient(0, 0, 0, H());
+      grad.addColorStop(0,   'rgba(0,0,0,0)');
+      grad.addColorStop(0.55,'rgba(0,0,0,0.12)');
+      grad.addColorStop(1,   'rgba(3,3,3,0.92)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W(), H());
+
+      dpAnimId = requestAnimationFrame(draw);
+    }
+    draw();
+
+  } else {
+    /* Terminal / career-ops — typing commands on a dark terminal */
+    const lines = [
+      '$ career-ops job-discover --role "backend engineer" --location remote',
+      '> found 42 matches across 8 boards...',
+      '$ career-ops cv-tailor --job jd-04182.txt --out edward-cv-tailored.pdf',
+      '> tailoring cv for "Staff Backend Engineer @ Acme"...',
+      '> generating cover letter...',
+      '$ career-ops outreach --batch leads-april.csv --template email_v2.md',
+      '> queued 14 personalised emails — batch #207',
+      '$ career-ops dashboard',
+      '> applications: 38  |  responses: 9  |  interviews: 3',
+    ];
+    let charPos = 0;
+    let lineIdx = 0;
+    let rendered = [];
+    let tick = 0;
+
+    function draw() {
+      ctx.fillStyle = '#030303';
+      ctx.fillRect(0, 0, W(), H());
+
+      // scan line effect
+      tick++;
+      for (let sy = 0; sy < H(); sy += 3) {
+        ctx.fillStyle = `rgba(0,0,0,${0.04 + ((sy + tick) % 6 === 0 ? 0.04 : 0)})`;
+        ctx.fillRect(0, sy, W(), 1);
+      }
+
+      const lineH = 18;
+      const startY = H() - (lines.length * lineH) - 60;
+      const px = 24;
+
+      // rendered lines
+      rendered.forEach((ln, i) => {
+        const isCmd = ln.startsWith('$');
+        ctx.fillStyle = isCmd ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.35)';
+        ctx.font = `400 11px 'JetBrains Mono', monospace`;
+        ctx.textAlign = 'left';
+        ctx.fillText(ln, px, startY + i * lineH);
+      });
+
+      // current line typing
+      if (lineIdx < lines.length) {
+        const current = lines[lineIdx];
+        if (tick % 2 === 0) charPos++;
+        const partial = current.slice(0, charPos);
+        ctx.fillStyle = 'rgba(255,255,255,0.75)';
+        ctx.font = `400 11px 'JetBrains Mono', monospace`;
+        ctx.fillText(partial, px, startY + rendered.length * lineH);
+        // cursor
+        const tw = ctx.measureText(partial).width;
+        if (Math.floor(tick / 20) % 2 === 0) {
+          ctx.fillStyle = 'rgba(255,255,255,0.85)';
+          ctx.fillRect(px + tw + 2, startY + rendered.length * lineH - 12, 7, 14);
+        }
+        if (charPos >= current.length) {
+          rendered.push(current);
+          lineIdx++;
+          charPos = 0;
+          if (lineIdx >= lines.length) {
+            rendered = [];
+            lineIdx = 0;
+          }
+        }
+      }
+
+      // gradient overlay for text readability near hero bottom
+      const grad = ctx.createLinearGradient(0, 0, 0, H());
+      grad.addColorStop(0, 'rgba(0,0,0,0.1)');
+      grad.addColorStop(0.4, 'rgba(0,0,0,0)');
+      grad.addColorStop(0.72,'rgba(3,3,3,0.5)');
+      grad.addColorStop(1,  'rgba(3,3,3,0.95)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W(), H());
+
+      dpAnimId = requestAnimationFrame(draw);
+    }
+    draw();
+  }
+}
+
+/* Run initial spine update */
+onScroll();
+</script>
+
+</body>
+</html>
