@@ -899,58 +899,133 @@
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* ── Responsive ──────────────────────────────────── */
-    @media (max-width: 840px) {
-      :root { --spine-offset: 0px; }
-      #graph-spine { display: none; }
-      #nav { padding: 16px 20px; }
-      .nav-links a:not(.nav-cv) { display: none; }
-      .container { padding: 0 20px; }
-      .section { padding: 72px 0; }
-      #hero { padding-top: 110px; }
-      .hero-grid { grid-template-columns: 1fr; gap: 24px; }
-      
-      /* Mobile profile adjustments */
-      .hero-photo-wrap {
-        width: 140px;
-        height: 140px;
-        margin: 0 auto;
-      }
-      .hero-photo {
-        border-radius: 20px;
-      }
-      .photo-accent {
-        width: 30px;
-        height: 30px;
-      }
-      
-      .acc-content { grid-template-columns: 1fr; }
-      .acc-side {
-        border-left: none;
-        border-top: 1px solid var(--border);
-        padding-left: 0; padding-top: 20px;
-      }
-      .pkg-item { grid-template-columns: 1fr; }
-      .pkg-npm { width: 100%; text-align: center; padding: 10px; }
-      
-      /* Mobile credentials */
-      .cred-item {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-      .cred-meta {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-      }
-      
-      #detail-panel { width: 100vw; }
-      .foot-inner { flex-direction: column; gap: 10px; align-items: flex-start; }
-    }
-    @media (max-width: 500px) {
-      .acc-trigger { grid-template-columns: 28px 1fr 28px; }
-      .acc-badge { display: none; }
-      .acc-content { padding-left: 28px; }
-    }
+    /* ── Responsive ──────────────────────────────────── */
+@media (max-width: 840px) {
+  :root { --spine-offset: 0px; }
+  #graph-spine { display: none; }
+  #nav { padding: 16px 20px; }
+  .nav-links a:not(.nav-cv) { display: none; }
+  .container { padding: 0 20px; }
+  .section { padding: 72px 0; }
+  #hero { padding-top: 100px; padding-bottom: 60px; }
+  
+  /* Mobile hero - centered layout */
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    text-align: center;
+  }
+  
+  /* Centered profile */
+  .hero-photo-wrap {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+  }
+  
+  .hero-photo {
+    border-radius: 20px;
+  }
+  
+  .photo-accent {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .photo-accent.top-left { top: -8px; left: -8px; }
+  .photo-accent.top-right { top: -8px; right: -8px; }
+  .photo-accent.bottom-left { bottom: -8px; left: -8px; }
+  .photo-accent.bottom-right { bottom: -8px; right: -8px; }
+  
+  /* Centered content */
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .hero-tag {
+    font-size: 10px;
+    margin-bottom: 12px;
+  }
+  
+  .hero-name {
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+    margin-bottom: 16px;
+  }
+  
+  .hero-bio {
+    max-width: 100%;
+    font-size: 12.5px;
+    margin-bottom: 20px;
+  }
+  
+  .hero-facts {
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  
+  .hero-facts li {
+    justify-content: center;
+    font-size: 11px;
+  }
+  
+  .fact-k {
+    min-width: auto;
+    margin-right: 8px;
+  }
+  
+  .hero-links {
+    justify-content: center;
+    gap: 24px;
+  }
+  
+  .hero-links a {
+    font-size: 10px;
+    padding-bottom: 3px;
+  }
+  
+  /* Other mobile styles */
+  .acc-content { grid-template-columns: 1fr; }
+  .acc-side {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    padding-left: 0; 
+    padding-top: 20px;
+  }
+  .pkg-item { grid-template-columns: 1fr; }
+  .pkg-npm { width: 100%; text-align: center; padding: 10px; }
+  
+  .cred-item {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .cred-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  #detail-panel { width: 100vw; }
+  .foot-inner { flex-direction: column; gap: 10px; align-items: flex-start; }
+}
+
+@media (max-width: 500px) {
+  .acc-trigger { grid-template-columns: 28px 1fr 28px; }
+  .acc-badge { display: none; }
+  .acc-content { padding-left: 28px; }
+  
+  .hero-photo-wrap {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .photo-accent {
+    width: 28px;
+    height: 28px;
+  }
+}
   </style>
 </head>
 <body>
@@ -1006,7 +1081,7 @@
 <div style="padding-left: var(--spine-offset);">
 
   <!-- HERO ────────────────────────────────────────────── -->
-  <!-- HERO ────────────────────────────────────────────── -->
+<!-- HERO ────────────────────────────────────────────── -->
 <section id="hero" class="section">
   <div class="container">
     <div class="hero-grid reveal">
@@ -1021,7 +1096,7 @@
         </div>
       </div>
       
-      <!-- Hero content with staggered animations -->
+      <!-- Hero content -->
       <div class="hero-content">
         <p class="hero-tag">// senior backend &amp; systems engineer</p>
         <h1 class="hero-name">Edward Twumasi</h1>
