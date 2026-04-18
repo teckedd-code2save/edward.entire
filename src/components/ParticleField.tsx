@@ -1,181 +1,190 @@
-import { useRef, useMemo, useEffect } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import * as THREE from 'three';
+import { useRef, useEffect } from 'react';
 
-const PARTICLE_COUNT = typeof window !== 'undefined' && window.innerWidth < 640 ? 80 : 200;
-const CONNECTION_DISTANCE = 0.8;
-const MAX_CONNECTIONS = 3;
-const MOUSE_LERP = 0.03;
-const MOUSE_MAX_OFFSET = 0.15;
+/* ── Flowing Spiral Contours ───────────────────────
+   Organic wave-like contour lines that spiral outward
+   from center. Canvas 2D, mouse-reactive.           */
 
-interface ParticleData {
-  position: THREE.Vector3;
-  velocity: THREE.Vector3;
-  rotationSpeed: THREE.Vector3;
-  baseOpacity: number;
-  scale: number;
+interface ContourLine {
+  points: { x: number; y: number }[];
+  speed: number;
+  offset: number;
+  amplitude: number;
+  frequency: number;
+  opacity: number;
+  lineWidth: number;
 }
 
-function Particles() {
-  const meshRef = useRef<THREE.InstancedMesh>(null);
-  const lineRef = useRef<THREE.LineSegments>(null);
-  const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
-  const { camera } = useThree();
+function createContourLines(w: number, h: number): ContourLine[] {
+  const lines: ContourLine[] = [];
+  const centerX = w * 0.5;
+  const centerY = h * 0.5;
+  const maxRadius = Math.sqrt(centerX * centerX + centerY * centerY);
 
-  const particleData = useMemo<ParticleData[]>(() => {
-    const data: ParticleData[] = [];
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      data.push({
-        position: new THREE.Vector3(
-          (Math.random() - 0.5) * 12,
-          (Math.random() - 0.5) * 8,
-          (Math.random() - 0.5) * 6
-        ),
-        velocity: new THREE.Vector3(
-          (Math.random() - 0.5) * 0.006,
-          (Math.random() - 0.5) * 0.006,
-          (Math.random() - 0.5) * 0.004
-        ),
-        rotationSpeed: new THREE.Vector3(
-          (Math.random() - 0.5) * 0.02,
-          (Math.random() - 0.5) * 0.02,
-          (Math.random() - 0.5) * 0.02
-        ),
-        baseOpacity: 0.15 + Math.random() * 0.3,
-        scale: 0.03 + Math.random() * 0.05,
-      });
-    }
-    return data;
-  }, []);
+  for (let i = 0; i < 24; i++) {
+    const t = i / 24;
+    const radius = 40 + t * maxRadius * 0.9;
+    const points: { x: number; y: number }[] = [];
 
-  const dummy = useMemo(() => new THREE.Object3D(), []);
-  const geometry = useMemo(() => new THREE.IcosahedronGeometry(1, 0), []);
-
-  // Line geometry for connections
-  const lineGeometry = useMemo(() => new THREE.BufferGeometry(), []);
-  const lineMaterial = useMemo(
-    () =>
-      new THREE.LineBasicMaterial({
-        color: new THREE.Color('#4f5dff'),
-        transparent: true,
-        opacity: 0.08,
-      }),
-    []
-  );
-
-  const maxLines = PARTICLE_COUNT * MAX_CONNECTIONS;
-  const linePositions = useMemo(
-    () => new Float32Array(maxLines * 6),
-    [maxLines]
-  );
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current.targetX = (e.clientX / window.innerWidth - 0.5) * 2;
-      mouseRef.current.targetY = (e.clientY / window.innerHeight - 0.5) * 2;
-    };
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  useFrame(() => {
-    if (!meshRef.current) return;
-
-    // Mouse camera parallax
-    const mouse = mouseRef.current;
-    mouse.x += (mouse.targetX * MOUSE_MAX_OFFSET - mouse.x) * MOUSE_LERP;
-    mouse.y += (mouse.targetY * MOUSE_MAX_OFFSET - mouse.y) * MOUSE_LERP;
-    camera.position.x = mouse.x;
-    camera.position.y = -mouse.y;
-    camera.lookAt(0, 0, 0);
-
-    // Update particles
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
-    let lineIdx = 0;
-
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      const p = particleData[i];
-
-      // Drift
-      p.position.add(p.velocity);
-
-      // Wrap around
-      if (p.position.x > 6) p.position.x = -6;
-      if (p.position.x < -6) p.position.x = 6;
-      if (p.position.y > 4) p.position.y = -4;
-      if (p.position.y < -4) p.position.y = 4;
-      if (p.position.z > 3) p.position.z = -3;
-      if (p.position.z < -3) p.position.z = 3;
-
-      dummy.position.copy(p.position);
-      dummy.rotation.x += p.rotationSpeed.x;
-      dummy.rotation.y += p.rotationSpeed.y;
-      dummy.scale.setScalar(p.scale);
-      dummy.updateMatrix();
-      meshRef.current.setMatrixAt(i, dummy.matrix);
+    for (let angle = 0; angle <= Math.PI * 4; angle += 0.04) {
+      const spiralAngle = angle + t * Math.PI * 2;
+      const wave = Math.sin(angle * (2 + t * 3)) * (10 + t * 30);
+      const r = radius + wave;
+      const x = centerX + Math.cos(spiralAngle) * r;
+      const y = centerY + Math.sin(spiralAngle) * r;
+      points.push({ x, y });
     }
 
-    meshRef.current.instanceMatrix.needsUpdate = true;
+    lines.push({
+      points,
+      speed: 0.0003 + Math.random() * 0.0005,
+      offset: Math.random() * Math.PI * 2,
+      amplitude: 8 + Math.random() * 20,
+      frequency: 1 + Math.random() * 3,
+      opacity: 0.03 + (1 - t) * 0.15,
+      lineWidth: 0.5 + (1 - t) * 1.5,
+    });
+  }
 
-    // Update connections
-    if (!isMobile && lineRef.current) {
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
-        let connections = 0;
-        for (let j = i + 1; j < PARTICLE_COUNT; j++) {
-          if (connections >= MAX_CONNECTIONS) break;
-          const dist = particleData[i].position.distanceTo(particleData[j].position);
-          if (dist < CONNECTION_DISTANCE) {
-            const idx = lineIdx * 6;
-            linePositions[idx] = particleData[i].position.x;
-            linePositions[idx + 1] = particleData[i].position.y;
-            linePositions[idx + 2] = particleData[i].position.z;
-            linePositions[idx + 3] = particleData[j].position.x;
-            linePositions[idx + 4] = particleData[j].position.y;
-            linePositions[idx + 5] = particleData[j].position.z;
-            lineIdx++;
-            connections++;
-          }
-        }
-      }
-
-      // Hide unused lines by collapsing them
-      for (let k = lineIdx; k < maxLines; k++) {
-        const idx = k * 6;
-        linePositions[idx] = 0;
-        linePositions[idx + 1] = 0;
-        linePositions[idx + 2] = 0;
-        linePositions[idx + 3] = 0;
-        linePositions[idx + 4] = 0;
-        linePositions[idx + 5] = 0;
-      }
-
-      lineGeometry.setAttribute(
-        'position',
-        new THREE.BufferAttribute(linePositions, 3)
-      );
-      lineGeometry.attributes.position.needsUpdate = true;
-    }
-  });
-
-  return (
-    <>
-      <instancedMesh ref={meshRef} args={[geometry, undefined, PARTICLE_COUNT]}>
-        <meshBasicMaterial
-          color="#4f5dff"
-          transparent
-          opacity={0.4}
-          depthWrite={false}
-        />
-      </instancedMesh>
-      {!((typeof window !== 'undefined' && window.innerWidth < 640)) && (
-        <lineSegments ref={lineRef as any} geometry={lineGeometry} material={lineMaterial} />
-      )}
-      <fog attach="fog" args={['#000000', 4, 12]} />
-    </>
-  );
+  return lines;
 }
 
 export default function ParticleField() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
+  const animRef = useRef<number>(0);
+  const timeRef = useRef(0);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let w = canvas.offsetWidth;
+    let h = canvas.offsetHeight;
+    const dpr = window.devicePixelRatio || 1;
+
+    function resize() {
+      w = canvas!.offsetWidth;
+      h = canvas!.offsetHeight;
+      canvas!.width = w * dpr;
+      canvas!.height = h * dpr;
+      ctx!.scale(dpr, dpr);
+      lines = createContourLines(w, h);
+    }
+
+    let lines = createContourLines(w, h);
+    resize();
+
+    const ro = new ResizeObserver(resize);
+    ro.observe(canvas);
+
+    const handleMouse = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current.targetX = e.clientX - rect.left;
+      mouseRef.current.targetY = e.clientY - rect.top;
+    };
+    canvas.addEventListener('mousemove', handleMouse, { passive: true });
+
+    function draw() {
+      const mouse = mouseRef.current;
+      mouse.x += (mouse.targetX - mouse.x) * 0.05;
+      mouse.y += (mouse.targetY - mouse.y) * 0.05;
+
+      timeRef.current += 1;
+      const t = timeRef.current;
+
+      ctx!.clearRect(0, 0, w, h);
+      ctx!.fillStyle = '#000000';
+      ctx!.fillRect(0, 0, w, h);
+
+      const centerX = w * 0.5;
+      const centerY = h * 0.5;
+
+      // Mouse influence vector (subtle)
+      const mouseInfluenceX = (mouse.x - centerX) * 0.02;
+      const mouseInfluenceY = (mouse.y - centerY) * 0.02;
+
+      for (let li = 0; li < lines.length; li++) {
+        const line = lines[li];
+        const progress = li / lines.length;
+
+        ctx!.beginPath();
+        ctx!.strokeStyle = `rgba(79, 93, 255, ${line.opacity})`;
+        ctx!.lineWidth = line.lineWidth;
+        ctx!.lineCap = 'round';
+        ctx!.lineJoin = 'round';
+
+        // Animated wave phase
+        const wavePhase = t * line.speed + line.offset;
+
+        for (let pi = 0; pi < line.points.length; pi++) {
+          const pt = line.points[pi];
+
+          // Organic wave distortion
+          const distFromCenter = Math.sqrt(
+            (pt.x - centerX) ** 2 + (pt.y - centerY) ** 2
+          );
+          const normalizedDist = distFromCenter / (Math.max(w, h) * 0.7);
+
+          const waveX =
+            Math.sin(wavePhase + pi * 0.1 + normalizedDist * 3) *
+            line.amplitude *
+            (1 - progress * 0.3);
+          const waveY =
+            Math.cos(wavePhase + pi * 0.08 + normalizedDist * 2.5) *
+            line.amplitude *
+            (1 - progress * 0.3);
+
+          // Mouse influence falls off with distance
+          const dx = pt.x - mouse.x;
+          const dy = pt.y - mouse.y;
+          const mouseDist = Math.sqrt(dx * dx + dy * dy);
+          const mouseFalloff = Math.max(0, 1 - mouseDist / 300);
+
+          const mx = mouseInfluenceX * mouseFalloff * (1 + progress);
+          const my = mouseInfluenceY * mouseFalloff * (1 + progress);
+
+          const finalX = pt.x + waveX + mx;
+          const finalY = pt.y + waveY + my;
+
+          if (pi === 0) {
+            ctx!.moveTo(finalX, finalY);
+          } else {
+            ctx!.lineTo(finalX, finalY);
+          }
+        }
+
+        ctx!.stroke();
+      }
+
+      // Subtle accent glow at center
+      const glowGrad = ctx!.createRadialGradient(
+        centerX + mouseInfluenceX * 2,
+        centerY + mouseInfluenceY * 2,
+        0,
+        centerX + mouseInfluenceX * 2,
+        centerY + mouseInfluenceY * 2,
+        Math.min(w, h) * 0.4
+      );
+      glowGrad.addColorStop(0, 'rgba(79, 93, 255, 0.04)');
+      glowGrad.addColorStop(0.5, 'rgba(22, 58, 99, 0.02)');
+      glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx!.fillStyle = glowGrad;
+      ctx!.fillRect(0, 0, w, h);
+
+      animRef.current = requestAnimationFrame(draw);
+    }
+
+    animRef.current = requestAnimationFrame(draw);
+
+    return () => {
+      cancelAnimationFrame(animRef.current);
+      ro.disconnect();
+      canvas.removeEventListener('mousemove', handleMouse);
+    };
+  }, []);
+
   return (
     <div
       style={{
@@ -187,15 +196,16 @@ export default function ParticleField() {
         zIndex: 1,
       }}
     >
-      <Canvas
-        camera={{ position: [0, 0, 5], fov: 60, near: 0.1, far: 20 }}
-        gl={{ antialias: false, alpha: false }}
-        onCreated={({ gl }) => {
-          gl.setClearColor('#000000');
+      <canvas
+        ref={canvasRef}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
         }}
-      >
-        <Particles />
-      </Canvas>
+      />
     </div>
   );
 }

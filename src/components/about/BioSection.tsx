@@ -14,7 +14,7 @@ const facts = [
 const socials = [
   { label: 'GitHub', href: 'https://github.com/edtwumasi', icon: Github },
   { label: 'LinkedIn', href: 'https://linkedin.com/in/edward-twumasi', icon: Linkedin },
-  { label: 'Company', href: 'https://serendepifydev.vercel.app', icon: Building2 },
+  { label: 'Company', href: 'https://www.serendepify.com/', icon: Building2 },
   { label: 'Email', href: 'mailto:edward@serendepify.dev', icon: Mail },
 ];
 
@@ -61,7 +61,7 @@ export default function BioSection() {
             />
             {/* Image */}
             <img
-              src="/profile-photo.jpg"
+              src="/profile-cutout.png"
               alt="Edward Twumasi"
               className="relative z-10 h-full w-full object-cover transition-all duration-500 group-hover:grayscale-[0.22]"
               style={{

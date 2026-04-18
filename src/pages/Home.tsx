@@ -101,7 +101,7 @@ function HeroSection() {
           {[
             { label: 'github', href: 'https://github.com/teckedd-code2save' },
             { label: 'linkedin', href: 'https://linkedin.com/in/edward-twumasi' },
-            { label: 'company', href: 'https://serendepifydev.vercel.app' },
+            { label: 'company', href: 'https://www.serendepify.com/' },
             { label: 'email', href: 'mailto:edwardktwumasi1000@gmail.com' },
           ].map((link) => (
             <a
@@ -170,20 +170,20 @@ function HeroSection() {
             }}
           />
           <img
-            src="./profile-photo.jpg"
+            src="./profile-cutout.png"
             alt="Edward Twumasi"
             className="h-full w-full object-cover transition-all duration-500"
             style={{
               borderRadius: '46% 54% 52% 48% / 42% 44% 56% 58%',
-              filter: 'grayscale(1) brightness(1.04)',
+              filter: 'brightness(1.04) contrast(1.05)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.filter = 'grayscale(0.22) brightness(1.04)';
               e.currentTarget.style.transform = 'scale(1.06)';
+              e.currentTarget.style.filter = 'brightness(1.08) contrast(1.02)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.filter = 'grayscale(1) brightness(1.04)';
               e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.filter = 'brightness(1.04) contrast(1.05)';
             }}
           />
         </div>
@@ -213,11 +213,11 @@ function HeroSection() {
 const projects = [
   {
     number: '01',
-    tag: 'agent-native ops',
-    title: 'OpsMesh',
-    desc: 'Agent-native operations platform built on OpenClaw. Gig Radar polls job sources, scores via reasoning, fires alerts.',
-    stack: ['OpenClaw', 'Agent Runtime', 'Telegram API'],
-    live: null,
+    tag: 'developer tools',
+    title: 'Serendepify',
+    desc: 'Developer tools platform for AI-native workflows and agent-based systems. MCP ecosystem tools from database gateways to CLI orchestrators.',
+    stack: ['React', 'TypeScript', 'Node.js', 'MCP Protocol'],
+    live: 'https://www.serendepify.com/',
   },
   {
     number: '02',
@@ -782,7 +782,7 @@ const contactLinks = [
   { key: 'email', value: 'edwardktwumasi1000@gmail.com', href: 'mailto:edwardktwumasi1000@gmail.com' },
   { key: 'github', value: 'teckedd-code2save', href: 'https://github.com/teckedd-code2save' },
   { key: 'linkedin', value: 'edward-twumasi', href: 'https://linkedin.com/in/edward-twumasi' },
-  { key: 'company', value: 'serendepifydev.vercel.app', href: 'https://serendepifydev.vercel.app' },
+  { key: 'company', value: 'serendepify.com', href: 'https://www.serendepify.com/' },
 ];
 
 function ContactCTASection() {

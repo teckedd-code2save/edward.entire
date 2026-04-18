@@ -19,7 +19,7 @@ const milestones = [
   {
     year: '2024',
     title: 'Serendepify',
-    body: 'Founded serendepifydev.vercel.app \u2014 a platform for building and shipping developer tools. Focus on AI-native workflows and agent-based systems.',
+    body: 'Founded serendepify.com \u2014 a platform for building and shipping developer tools. Focus on AI-native workflows and agent-based systems.',
   },
   {
     year: '2025',

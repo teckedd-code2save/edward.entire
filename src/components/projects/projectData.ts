@@ -1,4 +1,4 @@
-export type ProjectCategory = 'all' | 'ops' | 'deployment' | 'commerce' | 'tooling';
+export type ProjectCategory = 'all' | 'company' | 'deployment' | 'commerce' | 'tooling';
 export type CanvasMode = 'agents' | 'terminal' | 'exchange';
 
 export interface Project {
@@ -18,22 +18,23 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: 'opsmesh',
+    id: 'serendepify',
     number: '01',
-    title: 'OpsMesh',
-    tag: 'agent-native ops',
-    category: 'ops',
-    canvasMode: 'agents',
+    title: 'Serendepify',
+    tag: 'developer tools',
+    category: 'company',
+    canvasMode: 'terminal',
     description:
-      'Agent-native operations platform built on OpenClaw. First product: Gig Radar — polls gig/job sources, normalizes and deduplicates, scores via OpenClaw reasoning, fires Telegram alerts. OpenClaw handles agent runtime; OpsMesh owns domain logic, workflow state, and data model. Next: DM Shop Agent over WhatsApp and Telegram.',
-    stack: ['OpenClaw', 'Agent Runtime', 'Telegram API', 'WhatsApp', 'Workflow State'],
+      'Developer tools platform focused on AI-native workflows and agent-based systems. Builds and ships infrastructure for the Model Context Protocol ecosystem — from database gateways to CLI orchestrators that convert business specifications into production-grade platform scaffolds.',
+    stack: ['React', 'TypeScript', 'Node.js', 'MCP Protocol', 'AI Workflows'],
     architecture:
-      'OpenClaw provides the agent runtime and reasoning layer; OpsMesh implements domain-specific operations logic, persistent workflow state, and structured data models for gig discovery and shop management.',
+      'Modular platform architecture built around the Model Context Protocol. Each product is a composable tool that agents can discover and invoke. Datafy provides zero-dependency database access. B2DP automates full-stack scaffolding from business specs.',
     highlights: [
-      'Gig Radar — live.',
-      'DM Shop Agent — in development.',
-      'Both share the OpenClaw foundation with OpsMesh domain extensions.',
+      'Datafy — MCP database gateway for 7 backends.',
+      'B2DP — CLI orchestrator for platform scaffolds.',
+      'Built for the agent-native future of software development.',
     ],
+    liveUrl: 'https://www.serendepify.com/',
   },
   {
     id: 'shipd',
@@ -96,7 +97,7 @@ export const projects: Project[] = [
 
 export const filterCategories: { label: string; value: ProjectCategory }[] = [
   { label: 'all', value: 'all' },
-  { label: 'ops', value: 'ops' },
+  { label: 'company', value: 'company' },
   { label: 'deployment', value: 'deployment' },
   { label: 'commerce', value: 'commerce' },
   { label: 'tooling', value: 'tooling' },

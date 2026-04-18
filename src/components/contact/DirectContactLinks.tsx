@@ -29,8 +29,8 @@ const links: ContactLink[] = [
   },
   {
     label: 'company',
-    value: 'serendepifydev.vercel.app',
-    href: 'https://serendepifydev.vercel.app/',
+    value: 'serendepify.com',
+    href: 'https://www.serendepify.com/',
     external: true,
   },
   {
