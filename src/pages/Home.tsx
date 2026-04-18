@@ -35,159 +35,97 @@ function HeroSection() {
 
   return (
     <section className="relative min-h-[100dvh] overflow-hidden">
-      {/* 3D Particle Background */}
+      {/* Topographic Contour Background */}
       <ParticleField />
 
-      {/* Content Overlay */}
-      <div
-        className="relative z-10 flex min-h-[100dvh] flex-col justify-end px-5 pb-16 md:px-10 md:pb-20"
-        style={{ maxWidth: 640 }}
-      >
-        <motion.span
-          className="mb-3 font-mono text-[11px] tracking-[0.1em] text-[var(--fg-3)]"
-          initial={{ opacity: 0, x: -12 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.3, ease: easeEnter }}
-        >
-          // senior backend &amp; systems engineer
-        </motion.span>
+      {/* Content — perfectly centered */}
+      <div className="relative z-10 flex min-h-[100dvh] items-center justify-center px-5">
+        <div className="text-center">
+          <motion.span
+            className="mb-4 inline-block font-mono text-[11px] tracking-[0.1em] text-[var(--fg-3)]"
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: easeEnter }}
+          >
+            // senior backend &amp; systems engineer
+          </motion.span>
 
-        <motion.h1
-          className="font-mono font-bold leading-[1.05] tracking-[-0.025em] text-[var(--fg)]"
-          style={{ fontSize: 'clamp(2.4rem, 5vw, 4.5rem)' }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.5, ease: easeEnter }}
-        >
-          Edward Twumasi
-        </motion.h1>
+          <motion.h1
+            className="font-mono font-bold leading-[1.05] tracking-[-0.03em] text-[var(--fg)]"
+            style={{ fontSize: 'clamp(2.4rem, 6vw, 5.5rem)' }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.5, ease: easeEnter }}
+          >
+            Edward Twumasi
+          </motion.h1>
 
-        <motion.p
-          className="mt-4 max-w-[520px] font-sans text-[15px] leading-[1.7] text-[rgba(255,255,255,0.82)]"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7, ease: easeEnter }}
-        >
-          Production-grade backend systems, developer tooling, and AI workflows — with a focus on reliability, throughput, and operational clarity.
-        </motion.p>
+          <motion.p
+            className="mx-auto mt-5 max-w-[540px] font-sans text-[15px] leading-[1.75] text-[rgba(255,255,255,0.75)]"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7, ease: easeEnter }}
+          >
+            Production-grade backend systems, developer tooling, and AI workflows — with a focus on reliability, throughput, and operational clarity.
+          </motion.p>
 
-        <motion.div
-          className="mt-5 flex items-center gap-3"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.9, ease: easeEnter }}
-        >
-          <span className="relative flex h-2 w-2">
-            <span
-              className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
-              style={{ backgroundColor: 'var(--terminal-green)' }}
-            />
-            <span
-              className="relative inline-flex h-2 w-2 rounded-full"
-              style={{ backgroundColor: 'var(--terminal-green)' }}
-            />
-          </span>
-          <span className="font-mono text-[11px] text-[var(--fg-3)]">
-            Open to collaborate
-          </span>
-        </motion.div>
+          <motion.div
+            className="mt-6 flex items-center justify-center gap-3"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.9, ease: easeEnter }}
+          >
+            <span className="relative flex h-2 w-2">
+              <span
+                className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
+                style={{ backgroundColor: 'var(--terminal-green)' }}
+              />
+              <span
+                className="relative inline-flex h-2 w-2 rounded-full"
+                style={{ backgroundColor: 'var(--terminal-green)' }}
+              />
+            </span>
+            <span className="font-mono text-[11px] text-[var(--fg-3)]">
+              Open to collaborate
+            </span>
+          </motion.div>
 
-        <motion.div
-          className="mt-7 flex flex-wrap gap-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.0, ease: easeEnter }}
-        >
-          {[
-            { label: 'github', href: 'https://github.com/teckedd-code2save' },
-            { label: 'linkedin', href: 'https://linkedin.com/in/edward-twumasi' },
-            { label: 'company', href: 'https://www.serendepify.com/' },
-            { label: 'email', href: 'mailto:edwardktwumasi1000@gmail.com' },
-          ].map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group font-mono text-[11px] text-[var(--fg-2)] transition-all duration-250"
-              style={{ borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: 2 }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = 'var(--fg)';
-                e.currentTarget.style.borderColor = 'var(--accent)';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = 'var(--fg-2)';
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}
-            >
-              {link.label}
-            </a>
-          ))}
-        </motion.div>
-      </div>
-
-      {/* Profile Photo */}
-      <motion.div
-        className="absolute right-10 top-[120px] z-10 hidden lg:block"
-        style={{ width: 200, height: 200 }}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 1.1, ease: [0.34, 1.56, 0.64, 1] as [number, number, number, number] }}
-      >
-        <div
-          className="group relative h-full w-full cursor-pointer transition-all duration-300"
-          style={{
-            borderRadius: '46% 54% 52% 48% / 42% 44% 56% 58%',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-4px)';
-            e.currentTarget.style.boxShadow = '0 18px 40px rgba(79,93,255,0.16)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = 'none';
-          }}
-        >
-          {/* Accent ring */}
-          <div
-            className="absolute -inset-1.5 -z-10"
-            style={{
-              borderRadius: '46% 54% 52% 48% / 42% 44% 56% 58%',
-              background: 'radial-gradient(circle, #6f7cff, #4f5dff, #2837d9)',
-              transform: 'rotate(-10deg)',
-              opacity: 0.8,
-            }}
-          />
-          {/* Decorative ring */}
-          <div
-            className="absolute -inset-2 -z-10"
-            style={{
-              borderRadius: '46% 54% 52% 48% / 42% 44% 56% 58%',
-              border: '1px solid rgba(255,255,255,0.08)',
-              transform: 'rotate(8deg)',
-            }}
-          />
-          <img
-            src="./profile-cutout.png"
-            alt="Edward Twumasi"
-            className="h-full w-full object-cover transition-all duration-500"
-            style={{
-              borderRadius: '46% 54% 52% 48% / 42% 44% 56% 58%',
-              filter: 'brightness(1.04) contrast(1.05)',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'scale(1.06)';
-              e.currentTarget.style.filter = 'brightness(1.08) contrast(1.02)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.filter = 'brightness(1.04) contrast(1.05)';
-            }}
-          />
+          <motion.div
+            className="mt-8 flex flex-wrap items-center justify-center gap-7"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 1.0, ease: easeEnter }}
+          >
+            {[
+              { label: 'github', href: 'https://github.com/teckedd-code2save' },
+              { label: 'linkedin', href: 'https://linkedin.com/in/edward-twumasi' },
+              { label: 'company', href: 'https://www.serendepify.com/' },
+              { label: 'email', href: 'mailto:edwardktwumasi1000@gmail.com' },
+            ].map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group font-mono text-[11px] text-[var(--fg-2)] transition-all duration-250"
+                style={{ borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: 2 }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = 'var(--fg)';
+                  e.currentTarget.style.borderColor = 'var(--accent)';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = 'var(--fg-2)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                {link.label}
+              </a>
+            ))}
+          </motion.div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Scroll Indicator */}
       <motion.div

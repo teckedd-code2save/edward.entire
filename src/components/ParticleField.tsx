@@ -1,58 +1,46 @@
 import { useRef, useEffect } from 'react';
 
-/* ── Flowing Spiral Contours ───────────────────────
-   Organic wave-like contour lines that spiral outward
-   from center. Canvas 2D, mouse-reactive.           */
+/* ── Desert Topographic Contours ───────────────────
+   Flowing terrain-like contour lines that drift slowly
+   across the canvas.  Very subtle — sits behind text.
+   Mouse creates gentle elevation warps.               */
 
-interface ContourLine {
-  points: { x: number; y: number }[];
-  speed: number;
-  offset: number;
-  amplitude: number;
-  frequency: number;
-  opacity: number;
+interface ContourLayer {
+  yBase: number;        // vertical position 0-1
+  amplitude: number;    // wave height
+  frequency: number;    // wave density
+  speed: number;        // drift speed
+  offset: number;       // phase offset
+  opacity: number;      // line opacity
   lineWidth: number;
+  points: number;       // x-resolution
 }
 
-function createContourLines(w: number, h: number): ContourLine[] {
-  const lines: ContourLine[] = [];
-  const centerX = w * 0.5;
-  const centerY = h * 0.5;
-  const maxRadius = Math.sqrt(centerX * centerX + centerY * centerY);
-
-  for (let i = 0; i < 24; i++) {
-    const t = i / 24;
-    const radius = 40 + t * maxRadius * 0.9;
-    const points: { x: number; y: number }[] = [];
-
-    for (let angle = 0; angle <= Math.PI * 4; angle += 0.04) {
-      const spiralAngle = angle + t * Math.PI * 2;
-      const wave = Math.sin(angle * (2 + t * 3)) * (10 + t * 30);
-      const r = radius + wave;
-      const x = centerX + Math.cos(spiralAngle) * r;
-      const y = centerY + Math.sin(spiralAngle) * r;
-      points.push({ x, y });
-    }
-
-    lines.push({
-      points,
-      speed: 0.0003 + Math.random() * 0.0005,
+function buildLayers(): ContourLayer[] {
+  const layers: ContourLayer[] = [];
+  // 18 contour lines spread vertically
+  for (let i = 0; i < 18; i++) {
+    const t = i / 17; // 0..1
+    layers.push({
+      yBase: 0.05 + t * 0.9,
+      amplitude: 30 + Math.random() * 50,
+      frequency: 0.003 + Math.random() * 0.004,
+      speed: 0.0002 + Math.random() * 0.0003,
       offset: Math.random() * Math.PI * 2,
-      amplitude: 8 + Math.random() * 20,
-      frequency: 1 + Math.random() * 3,
-      opacity: 0.03 + (1 - t) * 0.15,
-      lineWidth: 0.5 + (1 - t) * 1.5,
+      opacity: 0.015 + (1 - Math.abs(t - 0.5) * 2) * 0.04,
+      lineWidth: 0.4 + Math.random() * 0.8,
+      points: 200,
     });
   }
-
-  return lines;
+  return layers;
 }
 
 export default function ParticleField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
+  const mouseRef = useRef({ x: -1000, y: -1000, active: false });
   const animRef = useRef<number>(0);
   const timeRef = useRef(0);
+  const layersRef = useRef<ContourLayer[]>(buildLayers());
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -60,118 +48,157 @@ export default function ParticleField() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let w = canvas.offsetWidth;
-    let h = canvas.offsetHeight;
-    const dpr = window.devicePixelRatio || 1;
+    let W = 0;
+    let H = 0;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     function resize() {
-      w = canvas!.offsetWidth;
-      h = canvas!.offsetHeight;
-      canvas!.width = w * dpr;
-      canvas!.height = h * dpr;
-      ctx!.scale(dpr, dpr);
-      lines = createContourLines(w, h);
+      const rect = canvas!.getBoundingClientRect();
+      W = rect.width;
+      H = rect.height;
+      canvas!.width = W * dpr;
+      canvas!.height = H * dpr;
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
-
-    let lines = createContourLines(w, h);
     resize();
 
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
 
-    const handleMouse = (e: MouseEvent) => {
+    const onMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
-      mouseRef.current.targetX = e.clientX - rect.left;
-      mouseRef.current.targetY = e.clientY - rect.top;
+      mouseRef.current.x = e.clientX - rect.left;
+      mouseRef.current.y = e.clientY - rect.top;
+      mouseRef.current.active = true;
     };
-    canvas.addEventListener('mousemove', handleMouse, { passive: true });
+    const onLeave = () => {
+      mouseRef.current.active = false;
+    };
+    canvas.addEventListener('mousemove', onMove, { passive: true });
+    canvas.addEventListener('mouseleave', onLeave);
 
     function draw() {
       const mouse = mouseRef.current;
-      mouse.x += (mouse.targetX - mouse.x) * 0.05;
-      mouse.y += (mouse.targetY - mouse.y) * 0.05;
-
       timeRef.current += 1;
       const t = timeRef.current;
 
-      ctx!.clearRect(0, 0, w, h);
+      ctx!.clearRect(0, 0, W, H);
       ctx!.fillStyle = '#000000';
-      ctx!.fillRect(0, 0, w, h);
+      ctx!.fillRect(0, 0, W, H);
 
-      const centerX = w * 0.5;
-      const centerY = h * 0.5;
+      const layers = layersRef.current;
 
-      // Mouse influence vector (subtle)
-      const mouseInfluenceX = (mouse.x - centerX) * 0.02;
-      const mouseInfluenceY = (mouse.y - centerY) * 0.02;
-
-      for (let li = 0; li < lines.length; li++) {
-        const line = lines[li];
-        const progress = li / lines.length;
+      for (let li = 0; li < layers.length; li++) {
+        const L = layers[li];
+        const yCenter = L.yBase * H;
 
         ctx!.beginPath();
-        ctx!.strokeStyle = `rgba(79, 93, 255, ${line.opacity})`;
-        ctx!.lineWidth = line.lineWidth;
-        ctx!.lineCap = 'round';
+        ctx!.strokeStyle = `rgba(255, 255, 255, ${L.opacity})`;
+        ctx!.lineWidth = L.lineWidth;
         ctx!.lineJoin = 'round';
+        ctx!.lineCap = 'round';
 
-        // Animated wave phase
-        const wavePhase = t * line.speed + line.offset;
+        let first = true;
+        const step = W / L.points;
 
-        for (let pi = 0; pi < line.points.length; pi++) {
-          const pt = line.points[pi];
+        for (let px = 0; px <= L.points; px++) {
+          const x = px * step;
 
-          // Organic wave distortion
-          const distFromCenter = Math.sqrt(
-            (pt.x - centerX) ** 2 + (pt.y - centerY) ** 2
-          );
-          const normalizedDist = distFromCenter / (Math.max(w, h) * 0.7);
+          // Base flowing wave
+          const normalizedX = px / L.points;
+          let y =
+            yCenter +
+            Math.sin(normalizedX * Math.PI * 2 * 3 + L.offset + t * L.speed) *
+              L.amplitude *
+              0.4 +
+            Math.sin(normalizedX * Math.PI * 2 * 7 + L.offset * 1.5 + t * L.speed * 1.3) *
+              L.amplitude *
+              0.25 +
+            Math.sin(normalizedX * Math.PI * 2 * 13 + L.offset * 0.7 + t * L.speed * 0.8) *
+              L.amplitude *
+              0.15;
 
-          const waveX =
-            Math.sin(wavePhase + pi * 0.1 + normalizedDist * 3) *
-            line.amplitude *
-            (1 - progress * 0.3);
-          const waveY =
-            Math.cos(wavePhase + pi * 0.08 + normalizedDist * 2.5) *
-            line.amplitude *
-            (1 - progress * 0.3);
+          // Mouse elevation warp (subtle terrain displacement)
+          if (mouse.active) {
+            const dx = x - mouse.x;
+            const dy = y - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const influenceRadius = 250;
+            if (dist < influenceRadius) {
+              const falloff = 1 - dist / influenceRadius;
+              const elevation = Math.sin(falloff * Math.PI) * 20 * falloff;
+              y -= elevation;
+              // slight lateral push too
+              // lateral push omitted — stepping by x makes it tricky
+            }
+          }
 
-          // Mouse influence falls off with distance
-          const dx = pt.x - mouse.x;
-          const dy = pt.y - mouse.y;
-          const mouseDist = Math.sqrt(dx * dx + dy * dy);
-          const mouseFalloff = Math.max(0, 1 - mouseDist / 300);
-
-          const mx = mouseInfluenceX * mouseFalloff * (1 + progress);
-          const my = mouseInfluenceY * mouseFalloff * (1 + progress);
-
-          const finalX = pt.x + waveX + mx;
-          const finalY = pt.y + waveY + my;
-
-          if (pi === 0) {
-            ctx!.moveTo(finalX, finalY);
+          if (first) {
+            ctx!.moveTo(x, y);
+            first = false;
           } else {
-            ctx!.lineTo(finalX, finalY);
+            ctx!.lineTo(x, y);
           }
         }
 
         ctx!.stroke();
+
+        // Secondary fainter echo line slightly offset
+        ctx!.beginPath();
+        ctx!.strokeStyle = `rgba(255, 255, 255, ${L.opacity * 0.35})`;
+        ctx!.lineWidth = L.lineWidth * 0.6;
+        first = true;
+        for (let px = 0; px <= L.points; px++) {
+          const x = px * step;
+          const normalizedX = px / L.points;
+          let y =
+            yCenter +
+            18 +
+            Math.sin(normalizedX * Math.PI * 2 * 3 + L.offset + t * L.speed + 0.5) *
+              L.amplitude *
+              0.35 +
+            Math.sin(normalizedX * Math.PI * 2 * 5 + L.offset * 1.3 + t * L.speed * 1.1) *
+              L.amplitude *
+              0.2;
+
+          if (mouse.active) {
+            const dx = x - mouse.x;
+            const dy = y - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const influenceRadius = 250;
+            if (dist < influenceRadius) {
+              const falloff = 1 - dist / influenceRadius;
+              const elevation = Math.sin(falloff * Math.PI) * 14 * falloff;
+              y -= elevation;
+            }
+          }
+
+          if (first) {
+            ctx!.moveTo(x, y);
+            first = false;
+          } else {
+            ctx!.lineTo(x, y);
+          }
+        }
+        ctx!.stroke();
       }
 
-      // Subtle accent glow at center
-      const glowGrad = ctx!.createRadialGradient(
-        centerX + mouseInfluenceX * 2,
-        centerY + mouseInfluenceY * 2,
-        0,
-        centerX + mouseInfluenceX * 2,
-        centerY + mouseInfluenceY * 2,
-        Math.min(w, h) * 0.4
-      );
-      glowGrad.addColorStop(0, 'rgba(79, 93, 255, 0.04)');
-      glowGrad.addColorStop(0.5, 'rgba(22, 58, 99, 0.02)');
-      glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      ctx!.fillStyle = glowGrad;
-      ctx!.fillRect(0, 0, w, h);
+      // Very subtle vertical grid lines (terrain-map style)
+      ctx!.strokeStyle = 'rgba(255, 255, 255, 0.012)';
+      ctx!.lineWidth = 0.3;
+      for (let gx = 0; gx < W; gx += 60) {
+        ctx!.beginPath();
+        ctx!.moveTo(gx, 0);
+        ctx!.lineTo(gx, H);
+        ctx!.stroke();
+      }
+
+      // Subtle radial vignette to keep focus on center
+      const vig = ctx!.createRadialGradient(W / 2, H / 2, H * 0.2, W / 2, H / 2, H * 0.8);
+      vig.addColorStop(0, 'rgba(0, 0, 0, 0)');
+      vig.addColorStop(1, 'rgba(0, 0, 0, 0.5)');
+      ctx!.fillStyle = vig;
+      ctx!.fillRect(0, 0, W, H);
 
       animRef.current = requestAnimationFrame(draw);
     }
@@ -181,12 +208,14 @@ export default function ParticleField() {
     return () => {
       cancelAnimationFrame(animRef.current);
       ro.disconnect();
-      canvas.removeEventListener('mousemove', handleMouse);
+      canvas.removeEventListener('mousemove', onMove);
+      canvas.removeEventListener('mouseleave', onLeave);
     };
   }, []);
 
   return (
-    <div
+    <canvas
+      ref={canvasRef}
       style={{
         position: 'absolute',
         top: 0,
@@ -195,17 +224,6 @@ export default function ParticleField() {
         height: '100%',
         zIndex: 1,
       }}
-    >
-      <canvas
-        ref={canvasRef}
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-        }}
-      />
-    </div>
+    />
   );
 }
