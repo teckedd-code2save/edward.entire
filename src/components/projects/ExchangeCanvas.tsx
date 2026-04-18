@@ -132,7 +132,6 @@ export default function ExchangeCanvas({ speedMultiplier = 1, width = 400, heigh
         const py = packet.fromY + (packet.toY - packet.fromY) * packet.progress;
 
         // Packet trail
-        const trailLen = 20;
         const trailProgress = Math.max(0, packet.progress - 0.05);
         const tx = packet.fromX + (packet.toX - packet.fromX) * trailProgress;
         const ty = packet.fromY + (packet.toY - packet.fromY) * trailProgress;
