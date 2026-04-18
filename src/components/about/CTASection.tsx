@@ -23,7 +23,7 @@ export default function CTASection() {
         }}
       >
         <h2
-          className="font-mono font-medium"
+          className="font-sans font-medium"
           style={{
             fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
             color: 'var(--fg)',

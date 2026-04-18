@@ -99,7 +99,7 @@ export default function TechStack() {
         >
           <SectionLabel number="05" text="stack" />
           <h2
-            className="mb-12 font-mono font-bold tracking-[-0.02em]"
+            className="mb-12 font-sans font-bold tracking-[-0.02em]"
             style={{
               fontSize: 'clamp(28px, 3.5vw, 48px)',
               color: 'var(--fg)',

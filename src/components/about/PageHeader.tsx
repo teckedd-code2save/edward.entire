@@ -22,7 +22,7 @@ export default function PageHeader() {
 
         {/* Heading */}
         <motion.h1
-          className="font-mono font-bold tracking-[-0.03em]"
+          className="font-sans font-bold tracking-[-0.03em]"
           style={{
             fontSize: 'clamp(40px, 6vw, 80px)',
             color: 'var(--fg)',

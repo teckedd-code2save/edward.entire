@@ -56,7 +56,7 @@ export default function Contact() {
           {/* Heading */}
           <HeaderAnimation delay={0.1}>
             <h1
-              className="font-mono font-bold"
+              className="font-sans font-bold"
               style={{
                 fontSize: 'clamp(40px, 5vw, 72px)',
                 color: 'var(--fg)',
@@ -148,7 +148,7 @@ export default function Contact() {
           >
             <SectionLabel number="02" text="location" />
             <h2
-              className="font-mono font-bold"
+              className="font-sans font-bold"
               style={{
                 fontSize: 'clamp(28px, 3.5vw, 48px)',
                 color: 'var(--fg)',
@@ -200,7 +200,7 @@ export default function Contact() {
               resume
             </div>
             <h3
-              className="font-mono font-bold"
+              className="font-sans font-bold"
               style={{
                 fontSize: 'clamp(18px, 2vw, 24px)',
                 color: 'var(--fg)',

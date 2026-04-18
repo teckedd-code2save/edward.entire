@@ -52,7 +52,7 @@ module.exports = {
       },
       fontFamily: {
         mono: ['"JetBrains Mono"', 'monospace'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['"Libre Baskerville"', 'Georgia', 'serif'],
       },
       borderRadius: {
         xl: "calc(var(--radius) + 4px)",

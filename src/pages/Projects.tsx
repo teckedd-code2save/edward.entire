@@ -61,7 +61,7 @@ export default function Projects() {
               duration: 0.8,
               ease: [0.0, 0, 0.2, 1] as [number, number, number, number],
             }}
-            className="font-mono font-bold"
+            className="font-sans font-bold"
             style={{
               fontSize: 'clamp(40px, 6vw, 80px)',
               color: 'var(--fg)',
@@ -196,7 +196,7 @@ export default function Projects() {
           className="mx-auto max-w-[1200px] px-5 text-center md:px-10"
         >
           <h2
-            className="font-mono text-2xl font-medium"
+            className="font-sans text-2xl font-medium"
             style={{ color: 'var(--fg)' }}
           >
             Have a project in mind?

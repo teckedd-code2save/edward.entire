@@ -34,7 +34,7 @@ export default function Navbar() {
           to="/"
           className="font-mono text-[13px] font-bold tracking-tight text-[var(--fg)] transition-colors hover:text-[var(--accent)]"
         >
-          edward twumasi
+          serendepify / edward twumasi
         </Link>
 
         <div className="flex items-center gap-6 md:gap-8">

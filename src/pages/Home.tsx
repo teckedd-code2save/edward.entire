@@ -35,66 +35,38 @@ function HeroSection() {
 
   return (
     <section className="relative min-h-[100dvh] overflow-hidden">
-      {/* Topographic Contour Background */}
+      {/* 3D ripple background */}
       <ParticleField />
 
-      {/* Content — perfectly centered */}
-      <div className="relative z-10 flex min-h-[100dvh] items-center justify-center px-5">
-        <div className="text-center">
-          <motion.span
-            className="mb-4 inline-block font-mono text-[11px] tracking-[0.1em] text-[var(--fg-3)]"
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3, ease: easeEnter }}
-          >
-            // senior backend &amp; systems engineer
-          </motion.span>
+      <div className="absolute inset-0 z-[2] bg-[radial-gradient(circle_at_50%_40%,rgba(60,90,180,0.08),transparent_45%),linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.55))]" />
 
+      <div className="relative z-10 flex min-h-[100dvh] items-center px-5 py-24 md:px-10">
+        <div className="mx-auto w-full max-w-[1240px]">
           <motion.h1
-            className="font-mono font-bold leading-[1.05] tracking-[-0.03em] text-[var(--fg)]"
-            style={{ fontSize: 'clamp(2.4rem, 6vw, 5.5rem)' }}
+            className="font-sans font-bold leading-[1.05] tracking-[-0.02em] text-[var(--fg)]"
+            style={{ fontSize: 'clamp(3.5rem, 9vw, 8rem)' }}
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.5, ease: easeEnter }}
+            transition={{ duration: 0.9, delay: 0.3, ease: easeEnter }}
           >
             Edward Twumasi
           </motion.h1>
 
           <motion.p
-            className="mx-auto mt-5 max-w-[540px] font-sans text-[15px] leading-[1.75] text-[rgba(255,255,255,0.75)]"
-            initial={{ opacity: 0, y: 20 }}
+            className="mt-5 max-w-[560px] font-sans font-light leading-[1.5] text-[rgba(245,245,245,0.8)]"
+            style={{ fontSize: 'clamp(1.1rem, 2.2vw, 1.6rem)' }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7, ease: easeEnter }}
+            transition={{ duration: 0.8, delay: 0.5, ease: easeEnter }}
           >
-            Production-grade backend systems, developer tooling, and AI workflows — with a focus on reliability, throughput, and operational clarity.
+            Systems engineer building backend platforms, developer tools, and AI workflows.
           </motion.p>
 
           <motion.div
-            className="mt-6 flex items-center justify-center gap-3"
-            initial={{ opacity: 0, y: 16 }}
+            className="mt-8 flex flex-wrap items-center gap-6"
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.9, ease: easeEnter }}
-          >
-            <span className="relative flex h-2 w-2">
-              <span
-                className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
-                style={{ backgroundColor: 'var(--terminal-green)' }}
-              />
-              <span
-                className="relative inline-flex h-2 w-2 rounded-full"
-                style={{ backgroundColor: 'var(--terminal-green)' }}
-              />
-            </span>
-            <span className="font-mono text-[11px] text-[var(--fg-3)]">
-              Open to collaborate
-            </span>
-          </motion.div>
-
-          <motion.div
-            className="mt-8 flex flex-wrap items-center justify-center gap-7"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 1.0, ease: easeEnter }}
+            transition={{ duration: 0.7, delay: 0.7, ease: easeEnter }}
           >
             {[
               { label: 'github', href: 'https://github.com/teckedd-code2save' },
@@ -107,16 +79,16 @@ function HeroSection() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group font-mono text-[11px] text-[var(--fg-2)] transition-all duration-250"
-                style={{ borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: 2 }}
+                className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--fg-2)] transition-all duration-250"
+                style={{ borderBottom: '1px solid rgba(255,255,255,0.16)', paddingBottom: 2 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = 'var(--fg)';
-                  e.currentTarget.style.borderColor = 'var(--accent)';
+                  e.currentTarget.style.borderColor = 'rgba(186, 206, 255, 0.42)';
                   e.currentTarget.style.transform = 'translateY(-2px)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = 'var(--fg-2)';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.16)';
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
@@ -153,7 +125,7 @@ const projects = [
     number: '01',
     tag: 'developer tools',
     title: 'Serendepify',
-    desc: 'Developer tools platform for AI-native workflows and agent-based systems. MCP ecosystem tools from database gateways to CLI orchestrators.',
+    desc: 'Engineering company and product studio shaping MCP-native tools, database gateways, and operator-grade workflows for AI-assisted development.',
     stack: ['React', 'TypeScript', 'Node.js', 'MCP Protocol'],
     live: 'https://www.serendepify.com/',
   },
@@ -175,11 +147,11 @@ const projects = [
   },
   {
     number: '04',
-    tag: 'browser tooling',
-    title: 'Website Media Capture MCP',
-    desc: 'Browser automation MCP for screenshots and recordings from live websites in repeatable workflows.',
-    stack: ['MCP', 'Browser Automation'],
-    live: 'https://teckedd-code2save.github.io/website-media-capture-mcp/',
+    tag: 'systems engineering',
+    title: 'Portfolio',
+    desc: 'This site — a systems-engineered portfolio built with React, TypeScript, and Tailwind. Features 3D backgrounds, smooth scroll, and component-driven architecture.',
+    stack: ['React', 'TypeScript', 'Three.js', 'Tailwind'],
+    live: 'https://edwardtwumasi.dev',
   },
 ];
 
@@ -216,7 +188,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               <span className="font-mono text-[10px] text-[var(--fg-4)]">{project.number}</span>
               <Tag text={project.tag} />
             </div>
-            <h3 className="mt-4 font-mono text-[22px] font-medium text-[var(--fg)]">
+            <h3 className="mt-4 font-sans text-[22px] font-medium text-[var(--fg)]">
               {project.title}
             </h3>
             <p
@@ -244,7 +216,7 @@ function FeaturedProjectsSection() {
       </ScrollReveal>
       <ScrollReveal delay={0.1}>
         <h2
-          className="font-mono font-bold tracking-[-0.02em] text-[var(--fg)]"
+          className="font-sans font-bold tracking-[-0.02em] text-[var(--fg)]"
           style={{ fontSize: 'clamp(28px, 3.5vw, 48px)', lineHeight: 1.05 }}
         >
           Selected Projects
@@ -290,18 +262,18 @@ function FeaturedProjectsSection() {
 /* ═══════════════ TECH STACK VISUALIZATION ═══════════════ */
 
 const techNodes = [
-  { name: 'Go', color: '#00ADD8', angle: -90 },
-  { name: 'TypeScript', color: '#3178C6', angle: -60 },
-  { name: 'Python', color: '#3776AB', angle: -30 },
-  { name: 'PostgreSQL', color: '#336791', angle: 0 },
-  { name: 'Redis', color: '#DC382D', angle: 30 },
-  { name: 'Elasticsearch', color: '#005571', angle: 60 },
-  { name: 'Docker', color: '#2496ED', angle: 90 },
-  { name: 'Kubernetes', color: '#326CE5', angle: 120 },
-  { name: 'AWS', color: '#FF9900', angle: 150 },
-  { name: 'GCP', color: '#4285F4', angle: 180 },
-  { name: 'Cloudflare', color: '#F38020', angle: -150 },
-  { name: 'Claude', color: '#D4A574', angle: -120 },
+  { name: 'Go', color: '#00ADD8', angle: -90, abbr: 'Go' },
+  { name: 'TypeScript', color: '#3178C6', angle: -60, abbr: 'TS' },
+  { name: 'Python', color: '#3776AB', angle: -30, abbr: 'Py' },
+  { name: 'PostgreSQL', color: '#336791', angle: 0, abbr: 'Pg' },
+  { name: 'Redis', color: '#DC382D', angle: 30, abbr: 'Rd' },
+  { name: 'Elasticsearch', color: '#005571', angle: 60, abbr: 'Es' },
+  { name: 'Docker', color: '#2496ED', angle: 90, abbr: 'Dx' },
+  { name: 'Kubernetes', color: '#326CE5', angle: 120, abbr: 'K8s' },
+  { name: 'AWS', color: '#FF9900', angle: 150, abbr: 'AWS' },
+  { name: 'GCP', color: '#4285F4', angle: 180, abbr: 'GCP' },
+  { name: 'Cloudflare', color: '#F38020', angle: -150, abbr: 'CF' },
+  { name: 'Claude', color: '#D4A574', angle: -120, abbr: 'AI' },
 ];
 
 function TechStackSection() {
@@ -324,7 +296,7 @@ function TechStackSection() {
           <div className="max-w-[320px] shrink-0">
             <ScrollReveal delay={0.1}>
               <h2
-                className="font-mono font-bold tracking-[-0.02em] text-[var(--fg)]"
+                className="font-sans font-bold tracking-[-0.02em] text-[var(--fg)]"
                 style={{ fontSize: 'clamp(28px, 3.5vw, 48px)', lineHeight: 1.05 }}
               >
                 The Stack
@@ -382,21 +354,47 @@ function TechStackSection() {
                       transition: `all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${0.5 + i * 0.08}s`,
                     }}
                   >
+                    {/* Outer glow */}
+                    <circle
+                      cx={cx}
+                      cy={cy}
+                      r={22}
+                      fill={`${node.color}12`}
+                      stroke={`${node.color}40`}
+                      strokeWidth={1}
+                    />
+                    {/* Inner filled circle */}
                     <circle
                       cx={cx}
                       cy={cy}
                       r={18}
-                      fill={`${node.color}26`}
-                      stroke="rgba(255,255,255,0.2)"
-                      strokeWidth={1}
+                      fill={`${node.color}28`}
+                      stroke={node.color}
+                      strokeWidth={1.5}
                     />
+                    {/* Monogram text */}
                     <text
                       x={cx}
-                      y={cy + 32}
+                      y={cy + 1}
                       textAnchor="middle"
-                      className="font-mono"
+                      dominantBaseline="middle"
+                      fill="#f5f5f5"
+                      fontSize={node.abbr.length > 2 ? 8 : 10}
+                      fontWeight={600}
+                      fontFamily="'JetBrains Mono', monospace"
+                      letterSpacing={-0.5}
+                    >
+                      {node.abbr}
+                    </text>
+                    {/* Label below */}
+                    <text
+                      x={cx}
+                      y={cy + 34}
+                      textAnchor="middle"
                       fill="var(--fg-3)"
-                      fontSize={10}
+                      fontSize={9}
+                      fontFamily="'JetBrains Mono', monospace"
+                      letterSpacing={0.5}
                     >
                       {node.name}
                     </text>
@@ -413,6 +411,15 @@ function TechStackSection() {
                   transition: 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s',
                 }}
               >
+                {/* Glow ring */}
+                <circle
+                  cx={200}
+                  cy={200}
+                  r={28}
+                  fill="rgba(79,93,255,0.08)"
+                  stroke="rgba(79,93,255,0.25)"
+                  strokeWidth={1}
+                />
                 <circle
                   cx={200}
                   cy={200}
@@ -422,14 +429,23 @@ function TechStackSection() {
                     filter: 'drop-shadow(0 0 20px rgba(79,93,255,0.5))',
                   }}
                 />
+                {/* Hub icon - hexagon shape */}
+                <polygon
+                  points="200,188 210,194 210,206 200,212 190,206 190,194"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.9)"
+                  strokeWidth={1.5}
+                />
+                <circle cx={200} cy={200} r={3} fill="rgba(255,255,255,0.9)" />
                 <text
                   x={200}
                   y={200 + 44}
                   textAnchor="middle"
-                  className="font-mono"
                   fill="var(--fg)"
-                  fontSize={12}
+                  fontSize={11}
                   fontWeight={500}
+                  fontFamily="'JetBrains Mono', monospace"
+                  letterSpacing={0.5}
                 >
                   Core Stack
                 </text>
@@ -556,7 +572,7 @@ function PackagesSection() {
       </ScrollReveal>
       <ScrollReveal delay={0.1}>
         <h2
-          className="font-mono font-bold tracking-[-0.02em] text-[var(--fg)]"
+          className="font-sans font-bold tracking-[-0.02em] text-[var(--fg)]"
           style={{ fontSize: 'clamp(28px, 3.5vw, 48px)', lineHeight: 1.05 }}
         >
           Open Source
@@ -702,7 +718,7 @@ function CredentialsSection() {
       </ScrollReveal>
       <ScrollReveal delay={0.1}>
         <h2
-          className="font-mono font-bold tracking-[-0.02em] text-[var(--fg)]"
+          className="font-sans font-bold tracking-[-0.02em] text-[var(--fg)]"
           style={{ fontSize: 'clamp(28px, 3.5vw, 48px)', lineHeight: 1.05 }}
         >
           Certifications &amp; Education
@@ -765,7 +781,7 @@ function ContactCTASection() {
 
         <ScrollReveal delay={0.1}>
           <h2
-            className="mx-auto mt-6 font-mono font-bold tracking-[-0.02em] text-[var(--fg)]"
+            className="mx-auto mt-6 font-sans font-bold tracking-[-0.02em] text-[var(--fg)]"
             style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', lineHeight: 1.05 }}
           >
             Let&apos;s build something.
