@@ -1,229 +1,181 @@
 import { useRef, useEffect } from 'react';
 
 /* ── Desert Topographic Contours ───────────────────
-   Flowing terrain-like contour lines that drift slowly
-   across the canvas.  Very subtle — sits behind text.
-   Mouse creates gentle elevation warps.               */
+   Flowing terrain contour lines — visible, elegant,
+   mouse-reactive.  Sits behind hero text.            */
 
-interface ContourLayer {
-  yBase: number;        // vertical position 0-1
-  amplitude: number;    // wave height
-  frequency: number;    // wave density
-  speed: number;        // drift speed
-  offset: number;       // phase offset
-  opacity: number;      // line opacity
-  lineWidth: number;
-  points: number;       // x-resolution
+interface Layer {
+  yBase: number;
+  amp: number;
+  spd: number;
+  phase: number;
+  opacity: number;
+  lw: number;
 }
 
-function buildLayers(): ContourLayer[] {
-  const layers: ContourLayer[] = [];
-  // 18 contour lines spread vertically
-  for (let i = 0; i < 18; i++) {
-    const t = i / 17; // 0..1
-    layers.push({
-      yBase: 0.05 + t * 0.9,
-      amplitude: 30 + Math.random() * 50,
-      frequency: 0.003 + Math.random() * 0.004,
-      speed: 0.0002 + Math.random() * 0.0003,
-      offset: Math.random() * Math.PI * 2,
-      opacity: 0.015 + (1 - Math.abs(t - 0.5) * 2) * 0.04,
-      lineWidth: 0.4 + Math.random() * 0.8,
-      points: 200,
+function build(): Layer[] {
+  const ls: Layer[] = [];
+  for (let i = 0; i < 22; i++) {
+    const t = i / 21;
+    ls.push({
+      yBase: 0.08 + t * 0.84,
+      amp: 35 + Math.random() * 55,
+      spd: 0.0004 + Math.random() * 0.0006,
+      phase: Math.random() * Math.PI * 2,
+      opacity: 0.08 + (1 - Math.abs(t - 0.5) * 2) * 0.18,
+      lw: 0.6 + Math.random() * 1.0,
     });
   }
-  return layers;
+  return ls;
 }
 
 export default function ParticleField() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouseRef = useRef({ x: -1000, y: -1000, active: false });
-  const animRef = useRef<number>(0);
-  const timeRef = useRef(0);
-  const layersRef = useRef<ContourLayer[]>(buildLayers());
+  const cvs = useRef<HTMLCanvasElement>(null);
+  const mouse = useRef({ x: -9999, y: -9999, on: false });
+  const raf = useRef(0);
+  const tick = useRef(0);
+  const layers = useRef<Layer[]>(build());
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    const c = cvs.current;
+    if (!c) return;
+    const x = c.getContext('2d');
+    if (!x) return;
 
-    let W = 0;
-    let H = 0;
+    let W = 0, H = 0;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     function resize() {
-      const rect = canvas!.getBoundingClientRect();
-      W = rect.width;
-      H = rect.height;
-      canvas!.width = W * dpr;
-      canvas!.height = H * dpr;
-      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const r = c!.getBoundingClientRect();
+      W = r.width; H = r.height;
+      c!.width = W * dpr; c!.height = H * dpr;
+      x!.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
     resize();
 
     const ro = new ResizeObserver(resize);
-    ro.observe(canvas);
+    ro.observe(c);
 
-    const onMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseRef.current.x = e.clientX - rect.left;
-      mouseRef.current.y = e.clientY - rect.top;
-      mouseRef.current.active = true;
+    const mv = (e: MouseEvent) => {
+      const r = c.getBoundingClientRect();
+      mouse.current.x = e.clientX - r.left;
+      mouse.current.y = e.clientY - r.top;
+      mouse.current.on = true;
     };
-    const onLeave = () => {
-      mouseRef.current.active = false;
-    };
-    canvas.addEventListener('mousemove', onMove, { passive: true });
-    canvas.addEventListener('mouseleave', onLeave);
+    const ml = () => { mouse.current.on = false; };
+    c.addEventListener('mousemove', mv, { passive: true });
+    c.addEventListener('mouseleave', ml);
 
     function draw() {
-      const mouse = mouseRef.current;
-      timeRef.current += 1;
-      const t = timeRef.current;
+      const m = mouse.current;
+      tick.current++;
+      const t = tick.current;
 
-      ctx!.clearRect(0, 0, W, H);
-      ctx!.fillStyle = '#000000';
-      ctx!.fillRect(0, 0, W, H);
+      x!.clearRect(0, 0, W, H);
+      x!.fillStyle = '#000000';
+      x!.fillRect(0, 0, W, H);
 
-      const layers = layersRef.current;
+      const ls = layers.current;
+      const RES = 250;
+      const step = W / RES;
 
-      for (let li = 0; li < layers.length; li++) {
-        const L = layers[li];
-        const yCenter = L.yBase * H;
+      for (let li = 0; li < ls.length; li++) {
+        const L = ls[li];
+        const y0 = L.yBase * H;
 
-        ctx!.beginPath();
-        ctx!.strokeStyle = `rgba(255, 255, 255, ${L.opacity})`;
-        ctx!.lineWidth = L.lineWidth;
-        ctx!.lineJoin = 'round';
-        ctx!.lineCap = 'round';
+        // ── primary line
+        x!.beginPath();
+        x!.strokeStyle = `rgba(180, 190, 210, ${L.opacity})`;
+        x!.lineWidth = L.lw;
+        x!.lineJoin = 'round';
+        x!.lineCap = 'round';
 
         let first = true;
-        const step = W / L.points;
+        for (let pi = 0; pi <= RES; pi++) {
+          const px = pi * step;
+          const n = pi / RES;
 
-        for (let px = 0; px <= L.points; px++) {
-          const x = px * step;
+          let y = y0
+            + Math.sin(n * Math.PI * 2 * 3 + L.phase + t * L.spd) * L.amp * 0.45
+            + Math.sin(n * Math.PI * 2 * 7 + L.phase * 1.4 + t * L.spd * 1.2) * L.amp * 0.28
+            + Math.sin(n * Math.PI * 2 * 13 + L.phase * 0.6 + t * L.spd * 0.9) * L.amp * 0.14;
 
-          // Base flowing wave
-          const normalizedX = px / L.points;
-          let y =
-            yCenter +
-            Math.sin(normalizedX * Math.PI * 2 * 3 + L.offset + t * L.speed) *
-              L.amplitude *
-              0.4 +
-            Math.sin(normalizedX * Math.PI * 2 * 7 + L.offset * 1.5 + t * L.speed * 1.3) *
-              L.amplitude *
-              0.25 +
-            Math.sin(normalizedX * Math.PI * 2 * 13 + L.offset * 0.7 + t * L.speed * 0.8) *
-              L.amplitude *
-              0.15;
-
-          // Mouse elevation warp (subtle terrain displacement)
-          if (mouse.active) {
-            const dx = x - mouse.x;
-            const dy = y - mouse.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            const influenceRadius = 250;
-            if (dist < influenceRadius) {
-              const falloff = 1 - dist / influenceRadius;
-              const elevation = Math.sin(falloff * Math.PI) * 20 * falloff;
-              y -= elevation;
-              // slight lateral push too
-              // lateral push omitted — stepping by x makes it tricky
+          // mouse warp
+          if (m.on) {
+            const dx = px - m.x, dy = y - m.y;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            const R = 280;
+            if (d < R) {
+              const f = 1 - d / R;
+              y -= Math.sin(f * Math.PI) * 28 * f;
             }
           }
 
-          if (first) {
-            ctx!.moveTo(x, y);
-            first = false;
-          } else {
-            ctx!.lineTo(x, y);
-          }
+          if (first) { x!.moveTo(px, y); first = false; }
+          else { x!.lineTo(px, y); }
         }
+        x!.stroke();
 
-        ctx!.stroke();
-
-        // Secondary fainter echo line slightly offset
-        ctx!.beginPath();
-        ctx!.strokeStyle = `rgba(255, 255, 255, ${L.opacity * 0.35})`;
-        ctx!.lineWidth = L.lineWidth * 0.6;
+        // ── echo line
+        x!.beginPath();
+        x!.strokeStyle = `rgba(160, 170, 200, ${L.opacity * 0.3})`;
+        x!.lineWidth = L.lw * 0.5;
         first = true;
-        for (let px = 0; px <= L.points; px++) {
-          const x = px * step;
-          const normalizedX = px / L.points;
-          let y =
-            yCenter +
-            18 +
-            Math.sin(normalizedX * Math.PI * 2 * 3 + L.offset + t * L.speed + 0.5) *
-              L.amplitude *
-              0.35 +
-            Math.sin(normalizedX * Math.PI * 2 * 5 + L.offset * 1.3 + t * L.speed * 1.1) *
-              L.amplitude *
-              0.2;
+        for (let pi = 0; pi <= RES; pi++) {
+          const px = pi * step;
+          const n = pi / RES;
+          let y = y0 + 22
+            + Math.sin(n * Math.PI * 2 * 3 + L.phase + t * L.spd + 0.6) * L.amp * 0.38
+            + Math.sin(n * Math.PI * 2 * 5 + L.phase * 1.2 + t * L.spd * 1.1) * L.amp * 0.18;
 
-          if (mouse.active) {
-            const dx = x - mouse.x;
-            const dy = y - mouse.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            const influenceRadius = 250;
-            if (dist < influenceRadius) {
-              const falloff = 1 - dist / influenceRadius;
-              const elevation = Math.sin(falloff * Math.PI) * 14 * falloff;
-              y -= elevation;
+          if (m.on) {
+            const dx = px - m.x, dy = y - m.y;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            const R = 280;
+            if (d < R) {
+              const f = 1 - d / R;
+              y -= Math.sin(f * Math.PI) * 18 * f;
             }
           }
 
-          if (first) {
-            ctx!.moveTo(x, y);
-            first = false;
-          } else {
-            ctx!.lineTo(x, y);
-          }
+          if (first) { x!.moveTo(px, y); first = false; }
+          else { x!.lineTo(px, y); }
         }
-        ctx!.stroke();
+        x!.stroke();
       }
 
-      // Very subtle vertical grid lines (terrain-map style)
-      ctx!.strokeStyle = 'rgba(255, 255, 255, 0.012)';
-      ctx!.lineWidth = 0.3;
-      for (let gx = 0; gx < W; gx += 60) {
-        ctx!.beginPath();
-        ctx!.moveTo(gx, 0);
-        ctx!.lineTo(gx, H);
-        ctx!.stroke();
+      // ── vertical grid (terrain map style)
+      x!.strokeStyle = 'rgba(255,255,255,0.025)';
+      x!.lineWidth = 0.3;
+      for (let gx = 0; gx < W; gx += 70) {
+        x!.beginPath(); x!.moveTo(gx, 0); x!.lineTo(gx, H); x!.stroke();
       }
 
-      // Subtle radial vignette to keep focus on center
-      const vig = ctx!.createRadialGradient(W / 2, H / 2, H * 0.2, W / 2, H / 2, H * 0.8);
-      vig.addColorStop(0, 'rgba(0, 0, 0, 0)');
-      vig.addColorStop(1, 'rgba(0, 0, 0, 0.5)');
-      ctx!.fillStyle = vig;
-      ctx!.fillRect(0, 0, W, H);
+      // ── radial vignette
+      const v = x!.createRadialGradient(W / 2, H / 2, H * 0.25, W / 2, H / 2, H * 0.85);
+      v.addColorStop(0, 'rgba(0,0,0,0)');
+      v.addColorStop(1, 'rgba(0,0,0,0.55)');
+      x!.fillStyle = v;
+      x!.fillRect(0, 0, W, H);
 
-      animRef.current = requestAnimationFrame(draw);
+      raf.current = requestAnimationFrame(draw);
     }
 
-    animRef.current = requestAnimationFrame(draw);
-
+    raf.current = requestAnimationFrame(draw);
     return () => {
-      cancelAnimationFrame(animRef.current);
+      cancelAnimationFrame(raf.current);
       ro.disconnect();
-      canvas.removeEventListener('mousemove', onMove);
-      canvas.removeEventListener('mouseleave', onLeave);
+      c.removeEventListener('mousemove', mv);
+      c.removeEventListener('mouseleave', ml);
     };
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 1,
-      }}
-    />
+    <div style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
+      <canvas
+        ref={cvs}
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+      />
+    </div>
   );
 }

@@ -291,13 +291,17 @@ function FeaturedProjectsSection() {
 
 const techNodes = [
   { name: 'Go', color: '#00ADD8', angle: -90 },
-  { name: 'TypeScript', color: '#3178C6', angle: -45 },
-  { name: 'Python', color: '#3776AB', angle: 0 },
-  { name: 'PostgreSQL', color: '#336791', angle: 45 },
-  { name: 'Redis', color: '#DC382D', angle: 90 },
-  { name: 'Docker', color: '#2496ED', angle: 135 },
-  { name: 'Kubernetes', color: '#326CE5', angle: 180 },
-  { name: 'AWS', color: '#FF9900', angle: 225 },
+  { name: 'TypeScript', color: '#3178C6', angle: -60 },
+  { name: 'Python', color: '#3776AB', angle: -30 },
+  { name: 'PostgreSQL', color: '#336791', angle: 0 },
+  { name: 'Redis', color: '#DC382D', angle: 30 },
+  { name: 'Elasticsearch', color: '#005571', angle: 60 },
+  { name: 'Docker', color: '#2496ED', angle: 90 },
+  { name: 'Kubernetes', color: '#326CE5', angle: 120 },
+  { name: 'AWS', color: '#FF9900', angle: 150 },
+  { name: 'GCP', color: '#4285F4', angle: 180 },
+  { name: 'Cloudflare', color: '#F38020', angle: -150 },
+  { name: 'Claude', color: '#D4A574', angle: -120 },
 ];
 
 function TechStackSection() {
@@ -328,7 +332,7 @@ function TechStackSection() {
             </ScrollReveal>
             <ScrollReveal delay={0.15}>
               <p className="mt-4 font-sans text-sm leading-[1.75] text-[var(--fg-2)]">
-                Go for systems. TypeScript for tooling. Python for AI workflows. PostgreSQL for persistence. Deployed on AWS, orchestrated with Kubernetes, containerized with Docker.
+                Go for systems. TypeScript for tooling. Python for AI workflows. PostgreSQL, Redis, Elasticsearch for persistence and search. Docker, Kubernetes, AWS, GCP for infrastructure. Cloudflare for edge. Claude, Codex, Kimi for agentic development.
               </p>
             </ScrollReveal>
           </div>

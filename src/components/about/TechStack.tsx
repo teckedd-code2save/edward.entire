@@ -30,6 +30,18 @@ const technologies = [
     proficiency: 0.9,
   },
   {
+    name: 'Redis',
+    description:
+      'In-memory data store. Caching, session management, real-time data pipelines.',
+    proficiency: 0.87,
+  },
+  {
+    name: 'Elasticsearch',
+    description:
+      'Search and analytics engine. Full-text search, log aggregation, observability.',
+    proficiency: 0.82,
+  },
+  {
     name: 'Docker',
     description:
       'Containerization for all services. Multi-stage builds, compose orchestration.',
@@ -48,10 +60,22 @@ const technologies = [
     proficiency: 0.88,
   },
   {
-    name: 'React',
+    name: 'GCP',
     description:
-      'Frontend development. Component architecture, state management, modern hooks patterns.',
-    proficiency: 0.82,
+      'Google Cloud Platform. Terraform IaC, Cloud Run, Cloud Storage, BigQuery.',
+    proficiency: 0.8,
+  },
+  {
+    name: 'Cloudflare',
+    description:
+      'Edge network. CDN, DDoS protection, Workers, DNS, SSL/TLS termination.',
+    proficiency: 0.83,
+  },
+  {
+    name: 'Claude / Codex / Kimi',
+    description:
+      'AI coding agents for development, code review, architecture design, and workflow automation.',
+    proficiency: 0.92,
   },
 ];
 
