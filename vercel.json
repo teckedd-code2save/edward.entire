@@ -3,7 +3,7 @@
     "rewrites": [
         {
             "source": "/",
-            "destination": "/edward-portfolio-v3.html"
+            "destination": "/edward-portfolio-v4.html"
         }
     ],
     "headers": [
