@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edward Twumasi</title>
+  <meta name="description" content="Edward Twumasi — building the infrastructure AI agents run on. Backend engineer, agent systems, distributed architecture.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,700&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg:       #000000;
+      --ink:      #EDEAE3;
+      --ink-2:    #8C8984;
+      --ink-3:    #4A4845;
+      --ink-4:    #252220;
+      --border:   rgba(237,234,227,0.07);
+      --border-2: rgba(237,234,227,0.15);
+      --border-3: rgba(237,234,227,0.28);
+      --serif:    'Playfair Display', Georgia, serif;
+      --mono:     'JetBrains Mono', 'Fira Code', monospace;
+      --body:     'Inter', system-ui, sans-serif;
+      --max-w:    860px;
+      --pad:      48px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    ::-webkit-scrollbar { width: 2px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--ink-3); border-radius: 2px; }
+
+    /* ── Progress ───────────────────────── */
+    #prog {
+      position: fixed; top: 0; left: 0;
+      height: 1px; width: 0%;
+      background: var(--ink-2);
+      z-index: 1000;
+      transition: width 0.08s linear;
+    }
+
+    /* ── Chapter dots ───────────────────── */
+    #cdots {
+      position: fixed;
+      right: 24px; top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .cdot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--ink-4);
+      cursor: pointer;
+      transition: all 0.35s ease;
+      position: relative;
+    }
+    .cdot.on {
+      background: var(--ink-2);
+      transform: scale(1.6);
+    }
+    .cdot::before {
+      content: attr(data-lbl);
+      position: absolute;
+      right: 14px; top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--mono);
+      font-size: 8px;
+      color: var(--ink-3);
+      white-space: nowrap;
+      letter-spacing: 0.14em;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
+    .cdot:hover::before, .cdot.on::before {
+      opacity: 1;
+      color: var(--ink-2);
+    }
+
+    /* ── Nav ────────────────────────────── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px var(--pad);
+      transition: all 0.4s;
+    }
+    #nav.on {
+      background: rgba(0,0,0,0.86);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--mono); font-size: 12px; font-weight: 400;
+      color: var(--ink-2); letter-spacing: 0.06em; transition: color 0.2s;
+    }
+    .nav-logo:hover { color: var(--ink); }
+    .nav-cv {
+      font-family: var(--mono); font-size: 10px;
+      color: var(--ink-3); border: 1px solid var(--border-2);
+      padding: 6px 16px; letter-spacing: 0.1em; transition: all 0.2s;
+    }
+    .nav-cv:hover { color: var(--ink); border-color: var(--border-3); }
+
+    /* ── INTRO ──────────────────────────── */
+    #intro {
+      position: relative; height: 100svh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      overflow: hidden; text-align: center;
+    }
+    #intro-cvs {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+    }
+    .intro-inner { position: relative; z-index: 2; padding: 0 var(--pad); }
+
+    .intro-eye {
+      font-family: var(--mono); font-size: 9px; color: var(--ink-3);
+      letter-spacing: 0.3em; text-transform: uppercase;
+      margin-bottom: 30px;
+      opacity: 0; animation: aFadeIn 1s ease 0.4s forwards;
+    }
+    .intro-name {
+      font-family: var(--serif);
+      font-style: italic; font-weight: 700;
+      font-size: clamp(3.8rem, 11vw, 9.5rem);
+      line-height: 0.88; letter-spacing: -0.03em;
+      color: var(--ink); margin-bottom: 32px;
+      overflow: hidden;
+    }
+    .intro-name .ln {
+      display: block; opacity: 0; transform: translateY(105%);
+      animation: aReveal 1s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .intro-name .ln:nth-child(1) { animation-delay: 0.15s; }
+    .intro-name .ln:nth-child(2) { animation-delay: 0.32s; }
+
+    .intro-tag {
+      font-family: var(--mono); font-size: 11px; color: var(--ink-2);
+      letter-spacing: 0.14em;
+      opacity: 0; animation: aFadeIn 1s ease 0.9s forwards;
+    }
+    .intro-scroll {
+      position: absolute; bottom: 32px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      opacity: 0; animation: aFadeIn 1s ease 1.5s forwards;
+    }
+    .intro-scroll span {
+      font-family: var(--mono); font-size: 8px;
+      color: var(--ink-3); letter-spacing: 0.22em; text-transform: uppercase;
+    }
+    .scroll-tick {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--ink-3), transparent);
+      animation: aTick 2.2s ease-in-out infinite;
+    }
+
+    /* ── ACT structure ──────────────────── */
+    .act { position: relative; padding: 130px 0; }
+    .act + .act { border-top: 1px solid var(--border); }
+    .act-c {
+      max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad);
+    }
+    .act-lbl {
+      font-family: var(--mono); font-size: 9px; color: var(--ink-3);
+      letter-spacing: 0.26em; text-transform: uppercase;
+      margin-bottom: 64px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .act-lbl::after {
+      content: ''; flex: 1; max-width: 64px; height: 1px;
+      background: var(--border);
+    }
+
+    /* ── ACT I: IDENTITY ────────────────── */
+    .id-display {
+      font-family: var(--serif);
+      font-style: italic; font-weight: 700;
+      font-size: clamp(2.2rem, 5.5vw, 4.8rem);
+      line-height: 1.0; letter-spacing: -0.025em;
+      color: var(--ink); margin-bottom: 72px;
+    }
+    .id-grid {
+      display: grid; grid-template-columns: 1fr 220px;
+      gap: 60px; align-items: start;
+    }
+    .id-bio {
+      font-size: 14.5px; line-height: 1.9; color: var(--ink-2);
+      margin-bottom: 36px;
+    }
+    .id-bio strong { color: var(--ink); font-weight: 500; }
+    .id-facts { list-style: none; }
+    .id-facts li {
+      display: grid; grid-template-columns: 68px 1fr; gap: 12px;
+      padding: 9px 0; border-bottom: 1px solid var(--border);
+      font-family: var(--mono); font-size: 11px; line-height: 1.45;
+      transition: padding-left 0.2s;
+    }
+    .id-facts li:hover { padding-left: 6px; }
+    .id-facts .fk { color: var(--ink-3); }
+    .id-facts .fv { color: var(--ink-2); }
+    .id-links {
+      display: flex; gap: 22px; margin-top: 28px; flex-wrap: wrap;
+    }
+    .id-link {
+      font-family: var(--mono); font-size: 11px; color: var(--ink-2);
+      border-bottom: 1px solid var(--border-2); padding-bottom: 2px;
+      letter-spacing: 0.06em; transition: all 0.2s;
+    }
+    .id-link:hover { color: var(--ink); border-color: var(--border-3); }
+    .id-photo { position: relative; }
+    .id-photo img {
+      width: 100%; aspect-ratio: 3/4;
+      object-fit: cover; object-position: center 10%;
+      filter: grayscale(1) brightness(0.78) contrast(1.12);
+      display: block;
+    }
+    .id-photo-cap {
+      font-family: var(--mono); font-size: 8px; color: var(--ink-3);
+      letter-spacing: 0.14em; text-transform: uppercase;
+      margin-top: 10px;
+    }
+
+    /* ── ACT II: WORK ───────────────────── */
+    .proj { border-bottom: 1px solid var(--border); }
+    .proj:first-child { border-top: 1px solid var(--border); }
+
+    .proj-hd {
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      gap: 20px; align-items: center;
+      padding: 22px 0; cursor: pointer;
+      transition: padding-left 0.25s;
+    }
+    .proj-hd:hover { padding-left: 6px; }
+    .proj-num {
+      font-family: var(--mono); font-size: 10px;
+      color: var(--ink-3); letter-spacing: 0.08em;
+    }
+    .proj-info { display: flex; flex-direction: column; gap: 3px; }
+    .proj-name {
+      font-family: var(--mono); font-weight: 500;
+      font-size: clamp(1.1rem, 2.8vw, 1.9rem);
+      color: var(--ink); letter-spacing: -0.02em; line-height: 1;
+      transition: color 0.2s;
+    }
+    .proj-hd:hover .proj-name { color: var(--ink); }
+    .proj-kind {
+      font-family: var(--mono); font-size: 10px;
+      color: var(--ink-3); letter-spacing: 0.08em;
+    }
+    .proj-icon {
+      font-family: var(--mono); font-size: 22px; color: var(--ink-3);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), color 0.2s;
+      line-height: 1; user-select: none;
+    }
+    .proj.open .proj-icon { transform: rotate(45deg); color: var(--ink-2); }
+
+    .proj-body {
+      display: grid; grid-template-rows: 0fr;
+      transition: grid-template-rows 0.48s cubic-bezier(0.4,0,0.2,1);
+    }
+    .proj.open .proj-body { grid-template-rows: 1fr; }
+    .proj-body-in { overflow: hidden; }
+
+    .proj-content {
+      padding: 6px 0 36px 56px;
+      display: grid; grid-template-columns: 1fr 264px; gap: 44px;
+    }
+    .proj-desc {
+      font-size: 13.5px; line-height: 1.85; color: var(--ink-2);
+      margin-bottom: 20px;
+    }
+    .proj-desc strong { color: var(--ink); font-weight: 500; }
+    .proj-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 22px; }
+    .pill {
+      font-family: var(--mono); font-size: 9px; color: var(--ink-3);
+      border: 1px solid var(--border); padding: 3px 8px;
+      letter-spacing: 0.04em; transition: all 0.2s;
+    }
+    .pill:hover { color: var(--ink-2); border-color: var(--border-2); }
+    .proj-open-btn {
+      font-family: var(--mono); font-size: 10px; color: var(--ink-2);
+      border-bottom: 1px solid var(--border-2); padding-bottom: 1px;
+      letter-spacing: 0.06em; background: none;
+      border-top: none; border-left: none; border-right: none;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .proj-open-btn:hover { color: var(--ink); border-color: var(--ink-2); }
+
+    .proj-side {
+      border-left: 1px solid var(--border); padding-left: 26px;
+    }
+    .s-lbl {
+      font-family: var(--mono); font-size: 8px; color: var(--ink-3);
+      letter-spacing: 0.22em; text-transform: uppercase;
+      margin-bottom: 7px; margin-top: 18px;
+    }
+    .s-lbl:first-child { margin-top: 0; }
+    .s-txt { font-size: 12px; line-height: 1.75; color: var(--ink-2); }
+
+    /* ── ACT III: TOOLS ─────────────────── */
+    .pkg-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .pkg {
+      background: var(--bg); padding: 36px;
+      transition: background 0.3s;
+    }
+    .pkg:hover { background: rgba(237,234,227,0.015); }
+    .pkg-n {
+      font-family: var(--mono); font-size: 10px;
+      color: var(--ink-4); letter-spacing: 0.1em; margin-bottom: 18px;
+    }
+    .pkg-name {
+      font-family: var(--mono); font-size: 17px; font-weight: 500;
+      color: var(--ink); margin-bottom: 4px; letter-spacing: -0.01em;
+    }
+    .pkg-scope { color: var(--ink-3); font-weight: 300; }
+    .pkg-badge {
+      display: inline-block; font-family: var(--mono); font-size: 9px;
+      color: var(--ink-3); border: 1px solid var(--border-2);
+      padding: 2px 7px; letter-spacing: 0.06em; margin-bottom: 18px;
+    }
+    .pkg-desc {
+      font-size: 12.5px; line-height: 1.8; color: var(--ink-2);
+      margin-bottom: 22px;
+    }
+    .pkg-desc code {
+      font-family: var(--mono); font-size: 11px; color: var(--ink-3);
+    }
+    .pkg-pills { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 26px; }
+    .pkg-link {
+      font-family: var(--mono); font-size: 10px; color: var(--ink-3);
+      border: 1px solid var(--border); padding: 8px 18px;
+      display: inline-block; letter-spacing: 0.06em; transition: all 0.2s;
+    }
+    .pkg-link:hover { color: var(--ink); border-color: var(--border-2); }
+
+    /* ── ACT IV: JOURNEY ────────────────── */
+    .jrn-display {
+      font-family: var(--serif);
+      font-style: italic; font-weight: 700;
+      font-size: clamp(1.8rem, 4vw, 3.4rem);
+      line-height: 1.05; color: var(--ink);
+      margin-bottom: 60px;
+    }
+    .tl { position: relative; padding-left: 28px; }
+    .tl::before {
+      content: ''; position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 1px; background: var(--border);
+    }
+    .tl-row {
+      position: relative; padding-bottom: 38px;
+    }
+    .tl-row:last-child { padding-bottom: 0; }
+    .tl-dot {
+      position: absolute; left: -32px; top: 6px;
+      width: 8px; height: 8px; border-radius: 50%;
+      border: 1px solid var(--border-2); background: var(--bg);
+      transition: all 0.3s;
+    }
+    .tl-row:hover .tl-dot {
+      background: var(--ink-3); border-color: var(--ink-2);
+    }
+    .tl-date {
+      font-family: var(--mono); font-size: 10px;
+      color: var(--ink-3); letter-spacing: 0.1em; margin-bottom: 5px;
+    }
+    .tl-title {
+      font-family: var(--mono); font-size: 14px; font-weight: 500;
+      color: var(--ink); letter-spacing: -0.01em; margin-bottom: 4px;
+    }
+    .tl-issuer {
+      font-size: 12px; color: var(--ink-2); margin-bottom: 10px;
+    }
+    .tl-pills { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 9px; }
+    .tl-link {
+      font-family: var(--mono); font-size: 10px; color: var(--ink-3);
+      border-bottom: 1px solid var(--border); padding-bottom: 1px;
+      letter-spacing: 0.04em; transition: all 0.2s;
+    }
+    .tl-link:hover { color: var(--ink-2); border-color: var(--border-2); }
+
+    /* ── ACT V: HORIZON ─────────────────── */
+    #act-horizon {
+      background: radial-gradient(ellipse 70% 50% at 50% 60%, rgba(22,40,70,0.18), transparent);
+    }
+    .hz-display {
+      font-family: var(--serif);
+      font-style: italic; font-weight: 700;
+      font-size: clamp(2rem, 5vw, 4.2rem);
+      line-height: 1.0; color: var(--ink); margin-bottom: 16px;
+    }
+    .hz-sub {
+      font-size: 13px; color: var(--ink-2); max-width: 440px;
+      line-height: 1.8; margin-bottom: 56px;
+    }
+    .bp-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px; background: var(--border);
+    }
+    .bp {
+      background: var(--bg); padding: 30px 28px;
+      position: relative; border-top: 1px solid var(--border);
+      transition: border-top-color 0.3s;
+    }
+    .bp:hover { border-top-color: var(--ink-3); }
+    .bp::after {
+      content: 'PROJECTED';
+      position: absolute; top: 12px; right: 14px;
+      font-family: var(--mono); font-size: 7px;
+      color: var(--ink-4); letter-spacing: 0.2em;
+    }
+    .bp-n {
+      font-family: var(--mono); font-size: 9px;
+      color: var(--ink-3); letter-spacing: 0.1em; margin-bottom: 14px;
+    }
+    .bp-title {
+      font-family: var(--mono); font-size: 15px; font-weight: 500;
+      color: var(--ink); letter-spacing: -0.01em; margin-bottom: 6px;
+    }
+    .bp-sub {
+      font-family: var(--mono); font-size: 9px;
+      color: var(--ink-3); letter-spacing: 0.08em; margin-bottom: 18px;
+    }
+    .bp-desc {
+      font-size: 12px; line-height: 1.78; color: var(--ink-2); margin-bottom: 18px;
+    }
+    .bp-signal {
+      font-family: var(--mono); font-size: 9px;
+      color: var(--ink-3); letter-spacing: 0.04em; line-height: 1.6;
+    }
+    .bp-signal strong { color: var(--ink-2); }
+
+    /* ── CONNECT ────────────────────────── */
+    .cn-display {
+      font-family: var(--serif);
+      font-style: italic; font-weight: 700;
+      font-size: clamp(2.2rem, 5.5vw, 4.4rem);
+      line-height: 0.98; color: var(--ink); margin-bottom: 52px;
+    }
+    .cn-note {
+      font-family: var(--mono); font-size: 10px;
+      color: var(--ink-3); margin-bottom: 36px; line-height: 1.7;
+    }
+    .ct-list { border-top: 1px solid var(--border); }
+    .ct-row {
+      display: grid; grid-template-columns: 76px 1fr auto;
+      gap: 20px; align-items: center;
+      padding: 17px 0; border-bottom: 1px solid var(--border);
+      text-decoration: none; transition: padding-left 0.2s;
+    }
+    .ct-row:hover { padding-left: 8px; }
+    .ct-k {
+      font-family: var(--mono); font-size: 10px;
+      color: var(--ink-3); letter-spacing: 0.12em;
+    }
+    .ct-v {
+      font-family: var(--mono); font-size: 12px;
+      color: var(--ink-2); transition: color 0.2s;
+    }
+    .ct-row:hover .ct-v { color: var(--ink); }
+    .ct-arr {
+      font-size: 12px; color: var(--ink-3); transition: all 0.2s;
+    }
+    .ct-row:hover .ct-arr { transform: translateX(4px); color: var(--ink-2); }
+
+    /* ── FOOTER ─────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 44px var(--pad);
+      max-width: var(--max-w); margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .ft-l, .ft-r {
+      font-family: var(--mono); font-size: 11px; color: var(--ink-3);
+    }
+    .ft-r { text-align: right; line-height: 1.6; }
+
+    /* ── DETAIL PANEL ───────────────────── */
+    #dp-ov {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.78);
+      z-index: 400; opacity: 0; pointer-events: none;
+      transition: opacity 0.4s;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    #dp-ov.on { opacity: 1; pointer-events: all; }
+
+    #dp {
+      position: fixed; top: 0; right: 0;
+      width: min(720px, 100vw); height: 100svh;
+      background: #040302;
+      border-left: 1px solid var(--border-2);
+      z-index: 500; overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+      scrollbar-width: thin;
+    }
+    #dp.on { transform: translateX(0); }
+
+    .dp-bar {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 15px 32px;
+      background: rgba(4,3,2,0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .dp-id {
+      font-family: var(--mono); font-size: 10px;
+      color: var(--ink-3); letter-spacing: 0.12em;
+    }
+    .dp-x {
+      background: none; border: 1px solid var(--border);
+      color: var(--ink-3); font-family: var(--mono); font-size: 10px;
+      padding: 6px 14px; cursor: pointer; letter-spacing: 0.08em;
+      transition: all 0.2s;
+    }
+    .dp-x:hover { color: var(--ink); border-color: var(--border-2); }
+
+    .dp-vis { height: 280px; position: relative; overflow: hidden; }
+    #dp-cvs { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .dp-vis-ov {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 28px 36px;
+      background: linear-gradient(transparent, rgba(4,3,2,0.96));
+    }
+    .dp-tag {
+      font-family: var(--mono); font-size: 9px;
+      color: rgba(237,234,227,0.35);
+      letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 9px;
+    }
+    .dp-title {
+      font-family: var(--mono); font-weight: 500;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      line-height: 1.05; letter-spacing: -0.025em;
+    }
+    .dp-body { padding: 38px 36px; }
+    .dp-sec { margin-bottom: 28px; }
+    .dp-sec-lbl {
+      font-family: var(--mono); font-size: 9px; color: var(--ink-3);
+      letter-spacing: 0.22em; text-transform: uppercase;
+      padding-bottom: 9px; border-bottom: 1px solid var(--border);
+      margin-bottom: 14px;
+    }
+    .dp-sec p { font-size: 13px; line-height: 1.8; color: var(--ink-2); }
+    .dp-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .dp-tag-pill {
+      font-family: var(--mono); font-size: 10px; color: var(--ink-3);
+      border: 1px solid var(--border); padding: 4px 10px;
+      letter-spacing: 0.04em; transition: all 0.2s;
+    }
+    .dp-tag-pill:hover { color: var(--ink-2); border-color: var(--border-2); }
+    .dp-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .dp-lnk {
+      font-family: var(--mono); font-size: 11px; color: var(--ink-2);
+      border: 1px solid var(--border-2); padding: 9px 20px;
+      letter-spacing: 0.06em; transition: all 0.2s;
+    }
+    .dp-lnk:hover { color: var(--ink); border-color: var(--border-3); }
+
+    /* ── Reveal ─────────────────────────── */
+    .r {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .r.vis { opacity: 1; transform: none; }
+    .r.d1 { transition-delay: 0.1s; }
+    .r.d2 { transition-delay: 0.2s; }
+    .r.d3 { transition-delay: 0.3s; }
+
+    /* ── Keyframes ──────────────────────── */
+    @keyframes aReveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes aFadeIn {
+      to { opacity: 1; }
+    }
+    @keyframes aTick {
+      0%, 100% { opacity: 0.25; transform: scaleY(1); }
+      50%       { opacity: 1;    transform: scaleY(0.55); }
+    }
+
+    /* ── Responsive ─────────────────────── */
+    @media (max-width: 800px) {
+      :root { --pad: 22px; }
+      #cdots { display: none; }
+      .id-grid { grid-template-columns: 1fr; }
+      .id-photo { display: none; }
+      .proj-content { grid-template-columns: 1fr; }
+      .proj-side { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 18px; }
+      .pkg-grid { grid-template-columns: 1fr; }
+      .bp-grid { grid-template-columns: 1fr; }
+      .act { padding: 80px 0; }
+      #dp { width: 100vw; }
+      footer { flex-direction: column; gap: 10px; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .proj-content { padding-left: 0; }
+      .intro-name { font-size: clamp(3rem, 15vw, 5rem); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- progress -->
+<div id="prog"></div>
+
+<!-- chapter dots -->
+<nav id="cdots" aria-hidden="true">
+  <div class="cdot on"  data-lbl="_init"     data-sec="intro"></div>
+  <div class="cdot"     data-lbl="identity"  data-sec="act-id"></div>
+  <div class="cdot"     data-lbl="work"      data-sec="act-work"></div>
+  <div class="cdot"     data-lbl="tools"     data-sec="act-tools"></div>
+  <div class="cdot"     data-lbl="journey"   data-sec="act-journey"></div>
+  <div class="cdot"     data-lbl="horizon"   data-sec="act-horizon"></div>
+  <div class="cdot"     data-lbl="connect"   data-sec="act-connect"></div>
+</nav>
+
+<!-- nav -->
+<nav id="nav">
+  <a href="#intro" class="nav-logo">edward twumasi</a>
+  <a href="Edward_Twumasi_CV.pdf" target="_blank" class="nav-cv">cv ↗</a>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     INTRO
+════════════════════════════════════════════════════════════ -->
+<section id="intro">
+  <canvas id="intro-cvs"></canvas>
+  <div class="intro-inner">
+    <p class="intro-eye">// portfolio — 2026</p>
+    <h1 class="intro-name">
+      <span class="ln">Edward</span>
+      <span class="ln">Twumasi</span>
+    </h1>
+    <p class="intro-tag">backend &nbsp;·&nbsp; agent infrastructure &nbsp;·&nbsp; systems</p>
+  </div>
+  <div class="intro-scroll">
+    <span>scroll</span>
+    <div class="scroll-tick"></div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     ACT I — IDENTITY
+════════════════════════════════════════════════════════════ -->
+<section id="act-id" class="act">
+  <div class="act-c">
+    <p class="act-lbl r">act i &nbsp;/&nbsp; identity</p>
+
+    <div class="id-display r">
+      "building the<br>
+      infrastructure<br>
+      agents run on"
+    </div>
+
+    <div class="id-grid">
+      <div>
+        <p class="id-bio r">
+          <strong>Edward Twumasi</strong> is a full-stack software engineer and AI systems
+          builder based in <strong>Ghana</strong>. At <strong>Hubtel</strong> — Ghana's leading
+          mobile payments platform — by profession, and building agent infrastructure by calling.<br><br>
+          His focus has moved from writing applications to writing the
+          <strong>primitives other builders depend on</strong> — agent runtimes,
+          MCP database gateways, deployment intelligence tools, and machine-to-machine
+          payment protocols. If an AI agent needs it to run, he's probably building it.
+        </p>
+        <ul class="id-facts r d1">
+          <li><span class="fk">base</span><span class="fv">Kumasi → Accra, Ghana</span></li>
+          <li><span class="fk">role</span><span class="fv">Senior Backend Engineer · Hubtel</span></li>
+          <li><span class="fk">focus</span><span class="fv">agent runtime · MCP tooling · distributed systems</span></li>
+          <li><span class="fk">stack</span><span class="fv">Go · TypeScript · Python · C# · PostgreSQL</span></li>
+          <li><span class="fk">status</span><span class="fv">open to collaborate</span></li>
+        </ul>
+        <div class="id-links r d2">
+          <a href="https://github.com/teckedd-code2save" target="_blank" rel="noopener" class="id-link">github ↗</a>
+          <a href="https://www.linkedin.com/in/edward-twumasi/" target="_blank" rel="noopener" class="id-link">linkedin ↗</a>
+          <a href="https://twitter.com/EdwardsTwums" target="_blank" rel="noopener" class="id-link">twitter ↗</a>
+          <a href="mailto:edwardktwumasi1000@gmail.com" class="id-link">email ↗</a>
+        </div>
+      </div>
+      <div class="id-photo r d3">
+        <img src="profile-photo.jpg" alt="Edward Twumasi">
+        <p class="id-photo-cap">Edward Twumasi — Ghana</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     ACT II — WORK
+════════════════════════════════════════════════════════════ -->
+<section id="act-work" class="act">
+  <div class="act-c">
+    <p class="act-lbl r">act ii &nbsp;/&nbsp; the work</p>
+
+    <!-- OpsMesh -->
+    <div class="proj" id="pr-0">
+      <div class="proj-hd" onclick="toggleProj(0)">
+        <span class="proj-num">01</span>
+        <div class="proj-info">
+          <span class="proj-name">OpsMesh</span>
+          <span class="proj-kind">// agent-native operations platform</span>
+        </div>
+        <span class="proj-icon">+</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-body-in">
+          <div class="proj-content">
+            <div>
+              <p class="proj-desc">
+                Agent-native operations platform built on <strong>OpenClaw</strong> — the
+                agent runtime Edward built from scratch. First product:
+                <strong>Gig Radar</strong> — polls gig and job sources, normalizes and
+                deduplicates listings, scores them via OpenClaw reasoning, fires Telegram
+                alerts. OpenClaw owns the runtime; OpsMesh owns the domain logic, workflow
+                state, and data model. Next: <strong>DM Shop Agent</strong> — conversational
+                commerce over WhatsApp and Telegram.
+              </p>
+              <div class="proj-pills">
+                <span class="pill">OpenClaw</span>
+                <span class="pill">Agent Runtime</span>
+                <span class="pill">Telegram API</span>
+                <span class="pill">WhatsApp</span>
+                <span class="pill">Workflow State</span>
+              </div>
+              <button class="proj-open-btn" onclick="openDp(0)">full details →</button>
+            </div>
+            <div class="proj-side">
+              <p class="s-lbl">architecture</p>
+              <p class="s-txt">OpenClaw provides the agent runtime and reasoning layer. OpsMesh implements domain-specific logic, persistent workflow state, and structured data models — cleanly separated from the runtime.</p>
+              <p class="s-lbl">products</p>
+              <p class="s-txt">Gig Radar — live. DM Shop Agent — in development. Both built on the same OpenClaw foundation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shipd -->
+    <div class="proj" id="pr-1">
+      <div class="proj-hd" onclick="toggleProj(1)">
+        <span class="proj-num">02</span>
+        <div class="proj-info">
+          <span class="proj-name">Shipd</span>
+          <span class="proj-kind">// deployment intelligence</span>
+        </div>
+        <span class="proj-icon">+</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-body-in">
+          <div class="proj-content">
+            <div>
+              <p class="proj-desc">
+                Repo-aware deployment planning tool. Connects to GitHub read-only, scans for
+                deployment signals — Dockerfiles, CI configs, env files, infra folders —
+                and scores hosting platforms (Railway, Fly.io, Vercel, Render) against what
+                it actually finds. Produces a saved plan with comparison view and evidence trail.
+                No code writes. No deploy execution. Just clear decisions before you touch anything.
+              </p>
+              <div class="proj-pills">
+                <span class="pill">GitHub API</span>
+                <span class="pill">Static Analysis</span>
+                <span class="pill">Platform Scoring</span>
+                <span class="pill">Decision Records</span>
+              </div>
+              <button class="proj-open-btn" onclick="openDp(1)">full details →</button>
+            </div>
+            <div class="proj-side">
+              <p class="s-lbl">principle</p>
+              <p class="s-txt">Read-only. No writes. No deploys. Decision support only. Evidence-backed recommendations with full audit trail.</p>
+              <p class="s-lbl">what it does</p>
+              <p class="s-txt">Reads structure. Detects deployment signals. Scores platforms by fit. Generates saved plans with traceable evidence.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MPP Studio -->
+    <div class="proj" id="pr-2">
+      <div class="proj-hd" onclick="toggleProj(2)">
+        <span class="proj-num">03</span>
+        <div class="proj-info">
+          <span class="proj-name">MPP Studio</span>
+          <span class="proj-kind">// machine payments protocol console</span>
+        </div>
+        <span class="proj-icon">+</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-body-in">
+          <div class="proj-content">
+            <div>
+              <p class="proj-desc">
+                Developer console for the <strong>Machine Payments Protocol</strong>. Register
+                APIs, run sandbox 402 flows, inspect service contracts, graduate to live payment
+                rails. Built for agent-to-agent commerce — where machines discover services,
+                negotiate access, and settle payments without human intervention. HTTP 402 as
+                first-class infrastructure, not just a status code.
+              </p>
+              <div class="proj-pills">
+                <span class="pill">MPP</span>
+                <span class="pill">HTTP 402</span>
+                <span class="pill">Sandbox</span>
+                <span class="pill">Service Contracts</span>
+                <span class="pill">Agent Commerce</span>
+              </div>
+              <button class="proj-open-btn" onclick="openDp(2)">full details →</button>
+            </div>
+            <div class="proj-side">
+              <p class="s-lbl">use case</p>
+              <p class="s-txt">Machines discovering services, negotiating terms, and settling payments without human intervention. The infrastructure layer of agent economies.</p>
+              <p class="s-lbl">capabilities</p>
+              <p class="s-txt">API registration. Sandbox 402 flows. Contract inspection. Graduation path to live payment rails.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     ACT III — TOOLS SHIPPED
+════════════════════════════════════════════════════════════ -->
+<section id="act-tools" class="act">
+  <div class="act-c">
+    <p class="act-lbl r">act iii &nbsp;/&nbsp; tools shipped</p>
+
+    <div class="pkg-grid r">
+
+      <div class="pkg">
+        <p class="pkg-n">pkg.01</p>
+        <p class="pkg-name"><span class="pkg-scope">@teckedd-code2save / </span>datafy</p>
+        <span class="pkg-badge">npm</span>
+        <p class="pkg-desc">
+          MCP database gateway for AI development tools. Gives agents and editors a minimal,
+          production-usable path into 7 relational and search backends — PostgreSQL, MySQL,
+          SQLite, Redis, Elasticsearch, SQL Server, MariaDB — via two core tools:
+          <code>execute_sql</code> and <code>search_objects</code>. Zero external dependencies.
+        </p>
+        <div class="pkg-pills">
+          <span class="pill">MCP Protocol</span>
+          <span class="pill">Node.js</span>
+          <span class="pill">PostgreSQL</span>
+          <span class="pill">Redis</span>
+          <span class="pill">Elasticsearch</span>
+        </div>
+        <a href="https://www.npmjs.com/package/@teckedd-code2save/datafy"
+           target="_blank" rel="noopener" class="pkg-link">npm ↗</a>
+      </div>
+
+      <div class="pkg">
+        <p class="pkg-n">pkg.02</p>
+        <p class="pkg-name"><span class="pkg-scope">@teckedd-code2save / </span>b2dp</p>
+        <span class="pkg-badge">npm</span>
+        <p class="pkg-desc">
+          CLI orchestrator that converts business specifications into production-grade platform
+          scaffolds. Automates schema design, DB provisioning, ORM setup, integration tests,
+          frontend scaffolding, and IaC — driven by a modular MCP skill system, pre-configured
+          with Datafy, Prisma, GitHub, and Context7 servers.
+        </p>
+        <div class="pkg-pills">
+          <span class="pill">CLI</span>
+          <span class="pill">MCP Protocol</span>
+          <span class="pill">Node.js</span>
+          <span class="pill">Agent Workflow</span>
+          <span class="pill">IaC</span>
+        </div>
+        <a href="https://www.npmjs.com/package/@teckedd-code2save/b2dp"
+           target="_blank" rel="noopener" class="pkg-link">npm ↗</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     ACT IV — JOURNEY
+════════════════════════════════════════════════════════════ -->
+<section id="act-journey" class="act">
+  <div class="act-c">
+    <p class="act-lbl r">act iv &nbsp;/&nbsp; the journey</p>
+
+    <div class="jrn-display r">
+      "earned,<br>not claimed"
+    </div>
+
+    <div class="tl r">
+
+      <div class="tl-row">
+        <div class="tl-dot"></div>
+        <p class="tl-date">Mar 2026</p>
+        <p class="tl-title">Getting Started with Terraform for Google Cloud</p>
+        <p class="tl-issuer">Google Cloud / Coursera</p>
+        <div class="tl-pills">
+          <span class="pill">Terraform</span><span class="pill">GCP</span><span class="pill">IaC</span>
+        </div>
+        <a href="https://www.coursera.org/account/accomplishments/certificate/QV7GTSK9A0AG"
+           target="_blank" rel="noopener" class="tl-link">verify ↗</a>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-dot"></div>
+        <p class="tl-date">Feb 2026</p>
+        <p class="tl-title">Foundations of Open Generative AI Engineering</p>
+        <p class="tl-issuer">Google / Coursera</p>
+        <div class="tl-pills">
+          <span class="pill">Generative AI</span><span class="pill">LLMs</span><span class="pill">Prompt Engineering</span>
+        </div>
+        <a href="https://www.coursera.org/account/accomplishments/certificate/YMOK2TV2T0JK"
+           target="_blank" rel="noopener" class="tl-link">verify ↗</a>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-dot"></div>
+        <p class="tl-date">Feb 2026</p>
+        <p class="tl-title">AWS Foundations and Core Services</p>
+        <p class="tl-issuer">AWS / Coursera</p>
+        <div class="tl-pills">
+          <span class="pill">AWS</span><span class="pill">EC2</span><span class="pill">S3</span><span class="pill">RDS</span>
+        </div>
+        <a href="https://www.coursera.org/account/accomplishments/certificate/CK4LVBUM6CFH"
+           target="_blank" rel="noopener" class="tl-link">verify ↗</a>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-dot"></div>
+        <p class="tl-date">Feb 2026</p>
+        <p class="tl-title">Kubernetes From Basics to Guru</p>
+        <p class="tl-issuer">Coursera</p>
+        <div class="tl-pills">
+          <span class="pill">Kubernetes</span><span class="pill">GitOps</span><span class="pill">Jenkins</span>
+        </div>
+        <a href="https://www.coursera.org/account/accomplishments/certificate/DFX1W42R91VU"
+           target="_blank" rel="noopener" class="tl-link">verify ↗</a>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-dot"></div>
+        <p class="tl-date">Jan 2026</p>
+        <p class="tl-title">Build a CI/CD Pipeline with Docker</p>
+        <p class="tl-issuer">Coursera</p>
+        <div class="tl-pills">
+          <span class="pill">Docker</span><span class="pill">CI/CD</span><span class="pill">GitHub Actions</span>
+        </div>
+        <a href="https://www.coursera.org/account/accomplishments/certificate/KJVWV84YKH9J"
+           target="_blank" rel="noopener" class="tl-link">verify ↗</a>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-dot"></div>
+        <p class="tl-date">Nov 2021</p>
+        <p class="tl-title">B.S. Computer Science</p>
+        <p class="tl-issuer">Kwame Nkrumah University of Science and Technology (KNUST)</p>
+        <div class="tl-pills">
+          <span class="pill">Algorithms</span><span class="pill">Data Structures</span><span class="pill">Software Engineering</span>
+        </div>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--ink-3)">completed</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     ACT V — THE HORIZON
+════════════════════════════════════════════════════════════ -->
+<section id="act-horizon" class="act">
+  <div class="act-c">
+    <p class="act-lbl r">act v &nbsp;/&nbsp; the horizon</p>
+
+    <div class="hz-display r">
+      "what gets built<br>next"
+    </div>
+    <p class="hz-sub r">
+      Three projected next chapters — drawn from the signal in the work.
+      Agent runtime architecture, machine payments, and a research trajectory
+      all pointing in the same direction.
+    </p>
+
+    <div class="bp-grid r">
+
+      <div class="bp">
+        <p class="bp-n">// projected.01</p>
+        <p class="bp-title">OpenClaw — Open Source</p>
+        <p class="bp-sub">standalone agent runtime framework</p>
+        <p class="bp-desc">
+          OpenClaw already powers OpsMesh and its products. The clean
+          architectural separation between runtime and domain logic means it's
+          ready to stand alone. Next step: publishing it as an open-source
+          framework for the broader agent ecosystem — one that others build on,
+          not just an internal tool.
+        </p>
+        <p class="bp-signal">signal — <strong>OpsMesh architecture deliberately separates runtime from domain; the runtime is self-contained</strong></p>
+      </div>
+
+      <div class="bp">
+        <p class="bp-n">// projected.02</p>
+        <p class="bp-title">MPP Live Rails</p>
+        <p class="bp-sub">real agent-to-agent settlement</p>
+        <p class="bp-desc">
+          MPP Studio is a console and sandbox today. The graduation path is
+          built into its architecture. The next chapter: real payment rails
+          where agents actually settle — HTTP 402 as live infrastructure,
+          not simulation. A natural extension of Hubtel's payments expertise
+          into the agent economy.
+        </p>
+        <p class="bp-signal">signal — <strong>Hubtel payments background + MPP Studio's built-in graduation pathway</strong></p>
+      </div>
+
+      <div class="bp">
+        <p class="bp-n">// projected.03</p>
+        <p class="bp-title">ML Research Track</p>
+        <p class="bp-sub">engineer → applied researcher</p>
+        <p class="bp-desc">
+          The bio explicitly says "aspiring ML professional and Researcher."
+          The 2026 certifications in Generative AI Engineering and cloud
+          infrastructure signal deliberate, systematic upskilling. Direction:
+          applied ML research into agent behavior and reasoning, grounded
+          in 138 repos worth of systems engineering context.
+        </p>
+        <p class="bp-signal">signal — <strong>GenAI Engineering cert + deliberate cloud upskilling + explicit research aspiration</strong></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     CONNECT
+════════════════════════════════════════════════════════════ -->
+<section id="act-connect" class="act">
+  <div class="act-c">
+    <p class="act-lbl r">finale &nbsp;/&nbsp; connect</p>
+
+    <div class="cn-display r">
+      "let's build<br>something real"
+    </div>
+
+    <p class="cn-note r">
+      open to backend engineering, distributed systems, agent infrastructure, and AI tooling work.
+    </p>
+
+    <div class="ct-list r">
+      <a href="mailto:edwardktwumasi1000@gmail.com" class="ct-row">
+        <span class="ct-k">email</span>
+        <span class="ct-v">edwardktwumasi1000@gmail.com</span>
+        <span class="ct-arr">↗</span>
+      </a>
+      <a href="https://github.com/teckedd-code2save" target="_blank" rel="noopener" class="ct-row">
+        <span class="ct-k">github</span>
+        <span class="ct-v">teckedd-code2save</span>
+        <span class="ct-arr">↗</span>
+      </a>
+      <a href="https://www.linkedin.com/in/edward-twumasi/" target="_blank" rel="noopener" class="ct-row">
+        <span class="ct-k">linkedin</span>
+        <span class="ct-v">edward-twumasi</span>
+        <span class="ct-arr">↗</span>
+      </a>
+      <a href="https://twitter.com/EdwardsTwums" target="_blank" rel="noopener" class="ct-row">
+        <span class="ct-k">twitter</span>
+        <span class="ct-v">@EdwardsTwums</span>
+        <span class="ct-arr">↗</span>
+      </a>
+      <a href="tel:+233552489602" class="ct-row">
+        <span class="ct-k">phone</span>
+        <span class="ct-v">+233 552 489 602</span>
+        <span class="ct-arr">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- footer -->
+<div style="max-width:var(--max-w);margin:0 auto">
+  <footer>
+    <span class="ft-l">edward twumasi — ghana, 2026</span>
+    <span class="ft-r">backend · agent infrastructure · systems<br>© 2026</span>
+  </footer>
+</div>
+
+
+<!-- ══ DETAIL OVERLAY & PANEL ══ -->
+<div id="dp-ov"></div>
+<div id="dp" role="dialog" aria-modal="true">
+  <div class="dp-bar">
+    <span class="dp-id" id="dp-bar-id">// project</span>
+    <button class="dp-x" onclick="closeDp()">close ×</button>
+  </div>
+  <div class="dp-vis">
+    <canvas id="dp-cvs"></canvas>
+    <div class="dp-vis-ov">
+      <p class="dp-tag" id="dp-tag-el"></p>
+      <h2 class="dp-title" id="dp-title-el"></h2>
+    </div>
+  </div>
+  <div class="dp-body">
+    <div class="dp-sec">
+      <p class="dp-sec-lbl">overview</p>
+      <p id="dp-desc-el"></p>
+    </div>
+    <div class="dp-sec">
+      <p class="dp-sec-lbl">stack</p>
+      <div id="dp-tags-el" class="dp-tags"></div>
+    </div>
+    <div class="dp-sec">
+      <p class="dp-sec-lbl">architecture</p>
+      <p id="dp-arch-el"></p>
+    </div>
+    <div class="dp-sec">
+      <p class="dp-sec-lbl">highlights</p>
+      <p id="dp-hl-el"></p>
+    </div>
+    <div class="dp-sec">
+      <p class="dp-sec-lbl">links</p>
+      <div id="dp-links-el" class="dp-links"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ── Project data ─────────────────────────────────── */
+const PROJECTS = [
+  {
+    id: 'opsmesh', tag: 'agent-native ops', title: 'OpsMesh',
+    desc: 'Agent-native operations platform built on OpenClaw. First product: Gig Radar — polls gig/job sources, normalizes and deduplicates, scores via OpenClaw reasoning, fires Telegram alerts. OpenClaw handles agent runtime and reasoning; OpsMesh owns domain logic, workflow state, and data model. Next on the same foundation: DM Shop Agent over WhatsApp and Telegram.',
+    stack: ['OpenClaw','Agent Runtime','Telegram API','WhatsApp','Workflow State','Deduplication'],
+    arch: 'OpenClaw provides the agent runtime and reasoning layer. OpsMesh implements domain-specific operations logic, persistent workflow state, and structured data models. The clean separation between runtime and domain is the architectural core — any new OpsMesh product inherits the OpenClaw foundation without modifying it.',
+    highlights: 'Modular agent architecture with strict runtime/domain separation. Gig Radar operational — live polling, scoring, and alerting. DM Shop Agent in development using the same foundation: new domain (conversational commerce), same runtime.',
+    github: null, live: null, mode: 'agents',
+  },
+  {
+    id: 'shipd', tag: 'deployment intel', title: 'Shipd',
+    desc: 'Repo-aware deployment planning tool. Connects to GitHub read-only, scans for deployment signals (Dockerfiles, CI configs, env files, infra folders), scores platforms like Railway, Fly.io, Vercel, and Render against what it finds, then produces a saved plan with comparison view and evidence trail. No code writes. No deploy execution. Just clear decisions before you touch anything.',
+    stack: ['GitHub API','Static Analysis','Platform Scoring','Decision Records','Read-Only'],
+    arch: 'Read-only GitHub integration. Static analysis engine detects deployment-relevant files: Dockerfiles, docker-compose, CI configs, environment files, infrastructure folders. Scoring algorithm matches detected patterns against platform capabilities. Generates persistent plans with full evidence trail and comparison views.',
+    highlights: 'Principle: decision support only. No writes, no deploys. Evidence-backed platform recommendations with full audit trail. Comparison view shows exactly why one platform scores higher — based on actual repo contents, not guesses.',
+    github: null, live: null, mode: 'terminal',
+  },
+  {
+    id: 'mpp-studio', tag: 'agent commerce', title: 'MPP Studio',
+    desc: 'Developer console for the Machine Payments Protocol. Register APIs, run sandbox 402 flows, inspect service contracts, and graduate to live payment rails — built for agent-to-agent commerce where machines negotiate access and settle autonomously.',
+    stack: ['MPP','HTTP 402','Sandbox','Service Contracts','Agent Commerce','Payment Rails'],
+    arch: 'Console interface for MPP (Machine Payments Protocol) development. Sandbox environment simulates 402 Payment Required flows with full contract negotiation. Service contract registry and inspection tools. Graduation pathway from sandbox testing to live payment rails with real settlement.',
+    highlights: 'Infrastructure for autonomous agent economies. Machines discover APIs, negotiate terms via service contracts, and settle payments without human intervention. HTTP 402 as a first-class payment signal, not just an error code.',
+    github: null, live: null, mode: 'exchange',
+  },
+];
+
+/* ── Scroll state ─────────────────────────────────── */
+const prog    = document.getElementById('prog');
+const navEl   = document.getElementById('nav');
+const dots    = [...document.querySelectorAll('.cdot')];
+const SECS    = ['intro','act-id','act-work','act-tools','act-journey','act-horizon','act-connect'];
+
+function onScroll() {
+  const s = window.scrollY;
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  prog.style.width = (total > 0 ? s / total * 100 : 0) + '%';
+  navEl.classList.toggle('on', s > 60);
+
+  const mid = s + window.innerHeight * 0.5;
+  let active = 0;
+  SECS.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el && el.offsetTop <= mid) active = i;
+  });
+  dots.forEach((d, i) => d.classList.toggle('on', i === active));
+}
+
+dots.forEach(d => {
+  d.addEventListener('click', () => {
+    const el = document.getElementById(d.dataset.sec);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+/* ── Intro canvas ─────────────────────────────────── */
+(function () {
+  const cvs = document.getElementById('intro-cvs');
+  const ctx = cvs.getContext('2d');
+  let W, H, pts, raf;
+
+  function resize() {
+    W = cvs.width  = cvs.offsetWidth;
+    H = cvs.height = cvs.offsetHeight;
+    pts = Array.from({ length: 90 }, () => ({
+      x:  Math.random() * W,
+      y:  Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.28,
+      vy: (Math.random() - 0.5) * 0.28,
+      r:  Math.random() * 1.4 + 0.4,
+      a:  Math.random() * 0.35 + 0.04,
+    }));
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    for (let i = 0; i < pts.length; i++) {
+      const p = pts[i];
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > W) p.vx *= -1;
+      if (p.y < 0 || p.y > H) p.vy *= -1;
+
+      for (let j = i + 1; j < pts.length; j++) {
+        const q = pts[j];
+        const dx = p.x - q.x, dy = p.y - q.y;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d < 130) {
+          ctx.strokeStyle = `rgba(237,234,227,${(1 - d / 130) * 0.07})`;
+          ctx.lineWidth = 0.5;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
+          ctx.stroke();
+        }
+      }
+
+      ctx.fillStyle = `rgba(237,234,227,${p.a})`;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    raf = requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  draw();
+})();
+
+/* ── Scroll reveal ────────────────────────────────── */
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      revObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.07 });
+document.querySelectorAll('.r').forEach(el => revObs.observe(el));
+
+/* ── Project accordion ────────────────────────────── */
+function toggleProj(i) {
+  const scene = document.getElementById(`pr-${i}`);
+  const wasOpen = scene.classList.contains('open');
+  document.querySelectorAll('.proj.open').forEach(p => p.classList.remove('open'));
+  if (!wasOpen) scene.classList.add('open');
+}
+
+/* ── Detail panel ─────────────────────────────────── */
+const dpOv = document.getElementById('dp-ov');
+const dpEl = document.getElementById('dp');
+let dpAnim = null;
+
+function openDp(i) {
+  const p = PROJECTS[i];
+  document.getElementById('dp-bar-id').textContent  = `// ${p.id}`;
+  document.getElementById('dp-tag-el').textContent  = p.tag;
+  document.getElementById('dp-title-el').textContent = p.title;
+  document.getElementById('dp-desc-el').textContent  = p.desc;
+  document.getElementById('dp-arch-el').textContent  = p.arch;
+  document.getElementById('dp-hl-el').textContent    = p.highlights;
+  document.getElementById('dp-tags-el').innerHTML    =
+    p.stack.map(s => `<span class="dp-tag-pill">${s}</span>`).join('');
+  const linksEl = document.getElementById('dp-links-el');
+  linksEl.innerHTML = '';
+  if (p.github) linksEl.insertAdjacentHTML('beforeend',
+    `<a href="${p.github}" target="_blank" class="dp-lnk">github ↗</a>`);
+  if (p.live) linksEl.insertAdjacentHTML('beforeend',
+    `<a href="${p.live}" target="_blank" class="dp-lnk">live ↗</a>`);
+  if (!p.github && !p.live)
+    linksEl.insertAdjacentHTML('beforeend',
+      `<span style="font-family:var(--mono);font-size:11px;color:var(--ink-3)">in development</span>`);
+  startCvs(p.mode);
+  dpEl.scrollTop = 0;
+  dpEl.classList.add('on');
+  dpOv.classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDp() {
+  dpEl.classList.remove('on');
+  dpOv.classList.remove('on');
+  document.body.style.overflow = '';
+  if (dpAnim) { cancelAnimationFrame(dpAnim); dpAnim = null; }
+}
+
+dpOv.addEventListener('click', closeDp);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDp(); });
+
+/* ── Detail canvas ────────────────────────────────── */
+function startCvs(mode) {
+  if (dpAnim) { cancelAnimationFrame(dpAnim); dpAnim = null; }
+  const cvs = document.getElementById('dp-cvs');
+  const ctx = cvs.getContext('2d');
+  const wrap = cvs.parentElement;
+
+  cvs.width  = wrap.offsetWidth;
+  cvs.height = wrap.offsetHeight;
+  const W = () => cvs.width;
+  const H = () => cvs.height;
+
+  if (mode === 'agents') {
+    const agents = [
+      { lbl: 'orchestrator', x: 0.5,  y: 0.44, r: 22 },
+      { lbl: 'research',     x: 0.2,  y: 0.72, r: 13 },
+      { lbl: 'analysis',     x: 0.5,  y: 0.82, r: 13 },
+      { lbl: 'report',       x: 0.8,  y: 0.72, r: 13 },
+    ];
+    const edges = [[0,1],[0,2],[0,3],[1,2],[2,3]];
+    const pkts  = edges.map(([a,b]) => ({
+      a, b, t: Math.random(), sp: 0.003 + Math.random() * 0.004
+    }));
+
+    function draw() {
+      ctx.clearRect(0, 0, W(), H());
+      ctx.fillStyle = '#030303'; ctx.fillRect(0, 0, W(), H());
+
+      ctx.strokeStyle = 'rgba(237,234,227,0.025)'; ctx.lineWidth = 0.5;
+      for (let gx = 0; gx < W(); gx += 32) { ctx.beginPath(); ctx.moveTo(gx,0); ctx.lineTo(gx,H()); ctx.stroke(); }
+      for (let gy = 0; gy < H(); gy += 32) { ctx.beginPath(); ctx.moveTo(0,gy); ctx.lineTo(W(),gy); ctx.stroke(); }
+
+      const pos = agents.map(a => ({ x: a.x*W(), y: a.y*H(), r: a.r, lbl: a.lbl }));
+
+      edges.forEach(([ai,bi]) => {
+        ctx.strokeStyle = 'rgba(237,234,227,0.07)'; ctx.lineWidth = 0.8;
+        ctx.beginPath(); ctx.moveTo(pos[ai].x, pos[ai].y); ctx.lineTo(pos[bi].x, pos[bi].y); ctx.stroke();
+      });
+
+      pkts.forEach(pk => {
+        pk.t = (pk.t + pk.sp) % 1;
+        const a = pos[pk.a], b = pos[pk.b];
+        ctx.fillStyle = 'rgba(237,234,227,0.75)';
+        ctx.beginPath();
+        ctx.arc(a.x+(b.x-a.x)*pk.t, a.y+(b.y-a.y)*pk.t, 2, 0, Math.PI*2);
+        ctx.fill();
+      });
+
+      pos.forEach((p, i) => {
+        const bright = i === 0;
+        ctx.strokeStyle = bright ? 'rgba(237,234,227,0.22)' : 'rgba(237,234,227,0.09)';
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r+5, 0, Math.PI*2); ctx.stroke();
+        ctx.fillStyle = bright ? 'rgba(237,234,227,0.14)' : 'rgba(237,234,227,0.05)';
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fill();
+        ctx.strokeStyle = bright ? 'rgba(237,234,227,0.45)' : 'rgba(237,234,227,0.15)';
+        ctx.lineWidth = 0.8;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.stroke();
+        ctx.fillStyle = 'rgba(237,234,227,0.25)';
+        ctx.font = `300 9px 'JetBrains Mono',monospace`;
+        ctx.textAlign = 'center';
+        ctx.fillText(p.lbl, p.x, p.y + p.r + 14);
+      });
+
+      const g = ctx.createLinearGradient(0,0,0,H());
+      g.addColorStop(0,'rgba(0,0,0,0)'); g.addColorStop(0.55,'rgba(0,0,0,0.1)'); g.addColorStop(1,'rgba(3,3,3,0.94)');
+      ctx.fillStyle = g; ctx.fillRect(0,0,W(),H());
+      dpAnim = requestAnimationFrame(draw);
+    }
+    draw();
+
+  } else if (mode === 'exchange') {
+    const L = [[0.15,0.3],[0.15,0.55],[0.15,0.78]];
+    const R = [[0.82,0.3],[0.82,0.55],[0.82,0.78]];
+    const flows = [
+      ...L.map((l,i) => ({ fx:l[0],fy:l[1],tx:R[i][0],ty:R[i][1],t:i*0.33,sp:0.005 })),
+      ...[[0,1],[1,2],[0,2]].map(([i,j]) => ({ fx:L[i][0],fy:L[i][1],tx:R[j][0],ty:R[j][1],t:Math.random(),sp:0.003 })),
+    ];
+    const all = [...L,...R];
+
+    function draw() {
+      ctx.clearRect(0,0,W(),H());
+      ctx.fillStyle='#030303'; ctx.fillRect(0,0,W(),H());
+
+      flows.forEach(f => {
+        ctx.strokeStyle='rgba(237,234,227,0.05)'; ctx.lineWidth=0.7;
+        ctx.beginPath(); ctx.moveTo(f.fx*W(),f.fy*H()); ctx.lineTo(f.tx*W(),f.ty*H()); ctx.stroke();
+      });
+      flows.forEach(f => {
+        f.t=(f.t+f.sp)%1;
+        ctx.fillStyle='rgba(237,234,227,0.65)';
+        ctx.beginPath();
+        ctx.arc((f.fx+(f.tx-f.fx)*f.t)*W(), (f.fy+(f.ty-f.fy)*f.t)*H(), 1.8, 0, Math.PI*2);
+        ctx.fill();
+      });
+      ctx.strokeStyle='rgba(237,234,227,0.04)'; ctx.lineWidth=0.8;
+      ctx.setLineDash([4,8]);
+      ctx.beginPath(); ctx.moveTo(W()*0.5,0); ctx.lineTo(W()*0.5,H()); ctx.stroke();
+      ctx.setLineDash([]);
+      all.forEach(([nx,ny]) => {
+        ctx.fillStyle='rgba(237,234,227,0.06)'; ctx.strokeStyle='rgba(237,234,227,0.18)';
+        ctx.lineWidth=0.8;
+        ctx.beginPath(); ctx.arc(nx*W(),ny*H(),8,0,Math.PI*2); ctx.fill(); ctx.stroke();
+      });
+      ctx.fillStyle='rgba(237,234,227,0.2)';
+      ctx.font=`300 9px 'JetBrains Mono',monospace`;
+      ctx.textAlign='left';  ctx.fillText('agents',  L[0][0]*W()+14, L[0][1]*H());
+      ctx.textAlign='right'; ctx.fillText('services', R[0][0]*W()-14, R[0][1]*H());
+      const g=ctx.createLinearGradient(0,0,0,H());
+      g.addColorStop(0,'rgba(0,0,0,0)'); g.addColorStop(0.55,'rgba(0,0,0,0.1)'); g.addColorStop(1,'rgba(3,3,3,0.94)');
+      ctx.fillStyle=g; ctx.fillRect(0,0,W(),H());
+      dpAnim=requestAnimationFrame(draw);
+    }
+    draw();
+
+  } else { /* terminal — Shipd */
+    const lines = [
+      '$ shipd scan --repo github.com/user/project',
+      '> connecting to github api (read-only)...',
+      '> found: Dockerfile  .github/workflows  docker-compose.yml',
+      '> scoring deployment platforms...',
+      '  Railway  ████████████ 94   ← recommended',
+      '  Fly.io   ██████████   82',
+      '  Render   ████████     67',
+      '  Vercel   ████         43   (no server config)',
+      '$ shipd plan save --id deploy-plan-001',
+      '> plan saved with 3 evidence records ✓',
+    ];
+    let charPos=0, lineIdx=0, rendered=[], tick=0;
+
+    function draw() {
+      ctx.fillStyle='#030303'; ctx.fillRect(0,0,W(),H());
+      tick++;
+      for (let sy=0; sy<H(); sy+=4) {
+        ctx.fillStyle=`rgba(0,0,0,${(sy+tick)%8===0?0.05:0.02})`;
+        ctx.fillRect(0,sy,W(),1);
+      }
+      const lh=18, sy=H()-(lines.length*lh)-52, px=24;
+      rendered.forEach((ln,i) => {
+        ctx.fillStyle=ln.startsWith('$')?'rgba(237,234,227,0.75)':'rgba(237,234,227,0.3)';
+        ctx.font=`400 11px 'JetBrains Mono',monospace`;
+        ctx.textAlign='left';
+        ctx.fillText(ln, px, sy+i*lh);
+      });
+      if (lineIdx < lines.length) {
+        if (tick%2===0) charPos++;
+        const cur=lines[lineIdx], part=cur.slice(0,charPos);
+        ctx.fillStyle=cur.startsWith('$')?'rgba(237,234,227,0.75)':'rgba(237,234,227,0.3)';
+        ctx.font=`400 11px 'JetBrains Mono',monospace`;
+        ctx.fillText(part, px, sy+rendered.length*lh);
+        const tw=ctx.measureText(part).width;
+        if (Math.floor(tick/18)%2===0) {
+          ctx.fillStyle='rgba(237,234,227,0.85)';
+          ctx.fillRect(px+tw+2, sy+rendered.length*lh-12, 7, 14);
+        }
+        if (charPos>=cur.length) {
+          rendered.push(cur); lineIdx++; charPos=0;
+          if (lineIdx>=lines.length) { rendered=[]; lineIdx=0; }
+        }
+      }
+      const g=ctx.createLinearGradient(0,0,0,H());
+      g.addColorStop(0,'rgba(0,0,0,0.15)'); g.addColorStop(0.35,'rgba(0,0,0,0)');
+      g.addColorStop(0.68,'rgba(3,3,3,0.5)'); g.addColorStop(1,'rgba(3,3,3,0.96)');
+      ctx.fillStyle=g; ctx.fillRect(0,0,W(),H());
+      dpAnim=requestAnimationFrame(draw);
+    }
+    draw();
+  }
+}
+</script>
+
+</body>
+</html>
