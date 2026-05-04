@@ -1,9 +1,6 @@
-import { useState, useRef, useEffect, lazy, Suspense } from 'react';
+import { useState, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import type { Project } from './projectData';
-
-const AgentCanvas = lazy(() => import('./AgentCanvas'));
-const TerminalCanvas = lazy(() => import('./TerminalCanvas'));
-const ExchangeCanvas = lazy(() => import('./ExchangeCanvas'));
 
 interface ProjectCardProps {
   project: Project;
@@ -11,66 +8,64 @@ interface ProjectCardProps {
   onOpenDetail: (project: Project) => void;
 }
 
-function CanvasPreview({ project, speedMultiplier }: { project: Project; speedMultiplier: number }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [size, setSize] = useState({ width: 400, height: 200 });
+function AnimatedCanvas({ project, index }: { project: Project; index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  });
 
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
+  const y = useTransform(scrollYProgress, [0, 1], ['-20px', '20px']);
+  const rotate = useTransform(scrollYProgress, [0, 1], [-2, 2]);
 
-    const observer = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        setSize({
-          width: entry.contentRect.width,
-          height: entry.contentRect.height,
-        });
-      }
-    });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const isMauve = project.canvasMode === 'agents';
+  const accent = isMauve ? 'var(--mauve)' : 'var(--orange)';
+  const glow = isMauve ? 'rgba(199,125,255,0.18)' : 'rgba(255,85,0,0.18)';
 
   return (
-    <div ref={containerRef} style={{ width: '100%', height: '100%' }}>
-      <Suspense fallback={<div style={{ width: '100%', height: '100%', background: '#030303' }} />}>
-        {project.canvasMode === 'agents' && (
-          <AgentCanvas
-            width={size.width}
-            height={size.height}
-            speedMultiplier={speedMultiplier}
-            isMini
-          />
-        )}
-        {project.canvasMode === 'terminal' && (
-          <TerminalCanvas
-            width={size.width}
-            height={size.height}
-            speedMultiplier={speedMultiplier}
-            isMini
-            projectId={project.id}
-          />
-        )}
-        {project.canvasMode === 'exchange' && (
-          <ExchangeCanvas
-            width={size.width}
-            height={size.height}
-            speedMultiplier={speedMultiplier}
-            isMini
-          />
-        )}
-      </Suspense>
+    <div
+      ref={ref}
+      className="relative h-full w-full overflow-hidden"
+      style={{
+        backgroundColor: 'var(--bg-2)',
+        borderBottom: '1px solid var(--border)',
+      }}
+    >
+      <motion.div
+        aria-hidden
+        className={`absolute inset-0 ${isMauve ? 'grid-drift grid-drift--mauve' : 'grid-drift'}`}
+        style={{ y, rotate, opacity: 0.5 }}
+      />
+
+      {/* Soft glow */}
+      <div
+        aria-hidden
+        className="absolute"
+        style={{
+          inset: -30,
+          background: `radial-gradient(circle at ${index % 2 === 0 ? '30% 70%' : '70% 30%'}, ${glow}, transparent 65%)`,
+          filter: 'blur(16px)',
+        }}
+      />
+
+      {/* Number */}
+      <div
+        className="absolute inset-0 flex items-center justify-center font-mono font-bold"
+        style={{
+          fontSize: 'clamp(4rem, 10vw, 7rem)',
+          color: accent,
+          opacity: 0.18,
+          letterSpacing: '-0.05em',
+        }}
+      >
+        ·{project.number}
+      </div>
     </div>
   );
 }
 
-export default function ProjectCard({ project, index: _index, onOpenDetail }: ProjectCardProps) {
+export default function ProjectCard({ project, index, onOpenDetail }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const [speedMultiplier, setSpeedMultiplier] = useState(1);
-
-  useEffect(() => {
-    setSpeedMultiplier(isHovered ? 1.5 : 1);
-  }, [isHovered]);
 
   return (
     <div
@@ -85,7 +80,7 @@ export default function ProjectCard({ project, index: _index, onOpenDetail }: Pr
       }}
       onClick={() => onOpenDetail(project)}
     >
-      {/* Canvas Area */}
+      {/* Animated visual area */}
       <div
         className="relative overflow-hidden"
         style={{ height: '200px' }}
@@ -98,7 +93,7 @@ export default function ProjectCard({ project, index: _index, onOpenDetail }: Pr
             height: '100%',
           }}
         >
-          <CanvasPreview project={project} speedMultiplier={speedMultiplier} />
+          <AnimatedCanvas project={project} index={index} />
         </div>
       </div>
 

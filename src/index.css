@@ -194,21 +194,21 @@
 
 /* Animated dotted lines for deployment rake */
 @keyframes dash-march-h {
-  to { background-position: -16px 0; }
+  to { background-position: -20px 0; }
 }
 
 @keyframes dash-march-v {
-  to { background-position: 0 -16px; }
+  to { background-position: 0 -20px; }
 }
 
 .dash-march-h {
-  background: repeating-linear-gradient(90deg, var(--border) 0, var(--border) 3px, transparent 3px, transparent 7px);
-  background-size: 7px 1px;
-  animation: dash-march-h 0.5s linear infinite;
+  background: repeating-linear-gradient(90deg, rgba(255,85,0,0.55) 0, rgba(255,85,0,0.55) 4px, transparent 4px, transparent 10px);
+  background-size: 10px 1px;
+  animation: dash-march-h 0.4s linear infinite;
 }
 
 .dash-march-v {
-  background: repeating-linear-gradient(180deg, var(--border) 0, var(--border) 3px, transparent 3px, transparent 7px);
-  background-size: 1px 7px;
-  animation: dash-march-v 0.5s linear infinite;
+  background: repeating-linear-gradient(180deg, rgba(255,85,0,0.55) 0, rgba(255,85,0,0.55) 4px, transparent 4px, transparent 10px);
+  background-size: 1px 10px;
+  animation: dash-march-v 0.4s linear infinite;
 }
