@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 const navLinks = [
   { label: 'projects', path: '/projects' },
+  { label: 'research', path: '/research' },
   { label: 'about', path: '/about' },
   { label: 'contact', path: '/contact' },
 ];
@@ -32,25 +33,41 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-[1200px] items-center justify-between px-5 py-4 md:px-10">
         <Link
           to="/"
-          className="font-mono text-[13px] font-bold tracking-tight text-[var(--fg)] transition-colors hover:text-[var(--accent)]"
+          className="flex items-center gap-2 font-mono text-[13px] font-bold tracking-tight text-[var(--fg)] transition-colors hover:text-[var(--orange)]"
         >
-          serendepify / edward twumasi
+          <span
+            className="inline-block"
+            style={{
+              width: 6,
+              height: 6,
+              borderRadius: '50%',
+              backgroundColor: 'var(--orange)',
+              boxShadow: '0 0 8px var(--orange-glow)',
+            }}
+          />
+          serendepify <span style={{ color: 'var(--fg-4)' }}>/</span> edward
         </Link>
 
-        <div className="flex items-center gap-6 md:gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className="font-mono text-[11px] transition-all duration-200"
-              style={{
-                color: location.pathname === link.path ? 'var(--fg)' : 'var(--fg-2)',
-                borderBottom: location.pathname === link.path ? '1px solid var(--accent)' : '1px solid transparent',
-              }}
-            >
-              {link.label}
-            </Link>
-          ))}
+        <div className="flex items-center gap-5 md:gap-7">
+          {navLinks.map((link) => {
+            const active = location.pathname === link.path;
+            return (
+              <Link
+                key={link.path}
+                to={link.path}
+                className="font-mono text-[11px] transition-all duration-200"
+                style={{
+                  color: active ? 'var(--fg)' : 'var(--fg-2)',
+                  borderBottom: active
+                    ? '1px solid var(--orange)'
+                    : '1px solid transparent',
+                  paddingBottom: 2,
+                }}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
           <a
             href="https://drive.google.com/file/d/1EdXxB7T8yNZnyEEdMGH9ZU41Vav53w7Q/view?usp=drive_link"
             target="_blank"

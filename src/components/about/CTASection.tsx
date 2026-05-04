@@ -11,11 +11,27 @@ export default function CTASection() {
   return (
     <section
       ref={ref}
-      className="w-full px-5 py-[72px] md:px-10 md:py-[100px]"
+      className="relative w-full overflow-hidden px-5 py-[100px] md:px-10 md:py-[140px]"
       style={{ backgroundColor: 'var(--bg)' }}
     >
       <div
-        className="mx-auto max-w-[1200px] text-center"
+        aria-hidden
+        className="pointer-events-none absolute"
+        style={{
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 'min(640px, 80vw)',
+          height: 'min(640px, 80vw)',
+          borderRadius: '50%',
+          background:
+            'radial-gradient(circle, rgba(255,85,0,0.16), rgba(199,125,255,0.10) 40%, transparent 65%)',
+          filter: 'blur(48px)',
+        }}
+      />
+
+      <div
+        className="relative z-10 mx-auto max-w-[680px] text-center"
         style={{
           opacity: isInView ? 1 : 0,
           transform: isInView ? 'translateY(0)' : 'translateY(24px)',
@@ -23,42 +39,42 @@ export default function CTASection() {
         }}
       >
         <h2
-          className="font-sans font-medium"
+          className="font-sans font-bold tracking-[-0.025em]"
           style={{
-            fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+            fontSize: 'clamp(2rem, 4.5vw, 3.4rem)',
             color: 'var(--fg)',
-            lineHeight: 1.1,
+            lineHeight: 1.05,
           }}
         >
-          Want to work together?
+          Take a problem, return&nbsp;
+          <span style={{ color: 'var(--orange)' }}>infrastructure</span>.
         </h2>
 
         <p
-          className="mx-auto mt-3 max-w-[480px] font-sans text-[14px] leading-[1.7]"
-          style={{ color: 'var(--fg-3)' }}
+          className="mx-auto mt-5 max-w-[520px] font-sans text-[15px] leading-[1.65]"
+          style={{ color: 'var(--fg-2)' }}
         >
-          I&apos;m always interested in systems problems and tool-building
-          challenges.
+          Backend systems, agents, dev tooling. Contract or full-time. Quiet collaborators preferred.
         </p>
 
         <Link
           to="/contact"
-          className="mt-6 inline-block font-mono text-[11px] transition-all duration-200"
+          className="mt-8 inline-block font-mono text-[12px] transition-all duration-200"
           style={{
-            color: 'var(--fg-2)',
-            border: '1px solid var(--border-2)',
-            padding: '10px 22px',
+            color: 'var(--fg)',
+            border: '1px solid rgba(255,85,0,0.5)',
+            padding: '12px 26px',
+            backgroundColor: 'rgba(255,85,0,0.05)',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = 'var(--accent)';
-            e.currentTarget.style.color = 'var(--fg)';
-            e.currentTarget.style.boxShadow =
-              '0 0 20px rgba(79,93,255,0.08)';
+            e.currentTarget.style.borderColor = 'var(--orange)';
+            e.currentTarget.style.backgroundColor = 'rgba(255,85,0,0.12)';
+            e.currentTarget.style.transform = 'translateY(-2px)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = 'var(--border-2)';
-            e.currentTarget.style.color = 'var(--fg-2)';
-            e.currentTarget.style.boxShadow = 'none';
+            e.currentTarget.style.borderColor = 'rgba(255,85,0,0.5)';
+            e.currentTarget.style.backgroundColor = 'rgba(255,85,0,0.05)';
+            e.currentTarget.style.transform = 'translateY(0)';
           }}
         >
           start a conversation &rarr;

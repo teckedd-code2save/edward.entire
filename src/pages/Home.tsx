@@ -4,7 +4,7 @@ import type { MotionValue } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import ScrollReveal from '@/components/ScrollReveal';
 import SectionLabel from '@/components/SectionLabel';
-import ParticleField from '@/components/ParticleField';
+import HeroBackdrop from '@/components/HeroBackdrop';
 
 const easeEnter = [0.0, 0, 0.2, 1] as [number, number, number, number];
 
@@ -37,60 +37,11 @@ function HeroSection() {
     offset: ['start start', 'end start'],
   });
 
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const textY = useTransform(scrollYProgress, [0, 1], ['0px', '120px']);
-  const orbY = useTransform(scrollYProgress, [0, 1], ['0px', '-180px']);
-  const overlayScale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
 
   return (
     <section ref={heroRef} className="relative min-h-[100dvh] overflow-hidden">
-      <ParticleField />
-
-      {/* Mauve glow orb — top left, drifts up on scroll */}
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute z-[2] blob-drift"
-        style={{
-          y: orbY,
-          top: '-12%',
-          left: '-8%',
-          width: 520,
-          height: 520,
-          borderRadius: '50%',
-          background:
-            'radial-gradient(circle at 50% 50%, rgba(199,125,255,0.32), rgba(199,125,255,0.06) 45%, transparent 70%)',
-          filter: 'blur(20px)',
-        }}
-      />
-
-      {/* Orange glow orb — bottom right */}
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute z-[2] blob-drift"
-        style={{
-          y: orbY,
-          bottom: '-18%',
-          right: '-10%',
-          width: 620,
-          height: 620,
-          borderRadius: '50%',
-          background:
-            'radial-gradient(circle at 50% 50%, rgba(255,85,0,0.30), rgba(255,85,0,0.05) 45%, transparent 70%)',
-          filter: 'blur(20px)',
-          animationDelay: '-6s',
-        }}
-      />
-
-      {/* Vignette overlay */}
-      <motion.div
-        className="absolute inset-0 z-[3]"
-        style={{
-          background:
-            'radial-gradient(circle at 50% 60%, rgba(0,0,0,0.05), rgba(0,0,0,0.55) 70%)',
-          opacity: overlayOpacity,
-          scale: overlayScale,
-        }}
-      />
+      <HeroBackdrop />
 
       <motion.div
         className="relative z-10 flex min-h-[100dvh] items-center px-5 py-24 md:px-10"
