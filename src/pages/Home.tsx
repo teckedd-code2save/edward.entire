@@ -172,7 +172,7 @@ function HeroSection() {
 /* ══════════════════ MARQUEE TICKER ══════════════════ */
 
 const tickerItems = [
-  'Go', 'TypeScript', 'Python', 'C#', 'React', 'Next.js',
+  'C#', 'TypeScript', 'Python', 'React', 'Next.js',
   'PostgreSQL', 'Redis', 'Elasticsearch', 'MongoDB',
   'Docker', 'Kubernetes', 'Terraform',
   'Hetzner', 'Cloudflare', 'nginx', 'Caddy',
@@ -187,29 +187,50 @@ function MarqueeTicker() {
     <div
       className="relative w-full overflow-hidden border-y"
       style={{
-        borderColor: 'var(--border)',
-        backgroundColor: 'var(--bg-1)',
-        padding: '14px 0',
+        borderColor: 'var(--border-2)',
+        backgroundColor: 'var(--bg-2)',
+        padding: '18px 0',
       }}
     >
+      {/* Edge fades so items glide in/out instead of cutting */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24"
+        style={{ background: 'linear-gradient(90deg, var(--bg-2), transparent)' }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24"
+        style={{ background: 'linear-gradient(270deg, var(--bg-2), transparent)' }}
+      />
+
       <div className="marquee-track">
         {doubled.map((item, i) => (
           <span
             key={i}
-            className="flex shrink-0 items-center font-mono text-[11px] uppercase tracking-widest"
-            style={{ color: 'var(--fg-3)', padding: '0 28px' }}
+            className="flex shrink-0 items-center gap-3 font-mono text-[13px] uppercase"
+            style={{
+              color: 'var(--fg)',
+              letterSpacing: '0.18em',
+              padding: '0 22px',
+            }}
           >
-            {item}
             <span
-              className="ml-7"
+              aria-hidden
               style={{
-                color: i % 4 === 0 ? 'var(--mauve)' : 'var(--orange)',
-                fontSize: 10,
-                opacity: 0.6,
+                width: 5,
+                height: 5,
+                borderRadius: 999,
+                backgroundColor: i % 3 === 0 ? 'var(--mauve)' : 'var(--orange)',
+                opacity: 0.9,
+                flexShrink: 0,
+                boxShadow:
+                  i % 3 === 0
+                    ? '0 0 8px rgba(199,125,255,0.45)'
+                    : '0 0 8px rgba(255,85,0,0.45)',
               }}
-            >
-              ·
-            </span>
+            />
+            <span>{item}</span>
           </span>
         ))}
       </div>
@@ -225,7 +246,7 @@ const manifestoFrames = [
     head: 'Backend',
     accent: 'infrastructure',
     accentColor: 'var(--orange)',
-    body: 'Postgres, Redis, Elasticsearch wired into Go and TypeScript services. Designed for throughput, observed in production, kept boringly reliable.',
+    body: 'Postgres, Redis, Elasticsearch wired into C#, Python, and TypeScript services. Designed for throughput, observed in production, kept boringly reliable.',
   },
   {
     label: '02 — agents',
@@ -450,14 +471,16 @@ const featuredProjects: Project[] = [
   },
   {
     number: '04',
-    tag: 'pharma operations',
+    tag: 'emergency response',
     tone: 'mauve',
-    title: 'Soft Pharma Manager',
-    blurb: 'Inventory, prescriptions, and dispatch for community pharmacies.',
+    title: 'CareWallet',
+    blurb:
+      'One SOS becomes a coordinated care flow — emergency, hospital match, deposit, contribution, approval.',
     detail:
-      'TypeScript stack on Hetzner + Caddy. Live in production, keeping shelves and books honest.',
-    stack: ['TypeScript', 'PostgreSQL', 'Hetzner', 'Caddy'],
-    github: 'https://github.com/teckedd-code2save/soft-pharma-manager',
+      'Built in 24 hours with Replit Agent. Hospital discovery, care-deposit coordination, trusted-contact contributions, and Stripe Link test approval — moving emergency response from panic to coordinated action.',
+    stack: ['TypeScript', 'Python', 'Stripe Link', 'Replit Agent'],
+    live: 'https://x.com/EdwardsTwums/status/2050913151160390006?s=20',
+    github: 'https://github.com/teckedd-code2save',
     status: 'public',
   },
   {
@@ -598,11 +621,11 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
 
             <div className="mt-6 flex flex-wrap items-center gap-5 font-mono text-[11px]">
               {project.live && (
-                <span style={{ color: 'var(--orange)' }}>live &nearr; {new URL(project.live).host}</span>
+                <span style={{ color: 'var(--orange)' }}>live ↗ {new URL(project.live).host}</span>
               )}
               {project.github && (
                 <span style={{ color: 'var(--fg-3)' }}>
-                  source &nearr; github
+                  source ↗ github
                 </span>
               )}
               {!project.live && !project.github && (
@@ -807,7 +830,7 @@ function DeploymentSection() {
 /* ══════════════════ SCENE 5 — STACK ══════════════════ */
 
 const techNodes = [
-  { name: 'Go',         color: '#00ADD8', angle: -90,  abbr: 'Go' },
+  { name: 'C#',         color: '#9B4F96', angle: -90,  abbr: 'C#' },
   { name: 'TypeScript', color: '#3178C6', angle: -60,  abbr: 'TS' },
   { name: 'Python',     color: '#4BA4C8', angle: -30,  abbr: 'Py' },
   { name: 'PostgreSQL', color: '#FF5500', angle:  0,   abbr: 'Pg' },
@@ -851,9 +874,9 @@ function TechStackSection() {
                 className="mt-5 font-sans text-[14px] leading-[1.75]"
                 style={{ color: 'var(--fg-2)' }}
               >
-                Go and C# for systems. TypeScript for tooling and product. Python for AI. Postgres,
-                Redis, Elasticsearch for state. Docker and Kubernetes when needed; bare Hetzner when
-                not. Cloudflare at the edge. Claude and Codex inside the loop.
+                C# for systems. TypeScript for tooling and product. Python for AI workflows.
+                Postgres, Redis, Elasticsearch for state. Docker and Kubernetes when needed; bare
+                Hetzner when not. Cloudflare at the edge. Claude and Codex inside the loop.
               </p>
             </ScrollReveal>
           </div>
@@ -1100,7 +1123,7 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[0]; index: number })
               e.currentTarget.style.color = 'var(--fg-3)';
             }}
           >
-            npm &nearr;
+            npm ↗
           </a>
         </div>
       </div>

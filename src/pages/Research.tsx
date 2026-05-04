@@ -717,7 +717,7 @@ function ResearchCTA() {
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
-              email a collaboration brief &nearr;
+              email a collaboration brief ↗
             </a>
             <a
               href="https://github.com/teckedd-code2save"
@@ -740,7 +740,7 @@ function ResearchCTA() {
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
-              follow on github &nearr;
+              follow on github ↗
             </a>
           </div>
         </ScrollReveal>
