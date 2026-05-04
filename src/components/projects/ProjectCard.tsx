@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect, lazy, Suspense } from 'react';
-import { motion } from 'framer-motion';
 import type { Project } from './projectData';
 
 const AgentCanvas = lazy(() => import('./AgentCanvas'));
@@ -65,7 +64,7 @@ function CanvasPreview({ project, speedMultiplier }: { project: Project; speedMu
   );
 }
 
-export default function ProjectCard({ project, index, onOpenDetail }: ProjectCardProps) {
+export default function ProjectCard({ project, index: _index, onOpenDetail }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [speedMultiplier, setSpeedMultiplier] = useState(1);
 
@@ -74,17 +73,7 @@ export default function ProjectCard({ project, index, onOpenDetail }: ProjectCar
   }, [isHovered]);
 
   return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, y: 28 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{
-        duration: 0.7,
-        delay: index * 0.12,
-        ease: [0.0, 0, 0.2, 1] as [number, number, number, number],
-        layout: { duration: 0.3 },
-      }}
+    <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className="group cursor-pointer overflow-hidden transition-all duration-300"
@@ -92,7 +81,7 @@ export default function ProjectCard({ project, index, onOpenDetail }: ProjectCar
         backgroundColor: 'var(--bg-2)',
         border: '1px solid var(--border)',
         transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
-        boxShadow: isHovered ? '0 16px 48px rgba(79,93,255,0.06)' : 'none',
+        boxShadow: isHovered ? '0 16px 48px rgba(255,85,0,0.08)' : 'none',
       }}
       onClick={() => onOpenDetail(project)}
     >
@@ -121,11 +110,11 @@ export default function ProjectCard({ project, index, onOpenDetail }: ProjectCar
             {project.number}
           </span>
           <span
-            className="font-mono text-[9px] uppercase tracking-[0.08em]"
+            className="font-mono text-[9px] uppercase tracking-[0.12em]"
             style={{
-              border: '1px solid var(--border)',
-              padding: '3px 7px',
-              color: 'var(--fg-3)',
+              border: '1px solid rgba(255,85,0,0.4)',
+              padding: '3px 8px',
+              color: 'var(--orange)',
             }}
           >
             {project.tag}
@@ -134,7 +123,7 @@ export default function ProjectCard({ project, index, onOpenDetail }: ProjectCar
 
         {/* Row 2: Title */}
         <h3
-          className="mt-2.5 font-mono text-lg font-medium"
+          className="mt-3 font-sans text-[1.25rem] font-bold tracking-[-0.02em]"
           style={{ color: 'var(--fg)' }}
         >
           {project.title}
@@ -142,9 +131,9 @@ export default function ProjectCard({ project, index, onOpenDetail }: ProjectCar
 
         {/* Row 3: Description */}
         <p
-          className="mt-2.5 text-[13px] leading-relaxed"
+          className="mt-2.5 text-[13px] leading-[1.65]"
           style={{
-            color: 'rgba(255,255,255,0.72)',
+            color: 'var(--fg-2)',
             display: '-webkit-box',
             WebkitLineClamp: 3,
             WebkitBoxOrient: 'vertical',
@@ -155,13 +144,13 @@ export default function ProjectCard({ project, index, onOpenDetail }: ProjectCar
         </p>
 
         {/* Row 4: Stack Pills */}
-        <div className="mt-3.5 flex flex-wrap gap-1.5">
-          {project.stack.map((tech) => (
+        <div className="mt-4 flex flex-wrap gap-1.5">
+          {project.stack.map((tech, i) => (
             <span
               key={tech}
               className="font-mono text-[9px] uppercase tracking-wide"
               style={{
-                border: '1px solid var(--border)',
+                border: `1px solid ${i % 2 === 0 ? 'rgba(255,85,0,0.35)' : 'rgba(199,125,255,0.35)'}`,
                 padding: '3px 7px',
                 color: 'var(--fg-3)',
               }}
@@ -172,9 +161,9 @@ export default function ProjectCard({ project, index, onOpenDetail }: ProjectCar
         </div>
 
         {/* Row 5: Action */}
-        <div className="mt-4 flex items-center justify-between">
+        <div className="mt-5 flex items-center justify-between">
           <span
-            className="font-mono text-[11px] transition-colors duration-200 group-hover:text-[var(--accent)]"
+            className="font-mono text-[11px] transition-colors duration-200 group-hover:text-[var(--orange)]"
             style={{ color: 'var(--fg-2)' }}
           >
             full details &rarr;
@@ -186,7 +175,7 @@ export default function ProjectCard({ project, index, onOpenDetail }: ProjectCar
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="font-mono text-[9px] uppercase tracking-wide transition-colors duration-200 hover:text-[var(--accent)]"
+                className="font-mono text-[9px] uppercase tracking-wide transition-colors duration-200 hover:text-[var(--orange)]"
                 style={{ color: 'var(--fg-3)' }}
               >
                 live
@@ -198,7 +187,7 @@ export default function ProjectCard({ project, index, onOpenDetail }: ProjectCar
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="font-mono text-[9px] uppercase tracking-wide transition-colors duration-200 hover:text-[var(--accent)]"
+                className="font-mono text-[9px] uppercase tracking-wide transition-colors duration-200 hover:text-[var(--orange)]"
                 style={{ color: 'var(--fg-3)' }}
               >
                 github
@@ -207,6 +196,6 @@ export default function ProjectCard({ project, index, onOpenDetail }: ProjectCar
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

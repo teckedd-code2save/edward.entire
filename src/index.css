@@ -191,3 +191,24 @@
 .blob-drift {
   animation: blob-drift 22s ease-in-out infinite;
 }
+
+/* Animated dotted lines for deployment rake */
+@keyframes dash-march-h {
+  to { background-position: -16px 0; }
+}
+
+@keyframes dash-march-v {
+  to { background-position: 0 -16px; }
+}
+
+.dash-march-h {
+  background: repeating-linear-gradient(90deg, var(--border) 0, var(--border) 3px, transparent 3px, transparent 7px);
+  background-size: 7px 1px;
+  animation: dash-march-h 0.5s linear infinite;
+}
+
+.dash-march-v {
+  background: repeating-linear-gradient(180deg, var(--border) 0, var(--border) 3px, transparent 3px, transparent 7px);
+  background-size: 1px 7px;
+  animation: dash-march-v 0.5s linear infinite;
+}

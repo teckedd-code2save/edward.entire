@@ -35,7 +35,7 @@ export default function Navbar() {
         borderBottom: scrolled || menuOpen ? '1px solid var(--border)' : '1px solid transparent',
       }}
     >
-      <div className="mx-auto flex max-w-[1200px] items-center justify-between px-5 py-4 md:px-10">
+      <div className="mx-auto flex max-w-[1200px] items-center justify-between px-5 py-3 md:px-10">
         <Link
           to="/"
           className="flex items-center gap-2 font-mono text-[13px] font-bold tracking-tight text-[var(--fg)] transition-colors hover:text-[var(--orange)]"

@@ -48,37 +48,6 @@ function HeroSection() {
         style={{ y: textY }}
       >
         <div className="mx-auto w-full max-w-[1240px]">
-          {/* Status pill */}
-          <motion.div
-            className="mb-7 inline-flex items-center gap-3"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: easeEnter }}
-            style={{
-              border: '1px solid rgba(255,85,0,0.35)',
-              padding: '6px 14px',
-              borderRadius: 999,
-              backgroundColor: 'rgba(255,85,0,0.04)',
-            }}
-          >
-            <span
-              className="orb-pulse inline-block"
-              style={{
-                width: 6,
-                height: 6,
-                borderRadius: '50%',
-                backgroundColor: 'var(--orange)',
-                boxShadow: '0 0 12px var(--orange-glow)',
-              }}
-            />
-            <span
-              className="font-mono text-[10px] uppercase tracking-[0.2em]"
-              style={{ color: 'var(--fg-2)' }}
-            >
-              edward twumasi · backend engineer
-            </span>
-          </motion.div>
-
           <motion.h1
             className="font-sans font-bold leading-[0.98] tracking-[-0.03em] text-[var(--fg)]"
             style={{ fontSize: 'clamp(3.4rem, 9vw, 8.2rem)' }}
@@ -111,6 +80,7 @@ function HeroSection() {
             {[
               { label: 'github', href: 'https://github.com/teckedd-code2save' },
               { label: 'linkedin', href: 'https://linkedin.com/in/edward-twumasi' },
+              { label: 'serendepify', href: 'https://www.serendepify.com/' },
               { label: 'convoy', href: 'https://convoy-home.vercel.app/', highlight: true },
               { label: 'email', href: 'mailto:edwardktwumasi1000@gmail.com' },
             ].map((link) => (
@@ -823,27 +793,15 @@ function DeploymentSection() {
             </span>
           </div>
 
-          {/* Connector — vertical handle + three branches */}
+          {/* Connector — animated dotted handle + three branches */}
           <div className="pointer-events-none relative flex w-14 shrink-0 flex-col py-8">
             {/* Vertical handle */}
-            <div
-              className="absolute left-0 top-8 bottom-8 w-px"
-              style={{ backgroundColor: 'var(--border)' }}
-            />
+            <div className="absolute left-0 top-8 bottom-8 w-px dash-march-v" />
             {/* Three branch lines */}
             <div className="flex flex-1 flex-col justify-between">
-              <div
-                className="h-px w-full"
-                style={{ background: 'linear-gradient(90deg, var(--border), transparent)' }}
-              />
-              <div
-                className="h-px w-full"
-                style={{ background: 'linear-gradient(90deg, var(--border), transparent)' }}
-              />
-              <div
-                className="h-px w-full"
-                style={{ background: 'linear-gradient(90deg, var(--border), transparent)' }}
-              />
+              <div className="h-px w-full dash-march-h" />
+              <div className="h-px w-full dash-march-h" />
+              <div className="h-px w-full dash-march-h" />
             </div>
           </div>
 

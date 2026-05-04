@@ -47,10 +47,10 @@ export default function Footer() {
             href="https://convoy-home.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-mono text-[11px] transition-colors"
-            style={{ color: 'var(--fg-3)' }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--mauve)')}
-            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--fg-3)')}
+            className="font-mono text-[11px] font-bold transition-colors"
+            style={{ color: 'var(--mauve)' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--orange)')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--mauve)')}
           >
             convoy
           </a>
