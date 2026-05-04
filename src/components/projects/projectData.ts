@@ -1,4 +1,4 @@
-export type ProjectCategory = 'all' | 'company' | 'deployment' | 'commerce' | 'tooling';
+export type ProjectCategory = 'all' | 'company' | 'deployment' | 'commerce' | 'tooling' | 'agents' | 'health' | 'pwa';
 export type CanvasMode = 'agents' | 'terminal' | 'exchange';
 
 export interface Project {
@@ -18,8 +18,28 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: 'serendepify',
+    id: 'convoy',
     number: '01',
+    title: 'Convoy',
+    tag: 'deployment agent',
+    category: 'deployment',
+    canvasMode: 'terminal',
+    description:
+      'Deployment agent built for the Claude Code hackathon (Opus 4.7). Rehearses the deploy, ships it, then keeps watch — without touching your code. You describe what ships; Convoy handles the coordination, rollout, and post-deploy observation loop.',
+    stack: ['TypeScript', 'Claude Opus 4.7', 'Claude Code', 'Deployment Pipelines', 'Observability'],
+    architecture:
+      'Agent runtime built on Claude Opus 4.7. Three-phase execution: rehearsal (dry-run analysis of what will change), ship (coordinated rollout with configurable strategies), observe (post-deploy health checks and anomaly detection). Designed as a Claude Code tool integration for zero-friction use.',
+    highlights: [
+      'Built for the Claude Code hackathon — Opus 4.7 powering the agent loop.',
+      'Rehearse-ship-observe pattern keeps humans informed, not in the way.',
+      'No code modifications — pure deployment coordination.',
+    ],
+    liveUrl: 'https://convoy-home.vercel.app/',
+    githubUrl: 'https://github.com/teckedd-code2save/convoy',
+  },
+  {
+    id: 'serendepify',
+    number: '02',
     title: 'Serendepify',
     tag: 'developer tools',
     category: 'company',
@@ -37,27 +57,46 @@ export const projects: Project[] = [
     liveUrl: 'https://www.serendepify.com/',
   },
   {
-    id: 'shipd',
-    number: '02',
-    title: 'Shipd',
-    tag: 'deployment intel',
-    category: 'deployment',
-    canvasMode: 'terminal',
+    id: 'optimi',
+    number: '03',
+    title: 'Optimi',
+    tag: 'opportunity tracker',
+    category: 'pwa',
+    canvasMode: 'agents',
     description:
-      'Repo-aware deployment planning tool. Connects to GitHub read-only, scans for deployment signals — Dockerfiles, CI configs, env files, infra folders. Scores platforms (Railway, Fly.io, Vercel, Render) against detected artifacts. Produces a saved plan with comparison view and evidence trail. No code writes. No deploy execution. Just clear decisions before you touch anything.',
-    stack: ['GitHub API', 'Static Analysis', 'Platform Scoring', 'Decision Records'],
+      'Lightweight, privacy-first Progressive Web App for tracking opportunities — hackathons, grants, accelerators, jobs, and more. Includes a curated opportunity finder and an AI application assistant. Everything stays local; nothing phones home.',
+    stack: ['TypeScript', 'PWA', 'IndexedDB', 'Service Workers', 'AI Assistant'],
     architecture:
-      'Read-only GitHub integration. Static analysis engine detects deployment-relevant files: Dockerfiles, docker-compose, CI configs, environment files, infrastructure folders. Scoring algorithm matches detected patterns against platform capabilities. Generates persistent plans with full evidence trail and comparison views.',
+      'Client-first architecture with no server-side data collection. IndexedDB for persistent local storage, Service Workers for offline capability and push notifications, AI assistant runs inference at the edge. Curated opportunity feed pulled from public sources, deduplicated and ranked locally.',
     highlights: [
-      'Principle: decision support only. No writes, no deploys.',
-      'Evidence-backed platform recommendations with audit trail.',
-      'Comparison view shows why one platform scores higher than another based on actual repo contents.',
+      'Full offline capability — works without connectivity.',
+      'Privacy-first: opportunity data and application drafts never leave the device.',
+      'AI application assistant drafts tailored submissions from saved profile context.',
     ],
-    liveUrl: 'https://shipd-seven.vercel.app/',
+    githubUrl: 'https://github.com/teckedd-code2save/optimi',
+  },
+  {
+    id: 'health-wallet-ton',
+    number: '04',
+    title: 'HealthWallet',
+    tag: 'TON mini-app',
+    category: 'health',
+    canvasMode: 'exchange',
+    description:
+      'Health data wallet built as a TON blockchain mini-app. Patients own and control their health records on-chain, granting and revoking access to providers without intermediaries. Built on the TON ecosystem for Telegram-native distribution.',
+    stack: ['TypeScript', 'TON Blockchain', 'Telegram Mini App', 'Smart Contracts', 'Web3'],
+    architecture:
+      'TON smart contracts own the access-control layer. Patient health records stored encrypted with keys only the patient holds. Mini-app distribution via Telegram for zero-friction onboarding. Providers request access; patients approve via wallet signature. Audit trail immutable on-chain.',
+    highlights: [
+      'Patients control their records — no hospital lock-in.',
+      'Telegram-native delivery: no app store, no install friction.',
+      'On-chain access audit trail for every read/write event.',
+    ],
+    githubUrl: 'https://github.com/teckedd-code2save/HealthWallet-TON-MiniApp',
   },
   {
     id: 'mpp-studio',
-    number: '03',
+    number: '06',
     title: 'MPP Studio',
     tag: 'agent commerce',
     category: 'commerce',
@@ -75,9 +114,28 @@ export const projects: Project[] = [
     liveUrl: 'https://agent-exchange-web.vercel.app/',
   },
   {
+    id: 'shipd',
+    number: '07',
+    title: 'Shipd',
+    tag: 'deployment intel',
+    category: 'deployment',
+    canvasMode: 'terminal',
+    description:
+      'Repo-aware deployment planning tool. Connects to GitHub read-only, scans for deployment signals — Dockerfiles, CI configs, env files, infra folders. Scores platforms (Railway, Fly.io, Vercel, Render) against detected artifacts. Produces a saved plan with comparison view and evidence trail. No code writes. No deploy execution. Just clear decisions before you touch anything.',
+    stack: ['GitHub API', 'Static Analysis', 'Platform Scoring', 'Decision Records'],
+    architecture:
+      'Read-only GitHub integration. Static analysis engine detects deployment-relevant files: Dockerfiles, docker-compose, CI configs, environment files, infrastructure folders. Scoring algorithm matches detected patterns against platform capabilities. Generates persistent plans with full evidence trail and comparison views.',
+    highlights: [
+      'Decision support only. No writes, no deploys.',
+      'Evidence-backed platform recommendations with audit trail.',
+      'Comparison view shows why one platform scores higher than another based on actual repo contents.',
+    ],
+    liveUrl: 'https://shipd-seven.vercel.app/',
+  },
+  {
     id: 'website-media-capture-mcp',
-    number: '04',
-    title: 'Website Media Capture MCP',
+    number: '09',
+    title: 'Media Capture MCP',
     tag: 'browser tooling',
     category: 'tooling',
     canvasMode: 'terminal',
@@ -97,8 +155,11 @@ export const projects: Project[] = [
 
 export const filterCategories: { label: string; value: ProjectCategory }[] = [
   { label: 'all', value: 'all' },
-  { label: 'company', value: 'company' },
+  { label: 'agents', value: 'agents' },
   { label: 'deployment', value: 'deployment' },
+  { label: 'company', value: 'company' },
   { label: 'commerce', value: 'commerce' },
+  { label: 'health', value: 'health' },
+  { label: 'pwa', value: 'pwa' },
   { label: 'tooling', value: 'tooling' },
 ];

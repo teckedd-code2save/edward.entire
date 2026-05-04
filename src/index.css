@@ -6,43 +6,59 @@
 
 @layer base {
   :root {
-    --bg: #000000;
-    --bg-1: #050505;
-    --bg-2: #0c0c0c;
-    --bg-3: #111111;
-    --fg: #f5f5f5;
-    --fg-2: #c0c0c0;
-    --fg-3: #8a8a8a;
-    --fg-4: #555555;
-    --border: rgba(255,255,255,0.12);
-    --border-2: rgba(255,255,255,0.20);
-    --border-3: rgba(255,255,255,0.35);
-    --accent: #4f5dff;
-    --accent-2: #163a63;
-    --accent-glow: rgba(79,93,255,0.35);
-    --accent-glow-soft: rgba(79,93,255,0.12);
+    --bg: #080808;
+    --bg-1: #0d0d0d;
+    --bg-2: #121212;
+    --bg-3: #1a1a1a;
+    --fg: #F5F2ED;
+    --fg-2: #C8C4BE;
+    --fg-3: #8a8580;
+    --fg-4: #504d48;
+    --border: rgba(245,242,237,0.10);
+    --border-2: rgba(245,242,237,0.18);
+    --border-3: rgba(245,242,237,0.30);
+
+    /* Primary accent — orange */
+    --orange: #FF5500;
+    --orange-muted: rgba(255,85,0,0.18);
+    --orange-glow: rgba(255,85,0,0.35);
+    --orange-glow-soft: rgba(255,85,0,0.10);
+
+    /* Secondary accent — mauve */
+    --mauve: #C77DFF;
+    --mauve-muted: rgba(199,125,255,0.18);
+    --mauve-glow: rgba(199,125,255,0.30);
+    --mauve-glow-soft: rgba(199,125,255,0.10);
+
+    /* Legacy alias kept so existing components don't break */
+    --accent: #FF5500;
+    --accent-2: #5a1a00;
+    --accent-glow: rgba(255,85,0,0.35);
+    --accent-glow-soft: rgba(255,85,0,0.10);
+
     --terminal-green: #4ade80;
     --terminal-amber: #fbbf24;
 
-    --background: 0 0% 0%;
-    --foreground: 0 0% 96%;
-    --card: 0 0% 0%;
-    --card-foreground: 0 0% 96%;
-    --popover: 0 0% 0%;
-    --popover-foreground: 0 0% 96%;
-    --primary: 235 100% 65%;
+    /* shadcn / Radix design tokens (HSL) */
+    --background: 0 0% 3%;
+    --foreground: 36 13% 95%;
+    --card: 0 0% 5%;
+    --card-foreground: 36 13% 95%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 36 13% 95%;
+    --primary: 20 100% 50%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 5%;
-    --secondary-foreground: 0 0% 96%;
-    --muted: 0 0% 5%;
-    --muted-foreground: 0 0% 54%;
-    --accent: 235 100% 65%;
+    --secondary: 0 0% 7%;
+    --secondary-foreground: 36 13% 95%;
+    --muted: 0 0% 7%;
+    --muted-foreground: 36 5% 54%;
+    --accent: 282 100% 75%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 100% / 0.12;
-    --input: 0 0% 100% / 0.12;
-    --ring: 235 100% 65%;
+    --border: 36 13% 95% / 0.10;
+    --input: 36 13% 95% / 0.10;
+    --ring: 20 100% 50%;
     --radius: 0.5rem;
   }
 
@@ -77,9 +93,122 @@
     background: var(--fg-3);
   }
 
-  /* Selection */
   ::selection {
-    background-color: rgba(79, 93, 255, 0.3);
+    background-color: rgba(255, 85, 0, 0.28);
     color: var(--fg);
   }
+}
+
+/* Scroll-line reveal */
+@keyframes scroll-line {
+  0%   { transform: scaleY(0); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0.4; }
+}
+
+.scroll-line {
+  animation: scroll-line 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Parallax-ready sections — overflow clip so children can shift freely */
+.parallax-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Scene divider — thin orange filament that pulses */
+.scene-rule {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 85, 0, 0.45) 25%,
+    rgba(199, 125, 255, 0.45) 75%,
+    transparent 100%
+  );
+}
+
+.scene-rule::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  width: 8px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--orange);
+  box-shadow: 0 0 18px var(--orange-glow);
+  transform: translateX(-50%);
+}
+
+/* Diagonal noise background used inside scenes for tactile feel */
+.noise-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Soft animated grid used as project canvas backdrop */
+@keyframes grid-drift {
+  0%   { background-position: 0px 0px; }
+  100% { background-position: 60px 60px; }
+}
+
+.grid-drift {
+  background-image:
+    linear-gradient(rgba(255, 85, 0, 0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 85, 0, 0.10) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: grid-drift 18s linear infinite;
+}
+
+.grid-drift--mauve {
+  background-image:
+    linear-gradient(rgba(199, 125, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(199, 125, 255, 0.12) 1px, transparent 1px);
+}
+
+/* Pulsing orb used in deployment chain + manifesto */
+@keyframes orb-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50%      { transform: scale(1.08); opacity: 1; }
+}
+
+.orb-pulse {
+  animation: orb-pulse 3.6s ease-in-out infinite;
+}
+
+/* Slow drifting blob used behind manifesto */
+@keyframes blob-drift {
+  0%   { transform: translate(-12%, -8%)  scale(1); }
+  50%  { transform: translate(8%, 6%)     scale(1.12); }
+  100% { transform: translate(-12%, -8%)  scale(1); }
+}
+
+.blob-drift {
+  animation: blob-drift 22s ease-in-out infinite;
+}
+
+/* Animated dotted lines for deployment rake */
+@keyframes dash-march-h {
+  to { background-position: -20px 0; }
+}
+
+@keyframes dash-march-v {
+  to { background-position: 0 -20px; }
+}
+
+.dash-march-h {
+  background: repeating-linear-gradient(90deg, rgba(255,85,0,0.55) 0, rgba(255,85,0,0.55) 4px, transparent 4px, transparent 10px);
+  background-size: 10px 1px;
+  animation: dash-march-h 0.4s linear infinite;
+}
+
+.dash-march-v {
+  background: repeating-linear-gradient(180deg, rgba(255,85,0,0.55) 0, rgba(255,85,0,0.55) 4px, transparent 4px, transparent 10px);
+  background-size: 1px 10px;
+  animation: dash-march-v 0.4s linear infinite;
 }

@@ -1,14 +1,23 @@
-import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useMemo, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { projects, filterCategories } from '@/components/projects/projectData';
 import type { Project, ProjectCategory } from '@/components/projects/projectData';
 import ProjectCard from '@/components/projects/ProjectCard';
 import ProjectDetailPanel from '@/components/projects/ProjectDetailPanel';
 
+const easeEnter = [0.0, 0, 0.2, 1] as [number, number, number, number];
+
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState<ProjectCategory>('all');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: headerRef,
+    offset: ['start start', 'end start'],
+  });
+  const orbY = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === 'all') return projects;
@@ -25,105 +34,145 @@ export default function Projects() {
 
   return (
     <div className="min-h-[100dvh]" style={{ backgroundColor: 'var(--bg)' }}>
-      {/* ========== Section 1: Page Header ========== */}
+      {/* ========== Section 1: Cinematic Page Header ========== */}
       <section
-        className="relative"
+        ref={headerRef}
+        className="relative overflow-hidden"
         style={{
-          paddingTop: '160px',
-          paddingBottom: '80px',
+          paddingTop: '180px',
+          paddingBottom: '90px',
           backgroundColor: 'var(--bg)',
         }}
       >
-        <div className="mx-auto max-w-[1200px] px-5 md:px-10">
+        <motion.div
+          aria-hidden
+          className="blob-drift pointer-events-none absolute"
+          style={{
+            y: orbY,
+            top: '-12%',
+            left: '-10%',
+            width: 'min(640px, 80vw)',
+            height: 'min(640px, 80vw)',
+            borderRadius: '50%',
+            background:
+              'radial-gradient(circle, rgba(255,85,0,0.26), rgba(255,85,0,0.06) 40%, transparent 65%)',
+            filter: 'blur(40px)',
+          }}
+        />
+        <motion.div
+          aria-hidden
+          className="blob-drift pointer-events-none absolute"
+          style={{
+            y: orbY,
+            top: '15%',
+            right: '-15%',
+            width: 'min(620px, 80vw)',
+            height: 'min(620px, 80vw)',
+            borderRadius: '50%',
+            background:
+              'radial-gradient(circle, rgba(199,125,255,0.22), rgba(199,125,255,0.05) 40%, transparent 65%)',
+            filter: 'blur(48px)',
+            animationDelay: '-7s',
+          }}
+        />
+        <div className="noise-bg" style={{ opacity: 0.04 }} />
+
+        <div className="relative z-10 mx-auto max-w-[1200px] px-5 md:px-10">
           {/* Breadcrumb */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              ease: [0.0, 0, 0.2, 1] as [number, number, number, number],
-            }}
-            className="mb-8"
+            transition={{ duration: 0.5, ease: easeEnter }}
+            className="mb-6 flex items-center gap-3"
           >
             <span
-              className="font-mono text-[10px] uppercase"
-              style={{ color: '#555', letterSpacing: '0.08em' }}
+              className="orb-pulse inline-block"
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: '50%',
+                backgroundColor: 'var(--orange)',
+                boxShadow: '0 0 10px var(--orange-glow)',
+              }}
+            />
+            <span
+              className="font-mono text-[10px] uppercase tracking-[0.22em]"
+              style={{ color: 'var(--fg-2)' }}
             >
-              edward twumasi / projects
+              edward twumasi <span style={{ color: 'var(--fg-4)' }}>/</span> projects
             </span>
+            <span
+              className="h-px w-24"
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(255,85,0,0.5), rgba(199,125,255,0.25), transparent)',
+              }}
+            />
           </motion.div>
 
           {/* Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              ease: [0.0, 0, 0.2, 1] as [number, number, number, number],
-            }}
-            className="font-sans font-bold"
+            transition={{ duration: 0.9, delay: 0.1, ease: easeEnter }}
+            className="font-sans font-bold tracking-[-0.03em]"
             style={{
-              fontSize: 'clamp(40px, 6vw, 80px)',
+              fontSize: 'clamp(3rem, 8vw, 7rem)',
               color: 'var(--fg)',
-              letterSpacing: '-0.03em',
+              lineHeight: 0.98,
             }}
           >
-            Selected Work
+            Things&nbsp;
+            <span style={{ color: 'var(--orange)' }}>built</span>
+            <span style={{ color: 'var(--mauve)' }}>.</span>
           </motion.h1>
 
           {/* Subtext */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.7,
-              delay: 0.15,
-              ease: [0.0, 0, 0.2, 1] as [number, number, number, number],
-            }}
-            className="mt-3 text-[15px]"
+            transition={{ duration: 0.8, delay: 0.25, ease: easeEnter }}
+            className="mt-7 font-sans font-light leading-[1.45]"
             style={{
-              color: 'var(--fg-3)',
-              maxWidth: '560px',
+              fontSize: 'clamp(1.05rem, 1.8vw, 1.35rem)',
+              color: 'var(--fg-2)',
+              maxWidth: '620px',
             }}
           >
-            Systems, tools, and protocols — built for production, documented for clarity.
+            Production systems, agents, and tooling. Documented, deployed, maintained.
           </motion.p>
 
           {/* Filter Tabs */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.6,
-              delay: 0.3,
-              ease: [0.0, 0, 0.2, 1] as [number, number, number, number],
-            }}
-            className="mt-9"
+            transition={{ duration: 0.6, delay: 0.4, ease: easeEnter }}
+            className="mt-10"
           >
             <div className="flex flex-wrap gap-2">
-              {filterCategories.map((cat, i) => (
-                <motion.button
-                  key={cat.value}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: 0.3 + i * 0.05,
-                    ease: [0.0, 0, 0.2, 1] as [number, number, number, number],
-                  }}
-                  onClick={() => setActiveFilter(cat.value)}
-                  className="relative cursor-pointer font-mono text-[11px] transition-none"
-                  style={{
-                    padding: '8px 16px',
-                    border: '1px solid',
-                    borderColor: activeFilter === cat.value ? 'var(--accent)' : 'var(--border)',
-                    backgroundColor: activeFilter === cat.value ? 'var(--accent)' : 'transparent',
-                    color: activeFilter === cat.value ? '#f5f5f5' : 'var(--fg-3)',
-                  }}
-                >
-                  {cat.label}
-                </motion.button>
-              ))}
+              {filterCategories.map((cat) => {
+                const active = activeFilter === cat.value;
+                return (
+                  <button
+                    key={cat.value}
+                    onClick={() => setActiveFilter(cat.value)}
+                    className="relative cursor-pointer font-mono text-[11px] uppercase tracking-widest transition-all duration-200"
+                    style={{
+                      padding: '8px 16px',
+                      border: '1px solid',
+                      borderColor: active
+                        ? 'var(--orange)'
+                        : 'var(--border-2)',
+                      backgroundColor: active
+                        ? 'rgba(255,85,0,0.10)'
+                        : 'transparent',
+                      color: active ? 'var(--orange)' : 'var(--fg-3)',
+                    }}
+                  >
+                    {cat.label}
+                  </button>
+                );
+              })}
             </div>
           </motion.div>
         </div>
@@ -180,55 +229,71 @@ export default function Projects() {
 
       {/* ========== Section 4: CTA Banner ========== */}
       <section
+        className="relative overflow-hidden"
         style={{
-          padding: '80px 0',
+          padding: '120px 0',
           backgroundColor: 'var(--bg-1)',
         }}
       >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute"
+          style={{
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 'min(640px, 80vw)',
+            height: 'min(640px, 80vw)',
+            borderRadius: '50%',
+            background:
+              'radial-gradient(circle, rgba(255,85,0,0.14), rgba(199,125,255,0.10) 40%, transparent 65%)',
+            filter: 'blur(48px)',
+          }}
+        />
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-8% 0px' }}
-          transition={{
-            duration: 0.7,
-            ease: [0.0, 0, 0.2, 1] as [number, number, number, number],
-          }}
-          className="mx-auto max-w-[1200px] px-5 text-center md:px-10"
+          transition={{ duration: 0.7, ease: easeEnter }}
+          className="relative z-10 mx-auto max-w-[680px] px-5 text-center md:px-10"
         >
           <h2
-            className="font-sans text-2xl font-medium"
-            style={{ color: 'var(--fg)' }}
+            className="font-sans font-bold tracking-[-0.025em]"
+            style={{
+              fontSize: 'clamp(2rem, 4.5vw, 3.4rem)',
+              color: 'var(--fg)',
+              lineHeight: 1.05,
+            }}
           >
-            Have a project in mind?
+            Got a&nbsp;<span style={{ color: 'var(--orange)' }}>systems</span> problem?
           </h2>
           <p
-            className="mt-2 text-[14px]"
-            style={{ color: 'var(--fg-3)' }}
+            className="mx-auto mt-5 max-w-[480px] text-[15px] leading-[1.65]"
+            style={{ color: 'var(--fg-2)' }}
           >
-            I'm open to backend engineering, distributed systems, and AI tooling work.
+            Backend, agents, deployment, dev tooling. Pull me in early.
           </p>
           <Link
             to="/contact"
-            className="mt-6 inline-block font-mono text-[12px] transition-all duration-200"
+            className="mt-8 inline-block font-mono text-[12px] transition-all duration-200"
             style={{
-              border: '1px solid var(--border-2)',
-              padding: '10px 24px',
-              color: 'var(--fg-2)',
+              border: '1px solid rgba(255,85,0,0.5)',
+              padding: '12px 26px',
+              color: 'var(--fg)',
+              backgroundColor: 'rgba(255,85,0,0.05)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = 'var(--accent)';
-              e.currentTarget.style.color = 'var(--fg)';
+              e.currentTarget.style.borderColor = 'var(--orange)';
+              e.currentTarget.style.backgroundColor = 'rgba(255,85,0,0.12)';
               e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 0 20px var(--accent-glow-soft)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'var(--border-2)';
-              e.currentTarget.style.color = 'var(--fg-2)';
+              e.currentTarget.style.borderColor = 'rgba(255,85,0,0.5)';
+              e.currentTarget.style.backgroundColor = 'rgba(255,85,0,0.05)';
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = 'none';
             }}
           >
-            get in touch &rarr;
+            start the conversation &rarr;
           </Link>
         </motion.div>
       </section>

@@ -137,7 +137,7 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
                   background: 'transparent',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--accent)';
+                  e.currentTarget.style.borderColor = 'var(--orange)';
                   e.currentTarget.style.color = 'var(--fg)';
                 }}
                 onMouseLeave={(e) => {
@@ -220,7 +220,7 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
                 <ul className="space-y-2">
                   {project.highlights.map((h, i) => (
                     <li key={i} className="flex items-start gap-2 text-[14px] leading-[1.7]" style={{ color: 'var(--fg-2)' }}>
-                      <span className="mt-1.5 block h-1 w-1 flex-shrink-0 rounded-full" style={{ backgroundColor: 'var(--accent)' }} />
+                      <span className="mt-1.5 block h-1 w-1 flex-shrink-0 rounded-full" style={{ backgroundColor: 'var(--orange)' }} />
                       <span>{h}</span>
                     </li>
                   ))}
@@ -243,8 +243,8 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
                           color: 'var(--fg-2)',
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = 'var(--accent)';
-                          e.currentTarget.style.color = 'var(--fg)';
+                          e.currentTarget.style.borderColor = 'var(--orange)';
+                          e.currentTarget.style.color = 'var(--orange)';
                           e.currentTarget.style.transform = 'translateY(-2px)';
                         }}
                         onMouseLeave={(e) => {
@@ -268,8 +268,8 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
                           color: 'var(--fg-2)',
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = 'var(--accent)';
-                          e.currentTarget.style.color = 'var(--fg)';
+                          e.currentTarget.style.borderColor = 'var(--mauve)';
+                          e.currentTarget.style.color = 'var(--mauve)';
                           e.currentTarget.style.transform = 'translateY(-2px)';
                         }}
                         onMouseLeave={(e) => {

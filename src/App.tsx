@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Projects from './pages/Projects';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Research from './pages/Research';
 
 function PageWrapper({ children }: { children: ReactNode }) {
   return (
@@ -42,6 +43,14 @@ function AnimatedRoutes() {
           element={
             <PageWrapper>
               <Projects />
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="/research"
+          element={
+            <PageWrapper>
+              <Research />
             </PageWrapper>
           }
         />
