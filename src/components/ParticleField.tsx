@@ -117,14 +117,14 @@ const fragmentShader = `
     float spec2 = pow(max(dot(normal, halfDir2), 0.0), 32.0) * 0.3;
     float spec = spec1 + spec2;
 
-    // Realistic water color palette - darker tones
-    vec3 abyssColor = vec3(0.003, 0.005, 0.012);
-    vec3 deepColor = vec3(0.008, 0.014, 0.03);
-    vec3 midColor = vec3(0.018, 0.035, 0.075);
-    vec3 surfaceColor = vec3(0.04, 0.075, 0.17);
-    vec3 crestColor = vec3(0.08, 0.13, 0.28);
-    vec3 specColor = vec3(0.2, 0.25, 0.38);
-    vec3 foamColor = vec3(0.28, 0.34, 0.48);
+    // Brand palette — mauve abyss climbing to orange crests
+    vec3 abyssColor   = vec3(0.008, 0.004, 0.014);
+    vec3 deepColor    = vec3(0.022, 0.010, 0.030);
+    vec3 midColor     = vec3(0.055, 0.022, 0.075);
+    vec3 surfaceColor = vec3(0.110, 0.045, 0.135);
+    vec3 crestColor   = vec3(0.260, 0.090, 0.130);
+    vec3 specColor    = vec3(0.620, 0.220, 0.060);
+    vec3 foamColor    = vec3(0.900, 0.380, 0.070);
 
     // Mix colors based on elevation for visible wave propagation
     vec3 color = abyssColor;
@@ -142,19 +142,19 @@ const fragmentShader = `
 
     // Add specular shine on crests - dimmed
     color += specColor * spec * 0.6;
-    
-    // Extra sparkle on very high crests - reduced
+
+    // Extra sparkle on very high crests - orange burn
     float sparkle = pow(spec, 3.0) * smoothstep(0.1, 0.25, vElevation) * 0.35;
-    color += vec3(0.35, 0.4, 0.55) * sparkle;
+    color += vec3(1.00, 0.45, 0.10) * sparkle;
 
-    // Fresnel / rim for extra depth perception
+    // Fresnel / rim — mauve glow at grazing angles
     float fresnel = pow(1.0 - abs(normal.z), 3.0);
-    color += vec3(0.03, 0.06, 0.14) * fresnel;
+    color += vec3(0.18, 0.06, 0.20) * fresnel;
 
-    // Underwater caustic-like effect - very subtle
+    // Mauve caustic shimmer
     float caustic = sin(vWorldPosition.x * 15.0 + uTime * 1.5) * sin(vWorldPosition.y * 15.0 - uTime * 1.2);
     caustic = pow(max(0.0, caustic), 4.0) * 0.015;
-    color += vec3(0.05, 0.1, 0.22) * caustic;
+    color += vec3(0.18, 0.06, 0.22) * caustic;
 
     // Vignette - darken edges
     float d = length(vUv - 0.5) * 2.0;
