@@ -1,51 +1,88 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import ScrollReveal from '@/components/ScrollReveal';
 import SectionLabel from '@/components/SectionLabel';
 import ParticleField from '@/components/ParticleField';
-
-/* ─────────────────────── helpers ─────────────────────── */
 
 const easeEnter = [0.0, 0, 0.2, 1] as [number, number, number, number];
 
 function Tag({ text }: { text: string }) {
   return (
     <span
-      className="inline-block cursor-default font-mono text-[9px] uppercase tracking-wide text-[var(--fg-3)] transition-all duration-200 hover:-translate-y-px hover:border-[var(--border-2)] hover:text-[var(--fg-2)]"
-      style={{ border: '1px solid var(--border)', padding: '3px 7px' }}
+      className="inline-block cursor-default font-mono text-[9px] uppercase tracking-wide transition-all duration-200 hover:-translate-y-px"
+      style={{
+        border: '1px solid var(--border)',
+        padding: '3px 7px',
+        color: 'var(--fg-3)',
+      }}
     >
       {text}
     </span>
   );
 }
 
-/* ═══════════════════ HERO SECTION ═══════════════════ */
+/* ══════════════════ HERO ══════════════════ */
 
 function HeroSection() {
-  const [scrollY, setScrollY] = useState(0);
+  const heroRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
 
-  const scrollIndicatorOpacity = scrollY > 100 ? 0 : 1;
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const textY = useTransform(scrollYProgress, [0, 1], ['0px', '80px']);
+  const overlayScale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
 
   return (
-    <section className="relative min-h-[100dvh] overflow-hidden">
+    <section ref={heroRef} className="relative min-h-[100dvh] overflow-hidden">
       {/* 3D ripple background */}
       <ParticleField />
 
-      <div className="absolute inset-0 z-[2] bg-[radial-gradient(circle_at_50%_40%,rgba(60,90,180,0.08),transparent_45%),linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.55))]" />
+      {/* Parallax overlay — orange/mauve instead of blue */}
+      <motion.div
+        className="absolute inset-0 z-[2]"
+        style={{
+          background:
+            'radial-gradient(circle at 50% 40%, rgba(255,85,0,0.07), transparent 45%), linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.58))',
+          opacity: overlayOpacity,
+          scale: overlayScale,
+        }}
+      />
 
-      <div className="relative z-10 flex min-h-[100dvh] items-center px-5 py-24 md:px-10">
+      <motion.div
+        className="relative z-10 flex min-h-[100dvh] items-center px-5 py-24 md:px-10"
+        style={{ y: textY }}
+      >
         <div className="mx-auto w-full max-w-[1240px]">
+          {/* Location / context tag */}
+          <motion.div
+            className="mb-6 flex items-center gap-3"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: easeEnter }}
+          >
+            <span
+              className="font-mono text-[10px] uppercase tracking-widest"
+              style={{ color: 'var(--orange)' }}
+            >
+              Accra, Ghana
+            </span>
+            <span style={{ color: 'var(--fg-4)', fontSize: 10 }}>·</span>
+            <span
+              className="font-mono text-[10px] uppercase tracking-widest"
+              style={{ color: 'var(--orange)' }}
+            >
+              @Hubtel
+            </span>
+          </motion.div>
+
           <motion.h1
-            className="font-sans font-bold leading-[1.05] tracking-[-0.02em] text-[var(--fg)]"
-            style={{ fontSize: 'clamp(3.5rem, 9vw, 8rem)' }}
-            initial={{ opacity: 0, y: 24 }}
+            className="font-sans font-bold leading-[1.02] tracking-[-0.025em] text-[var(--fg)]"
+            style={{ fontSize: 'clamp(3.2rem, 8.5vw, 7.5rem)' }}
+            initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.3, ease: easeEnter }}
           >
@@ -53,17 +90,17 @@ function HeroSection() {
           </motion.h1>
 
           <motion.p
-            className="mt-5 max-w-[560px] font-sans font-light leading-[1.5] text-[rgba(245,245,245,0.8)]"
-            style={{ fontSize: 'clamp(1.1rem, 2.2vw, 1.6rem)' }}
+            className="mt-6 max-w-[520px] font-sans font-light leading-[1.5] text-[var(--fg-2)]"
+            style={{ fontSize: 'clamp(1rem, 2vw, 1.45rem)' }}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: easeEnter }}
           >
-            Systems engineer building backend platforms, developer tools, and AI workflows.
+            Backend infrastructure. Agent systems. Products that ship.
           </motion.p>
 
           <motion.div
-            className="mt-8 flex flex-wrap items-center gap-6"
+            className="mt-10 flex flex-wrap items-center gap-7"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.7, ease: easeEnter }}
@@ -71,7 +108,7 @@ function HeroSection() {
             {[
               { label: 'github', href: 'https://github.com/teckedd-code2save' },
               { label: 'linkedin', href: 'https://linkedin.com/in/edward-twumasi' },
-              { label: 'company', href: 'https://www.serendepify.com/' },
+              { label: 'serendepify', href: 'https://www.serendepify.com/' },
               { label: 'email', href: 'mailto:edwardktwumasi1000@gmail.com' },
             ].map((link) => (
               <a
@@ -79,16 +116,20 @@ function HeroSection() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--fg-2)] transition-all duration-250"
-                style={{ borderBottom: '1px solid rgba(255,255,255,0.16)', paddingBottom: 2 }}
+                className="font-mono text-[11px] uppercase tracking-[0.12em] transition-all duration-250"
+                style={{
+                  color: 'var(--fg-2)',
+                  borderBottom: '1px solid rgba(245,242,237,0.16)',
+                  paddingBottom: 2,
+                }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = 'var(--fg)';
-                  e.currentTarget.style.borderColor = 'rgba(186, 206, 255, 0.42)';
+                  e.currentTarget.style.color = 'var(--orange)';
+                  e.currentTarget.style.borderColor = 'var(--orange)';
                   e.currentTarget.style.transform = 'translateY(-2px)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = 'var(--fg-2)';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.16)';
+                  e.currentTarget.style.borderColor = 'rgba(245,242,237,0.16)';
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
@@ -97,20 +138,23 @@ function HeroSection() {
             ))}
           </motion.div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center"
-        style={{ opacity: scrollIndicatorOpacity, transition: 'opacity 0.3s' }}
+        className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 0.6 }}
+        style={{ opacity: useTransform(scrollYProgress, [0, 0.15], [1, 0]) }}
       >
-        <div className="relative h-10 w-px overflow-hidden" style={{ backgroundColor: 'rgba(255,255,255,0.25)' }}>
+        <div className="h-10 w-px overflow-hidden" style={{ backgroundColor: 'rgba(245,242,237,0.15)' }}>
           <div
-            className="absolute left-1/2 h-1 w-1 -translate-x-1/2 rounded-full animate-scroll-line"
-            style={{ backgroundColor: 'var(--fg)' }}
+            className="scroll-line h-full w-full"
+            style={{ backgroundColor: 'var(--orange)' }}
           />
         </div>
-        <span className="mt-2 font-mono text-[9px]" style={{ color: 'rgba(255,255,255,0.3)' }}>
+        <span className="font-mono text-[9px]" style={{ color: 'rgba(245,242,237,0.28)' }}>
           scroll
         </span>
       </motion.div>
@@ -118,60 +162,108 @@ function HeroSection() {
   );
 }
 
-/* ═══════════════ FEATURED PROJECTS ═══════════════ */
+/* ══════════════════ MARQUEE TICKER ══════════════════ */
 
-const projects = [
+const tickerItems = [
+  'Go', 'TypeScript', 'Python', 'C#', 'React', 'Next.js',
+  'PostgreSQL', 'Redis', 'Elasticsearch', 'MongoDB',
+  'Docker', 'Kubernetes', 'Terraform', 'GitHub Actions',
+  'AWS', 'GCP', 'Hetzner VPS', 'Cloudflare Workers',
+  'nginx', 'Caddy', 'MCP Protocol', 'Claude Opus 4.7',
+  'TON Blockchain', 'PWA', 'Agent Ops', 'HTTP 402',
+];
+
+function MarqueeTicker() {
+  const doubled = [...tickerItems, ...tickerItems];
+
+  return (
+    <div
+      className="relative w-full overflow-hidden border-y"
+      style={{
+        borderColor: 'var(--border)',
+        backgroundColor: 'var(--bg-1)',
+        padding: '14px 0',
+      }}
+    >
+      <div className="marquee-track">
+        {doubled.map((item, i) => (
+          <span
+            key={i}
+            className="flex shrink-0 items-center font-mono text-[11px] uppercase tracking-widest"
+            style={{ color: 'var(--fg-4)', padding: '0 28px' }}
+          >
+            {item}
+            <span
+              className="ml-7"
+              style={{ color: 'var(--orange)', fontSize: 10, opacity: 0.5 }}
+            >
+              ·
+            </span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ══════════════════ FEATURED PROJECTS ══════════════════ */
+
+const featuredProjects = [
   {
     number: '01',
-    tag: 'developer tools',
-    title: 'Serendepify',
-    desc: 'Engineering company and product studio shaping MCP-native tools, database gateways, and operator-grade workflows for AI-assisted development.',
-    stack: ['React', 'TypeScript', 'Node.js', 'MCP Protocol'],
-    live: 'https://www.serendepify.com/',
+    tag: 'deployment agent',
+    title: 'Convoy',
+    desc: 'Deployment agent that rehearses the deploy, ships it, and keeps watch — without touching your code. Built for the Claude Code hackathon on Opus 4.7.',
+    stack: ['TypeScript', 'Claude Opus 4.7', 'Agent Loop'],
+    live: 'https://convoy-home.vercel.app/',
+    github: 'https://github.com/teckedd-code2save/convoy',
   },
   {
     number: '02',
-    tag: 'deployment intel',
-    title: 'Shipd',
-    desc: 'Repo-aware deployment planning. Scans for deployment signals, scores platforms, produces evidence-backed plans.',
-    stack: ['GitHub API', 'Static Analysis', 'Platform Scoring'],
-    live: 'https://shipd-seven.vercel.app/',
+    tag: 'developer tools',
+    title: 'Serendepify',
+    desc: 'Engineering company building MCP-native tools, database gateways (Datafy), and CLI orchestrators (B2DP) for AI-assisted development workflows.',
+    stack: ['React', 'TypeScript', 'MCP Protocol', 'Node.js'],
+    live: 'https://www.serendepify.com/',
   },
   {
     number: '03',
-    tag: 'agent commerce',
-    title: 'MPP Studio',
-    desc: 'Developer console for the Machine Payments Protocol. Sandbox 402 flows, service contracts, agent-to-agent payments.',
-    stack: ['MPP', 'HTTP 402', 'Sandbox'],
-    live: 'https://agent-exchange-web.vercel.app/',
+    tag: 'opportunity tracker',
+    title: 'Optimi',
+    desc: 'Privacy-first PWA for tracking hackathons, grants, accelerators, and jobs. Everything stays local — AI drafts run on-device.',
+    stack: ['TypeScript', 'PWA', 'IndexedDB', 'Service Workers'],
+    github: 'https://github.com/teckedd-code2save/optimi',
   },
   {
     number: '04',
-    tag: 'systems engineering',
-    title: 'Portfolio',
-    desc: 'This site — a systems-engineered portfolio built with React, TypeScript, and Tailwind. Features 3D backgrounds, smooth scroll, and component-driven architecture.',
-    stack: ['React', 'TypeScript', 'Three.js', 'Tailwind'],
-    live: 'https://edwardtwumasi.dev',
+    tag: 'deployment intel',
+    title: 'Shipd',
+    desc: 'Repo-aware deployment planning. Scans GitHub for deployment signals, scores platforms, and produces evidence-backed decision records. Read-only.',
+    stack: ['GitHub API', 'Static Analysis', 'Platform Scoring'],
+    live: 'https://shipd-seven.vercel.app/',
   },
 ];
 
-function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
+function ProjectCard({ project, index }: { project: typeof featuredProjects[0]; index: number }) {
+  const href = project.live ?? project.github ?? '#';
+  const isExternal = !!(project.live ?? project.github);
+
   return (
-    <ScrollReveal delay={index * 0.12} translateY={32} duration={0.7}>
+    <ScrollReveal delay={index * 0.11} translateY={28} duration={0.7}>
       <a
-        href={project.live ?? '#'}
-        target={project.live ? '_blank' : undefined}
-        rel={project.live ? 'noopener noreferrer' : undefined}
-        className="group block h-full transition-all duration-350"
+        href={href}
+        target={isExternal ? '_blank' : undefined}
+        rel={isExternal ? 'noopener noreferrer' : undefined}
+        className="group block h-full transition-all duration-300"
         style={{
           backgroundColor: 'var(--bg-2)',
           border: '1px solid var(--border)',
-          borderTop: '2px solid var(--accent)',
+          borderTop: '2px solid var(--orange)',
           padding: 32,
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'translateY(-6px)';
-          e.currentTarget.style.boxShadow = '0 20px 60px rgba(79,93,255,0.08)';
+          e.currentTarget.style.transform = 'translateY(-5px)';
+          e.currentTarget.style.boxShadow = '0 18px 56px rgba(255,85,0,0.08)';
           e.currentTarget.style.borderColor = 'var(--border-2)';
           e.currentTarget.style.backgroundColor = 'var(--bg-3)';
         }}
@@ -185,22 +277,26 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
         <div className="flex h-full flex-col justify-between">
           <div>
             <div className="flex items-start justify-between">
-              <span className="font-mono text-[10px] text-[var(--fg-4)]">{project.number}</span>
+              <span className="font-mono text-[10px]" style={{ color: 'var(--fg-4)' }}>
+                {project.number}
+              </span>
               <Tag text={project.tag} />
             </div>
-            <h3 className="mt-4 font-sans text-[22px] font-medium text-[var(--fg)]">
+            <h3
+              className="mt-4 font-sans text-[21px] font-medium"
+              style={{ color: 'var(--fg)' }}
+            >
               {project.title}
             </h3>
             <p
-              className="mt-3 font-sans text-[13px] leading-[1.75] text-[rgba(255,255,255,0.72)] line-clamp-3"
+              className="mt-3 font-sans text-[13px] leading-[1.78] line-clamp-3"
+              style={{ color: 'var(--fg-3)' }}
             >
               {project.desc}
             </p>
           </div>
           <div className="mt-5 flex flex-wrap gap-2">
-            {project.stack.map((s) => (
-              <Tag key={s} text={s} />
-            ))}
+            {project.stack.map((s) => <Tag key={s} text={s} />)}
           </div>
         </div>
       </a>
@@ -210,61 +306,70 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
 
 function FeaturedProjectsSection() {
   return (
-    <section className="mx-auto max-w-[1200px] px-5 py-[72px] md:px-10 md:py-[120px]" style={{ background: 'var(--bg)' }}>
-      <ScrollReveal>
-        <SectionLabel number="01" text="WORK" />
-      </ScrollReveal>
-      <ScrollReveal delay={0.1}>
-        <h2
-          className="font-sans font-bold tracking-[-0.02em] text-[var(--fg)]"
-          style={{ fontSize: 'clamp(28px, 3.5vw, 48px)', lineHeight: 1.05 }}
-        >
-          Selected Projects
-        </h2>
-      </ScrollReveal>
-      <ScrollReveal delay={0.15}>
-        <p className="mt-2 font-sans text-sm text-[var(--fg-3)]">
-          Systems, tools, and protocols built for production.
-        </p>
-      </ScrollReveal>
-
-      <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
-        {projects.map((p, i) => (
-          <ProjectCard key={p.number} project={p} index={i} />
-        ))}
-      </div>
-
-      <ScrollReveal delay={0.4}>
-        <div className="mt-10 flex justify-end">
-          <Link
-            to="/projects"
-            className="inline-block font-mono text-xs text-[var(--fg-3)] transition-all duration-200"
-            style={{ borderBottom: '1px solid var(--border)', paddingBottom: 2 }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = 'var(--fg)';
-              e.currentTarget.style.borderColor = 'var(--accent)';
-              e.currentTarget.style.transform = 'translateX(4px)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = 'var(--fg-3)';
-              e.currentTarget.style.borderColor = 'var(--border)';
-              e.currentTarget.style.transform = 'translateX(0)';
-            }}
+    <section
+      className="parallax-section"
+      style={{ background: 'var(--bg)' }}
+    >
+      <div className="mx-auto max-w-[1200px] px-5 py-[72px] md:px-10 md:py-[120px]">
+        <ScrollReveal>
+          <SectionLabel number="01" text="WORK" />
+        </ScrollReveal>
+        <ScrollReveal delay={0.1}>
+          <h2
+            className="font-sans font-bold tracking-[-0.02em] text-[var(--fg)]"
+            style={{ fontSize: 'clamp(28px, 3.5vw, 48px)', lineHeight: 1.05 }}
           >
-            View all projects &rarr;
-          </Link>
+            Selected Projects
+          </h2>
+        </ScrollReveal>
+        <ScrollReveal delay={0.15}>
+          <p className="mt-2 font-sans text-sm" style={{ color: 'var(--fg-3)' }}>
+            Systems, agents, and tools built for production.
+          </p>
+        </ScrollReveal>
+
+        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+          {featuredProjects.map((p, i) => (
+            <ProjectCard key={p.number} project={p} index={i} />
+          ))}
         </div>
-      </ScrollReveal>
+
+        <ScrollReveal delay={0.4}>
+          <div className="mt-10 flex justify-end">
+            <Link
+              to="/projects"
+              className="inline-block font-mono text-xs transition-all duration-200"
+              style={{
+                color: 'var(--fg-3)',
+                borderBottom: '1px solid var(--border)',
+                paddingBottom: 2,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = 'var(--orange)';
+                e.currentTarget.style.borderColor = 'var(--orange)';
+                e.currentTarget.style.transform = 'translateX(4px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = 'var(--fg-3)';
+                e.currentTarget.style.borderColor = 'var(--border)';
+                e.currentTarget.style.transform = 'translateX(0)';
+              }}
+            >
+              View all projects &rarr;
+            </Link>
+          </div>
+        </ScrollReveal>
+      </div>
     </section>
   );
 }
 
-/* ═══════════════ TECH STACK VISUALIZATION ═══════════════ */
+/* ══════════════════ TECH HUB ══════════════════ */
 
 const techNodes = [
   { name: 'Go', color: '#00ADD8', angle: -90, abbr: 'Go' },
   { name: 'TypeScript', color: '#3178C6', angle: -60, abbr: 'TS' },
-  { name: 'Python', color: '#3776AB', angle: -30, abbr: 'Py' },
+  { name: 'Python', color: '#4BA4C8', angle: -30, abbr: 'Py' },
   { name: 'PostgreSQL', color: '#336791', angle: 0, abbr: 'Pg' },
   { name: 'Redis', color: '#DC382D', angle: 30, abbr: 'Rd' },
   { name: 'Elasticsearch', color: '#005571', angle: 60, abbr: 'Es' },
@@ -273,7 +378,7 @@ const techNodes = [
   { name: 'AWS', color: '#FF9900', angle: 150, abbr: 'AWS' },
   { name: 'GCP', color: '#4285F4', angle: 180, abbr: 'GCP' },
   { name: 'Cloudflare', color: '#F38020', angle: -150, abbr: 'CF' },
-  { name: 'Claude', color: '#D4A574', angle: -120, abbr: 'AI' },
+  { name: 'Claude', color: '#C77DFF', angle: -120, abbr: 'AI' },
 ];
 
 function TechStackSection() {
@@ -283,7 +388,7 @@ function TechStackSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden"
+      className="parallax-section"
       style={{ backgroundColor: 'var(--bg-1)', padding: '120px 0' }}
     >
       <div className="mx-auto max-w-[1200px] px-5 md:px-10">
@@ -292,8 +397,7 @@ function TechStackSection() {
         </ScrollReveal>
 
         <div className="flex flex-col items-start gap-12 lg:flex-row lg:items-center">
-          {/* Text content */}
-          <div className="max-w-[320px] shrink-0">
+          <div className="max-w-[340px] shrink-0">
             <ScrollReveal delay={0.1}>
               <h2
                 className="font-sans font-bold tracking-[-0.02em] text-[var(--fg)]"
@@ -303,19 +407,15 @@ function TechStackSection() {
               </h2>
             </ScrollReveal>
             <ScrollReveal delay={0.15}>
-              <p className="mt-4 font-sans text-sm leading-[1.75] text-[var(--fg-2)]">
-                Go for systems. TypeScript for tooling. Python for AI workflows. PostgreSQL, Redis, Elasticsearch for persistence and search. Docker, Kubernetes, AWS, GCP for infrastructure. Cloudflare for edge. Claude, Codex, Kimi for agentic development.
+              <p className="mt-4 font-sans text-sm leading-[1.8]" style={{ color: 'var(--fg-2)' }}>
+                Go for systems. TypeScript for tooling. Python for AI workflows. PostgreSQL, Redis, Elasticsearch for data. Docker, Kubernetes, AWS, GCP, Hetzner for infrastructure. Cloudflare at the edge. nginx, Caddy as reverse proxies. Claude, Codex for agentic development.
               </p>
             </ScrollReveal>
           </div>
 
-          {/* Tech Hub Visualization */}
+          {/* Tech Hub SVG */}
           <div className="relative flex flex-1 items-center justify-center" style={{ minHeight: 400 }}>
-            <svg
-              viewBox="0 0 400 400"
-              className="w-full max-w-[500px]"
-              style={{ overflow: 'visible' }}
-            >
+            <svg viewBox="0 0 400 400" className="w-full max-w-[500px]" style={{ overflow: 'visible' }}>
               {/* Connection lines */}
               {techNodes.map((node, i) => {
                 const rad = (node.angle * Math.PI) / 180;
@@ -324,16 +424,13 @@ function TechStackSection() {
                 return (
                   <line
                     key={`line-${i}`}
-                    x1={200}
-                    y1={200}
-                    x2={x2}
-                    y2={y2}
-                    stroke="rgba(255,255,255,0.08)"
+                    x1={200} y1={200} x2={x2} y2={y2}
+                    stroke="rgba(245,242,237,0.06)"
                     strokeWidth={1}
                     strokeDasharray="4 4"
                     style={{
                       opacity: isInView ? 1 : 0,
-                      transition: `opacity 0.6s ease ${0.4 + i * 0.08}s`,
+                      transition: `opacity 0.6s ease ${0.4 + i * 0.07}s`,
                     }}
                   />
                 );
@@ -351,34 +448,15 @@ function TechStackSection() {
                       opacity: isInView ? 1 : 0,
                       transform: isInView ? 'scale(1)' : 'scale(0)',
                       transformOrigin: `${cx}px ${cy}px`,
-                      transition: `all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${0.5 + i * 0.08}s`,
+                      transition: `all 0.5s cubic-bezier(0.34,1.56,0.64,1) ${0.5 + i * 0.07}s`,
                     }}
                   >
-                    {/* Outer glow */}
-                    <circle
-                      cx={cx}
-                      cy={cy}
-                      r={22}
-                      fill={`${node.color}12`}
-                      stroke={`${node.color}40`}
-                      strokeWidth={1}
-                    />
-                    {/* Inner filled circle */}
-                    <circle
-                      cx={cx}
-                      cy={cy}
-                      r={18}
-                      fill={`${node.color}28`}
-                      stroke={node.color}
-                      strokeWidth={1.5}
-                    />
-                    {/* Monogram text */}
+                    <circle cx={cx} cy={cy} r={22} fill={`${node.color}10`} stroke={`${node.color}35`} strokeWidth={1} />
+                    <circle cx={cx} cy={cy} r={18} fill={`${node.color}22`} stroke={node.color} strokeWidth={1.5} />
                     <text
-                      x={cx}
-                      y={cy + 1}
-                      textAnchor="middle"
-                      dominantBaseline="middle"
-                      fill="#f5f5f5"
+                      x={cx} y={cy + 1}
+                      textAnchor="middle" dominantBaseline="middle"
+                      fill="#F5F2ED"
                       fontSize={node.abbr.length > 2 ? 8 : 10}
                       fontWeight={600}
                       fontFamily="'JetBrains Mono', monospace"
@@ -386,10 +464,8 @@ function TechStackSection() {
                     >
                       {node.abbr}
                     </text>
-                    {/* Label below */}
                     <text
-                      x={cx}
-                      y={cy + 34}
+                      x={cx} y={cy + 34}
                       textAnchor="middle"
                       fill="var(--fg-3)"
                       fontSize={9}
@@ -402,44 +478,35 @@ function TechStackSection() {
                 );
               })}
 
-              {/* Central hub */}
+              {/* Central hub — orange */}
               <g
                 style={{
                   opacity: isInView ? 1 : 0,
                   transform: isInView ? 'scale(1)' : 'scale(0)',
                   transformOrigin: '200px 200px',
-                  transition: 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s',
+                  transition: 'all 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.3s',
                 }}
               >
-                {/* Glow ring */}
                 <circle
-                  cx={200}
-                  cy={200}
-                  r={28}
-                  fill="rgba(79,93,255,0.08)"
-                  stroke="rgba(79,93,255,0.25)"
+                  cx={200} cy={200} r={28}
+                  fill="rgba(255,85,0,0.08)"
+                  stroke="rgba(255,85,0,0.25)"
                   strokeWidth={1}
                 />
                 <circle
-                  cx={200}
-                  cy={200}
-                  r={24}
-                  fill="var(--accent)"
-                  style={{
-                    filter: 'drop-shadow(0 0 20px rgba(79,93,255,0.5))',
-                  }}
+                  cx={200} cy={200} r={24}
+                  fill="var(--orange)"
+                  style={{ filter: 'drop-shadow(0 0 18px rgba(255,85,0,0.5))' }}
                 />
-                {/* Hub icon - hexagon shape */}
                 <polygon
                   points="200,188 210,194 210,206 200,212 190,206 190,194"
                   fill="none"
-                  stroke="rgba(255,255,255,0.9)"
+                  stroke="rgba(245,242,237,0.9)"
                   strokeWidth={1.5}
                 />
-                <circle cx={200} cy={200} r={3} fill="rgba(255,255,255,0.9)" />
+                <circle cx={200} cy={200} r={3} fill="rgba(245,242,237,0.9)" />
                 <text
-                  x={200}
-                  y={200 + 44}
+                  x={200} y={200 + 44}
                   textAnchor="middle"
                   fill="var(--fg)"
                   fontSize={11}
@@ -451,21 +518,16 @@ function TechStackSection() {
                 </text>
               </g>
 
-              {/* Traveling packet dots */}
+              {/* Traveling packet dots — orange */}
               {isInView &&
                 techNodes.map((node, i) => {
                   const rad = (node.angle * Math.PI) / 180;
                   const x2 = 200 + 130 * Math.cos(rad);
                   const y2 = 200 + 130 * Math.sin(rad);
                   return (
-                    <circle
-                      key={`packet-${i}`}
-                      r={3}
-                      fill="var(--accent)"
-                      opacity={0.6}
-                    >
+                    <circle key={`packet-${i}`} r={2.5} fill="var(--orange)" opacity={0.55}>
                       <animateMotion
-                        dur={`${2 + Math.random() * 2}s`}
+                        dur={`${2.2 + (i % 5) * 0.4}s`}
                         repeatCount="indefinite"
                         path={`M200,200 L${x2},${y2}`}
                       />
@@ -480,7 +542,7 @@ function TechStackSection() {
   );
 }
 
-/* ═══════════════ PACKAGES SECTION ═══════════════ */
+/* ══════════════════ PACKAGES ══════════════════ */
 
 const packages = [
   {
@@ -526,18 +588,16 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[0]; index: number })
         <div>
           <div className="flex flex-wrap items-center gap-3">
             <span className="font-mono text-base">
-              <span className="text-[var(--fg-3)]">{scope}/</span>
-              <span className="text-[var(--fg)]">{pkgName}</span>
+              <span style={{ color: 'var(--fg-3)' }}>{scope}/</span>
+              <span style={{ color: 'var(--fg)' }}>{pkgName}</span>
             </span>
             <Tag text="npm" />
           </div>
-          <p className="mt-4 font-sans text-[13px] leading-[1.75] text-[rgba(255,255,255,0.72)]">
+          <p className="mt-4 font-sans text-[13px] leading-[1.78]" style={{ color: 'var(--fg-3)' }}>
             {pkg.description}
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
-            {pkg.stack.map((s) => (
-              <Tag key={s} text={s} />
-            ))}
+            {pkg.stack.map((s) => <Tag key={s} text={s} />)}
           </div>
         </div>
         <div className="flex items-start">
@@ -545,11 +605,15 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[0]; index: number })
             href={pkg.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block whitespace-nowrap font-mono text-[11px] text-[var(--fg-3)] transition-all duration-200"
-            style={{ border: '1px solid var(--border-2)', padding: '8px 18px' }}
+            className="inline-block whitespace-nowrap font-mono text-[11px] transition-all duration-200"
+            style={{
+              border: '1px solid var(--border-2)',
+              padding: '8px 18px',
+              color: 'var(--fg-3)',
+            }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = 'var(--accent)';
-              e.currentTarget.style.color = 'var(--fg)';
+              e.currentTarget.style.borderColor = 'var(--orange)';
+              e.currentTarget.style.color = 'var(--orange)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.borderColor = 'var(--border-2)';
@@ -566,34 +630,36 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[0]; index: number })
 
 function PackagesSection() {
   return (
-    <section className="mx-auto max-w-[1200px] px-5 py-[72px] md:px-10 md:py-[120px]" style={{ background: 'var(--bg)' }}>
-      <ScrollReveal>
-        <SectionLabel number="02" text="PACKAGES" />
-      </ScrollReveal>
-      <ScrollReveal delay={0.1}>
-        <h2
-          className="font-sans font-bold tracking-[-0.02em] text-[var(--fg)]"
-          style={{ fontSize: 'clamp(28px, 3.5vw, 48px)', lineHeight: 1.05 }}
-        >
-          Open Source
-        </h2>
-      </ScrollReveal>
-      <ScrollReveal delay={0.15}>
-        <p className="mt-2 font-sans text-sm text-[var(--fg-3)]">
-          Developer tools published to npm. Zero-dependency gateways and CLI orchestrators.
-        </p>
-      </ScrollReveal>
+    <section className="parallax-section" style={{ background: 'var(--bg)' }}>
+      <div className="mx-auto max-w-[1200px] px-5 py-[72px] md:px-10 md:py-[120px]">
+        <ScrollReveal>
+          <SectionLabel number="03" text="PACKAGES" />
+        </ScrollReveal>
+        <ScrollReveal delay={0.1}>
+          <h2
+            className="font-sans font-bold tracking-[-0.02em] text-[var(--fg)]"
+            style={{ fontSize: 'clamp(28px, 3.5vw, 48px)', lineHeight: 1.05 }}
+          >
+            Open Source
+          </h2>
+        </ScrollReveal>
+        <ScrollReveal delay={0.15}>
+          <p className="mt-2 font-sans text-sm" style={{ color: 'var(--fg-3)' }}>
+            Developer tools published to npm. Zero-dependency gateways and CLI orchestrators.
+          </p>
+        </ScrollReveal>
 
-      <div className="mt-12 flex flex-col gap-6">
-        {packages.map((pkg, i) => (
-          <PackageCard key={pkg.name} pkg={pkg} index={i} />
-        ))}
+        <div className="mt-12 flex flex-col gap-6">
+          {packages.map((pkg, i) => (
+            <PackageCard key={pkg.name} pkg={pkg} index={i} />
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
-/* ═══════════════ CREDENTIALS SECTION ═══════════════ */
+/* ══════════════════ CREDENTIALS ══════════════════ */
 
 const credentials = [
   {
@@ -649,18 +715,18 @@ const credentials = [
 
 function CredentialCard({ cred, index }: { cred: typeof credentials[0]; index: number }) {
   return (
-    <ScrollReveal delay={index * 0.08} translateY={16} duration={0.6}>
+    <ScrollReveal delay={index * 0.07} translateY={14} duration={0.6}>
       <div
         className="group grid cursor-default gap-4 transition-all duration-200 sm:grid-cols-[1fr_auto]"
         style={{
-          padding: '28px 0',
+          padding: '26px 0',
           borderBottom: '1px solid var(--border)',
           borderLeft: '2px solid transparent',
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'translateX(4px)';
-          e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.015)';
-          e.currentTarget.style.borderLeftColor = 'var(--accent)';
+          e.currentTarget.style.transform = 'translateX(6px)';
+          e.currentTarget.style.backgroundColor = 'rgba(255,85,0,0.025)';
+          e.currentTarget.style.borderLeftColor = 'var(--orange)';
           e.currentTarget.style.paddingLeft = '12px';
         }}
         onMouseLeave={(e) => {
@@ -672,22 +738,24 @@ function CredentialCard({ cred, index }: { cred: typeof credentials[0]; index: n
       >
         <div>
           <div className="flex flex-wrap items-center gap-3">
-            <h3 className="font-mono text-sm font-medium text-[var(--fg)]">
+            <h3 className="font-mono text-sm font-medium" style={{ color: 'var(--fg)' }}>
               {cred.title}
             </h3>
             <Tag text={cred.category} />
           </div>
-          <p className="mt-1.5 font-mono text-[11px] text-[var(--fg-2)]">
+          <p className="mt-1.5 font-mono text-[11px]" style={{ color: 'var(--fg-2)' }}>
             {cred.issuer}
           </p>
           <div className="mt-2 flex flex-wrap items-center gap-3">
-            <span className="font-mono text-[10px] text-[var(--fg-3)]">{cred.date}</span>
+            <span className="font-mono text-[10px]" style={{ color: 'var(--fg-3)' }}>{cred.date}</span>
             {cred.id && (
-              <span className="font-mono text-[10px] text-[var(--fg-4)]">ID: {cred.id}</span>
+              <span className="font-mono text-[10px]" style={{ color: 'var(--fg-4)' }}>
+                ID: {cred.id}
+              </span>
             )}
             <div className="flex flex-wrap gap-1.5">
               {cred.tags.map((t) => (
-                <span key={t} className="font-mono text-[8px] uppercase text-[var(--fg-4)]">
+                <span key={t} className="font-mono text-[8px] uppercase" style={{ color: 'var(--fg-4)' }}>
                   {t}
                 </span>
               ))}
@@ -696,11 +764,14 @@ function CredentialCard({ cred, index }: { cred: typeof credentials[0]; index: n
         </div>
         <div className="flex items-center">
           {'verifyText' in cred && cred.verifyText ? (
-            <span className="font-mono text-[11px] text-[var(--terminal-green)]">
+            <span className="font-mono text-[11px]" style={{ color: 'var(--terminal-green)' }}>
               {cred.verifyText}
             </span>
           ) : (
-            <span className="font-mono text-[11px] text-[var(--fg-4)] group-hover:text-[var(--fg-3)] transition-colors">
+            <span
+              className="font-mono text-[11px] transition-colors"
+              style={{ color: 'var(--fg-4)' }}
+            >
               verify &nearr;
             </span>
           )}
@@ -712,29 +783,31 @@ function CredentialCard({ cred, index }: { cred: typeof credentials[0]; index: n
 
 function CredentialsSection() {
   return (
-    <section className="mx-auto max-w-[1200px] px-5 py-[72px] md:px-10 md:py-[120px]" style={{ background: 'var(--bg-1)' }}>
-      <ScrollReveal>
-        <SectionLabel number="03" text="CREDENTIALS" />
-      </ScrollReveal>
-      <ScrollReveal delay={0.1}>
-        <h2
-          className="font-sans font-bold tracking-[-0.02em] text-[var(--fg)]"
-          style={{ fontSize: 'clamp(28px, 3.5vw, 48px)', lineHeight: 1.05 }}
-        >
-          Certifications &amp; Education
-        </h2>
-      </ScrollReveal>
+    <section className="parallax-section" style={{ background: 'var(--bg-1)' }}>
+      <div className="mx-auto max-w-[1200px] px-5 py-[72px] md:px-10 md:py-[120px]">
+        <ScrollReveal>
+          <SectionLabel number="04" text="CREDENTIALS" />
+        </ScrollReveal>
+        <ScrollReveal delay={0.1}>
+          <h2
+            className="font-sans font-bold tracking-[-0.02em] text-[var(--fg)]"
+            style={{ fontSize: 'clamp(28px, 3.5vw, 48px)', lineHeight: 1.05 }}
+          >
+            Certifications &amp; Education
+          </h2>
+        </ScrollReveal>
 
-      <div className="mt-12">
-        {credentials.map((cred, i) => (
-          <CredentialCard key={cred.title} cred={cred} index={i} />
-        ))}
+        <div className="mt-12">
+          {credentials.map((cred, i) => (
+            <CredentialCard key={cred.title} cred={cred} index={i} />
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
-/* ═══════════════ CONTACT CTA SECTION ═══════════════ */
+/* ══════════════════ CONTACT CTA ══════════════════ */
 
 const contactLinks = [
   { key: 'email', value: 'edwardktwumasi1000@gmail.com', href: 'mailto:edwardktwumasi1000@gmail.com' },
@@ -745,28 +818,36 @@ const contactLinks = [
 
 function ContactCTASection() {
   return (
-    <section className="relative overflow-hidden px-5 py-[100px] md:py-[160px]" style={{ background: 'var(--bg)' }}>
-      {/* Ambient particle echoes */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.08]">
+    <section
+      className="parallax-section px-5 py-[100px] md:py-[160px]"
+      style={{ background: 'var(--bg)' }}
+    >
+      {/* Ambient particles — orange + mauve */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.07]">
         <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-          {[...Array(20)].map((_, i) => (
+          {([
+            '#FF5500', '#FF5500', '#C77DFF', '#FF5500', '#C77DFF',
+            '#FF5500', '#C77DFF', '#FF5500', '#FF5500', '#C77DFF',
+            '#C77DFF', '#FF5500', '#C77DFF', '#FF5500', '#C77DFF',
+            '#FF5500', '#C77DFF', '#FF5500', '#C77DFF', '#FF5500',
+          ] as const).map((color, i) => (
             <circle
               key={i}
-              cx={`${10 + Math.random() * 80}%`}
-              cy={`${10 + Math.random() * 80}%`}
-              r={1 + Math.random() * 2}
-              fill="#4f5dff"
+              cx={`${8 + (i * 4.5) % 86}%`}
+              cy={`${12 + (i * 7) % 76}%`}
+              r={1 + (i % 3) * 0.8}
+              fill={color}
             >
               <animate
                 attributeName="cy"
-                dur={`${8 + Math.random() * 12}s`}
-                values={`${10 + Math.random() * 80}%;${20 + Math.random() * 60}%;${10 + Math.random() * 80}%`}
+                dur={`${9 + (i % 7) * 1.5}s`}
+                values={`${12 + (i * 7) % 76}%;${22 + (i * 5) % 56}%;${12 + (i * 7) % 76}%`}
                 repeatCount="indefinite"
               />
               <animate
                 attributeName="opacity"
-                dur={`${4 + Math.random() * 6}s`}
-                values="0.3;0.8;0.3"
+                dur={`${4 + (i % 5) * 1.2}s`}
+                values="0.25;0.75;0.25"
                 repeatCount="indefinite"
               />
             </circle>
@@ -776,7 +857,7 @@ function ContactCTASection() {
 
       <div className="relative z-10 mx-auto max-w-[600px] text-center">
         <ScrollReveal>
-          <SectionLabel number="04" text="REACH OUT" />
+          <SectionLabel number="05" text="REACH OUT" />
         </ScrollReveal>
 
         <ScrollReveal delay={0.1}>
@@ -789,8 +870,8 @@ function ContactCTASection() {
         </ScrollReveal>
 
         <ScrollReveal delay={0.2}>
-          <p className="mx-auto mt-4 max-w-[480px] font-sans text-[15px] text-[var(--fg-3)]">
-            Open to backend engineering, distributed systems, and AI tooling work.
+          <p className="mx-auto mt-4 max-w-[480px] font-sans text-[15px]" style={{ color: 'var(--fg-3)' }}>
+            Open to backend engineering, agent systems, and developer tooling work.
           </p>
         </ScrollReveal>
 
@@ -808,18 +889,18 @@ function ContactCTASection() {
                   color: 'var(--fg-3)',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--border-2)';
+                  e.currentTarget.style.borderColor = 'var(--orange)';
                   e.currentTarget.style.transform = 'translateY(-2px)';
-                  const val = e.currentTarget.querySelector('.contact-val');
-                  if (val) val.classList.add('text-[var(--fg)]');
+                  e.currentTarget.style.color = 'var(--fg)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = 'var(--border)';
                   e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.color = 'var(--fg-3)';
                 }}
               >
-                <span className="text-[var(--fg-3)]">{link.key}</span>
-                <span className="contact-val text-[var(--fg-2)] transition-colors">{link.value}</span>
+                <span style={{ color: 'var(--fg-3)' }}>{link.key}</span>
+                <span style={{ color: 'var(--fg-2)' }}>{link.value}</span>
               </a>
             </ScrollReveal>
           ))}
@@ -829,11 +910,15 @@ function ContactCTASection() {
           <div className="mt-9">
             <Link
               to="/contact"
-              className="inline-block font-mono text-xs text-[var(--fg-3)] transition-all duration-200"
-              style={{ borderBottom: '1px solid var(--border)', paddingBottom: 2 }}
+              className="inline-block font-mono text-xs transition-all duration-200"
+              style={{
+                color: 'var(--fg-3)',
+                borderBottom: '1px solid var(--border)',
+                paddingBottom: 2,
+              }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.color = 'var(--fg)';
-                e.currentTarget.style.borderColor = 'var(--accent)';
+                e.currentTarget.style.color = 'var(--orange)';
+                e.currentTarget.style.borderColor = 'var(--orange)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.color = 'var(--fg-3)';
@@ -849,16 +934,107 @@ function ContactCTASection() {
   );
 }
 
-/* ═══════════════ HOME PAGE ═══════════════ */
+/* ══════════════════ WHAT'S NEXT ══════════════════ */
+
+const nextBuilds = [
+  {
+    signal: 'Agent runtime with persistent memory and tool-registry API.',
+    stack: ['Go', 'MCP', 'PostgreSQL'],
+  },
+  {
+    signal: 'Self-hostable observability layer for AI workflow pipelines.',
+    stack: ['Hetzner', 'Prometheus', 'Grafana'],
+  },
+  {
+    signal: 'Payments SDK for HTTP 402 across agent-to-agent calls.',
+    stack: ['TypeScript', 'TON', 'HTTP 402'],
+  },
+];
+
+function WhatsNextSection() {
+  return (
+    <section className="parallax-section" style={{ background: 'var(--bg-2)' }}>
+      <div className="mx-auto max-w-[1200px] px-5 py-[72px] md:px-10 md:py-[120px]">
+        <ScrollReveal>
+          <SectionLabel number="06" text="NEXT" />
+        </ScrollReveal>
+        <ScrollReveal delay={0.1}>
+          <h2
+            className="font-sans font-bold tracking-[-0.02em]"
+            style={{
+              fontSize: 'clamp(28px, 3.5vw, 48px)',
+              lineHeight: 1.05,
+              color: 'var(--fg)',
+            }}
+          >
+            What&apos;s in progress
+          </h2>
+        </ScrollReveal>
+        <ScrollReveal delay={0.15}>
+          <p className="mt-2 font-sans text-sm" style={{ color: 'var(--fg-3)' }}>
+            Direction signals — not roadmaps.
+          </p>
+        </ScrollReveal>
+
+        <div className="mt-12 flex flex-col gap-0">
+          {nextBuilds.map((item, i) => (
+            <ScrollReveal key={i} delay={0.1 + i * 0.1} translateY={20}>
+              <div
+                className="group flex flex-col gap-3 transition-all duration-200 sm:flex-row sm:items-center sm:justify-between"
+                style={{
+                  borderTop: i === 0 ? '1px solid var(--border)' : undefined,
+                  borderBottom: '1px solid var(--border)',
+                  padding: '28px 0',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.paddingLeft = '8px';
+                  e.currentTarget.style.backgroundColor = 'rgba(255,85,0,0.025)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.paddingLeft = '0';
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }}
+              >
+                <p className="max-w-[600px] font-sans text-[15px] leading-[1.6]" style={{ color: 'var(--fg-2)' }}>
+                  {item.signal}
+                </p>
+                <div className="flex shrink-0 flex-wrap gap-2">
+                  {item.stack.map((s) => (
+                    <span
+                      key={s}
+                      className="font-mono text-[9px] uppercase tracking-widest"
+                      style={{
+                        border: '1px solid var(--mauve)',
+                        color: 'var(--mauve)',
+                        padding: '3px 8px',
+                        opacity: 0.7,
+                      }}
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ══════════════════ HOME PAGE ══════════════════ */
 
 export default function Home() {
   return (
     <>
       <HeroSection />
+      <MarqueeTicker />
       <FeaturedProjectsSection />
       <TechStackSection />
       <PackagesSection />
       <CredentialsSection />
+      <WhatsNextSection />
       <ContactCTASection />
     </>
   );

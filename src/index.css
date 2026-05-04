@@ -6,43 +6,59 @@
 
 @layer base {
   :root {
-    --bg: #000000;
-    --bg-1: #050505;
-    --bg-2: #0c0c0c;
-    --bg-3: #111111;
-    --fg: #f5f5f5;
-    --fg-2: #c0c0c0;
-    --fg-3: #8a8a8a;
-    --fg-4: #555555;
-    --border: rgba(255,255,255,0.12);
-    --border-2: rgba(255,255,255,0.20);
-    --border-3: rgba(255,255,255,0.35);
-    --accent: #4f5dff;
-    --accent-2: #163a63;
-    --accent-glow: rgba(79,93,255,0.35);
-    --accent-glow-soft: rgba(79,93,255,0.12);
+    --bg: #080808;
+    --bg-1: #0d0d0d;
+    --bg-2: #121212;
+    --bg-3: #1a1a1a;
+    --fg: #F5F2ED;
+    --fg-2: #C8C4BE;
+    --fg-3: #8a8580;
+    --fg-4: #504d48;
+    --border: rgba(245,242,237,0.10);
+    --border-2: rgba(245,242,237,0.18);
+    --border-3: rgba(245,242,237,0.30);
+
+    /* Primary accent — orange */
+    --orange: #FF5500;
+    --orange-muted: rgba(255,85,0,0.18);
+    --orange-glow: rgba(255,85,0,0.35);
+    --orange-glow-soft: rgba(255,85,0,0.10);
+
+    /* Secondary accent — mauve */
+    --mauve: #C77DFF;
+    --mauve-muted: rgba(199,125,255,0.18);
+    --mauve-glow: rgba(199,125,255,0.30);
+    --mauve-glow-soft: rgba(199,125,255,0.10);
+
+    /* Legacy alias kept so existing components don't break */
+    --accent: #FF5500;
+    --accent-2: #5a1a00;
+    --accent-glow: rgba(255,85,0,0.35);
+    --accent-glow-soft: rgba(255,85,0,0.10);
+
     --terminal-green: #4ade80;
     --terminal-amber: #fbbf24;
 
-    --background: 0 0% 0%;
-    --foreground: 0 0% 96%;
-    --card: 0 0% 0%;
-    --card-foreground: 0 0% 96%;
-    --popover: 0 0% 0%;
-    --popover-foreground: 0 0% 96%;
-    --primary: 235 100% 65%;
+    /* shadcn / Radix design tokens (HSL) */
+    --background: 0 0% 3%;
+    --foreground: 36 13% 95%;
+    --card: 0 0% 5%;
+    --card-foreground: 36 13% 95%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 36 13% 95%;
+    --primary: 20 100% 50%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 5%;
-    --secondary-foreground: 0 0% 96%;
-    --muted: 0 0% 5%;
-    --muted-foreground: 0 0% 54%;
-    --accent: 235 100% 65%;
+    --secondary: 0 0% 7%;
+    --secondary-foreground: 36 13% 95%;
+    --muted: 0 0% 7%;
+    --muted-foreground: 36 5% 54%;
+    --accent: 282 100% 75%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 100% / 0.12;
-    --input: 0 0% 100% / 0.12;
-    --ring: 235 100% 65%;
+    --border: 36 13% 95% / 0.10;
+    --input: 36 13% 95% / 0.10;
+    --ring: 20 100% 50%;
     --radius: 0.5rem;
   }
 
@@ -77,9 +93,41 @@
     background: var(--fg-3);
   }
 
-  /* Selection */
   ::selection {
-    background-color: rgba(79, 93, 255, 0.3);
+    background-color: rgba(255, 85, 0, 0.28);
     color: var(--fg);
   }
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Scroll-line reveal */
+@keyframes scroll-line {
+  0%   { transform: scaleY(0); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0.4; }
+}
+
+.scroll-line {
+  animation: scroll-line 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Parallax-ready sections — overflow clip so children can shift freely */
+.parallax-section {
+  position: relative;
+  overflow: hidden;
 }
