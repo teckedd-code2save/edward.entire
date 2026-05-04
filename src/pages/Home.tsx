@@ -169,75 +169,6 @@ function HeroSection() {
   );
 }
 
-/* ══════════════════ MARQUEE TICKER ══════════════════ */
-
-const tickerItems = [
-  'C#', 'TypeScript', 'Python', 'React', 'Next.js',
-  'PostgreSQL', 'Redis', 'Elasticsearch', 'MongoDB',
-  'Docker', 'Kubernetes', 'Terraform',
-  'Hetzner', 'Cloudflare', 'nginx', 'Caddy',
-  'AWS', 'GCP', 'GitHub Actions',
-  'MCP', 'Claude Opus 4.7', 'TON', 'PWA', 'HTTP 402',
-];
-
-function MarqueeTicker() {
-  const doubled = [...tickerItems, ...tickerItems];
-
-  return (
-    <div
-      className="relative w-full overflow-hidden border-y"
-      style={{
-        borderColor: 'var(--border-2)',
-        backgroundColor: 'var(--bg-2)',
-        padding: '18px 0',
-      }}
-    >
-      {/* Edge fades so items glide in/out instead of cutting */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24"
-        style={{ background: 'linear-gradient(90deg, var(--bg-2), transparent)' }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24"
-        style={{ background: 'linear-gradient(270deg, var(--bg-2), transparent)' }}
-      />
-
-      <div className="marquee-track">
-        {doubled.map((item, i) => (
-          <span
-            key={i}
-            className="flex shrink-0 items-center gap-3 font-mono text-[13px] uppercase"
-            style={{
-              color: 'var(--fg)',
-              letterSpacing: '0.18em',
-              padding: '0 22px',
-            }}
-          >
-            <span
-              aria-hidden
-              style={{
-                width: 5,
-                height: 5,
-                borderRadius: 999,
-                backgroundColor: i % 3 === 0 ? 'var(--mauve)' : 'var(--orange)',
-                opacity: 0.9,
-                flexShrink: 0,
-                boxShadow:
-                  i % 3 === 0
-                    ? '0 0 8px rgba(199,125,255,0.45)'
-                    : '0 0 8px rgba(255,85,0,0.45)',
-              }}
-            />
-            <span>{item}</span>
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 /* ══════════════════ SCENE 2 — MANIFESTO (sticky-pin scrollytelling) ══════════════════ */
 
 const manifestoFrames = [
@@ -483,17 +414,6 @@ const featuredProjects: Project[] = [
     github: 'https://github.com/teckedd-code2save',
     status: 'public',
   },
-  {
-    number: '05',
-    tag: 'company core',
-    tone: 'orange',
-    title: 'Agent Ops',
-    blurb: 'Portable company core and project profiles for The Agent Flow Studio.',
-    detail:
-      'Internal source-of-truth for studio metadata, project briefs, and agent capabilities. Private repo.',
-    stack: ['JavaScript', 'Profiles', 'Agent Flow Studio'],
-    status: 'private',
-  },
 ];
 
 function ProjectCanvas({ tone, index }: { tone: 'orange' | 'mauve'; index: number }) {
@@ -658,7 +578,7 @@ function FeaturedProjectsSection() {
             className="font-sans font-bold tracking-[-0.025em] text-[var(--fg)]"
             style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.02 }}
           >
-            Five things, currently in&nbsp;
+            Currently in&nbsp;
             <span style={{ color: 'var(--orange)' }}>flight</span>.
           </h2>
         </ScrollReveal>
@@ -1429,7 +1349,6 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <MarqueeTicker />
       <ManifestoSection />
       <FeaturedProjectsSection />
       <DeploymentSection />

@@ -95,25 +95,6 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/teckedd-code2save/HealthWallet-TON-MiniApp',
   },
   {
-    id: 'agent-ops',
-    number: '05',
-    title: 'Agent Ops',
-    tag: 'agent flow studio',
-    category: 'agents',
-    canvasMode: 'agents',
-    description:
-      'Portable company core and project profiles for The Agent Flow Studio. Design, version, and run agent workflows with a visual canvas. Ships with a runtime that executes flows locally or in the cloud — no vendor lock-in.',
-    stack: ['JavaScript', 'Agent Runtime', 'Flow Canvas', 'Workflow Engine', 'Company Profiles'],
-    architecture:
-      'Visual flow canvas maps agent nodes to executable runtime steps. Company and project profiles travel with the workspace — portable config that defines context for every agent run. Execution engine supports local runtime and cloud dispatch. Designed to be self-hosted.',
-    highlights: [
-      'Visual canvas for designing multi-step agent workflows.',
-      'Portable profiles: company context travels with every deployment.',
-      'Local-first runtime with optional cloud execution.',
-    ],
-    githubUrl: 'https://github.com/teckedd-code2save/agent-ops',
-  },
-  {
     id: 'mpp-studio',
     number: '06',
     title: 'MPP Studio',
