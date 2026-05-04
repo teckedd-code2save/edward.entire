@@ -75,7 +75,7 @@ function HeroSection() {
               className="font-mono text-[10px] uppercase tracking-[0.2em]"
               style={{ color: 'var(--fg-2)' }}
             >
-              Accra · shipping from /dev/null
+              edward twumasi · backend engineer
             </span>
           </motion.div>
 
@@ -111,8 +111,7 @@ function HeroSection() {
             {[
               { label: 'github', href: 'https://github.com/teckedd-code2save' },
               { label: 'linkedin', href: 'https://linkedin.com/in/edward-twumasi' },
-              { label: 'serendepify', href: 'https://www.serendepify.com/' },
-              { label: 'convoy', href: 'https://convoy-home.vercel.app/' },
+              { label: 'convoy', href: 'https://convoy-home.vercel.app/', highlight: true },
               { label: 'email', href: 'mailto:edwardktwumasi1000@gmail.com' },
             ].map((link) => (
               <a
@@ -122,17 +121,18 @@ function HeroSection() {
                 rel="noopener noreferrer"
                 className="font-mono text-[11px] uppercase tracking-[0.14em] transition-all duration-250"
                 style={{
-                  color: 'var(--fg-2)',
+                  color: link.highlight ? 'var(--mauve)' : 'var(--fg-2)',
                   borderBottom: '1px solid rgba(245,242,237,0.16)',
                   paddingBottom: 2,
+                  fontWeight: link.highlight ? 700 : 400,
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = 'var(--orange)';
-                  e.currentTarget.style.borderColor = 'var(--orange)';
+                  e.currentTarget.style.color = link.highlight ? 'var(--mauve)' : 'var(--orange)';
+                  e.currentTarget.style.borderColor = link.highlight ? 'var(--mauve)' : 'var(--orange)';
                   e.currentTarget.style.transform = 'translateY(-2px)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'var(--fg-2)';
+                  e.currentTarget.style.color = link.highlight ? 'var(--mauve)' : 'var(--fg-2)';
                   e.currentTarget.style.borderColor = 'rgba(245,242,237,0.16)';
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
@@ -624,14 +624,130 @@ function FeaturedProjectsSection() {
   );
 }
 
-/* ══════════════════ SCENE 4 — DEPLOYMENT CHAIN ══════════════════ */
+/* ══════════════════ SCENE 4 — DEPLOYMENT CHAINS ══════════════════ */
 
-const deploymentLinks: { name: string; role: string; tone: 'orange' | 'mauve' }[] = [
-  { name: 'Cloudflare', role: 'edge / DNS / WAF',         tone: 'orange' },
-  { name: 'Caddy',      role: 'TLS + reverse proxy',      tone: 'mauve'  },
-  { name: 'nginx',      role: 'static / load balance',    tone: 'orange' },
-  { name: 'Hetzner',    role: 'bare-metal VPS, EU',       tone: 'mauve'  },
+type DeploymentNode = { name: string; role: string; tone: 'orange' | 'mauve' };
+
+const deploymentChains: { label: string; nodes: DeploymentNode[] }[] = [
+  {
+    label: 'Bare Metal / VPS',
+    nodes: [
+      { name: 'Cloudflare', role: 'edge / DNS / WAF',      tone: 'orange' },
+      { name: 'Caddy',      role: 'TLS + reverse proxy',   tone: 'mauve'  },
+      { name: 'nginx',      role: 'static / load balance', tone: 'orange' },
+      { name: 'Hetzner',    role: 'bare-metal VPS, EU',    tone: 'mauve'  },
+    ],
+  },
+  {
+    label: 'Serverless / Edge',
+    nodes: [
+      { name: 'GitHub',    role: 'source / CI',       tone: 'orange' },
+      { name: 'Vercel',    role: 'build + deploy',    tone: 'mauve'  },
+      { name: 'Edge',      role: 'edge functions',    tone: 'orange' },
+      { name: 'Analytics', role: 'observability',     tone: 'mauve'  },
+    ],
+  },
+  {
+    label: 'AWS Cloud',
+    nodes: [
+      { name: 'GitHub Actions', role: 'CI pipeline',        tone: 'orange' },
+      { name: 'ECR',            role: 'container registry', tone: 'mauve'  },
+      { name: 'ECS',            role: 'orchestration',      tone: 'orange' },
+      { name: 'CloudFront',     role: 'CDN / edge',         tone: 'mauve'  },
+    ],
+  },
 ];
+
+function DeploymentChain({
+  label,
+  nodes,
+}: {
+  label: string;
+  nodes: DeploymentNode[];
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-10% 0px' });
+
+  return (
+    <div ref={ref} className="w-full">
+      <div
+        className="mb-5 font-mono text-[10px] uppercase tracking-[0.22em]"
+        style={{ color: 'var(--fg-4)' }}
+      >
+        {label}
+      </div>
+      <div className="relative grid grid-cols-4 gap-0">
+        {/* Background track */}
+        <div
+          className="pointer-events-none absolute hidden h-px md:block"
+          style={{
+            top: 28,
+            left: '12.5%',
+            right: '12.5%',
+            backgroundColor: 'var(--border)',
+          }}
+        />
+        {/* Animated gradient track */}
+        <motion.div
+          className="pointer-events-none absolute hidden h-px md:block"
+          initial={{ width: '0%' }}
+          animate={isInView ? { width: '75%' } : { width: '0%' }}
+          transition={{ duration: 1.2, ease: easeEnter, delay: 0.3 }}
+          style={{
+            top: 28,
+            left: '12.5%',
+            background: 'linear-gradient(90deg, var(--orange), var(--mauve), var(--orange))',
+            boxShadow: '0 0 12px rgba(255,85,0,0.45)',
+          }}
+        />
+
+        {nodes.map((node, i) => (
+          <ScrollReveal key={node.name} delay={i * 0.08} translateY={16}>
+            <div className="relative flex flex-col items-center text-center">
+              <span
+                className="orb-pulse relative z-[1] flex items-center justify-center"
+                style={{
+                  width: 56,
+                  height: 56,
+                  borderRadius: '50%',
+                  border: `1px solid ${node.tone === 'orange' ? 'rgba(255,85,0,0.5)' : 'rgba(199,125,255,0.5)'}`,
+                  backgroundColor: 'var(--bg)',
+                  color: node.tone === 'orange' ? 'var(--orange)' : 'var(--mauve)',
+                  boxShadow:
+                    node.tone === 'orange'
+                      ? '0 0 24px rgba(255,85,0,0.15)'
+                      : '0 0 24px rgba(199,125,255,0.15)',
+                  animationDelay: `-${i * 0.6}s`,
+                }}
+              >
+                <span className="font-mono text-[10px] font-medium tracking-widest">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+              </span>
+
+              <span
+                className="mt-4 font-sans font-medium"
+                style={{
+                  fontSize: '1rem',
+                  color: 'var(--fg)',
+                  letterSpacing: '-0.01em',
+                }}
+              >
+                {node.name}
+              </span>
+              <span
+                className="mt-1 font-mono text-[10px] uppercase tracking-widest"
+                style={{ color: 'var(--fg-3)' }}
+              >
+                {node.role}
+              </span>
+            </div>
+          </ScrollReveal>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function DeploymentSection() {
   const ref = useRef<HTMLElement>(null);
@@ -639,8 +755,6 @@ function DeploymentSection() {
     target: ref,
     offset: ['start end', 'end start'],
   });
-
-  const lineProgress = useTransform(scrollYProgress, [0.15, 0.65], ['0%', '100%']);
   const headingY = useTransform(scrollYProgress, [0, 1], ['40px', '-40px']);
 
   return (
@@ -660,7 +774,7 @@ function DeploymentSection() {
               className="font-sans font-bold tracking-[-0.025em] text-[var(--fg)]"
               style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.05 }}
             >
-              Where it&nbsp;<span style={{ color: 'var(--orange)' }}>lives</span>.
+              Push from&nbsp;<span style={{ color: 'var(--orange)' }}>origin</span>.
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.15}>
@@ -668,78 +782,119 @@ function DeploymentSection() {
               className="mt-3 max-w-[640px] font-sans text-[14px] leading-[1.7]"
               style={{ color: 'var(--fg-2)' }}
             >
-              Edge to origin. Cheap, predictable, observable. The same chain runs Convoy, Optimi,
-              and Soft Pharma Manager.
+              One station. Many targets. The shape of the problem picks the path.
             </p>
           </ScrollReveal>
         </motion.div>
 
-        <div className="relative mt-16 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-0">
-          {/* Animated connecting line on md+ */}
-          <div
-            className="pointer-events-none absolute hidden h-px md:block"
-            style={{
-              top: 36,
-              left: '8%',
-              right: '8%',
-              backgroundColor: 'var(--border)',
-            }}
-          />
-          <motion.div
-            className="pointer-events-none absolute hidden h-px md:block"
-            style={{
-              top: 36,
-              left: '8%',
-              width: lineProgress,
-              maxWidth: '84%',
-              background:
-                'linear-gradient(90deg, var(--orange), var(--mauve), var(--orange))',
-              boxShadow: '0 0 12px rgba(255,85,0,0.45)',
-            }}
-          />
+        {/* Desktop Rake */}
+        <div className="relative mt-16 hidden lg:flex lg:items-stretch lg:gap-6">
+          {/* Parent Node — the handle */}
+          <div className="flex w-[200px] shrink-0 flex-col items-center justify-center">
+            <div
+              className="flex items-center justify-center"
+              style={{
+                width: 88,
+                height: 88,
+                borderRadius: '50%',
+                border: '1px solid rgba(255,85,0,0.5)',
+                backgroundColor: 'var(--bg)',
+                boxShadow: '0 0 32px rgba(255,85,0,0.18), inset 0 0 20px rgba(255,85,0,0.05)',
+              }}
+            >
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--orange)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+              </svg>
+            </div>
+            <span
+              className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em]"
+              style={{ color: 'var(--fg-3)' }}
+            >
+              Origin
+            </span>
+          </div>
 
-          {deploymentLinks.map((link, i) => (
-            <ScrollReveal key={link.name} delay={i * 0.08} translateY={20}>
-              <div className="relative flex flex-col items-center text-center">
-                <span
-                  className="orb-pulse relative z-[1] flex items-center justify-center"
-                  style={{
-                    width: 72,
-                    height: 72,
-                    borderRadius: '50%',
-                    border: `1px solid ${link.tone === 'orange' ? 'rgba(255,85,0,0.5)' : 'rgba(199,125,255,0.5)'}`,
-                    backgroundColor: 'var(--bg)',
-                    color: link.tone === 'orange' ? 'var(--orange)' : 'var(--mauve)',
-                    boxShadow:
-                      link.tone === 'orange'
-                        ? '0 0 28px rgba(255,85,0,0.18)'
-                        : '0 0 28px rgba(199,125,255,0.18)',
-                    animationDelay: `-${i * 0.6}s`,
-                  }}
-                >
-                  <span className="font-mono text-[11px] font-medium tracking-widest">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                </span>
+          {/* Connector — vertical handle + three branches */}
+          <div className="pointer-events-none relative flex w-14 shrink-0 flex-col py-8">
+            {/* Vertical handle */}
+            <div
+              className="absolute left-0 top-8 bottom-8 w-px"
+              style={{ backgroundColor: 'var(--border)' }}
+            />
+            {/* Three branch lines */}
+            <div className="flex flex-1 flex-col justify-between">
+              <div
+                className="h-px w-full"
+                style={{ background: 'linear-gradient(90deg, var(--border), transparent)' }}
+              />
+              <div
+                className="h-px w-full"
+                style={{ background: 'linear-gradient(90deg, var(--border), transparent)' }}
+              />
+              <div
+                className="h-px w-full"
+                style={{ background: 'linear-gradient(90deg, var(--border), transparent)' }}
+              />
+            </div>
+          </div>
 
-                <span
-                  className="mt-5 font-sans font-medium"
-                  style={{
-                    fontSize: '1.1rem',
-                    color: 'var(--fg)',
-                    letterSpacing: '-0.01em',
-                  }}
-                >
-                  {link.name}
-                </span>
-                <span
-                  className="mt-1 font-mono text-[10px] uppercase tracking-widest"
-                  style={{ color: 'var(--fg-3)' }}
-                >
-                  {link.role}
-                </span>
+          {/* Chains — the tines */}
+          <div className="flex flex-1 flex-col justify-around gap-6">
+            {deploymentChains.map((chain) => (
+              <div key={chain.label} className="flex flex-1 items-center">
+                <DeploymentChain label={chain.label} nodes={chain.nodes} />
               </div>
-            </ScrollReveal>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile Stack */}
+        <div className="mt-16 flex flex-col items-center gap-10 lg:hidden">
+          <div className="flex flex-col items-center">
+            <div
+              className="flex items-center justify-center"
+              style={{
+                width: 88,
+                height: 88,
+                borderRadius: '50%',
+                border: '1px solid rgba(255,85,0,0.5)',
+                backgroundColor: 'var(--bg)',
+                boxShadow: '0 0 32px rgba(255,85,0,0.18), inset 0 0 20px rgba(255,85,0,0.05)',
+              }}
+            >
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--orange)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+              </svg>
+            </div>
+            <span
+              className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em]"
+              style={{ color: 'var(--fg-3)' }}
+            >
+              Origin
+            </span>
+          </div>
+          {deploymentChains.map((chain, i) => (
+            <div key={chain.label} className={i > 0 ? 'mt-4' : ''}>
+              <DeploymentChain label={chain.label} nodes={chain.nodes} />
+            </div>
           ))}
         </div>
       </div>
@@ -1138,19 +1293,14 @@ function CredentialRow({ cred, index }: { cred: typeof credentials[0]; index: nu
         style={{
           padding: '22px 0',
           borderBottom: '1px solid var(--border)',
-          borderLeft: '2px solid transparent',
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'translateX(6px)';
+          e.currentTarget.style.transform = 'translateX(4px)';
           e.currentTarget.style.backgroundColor = 'rgba(255,85,0,0.025)';
-          e.currentTarget.style.borderLeftColor = 'var(--orange)';
-          e.currentTarget.style.paddingLeft = '12px';
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = 'translateX(0)';
           e.currentTarget.style.backgroundColor = 'transparent';
-          e.currentTarget.style.borderLeftColor = 'transparent';
-          e.currentTarget.style.paddingLeft = '0';
         }}
       >
         <div>

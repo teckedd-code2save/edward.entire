@@ -150,18 +150,11 @@ export default function Projects() {
             className="mt-10"
           >
             <div className="flex flex-wrap gap-2">
-              {filterCategories.map((cat, i) => {
+              {filterCategories.map((cat) => {
                 const active = activeFilter === cat.value;
                 return (
-                  <motion.button
+                  <button
                     key={cat.value}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      duration: 0.5,
-                      delay: 0.4 + i * 0.04,
-                      ease: easeEnter,
-                    }}
                     onClick={() => setActiveFilter(cat.value)}
                     className="relative cursor-pointer font-mono text-[11px] uppercase tracking-widest transition-all duration-200"
                     style={{
@@ -177,7 +170,7 @@ export default function Projects() {
                     }}
                   >
                     {cat.label}
-                  </motion.button>
+                  </button>
                 );
               })}
             </div>

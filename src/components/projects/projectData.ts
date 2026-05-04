@@ -133,25 +133,6 @@ export const projects: Project[] = [
     liveUrl: 'https://shipd-seven.vercel.app/',
   },
   {
-    id: 'soft-pharma-manager',
-    number: '08',
-    title: 'Soft Pharma',
-    tag: 'pharmacy management',
-    category: 'tooling',
-    canvasMode: 'terminal',
-    description:
-      'Pharmacy management system for small-to-medium dispensaries. Handles inventory, sales, expiry tracking, and supplier management. Built with offline-first resilience for clinics operating in low-connectivity environments.',
-    stack: ['TypeScript', 'Inventory Management', 'Offline-first', 'Pharmacy Ops'],
-    architecture:
-      'Offline-first data layer with local-first sync. Inventory and expiry tracking with configurable alert thresholds. POS-style sales flow with barcode support. Supplier management with reorder automation. Designed to run on low-spec hardware without internet dependency.',
-    highlights: [
-      'Offline-first: operates fully without internet connectivity.',
-      'Expiry tracking with configurable alerts to reduce waste.',
-      'Designed for low-spec hardware in emerging-market pharmacy operations.',
-    ],
-    githubUrl: 'https://github.com/teckedd-code2save/soft-pharma-manager',
-  },
-  {
     id: 'website-media-capture-mcp',
     number: '09',
     title: 'Media Capture MCP',

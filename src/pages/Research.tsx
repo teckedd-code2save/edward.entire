@@ -277,22 +277,17 @@ function FoundationsSection() {
                 style={{
                   backgroundColor: 'var(--bg-2)',
                   border: '1px solid var(--border)',
-                  borderTop: `2px solid ${f.tone === 'orange' ? 'var(--orange)' : 'var(--mauve)'}`,
                   padding: 28,
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-4px)';
                   e.currentTarget.style.borderColor = 'var(--border-2)';
                   e.currentTarget.style.backgroundColor = 'var(--bg-3)';
-                  e.currentTarget.style.borderTopColor =
-                    f.tone === 'orange' ? 'var(--orange)' : 'var(--mauve)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
                   e.currentTarget.style.borderColor = 'var(--border)';
                   e.currentTarget.style.backgroundColor = 'var(--bg-2)';
-                  e.currentTarget.style.borderTopColor =
-                    f.tone === 'orange' ? 'var(--orange)' : 'var(--mauve)';
                 }}
               >
                 <div className="flex items-baseline gap-3">
@@ -489,7 +484,6 @@ function PathsSection() {
                 style={{
                   backgroundColor: 'var(--bg-2)',
                   border: '1px solid var(--border)',
-                  borderTop: `2px solid ${p.tone === 'orange' ? 'var(--orange)' : 'var(--mauve)'}`,
                   padding: 32,
                 }}
               >
@@ -591,20 +585,16 @@ function RoadmapSection() {
                   padding: '20px 0',
                   borderTop: i === 0 ? '1px solid var(--border)' : undefined,
                   borderBottom: '1px solid var(--border)',
-                  borderLeft: '2px solid transparent',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.paddingLeft = '12px';
-                  e.currentTarget.style.borderLeftColor =
-                    r.state === 'research' ? 'var(--mauve)' : 'var(--orange)';
+                  e.currentTarget.style.transform = 'translateX(4px)';
                   e.currentTarget.style.backgroundColor =
                     r.state === 'research'
                       ? 'rgba(199,125,255,0.03)'
                       : 'rgba(255,85,0,0.025)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.paddingLeft = '0';
-                  e.currentTarget.style.borderLeftColor = 'transparent';
+                  e.currentTarget.style.transform = 'translateX(0)';
                   e.currentTarget.style.backgroundColor = 'transparent';
                 }}
               >
