@@ -710,7 +710,7 @@ function ResearchCTA() {
               email a collaboration brief ↗
             </a>
             <a
-              href="https://github.com/teckedd-code2save"
+              href="https://github.com/teckedd-code2save/IntentEngine"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block font-mono text-[12px] transition-all duration-200"
