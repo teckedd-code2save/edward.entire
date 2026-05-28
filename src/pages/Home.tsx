@@ -81,7 +81,8 @@ function HeroSection() {
               { label: 'github', href: 'https://github.com/teckedd-code2save' },
               { label: 'linkedin', href: 'https://linkedin.com/in/edward-twumasi' },
               { label: 'serendepify', href: 'https://www.serendepify.com/' },
-              { label: 'convoy', href: 'https://convoy-home.vercel.app/', highlight: true },
+              { label: 'rentmyweekend', href: 'https://rentmyweekend.serendepify.com/', highlight: true },
+              { label: 'convoy', href: 'https://convoy-home.vercel.app/' },
               { label: 'email', href: 'mailto:edwardktwumasi1000@gmail.com' },
             ].map((link) => (
               <a
@@ -161,7 +162,7 @@ const manifestoFrames = [
     head: 'Products',
     accent: 'that ship',
     accentColor: 'var(--orange)',
-    body: 'Optimi. HealthWallet TON. Soft Pharma Manager. Live on Hetzner and Cloudflare, used daily, maintained.',
+    body: 'Rent My Weekend. Optimi. HealthWallet TON. Live on Hetzner and Cloudflare, used daily, maintained.',
   },
 ];
 
@@ -335,8 +336,20 @@ interface Project {
 const featuredProjects: Project[] = [
   {
     number: '01',
-    tag: 'deployment agent',
+    tag: 'rental marketplace',
     tone: 'orange',
+    title: 'Rent My Weekend',
+    blurb: 'Peer-to-peer weekend rental marketplace. List, discover, book, and get paid — all around the weekend.',
+    detail:
+      'Owners list assets with calendar rules and pricing; renters search by location and weekend range. Stripe Connect handles holds and automatic disbursement.',
+    stack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Stripe'],
+    live: 'https://rentmyweekend.serendepify.com/',
+    status: 'public',
+  },
+  {
+    number: '02',
+    tag: 'deployment agent',
+    tone: 'mauve',
     title: 'Convoy',
     blurb: 'Rehearses your deploy. Ships it. Watches the canary. Never touches your code.',
     detail:
@@ -347,9 +360,9 @@ const featuredProjects: Project[] = [
     status: 'public',
   },
   {
-    number: '02',
+    number: '03',
     tag: 'TON mini app',
-    tone: 'mauve',
+    tone: 'orange',
     title: 'HealthWallet TON',
     blurb: 'A health record wallet running natively inside Telegram, settled on TON.',
     detail:
@@ -359,9 +372,9 @@ const featuredProjects: Project[] = [
     status: 'public',
   },
   {
-    number: '03',
+    number: '04',
     tag: 'opportunity tracker',
-    tone: 'orange',
+    tone: 'mauve',
     title: 'Optimi',
     blurb: 'Privacy-first PWA for hackathons, grants, accelerators, and jobs. Local-only.',
     detail:
@@ -371,9 +384,9 @@ const featuredProjects: Project[] = [
     status: 'public',
   },
   {
-    number: '04',
+    number: '05',
     tag: 'emergency response',
-    tone: 'mauve',
+    tone: 'orange',
     title: 'CareWallet',
     blurb:
       'One SOS becomes a coordinated care flow — emergency, hospital match, deposit, contribution, approval.',

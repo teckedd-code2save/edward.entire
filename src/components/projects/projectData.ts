@@ -18,8 +18,27 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: 'convoy',
+    id: 'rentmyweekend',
     number: '01',
+    title: 'Rent My Weekend',
+    tag: 'rental marketplace',
+    category: 'commerce',
+    canvasMode: 'exchange',
+    description:
+      'Peer-to-peer weekend rental marketplace. Owners list what they have — cars, gear, spaces, experiences — renters book by the weekend. Availability engine, instant booking, and payout automation keep the loop tight.',
+    stack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Stripe', 'Maps API'],
+    architecture:
+      'Three-sided marketplace: owners list assets with availability rules and pricing tiers; renters search by location, category, and weekend date range; platform handles booking state, payment hold, and payout release. Postgres for inventory and booking state, Stripe Connect for split payments, geospatial indexing for local discovery.',
+    highlights: [
+      'Weekend-native booking model — Friday-to-Sunday as a first-class rental unit.',
+      'Owner dashboard with calendar overlay, pricing rules, and payout tracking.',
+      'Stripe Connect for escrow-style holds and automatic owner disbursement.',
+    ],
+    liveUrl: 'https://rentmyweekend.serendepify.com/',
+  },
+  {
+    id: 'convoy',
+    number: '02',
     title: 'Convoy',
     tag: 'deployment agent',
     category: 'deployment',
@@ -39,7 +58,7 @@ export const projects: Project[] = [
   },
   {
     id: 'serendepify',
-    number: '02',
+    number: '03',
     title: 'Serendepify',
     tag: 'developer tools',
     category: 'company',
@@ -58,7 +77,7 @@ export const projects: Project[] = [
   },
   {
     id: 'optimi',
-    number: '03',
+    number: '04',
     title: 'Optimi',
     tag: 'opportunity tracker',
     category: 'pwa',
@@ -77,7 +96,7 @@ export const projects: Project[] = [
   },
   {
     id: 'health-wallet-ton',
-    number: '04',
+    number: '05',
     title: 'HealthWallet',
     tag: 'TON mini-app',
     category: 'health',
