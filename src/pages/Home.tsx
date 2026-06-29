@@ -1,213 +1,10 @@
-import { useRef } from 'react';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import type { MotionValue } from 'framer-motion';
+import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import ScrollReveal from '@/components/ScrollReveal';
-import SectionLabel from '@/components/SectionLabel';
 import HorizontalSplitText from '@/components/HorizontalSplitText';
 
-const easeEnter = [0.0, 0, 0.2, 1] as [number, number, number, number];
+/* ── Featured project data (syncs with projectData.ts) ── */
 
-function Tag({ text, tone = 'neutral' }: { text: string; tone?: 'neutral' | 'orange' | 'mauve' }) {
-  const color =
-    tone === 'orange' ? 'var(--orange)' : tone === 'mauve' ? 'var(--mauve)' : 'var(--fg-3)';
-  const border =
-    tone === 'orange'
-      ? 'rgba(255,85,0,0.45)'
-      : tone === 'mauve'
-        ? 'rgba(199,125,255,0.45)'
-        : 'var(--border)';
-  return (
-    <span
-      className="inline-block cursor-default font-sans text-[9px] uppercase tracking-wide transition-all duration-200 hover:-translate-y-px"
-      style={{ border: `1px solid ${border}`, padding: '3px 7px', color }}
-    >
-      {text}
-    </span>
-  );
-}
-
-/* ══════════════════ SCENE 1 — MANIFESTO (sticky-pin scrollytelling) ══════════════════ */
-
-const manifestoFrames = [
-  {
-    label: '01 — deploy',
-    head: 'Ship',
-    accent: 'infrastructure',
-    accentColor: 'var(--orange)',
-    body: 'GroundControl manages Docker, Caddy, and deployments on bare-metal Hetzner. Convoy rehearses, ships, and watches your deploy. Shipd scores platforms from your repo — no writes, no guesswork.',
-  },
-  {
-    label: '02 — build',
-    head: 'Build',
-    accent: 'platforms',
-    accentColor: 'var(--mauve)',
-    body: 'AI Build Tools accelerate scaffolding and dependency management. Serendepify ships MCP-native developer tooling. MPP Studio registers APIs and runs agent-to-agent commerce on HTTP 402.',
-  },
-  {
-    label: '03 — research',
-    head: 'Push',
-    accent: 'boundaries',
-    accentColor: 'var(--orange)',
-    body: 'Akan Speech Lab builds ASR and TTS for a 30M+ speaker language. Adwuma Pa connects Ghanaian elders to AI-coordinated care. Optimi tracks opportunities with on-device AI — privacy-first.',
-  },
-];
-
-function ManifestoFrame({
-  frame,
-  index,
-  scrollProgress,
-}: {
-  frame: typeof manifestoFrames[0];
-  index: number;
-  scrollProgress: MotionValue<number>;
-}) {
-  const span = 1 / manifestoFrames.length;
-  const start = index * span;
-  const end = (index + 1) * span;
-  const fadeIn = start;
-  const peak = start + span * 0.35;
-  const fadeOutStart = end - span * 0.3;
-  const last = index === manifestoFrames.length - 1;
-
-  const opacity = useTransform(
-    scrollProgress,
-    last
-      ? [Math.max(0, fadeIn - 0.02), peak, 1]
-      : [Math.max(0, fadeIn - 0.02), peak, fadeOutStart, end],
-    last ? [0, 1, 1] : [0, 1, 1, 0],
-  );
-
-  const y = useTransform(
-    scrollProgress,
-    [Math.max(0, fadeIn - 0.05), peak, end],
-    [40, 0, -30],
-  );
-
-  return (
-    <motion.div
-      className="absolute inset-0 flex items-center justify-center px-5 md:px-10"
-      style={{ opacity, y }}
-    >
-      <div className="mx-auto w-full max-w-[1240px]">
-        <span
-          className="font-sans text-[11px] uppercase tracking-[0.22em]"
-          style={{ color: 'var(--fg-3)' }}
-        >
-          {frame.label}
-        </span>
-        <h2
-          className="mt-5 font-sans leading-[0.95] tracking-[-0.03em] text-[var(--fg)]"
-          style={{ fontSize: 'clamp(3rem, 10vw, 9rem)' }}
-        >
-          {frame.head}
-          <br />
-          <span style={{ color: frame.accentColor }}>{frame.accent}</span>
-          <span style={{ color: frame.accentColor }}>.</span>
-        </h2>
-        <p
-          className="mt-7 max-w-[620px] font-sans leading-[1.55]"
-          style={{ fontSize: 'clamp(1rem, 1.6vw, 1.35rem)', color: 'var(--fg-2)' }}
-        >
-          {frame.body}
-        </p>
-      </div>
-    </motion.div>
-  );
-}
-
-function ManifestoSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end end'],
-  });
-
-  // Background blobs that drift across the entire scrollytelling span
-  const blobX = useTransform(scrollYProgress, [0, 1], ['-25%', '15%']);
-  const blobX2 = useTransform(scrollYProgress, [0, 1], ['10%', '-20%']);
-
-  return (
-    <section ref={sectionRef} className="relative" style={{ height: '320vh' }}>
-      <div
-        className="sticky top-0 flex h-[100dvh] w-full items-center overflow-hidden"
-        style={{ backgroundColor: 'var(--bg-1)' }}
-      >
-        {/* Drifting mauve blob */}
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute"
-          style={{
-            x: blobX,
-            top: '15%',
-            width: 700,
-            height: 700,
-            borderRadius: '50%',
-            background:
-              'radial-gradient(circle, rgba(199,125,255,0.18), rgba(199,125,255,0) 60%)',
-            filter: 'blur(40px)',
-          }}
-        />
-        {/* Drifting orange blob */}
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute"
-          style={{
-            x: blobX2,
-            bottom: '5%',
-            right: 0,
-            width: 800,
-            height: 800,
-            borderRadius: '50%',
-            background:
-              'radial-gradient(circle, rgba(255,85,0,0.16), rgba(255,85,0,0) 60%)',
-            filter: 'blur(48px)',
-          }}
-        />
-        <div className="noise-bg" />
-
-        <div className="relative z-10 w-full">
-          {manifestoFrames.map((frame, i) => (
-            <ManifestoFrame
-              key={i}
-              frame={frame}
-              index={i}
-              scrollProgress={scrollYProgress}
-            />
-          ))}
-        </div>
-
-        {/* Frame counter dots */}
-        <div className="absolute bottom-10 left-1/2 z-10 flex -translate-x-1/2 gap-3">
-          {manifestoFrames.map((_, i) => {
-            const span = 1 / manifestoFrames.length;
-            const dotOpacity = useTransform(
-              scrollYProgress,
-              [i * span, i * span + span * 0.35, (i + 1) * span],
-              [0.25, 1, 0.25],
-            );
-            return (
-              <motion.div
-                key={i}
-                style={{
-                  opacity: dotOpacity,
-                  width: 22,
-                  height: 2,
-                  backgroundColor: i % 2 === 0 ? 'var(--orange)' : 'var(--mauve)',
-                }}
-              />
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ══════════════════ SCENE 3 — FEATURED PROJECTS ══════════════════ */
-
-interface Project {
+interface FeaturedProject {
   number: string;
   tag: string;
   tone: 'orange' | 'mauve';
@@ -217,1139 +14,302 @@ interface Project {
   stack: string[];
   live?: string;
   github?: string;
-  status?: 'private' | 'public';
 }
 
-const featuredProjects: Project[] = [
+const featured: FeaturedProject[] = [
   {
-    number: '01',
-    tag: 'infra dashboard',
-    tone: 'mauve',
-    title: 'GroundControl',
-    blurb: 'Self-hosted dashboard for Docker, Caddy, and deployments — ship and monitor from one pane.',
-    detail:
-      'Manages container lifecycle, reverse proxy routes, and deployment pipelines on a Hetzner VPS. Real-time logs, one-click GitHub webhook deploys, and system health monitoring — no SSH needed.',
+    number: '01', tag: 'infra dashboard', tone: 'mauve', title: 'GroundControl',
+    blurb: 'Self-hosted dashboard for Docker, Caddy, and deployments — one pane of glass.',
+    detail: 'Manages container lifecycle, reverse proxy routes, and deployment pipelines on a Hetzner VPS.',
     stack: ['TypeScript', 'Docker', 'Caddy', 'Hetzner', 'React'],
     live: 'https://groundcontrol.serendepify.com/',
     github: 'https://github.com/teckedd-code2save/groundcontrol',
-    status: 'public',
   },
   {
-    number: '02',
-    tag: 'speech AI research',
-    tone: 'orange',
-    title: 'Akan Speech Lab',
-    blurb: 'Building the first open ASR and TTS pipelines for Akan — a 30M+ speaker language with near-zero speech technology.',
-    detail:
-      'Custom Whisper fine-tuning for tonal Akan phonology. TTS synthesis trained on curated Twi and Fante voice corpora. Dataset release pipeline for reproducible African NLP research.',
+    number: '02', tag: 'speech AI', tone: 'orange', title: 'Akan Speech Lab',
+    blurb: 'First open ASR and TTS for Akan — 30M+ speakers, near-zero speech tech.',
+    detail: 'Custom Whisper fine-tuning for tonal Akan phonology. TTS synthesis on curated Twi/Fante corpora.',
     stack: ['Python', 'PyTorch', 'Whisper', 'TTS', 'HuggingFace'],
     github: 'https://github.com/teckedd-code2save/akan-speech-lab',
-    status: 'public',
   },
   {
-    number: '03',
-    tag: 'deployment agent',
-    tone: 'mauve',
-    title: 'Convoy',
-    blurb: 'Rehearses your deploy. Ships it. Watches the canary. Never touches your code.',
-    detail:
-      'Built for the Claude Code hackathon on Opus 4.7. Plan → rehearse → canary → observe loop with human approval at each gate.',
+    number: '03', tag: 'deployment agent', tone: 'mauve', title: 'Convoy',
+    blurb: 'Rehearses your deploy. Ships it. Watches. Never touches your code.',
+    detail: 'Built for Claude Code hackathon on Opus 4.7. Plan → rehearse → canary → observe.',
     stack: ['TypeScript', 'Claude Opus 4.7', 'MCP', 'Agent Loop'],
     live: 'https://convoy-home.vercel.app/',
     github: 'https://github.com/teckedd-code2save/convoy',
-    status: 'public',
   },
   {
-    number: '04',
-    tag: 'dev acceleration',
-    tone: 'orange',
-    title: 'AI Build Tools',
-    blurb: 'Developer toolkit that accelerates build workflows with AI — scaffolding, code generation, dependency management.',
-    detail:
-      'CLI-first toolkit with AI-assisted code generation and project scaffolding. Smart dependency resolver with version conflict detection. GitHub Pages documentation with interactive examples.',
-    stack: ['TypeScript', 'Node.js', 'AI Code Gen', 'CLI', 'GitHub Pages'],
+    number: '04', tag: 'dev acceleration', tone: 'orange', title: 'AI Build Tools',
+    blurb: 'AI-powered CLI toolkit — scaffolding, code gen, dependency management.',
+    detail: 'Smart dependency resolver with version conflict detection. GitHub Pages docs.',
+    stack: ['TypeScript', 'Node.js', 'AI Code Gen', 'CLI'],
     live: 'https://teckedd-code2save.github.io/ai-build-tools/',
     github: 'https://github.com/teckedd-code2save/ai-build-tools',
-    status: 'public',
   },
   {
-    number: '05',
-    tag: 'TON mini app',
-    tone: 'mauve',
-    title: 'HealthWallet TON',
-    blurb: 'A health record wallet running natively inside Telegram, settled on TON.',
-    detail:
-      'TypeScript Mini App — credentials, prescriptions, and visit history travel with the user. Encrypted client-side.',
-    stack: ['TypeScript', 'TON', 'Telegram Mini App', 'Cryptography'],
+    number: '05', tag: 'TON mini app', tone: 'mauve', title: 'HealthWallet',
+    blurb: 'Health records on-chain. Patients control access, no intermediaries.',
+    detail: 'TON smart contracts for access control. Telegram-native, zero-friction onboarding.',
+    stack: ['TypeScript', 'TON Blockchain', 'Telegram Mini App', 'Smart Contracts'],
     github: 'https://github.com/teckedd-code2save/HealthWallet-TON-MiniApp',
-    status: 'public',
   },
 ];
 
-function ProjectCanvas({ tone, index }: { tone: 'orange' | 'mauve'; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  });
+/* ── Statement Section ── */
 
-  const y = useTransform(scrollYProgress, [0, 1], ['-30px', '30px']);
-  const rotate = useTransform(scrollYProgress, [0, 1], [-3, 3]);
+function StatementSection() {
+  const ref = useRef<HTMLElement>(null);
 
-  const accent = tone === 'orange' ? 'var(--orange)' : 'var(--mauve)';
-  const glow = tone === 'orange' ? 'rgba(255,85,0,0.18)' : 'rgba(199,125,255,0.18)';
-
-  return (
-    <div
-      ref={ref}
-      className="relative h-full min-h-[280px] w-full overflow-hidden"
-      style={{
-        backgroundColor: 'var(--bg-2)',
-      }}
-    >
-      <motion.div
-        aria-hidden
-        className={`absolute inset-0 ${tone === 'mauve' ? 'grid-drift grid-drift--mauve' : 'grid-drift'}`}
-        style={{ y, rotate, opacity: 0.55 }}
-      />
-
-      {/* Soft accent glow */}
-      <div
-        aria-hidden
-        className="absolute"
-        style={{
-          inset: -40,
-          background: `radial-gradient(circle at ${index % 2 === 0 ? '30% 70%' : '70% 30%'}, ${glow}, transparent 65%)`,
-          filter: 'blur(20px)',
-        }}
-      />
-
-      {/* Big mono numeral */}
-      <div
-        className="absolute inset-0 flex items-center justify-center font-sans font-bold"
-        style={{
-          fontSize: 'clamp(7rem, 16vw, 14rem)',
-          color: accent,
-          opacity: 0.18,
-          letterSpacing: '-0.05em',
-        }}
-      >
-        ·{index + 1}
-      </div>
-    </div>
-  );
-}
-
-function ProjectRow({ project, index }: { project: Project; index: number }) {
-  const reverse = index % 2 === 1;
-  const href = project.live ?? project.github;
-
-  const Wrapper = ({ children }: { children: React.ReactNode }) =>
-    href ? (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group block"
-      >
-        {children}
-      </a>
-    ) : (
-      <div className="group block cursor-default">{children}</div>
-    );
+  useEffect(() => {
+    if (!ref.current) return;
+    let ctx: any;
+    async function init() {
+      const { gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      ctx = gsap.context(() => {
+        gsap.fromTo('.st-line', { y: '120%', rotate: 2 }, {
+          y: '0%', rotate: 0, duration: 1.6, stagger: 0.2, ease: 'power3.inOut',
+          scrollTrigger: { trigger: ref.current, start: 'top 70%', toggleActions: 'play none none none' },
+        });
+        gsap.fromTo('.st-desc', { y: 24, opacity: 0 }, {
+          y: 0, opacity: 1, duration: 0.8, delay: 1, ease: 'power2.out',
+          scrollTrigger: { trigger: ref.current, start: 'top 70%', toggleActions: 'play none none none' },
+        });
+      }, ref.current!);
+    }
+    init();
+    return () => ctx?.revert();
+  }, []);
 
   return (
-    <ScrollReveal delay={index * 0.05} translateY={36} duration={0.8}>
-      <Wrapper>
-        <div
-          className={`grid items-stretch gap-5 transition-all duration-300 md:gap-10 ${
-            reverse ? 'md:grid-cols-[1fr_1.1fr]' : 'md:grid-cols-[1.1fr_1fr]'
-          }`}
-          style={{ padding: '24px 0' }}
-        >
-          {/* Text block */}
-          <div
-            className={`flex flex-col justify-center ${reverse ? 'md:order-2' : ''}`}
-            style={{ padding: '8px 4px' }}
-          >
-            <div className="flex items-center gap-3">
-              <span className="font-sans text-[11px]" style={{ color: 'var(--fg-3)' }}>
-                {project.number}
-              </span>
-              <span className="h-px w-8" style={{ backgroundColor: 'var(--border-2)' }} />
-              <Tag text={project.tag} tone={project.tone} />
-              {project.status === 'private' && <Tag text="private" />}
-            </div>
-
-            <h3
-              className="mt-4 font-sans font-medium tracking-[-0.02em] text-[var(--fg)] transition-colors duration-200 group-hover:text-[var(--orange)]"
-              style={{ fontSize: 'clamp(1.8rem, 3.4vw, 2.6rem)', lineHeight: 1.05 }}
-            >
-              {project.title}
-            </h3>
-
-            <p
-              className="mt-4 max-w-[560px] font-sans leading-[1.55] text-[var(--fg)]"
-              style={{ fontSize: 'clamp(0.96rem, 1.3vw, 1.08rem)' }}
-            >
-              {project.blurb}
-            </p>
-
-            <p
-              className="mt-3 max-w-[560px] font-sans text-[13px] leading-[1.7]"
-              style={{ color: 'var(--fg-3)' }}
-            >
-              {project.detail}
-            </p>
-
-            <div className="mt-5 flex flex-wrap gap-2">
-              {project.stack.map((s) => (
-                <Tag key={s} text={s} />
-              ))}
-            </div>
-
-            <div className="mt-6 flex flex-wrap items-center gap-5 font-sans text-[11px]">
-              {project.live && (
-                <span style={{ color: 'var(--orange)' }}>live ↗ {new URL(project.live).host}</span>
-              )}
-              {project.github && (
-                <span style={{ color: 'var(--fg-3)' }}>
-                  source ↗ github
-                </span>
-              )}
-              {!project.live && !project.github && (
-                <span style={{ color: 'var(--fg-4)' }}>private repository</span>
-              )}
-            </div>
+    <section ref={ref} style={{ padding: 'clamp(100px, 14vw, 180px) 0', backgroundColor: 'var(--bg-1)' }}>
+      <div className="mx-auto max-w-[1100px] px-5 md:px-10">
+        <h2 style={{ fontSize: 'clamp(2rem, 6vw, 5rem)', fontWeight: 300, color: 'var(--fg)', lineHeight: 1.08, letterSpacing: '-0.02em', overflow: 'hidden' }}>
+          <div className="st-line" style={{ overflow: 'hidden', marginBottom: '-0.05em' }}>
+            <span>Building infrastructure</span>
           </div>
-
-          {/* Visual block */}
-          <div
-            className={`${reverse ? 'md:order-1' : ''} transition-transform duration-500 group-hover:translate-y-[-4px]`}
-          >
-            <ProjectCanvas tone={project.tone} index={index} />
+          <div className="st-line" style={{ overflow: 'hidden', marginBottom: '-0.05em' }}>
+            <span style={{ color: 'var(--orange)' }}>for the agent-native era</span>
           </div>
-        </div>
-      </Wrapper>
-    </ScrollReveal>
-  );
-}
-
-function FeaturedProjectsSection() {
-  return (
-    <section className="parallax-section" style={{ background: 'var(--bg)' }}>
-      <div className="mx-auto max-w-[1200px] px-5 py-[80px] md:px-10 md:py-[140px]">
-        <ScrollReveal>
-          <SectionLabel number="01" text="WORK" />
-        </ScrollReveal>
-        <ScrollReveal delay={0.1}>
-          <h2
-            className="font-sans tracking-[-0.025em] text-[var(--fg)]"
-            style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.02 }}
-          >
-            Shipping <span style={{ color: 'var(--orange)' }}>now</span>.
-          </h2>
-        </ScrollReveal>
-
-        <div className="mt-12 flex flex-col gap-3">
-          {featuredProjects.map((p, i) => (
-            <div
-              key={p.number}
-              style={i > 0 ? { borderTop: '1px solid var(--border)' } : undefined}
-            >
-              <ProjectRow project={p} index={i} />
-            </div>
-          ))}
-        </div>
-
-        <ScrollReveal delay={0.2}>
-          <div className="mt-12 flex justify-end">
-            <Link
-              to="/projects"
-              className="inline-block font-sans text-xs transition-all duration-200"
-              style={{
-                color: 'var(--fg-3)',
-                borderBottom: '1px solid var(--border)',
-                paddingBottom: 2,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = 'var(--orange)';
-                e.currentTarget.style.borderColor = 'var(--orange)';
-                e.currentTarget.style.transform = 'translateX(4px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = 'var(--fg-3)';
-                e.currentTarget.style.borderColor = 'var(--border)';
-                e.currentTarget.style.transform = 'translateX(0)';
-              }}
-            >
-              full archive &rarr;
-            </Link>
-          </div>
-        </ScrollReveal>
+        </h2>
+        <p className="st-desc mt-8 font-sans" style={{ fontSize: 'clamp(1rem, 1.5vw, 1.2rem)', fontWeight: 400, color: 'var(--fg-2)', maxWidth: '600px', lineHeight: 1.6 }}>
+          Deployments that rehearse before they ship. Dashboards that give you control without SSH.
+          Speech AI for languages the industry forgot. Tools that let agents do real work.
+        </p>
       </div>
     </section>
   );
 }
 
-/* ══════════════════ SCENE 4 — DEPLOYMENT CHAINS ══════════════════ */
+/* ── Project Row ── */
 
-type DeploymentNode = { name: string; role: string; tone: 'orange' | 'mauve' };
-
-const deploymentChains: { label: string; nodes: DeploymentNode[] }[] = [
-  {
-    label: 'Bare Metal / VPS',
-    nodes: [
-      { name: 'Cloudflare', role: 'edge / DNS / WAF',      tone: 'orange' },
-      { name: 'Caddy',      role: 'TLS + reverse proxy',   tone: 'mauve'  },
-      { name: 'nginx',      role: 'static / load balance', tone: 'orange' },
-      { name: 'Hetzner',    role: 'bare-metal VPS, EU',    tone: 'mauve'  },
-    ],
-  },
-  {
-    label: 'Serverless / Edge',
-    nodes: [
-      { name: 'GitHub',    role: 'source / CI',       tone: 'orange' },
-      { name: 'Vercel',    role: 'build + deploy',    tone: 'mauve'  },
-      { name: 'Edge',      role: 'edge functions',    tone: 'orange' },
-      { name: 'Analytics', role: 'observability',     tone: 'mauve'  },
-    ],
-  },
-  {
-    label: 'AWS Cloud',
-    nodes: [
-      { name: 'GitHub Actions', role: 'CI pipeline',        tone: 'orange' },
-      { name: 'ECR',            role: 'container registry', tone: 'mauve'  },
-      { name: 'ECS',            role: 'orchestration',      tone: 'orange' },
-      { name: 'CloudFront',     role: 'CDN / edge',         tone: 'mauve'  },
-    ],
-  },
-];
-
-function DeploymentChain({
-  label,
-  nodes,
-}: {
-  label: string;
-  nodes: DeploymentNode[];
-}) {
+function ProjectRow({ project, index }: { project: FeaturedProject; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-10% 0px' });
+  const reverse = index % 2 === 1;
+
+  useEffect(() => {
+    if (!ref.current) return;
+    let ctx: any;
+    async function init() {
+      const { gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      ctx = gsap.context(() => {
+        gsap.fromTo(ref.current, { y: 60, opacity: 0 }, {
+          y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: ref.current, start: 'top 85%', toggleActions: 'play none none none' },
+        });
+      }, ref.current!);
+    }
+    init();
+    return () => ctx?.revert();
+  }, []);
+
+  const accentVar = project.tone === 'orange' ? 'var(--orange)' : 'var(--mauve)';
 
   return (
-    <div ref={ref} className="w-full">
-      <div
-        className="mb-5 font-sans text-[10px] uppercase tracking-[0.22em]"
-        style={{ color: 'var(--fg-4)' }}
-      >
-        {label}
-      </div>
-      <div className="relative grid grid-cols-4 gap-0">
-        {/* Background track */}
-        <div
-          className="pointer-events-none absolute hidden h-px md:block"
-          style={{
-            top: 28,
-            left: '12.5%',
-            right: '12.5%',
-            backgroundColor: 'var(--border)',
-          }}
-        />
-        {/* Animated gradient track */}
-        <motion.div
-          className="pointer-events-none absolute hidden h-px md:block"
-          initial={{ width: '0%' }}
-          animate={isInView ? { width: '75%' } : { width: '0%' }}
-          transition={{ duration: 1.2, ease: easeEnter, delay: 0.3 }}
-          style={{
-            top: 28,
-            left: '12.5%',
-            background: 'linear-gradient(90deg, var(--orange), var(--mauve), var(--orange))',
-            boxShadow: '0 0 12px rgba(255,85,0,0.45)',
-          }}
-        />
-
-        {nodes.map((node, i) => (
-          <ScrollReveal key={node.name} delay={i * 0.08} translateY={16}>
-            <div className="relative flex flex-col items-center text-center">
-              <span
-                className="orb-pulse relative z-[1] flex items-center justify-center"
-                style={{
-                  width: 56,
-                  height: 56,
-                  borderRadius: '50%',
-                  border: `1px solid ${node.tone === 'orange' ? 'rgba(255,85,0,0.5)' : 'rgba(199,125,255,0.5)'}`,
-                  backgroundColor: 'var(--bg)',
-                  color: node.tone === 'orange' ? 'var(--orange)' : 'var(--mauve)',
-                  boxShadow:
-                    node.tone === 'orange'
-                      ? '0 0 24px rgba(255,85,0,0.15)'
-                      : '0 0 24px rgba(199,125,255,0.15)',
-                  animationDelay: `-${i * 0.6}s`,
-                }}
-              >
-                <span className="font-sans text-[10px] font-medium tracking-widest">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-              </span>
-
-              <span
-                className="mt-4 font-sans font-medium"
-                style={{
-                  fontSize: '1rem',
-                  color: 'var(--fg)',
-                  letterSpacing: '-0.01em',
-                }}
-              >
-                {node.name}
-              </span>
-              <span
-                className="mt-1 font-sans text-[10px] uppercase tracking-widest"
-                style={{ color: 'var(--fg-3)' }}
-              >
-                {node.role}
-              </span>
-            </div>
-          </ScrollReveal>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function DeploymentSection() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  });
-  const headingY = useTransform(scrollYProgress, [0, 1], ['40px', '-40px']);
-
-  return (
-    <section
-      ref={ref}
-      className="parallax-section"
-      style={{ background: 'var(--bg-2)' }}
-    >
-      <div className="mx-auto max-w-[1200px] px-5 py-[100px] md:px-10 md:py-[160px]">
-        <ScrollReveal>
-          <SectionLabel number="02" text="DEPLOYS" />
-        </ScrollReveal>
-
-        <motion.div style={{ y: headingY }}>
-          <ScrollReveal delay={0.1}>
-            <h2
-              className="font-sans tracking-[-0.025em] text-[var(--fg)]"
-              style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.05 }}
-            >
-              Push from&nbsp;<span style={{ color: 'var(--orange)' }}>origin</span>.
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={0.15}>
-            <p
-              className="mt-3 max-w-[640px] font-sans text-[14px] leading-[1.7]"
-              style={{ color: 'var(--fg-2)' }}
-            >
-              One station. Many targets. The shape of the problem picks the path.
-            </p>
-          </ScrollReveal>
-        </motion.div>
-
-        {/* Desktop Rake */}
-        <div className="relative mt-16 hidden lg:flex lg:items-stretch lg:gap-6">
-          {/* Parent Node — the handle */}
-          <div className="flex w-[200px] shrink-0 flex-col items-center justify-center">
-            <div
-              className="flex items-center justify-center"
-              style={{
-                width: 88,
-                height: 88,
-                borderRadius: '50%',
-                border: '1px solid rgba(255,85,0,0.5)',
-                backgroundColor: 'var(--bg)',
-                boxShadow: '0 0 32px rgba(255,85,0,0.18), inset 0 0 20px rgba(255,85,0,0.05)',
-              }}
-            >
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--orange)"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
-              </svg>
-            </div>
-            <span
-              className="mt-4 font-sans text-[10px] uppercase tracking-[0.2em]"
-              style={{ color: 'var(--fg-3)' }}
-            >
-              Origin
-            </span>
+    <div ref={ref} style={{ padding: 'clamp(28px, 4vw, 48px) 0', borderTop: index > 0 ? '1px solid var(--border)' : 'none' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: reverse ? '1fr 1.2fr' : '1.2fr 1fr', gap: 'clamp(24px, 4vw, 60px)', alignItems: 'center' }}>
+        <div style={{ order: reverse ? 2 : 1 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '13px', color: 'var(--fg-3)', fontWeight: 400 }}>{project.number}</span>
+            <span style={{ width: '24px', height: '1px', backgroundColor: 'var(--border-2)' }} />
+            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: accentVar, fontWeight: 500 }}>{project.tag}</span>
           </div>
-
-          {/* Connector — animated dotted handle + three branches */}
-          <div className="pointer-events-none relative flex w-14 shrink-0 flex-col py-8">
-            {/* Vertical handle */}
-            <div className="absolute left-0 top-8 bottom-8 w-px dash-march-v" />
-            {/* Three branch lines */}
-            <div className="flex flex-1 flex-col justify-between">
-              <div className="h-px w-full dash-march-h" />
-              <div className="h-px w-full dash-march-h" />
-              <div className="h-px w-full dash-march-h" />
-            </div>
-          </div>
-
-          {/* Chains — the tines */}
-          <div className="flex flex-1 flex-col justify-around gap-6">
-            {deploymentChains.map((chain) => (
-              <div key={chain.label} className="flex flex-1 items-center">
-                <DeploymentChain label={chain.label} nodes={chain.nodes} />
-              </div>
+          <h3 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', fontWeight: 300, color: 'var(--fg)', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: '12px' }}>
+            <a href={project.live || project.github || '#'} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--orange)'; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--fg)'; }}>
+              {project.title}
+            </a>
+          </h3>
+          <p style={{ fontSize: 'clamp(0.9rem, 1.2vw, 1.05rem)', fontWeight: 400, color: 'var(--fg-2)', lineHeight: 1.6, marginBottom: '16px', maxWidth: '520px' }}>
+            {project.detail}
+          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '16px' }}>
+            {project.stack.map((s) => (
+              <span key={s} style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', color: 'var(--fg-3)', fontWeight: 400 }}>{s}</span>
             ))}
           </div>
+          <div style={{ display: 'flex', gap: '16px' }}>
+            {project.live && (
+              <a href={project.live} target="_blank" rel="noopener noreferrer"
+                style={{ fontFamily: "'Inter', sans-serif", fontSize: '13px', color: 'var(--orange)', fontWeight: 400, textDecoration: 'none', borderBottom: '1px solid rgba(255,85,0,0.3)', paddingBottom: '2px', transition: 'border-color 0.2s' }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--orange)'; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,85,0,0.3)'; }}>
+                Live →
+              </a>
+            )}
+            {project.github && (
+              <a href={project.github} target="_blank" rel="noopener noreferrer"
+                style={{ fontFamily: "'Inter', sans-serif", fontSize: '13px', color: 'var(--fg-2)', fontWeight: 400, textDecoration: 'none', borderBottom: '1px solid var(--border-2)', paddingBottom: '2px', transition: 'border-color 0.2s' }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--fg-2)'; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-2)'; }}>
+                Source →
+              </a>
+            )}
+          </div>
         </div>
-
-        {/* Mobile Stack */}
-        <div className="mt-16 flex flex-col items-center gap-10 lg:hidden">
-          <div className="flex flex-col items-center">
-            <div
-              className="flex items-center justify-center"
-              style={{
-                width: 88,
-                height: 88,
-                borderRadius: '50%',
-                border: '1px solid rgba(255,85,0,0.5)',
-                backgroundColor: 'var(--bg)',
-                boxShadow: '0 0 32px rgba(255,85,0,0.18), inset 0 0 20px rgba(255,85,0,0.05)',
-              }}
-            >
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--orange)"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
-              </svg>
-            </div>
-            <span
-              className="mt-4 font-sans text-[10px] uppercase tracking-[0.2em]"
-              style={{ color: 'var(--fg-3)' }}
-            >
-              Origin
+        <div style={{ order: reverse ? 1 : 2, position: 'relative', overflow: 'hidden', minHeight: '260px', backgroundColor: 'var(--bg-2)' }}>
+          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ fontSize: 'clamp(6rem, 12vw, 11rem)', fontWeight: 700, color: accentVar, opacity: 0.08, letterSpacing: '-0.04em', fontFamily: "'Inter', sans-serif" }}>
+              {project.number}
             </span>
           </div>
-          {deploymentChains.map((chain, i) => (
-            <div key={chain.label} className={i > 0 ? 'mt-4' : ''}>
-              <DeploymentChain label={chain.label} nodes={chain.nodes} />
-            </div>
-          ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }
 
-/* ══════════════════ SCENE 5 — STACK ══════════════════ */
+/* ── Tech Nodes ── */
 
 const techNodes = [
-  { name: 'C#',         color: '#9B4F96', angle: -90,  abbr: 'C#' },
-  { name: 'TypeScript', color: '#3178C6', angle: -60,  abbr: 'TS' },
-  { name: 'Python',     color: '#4BA4C8', angle: -30,  abbr: 'Py' },
-  { name: 'PostgreSQL', color: '#FF5500', angle:  0,   abbr: 'Pg' },
-  { name: 'Redis',      color: '#DC382D', angle:  30,  abbr: 'Rd' },
-  { name: 'Elastic',    color: '#C77DFF', angle:  60,  abbr: 'Es' },
-  { name: 'Docker',     color: '#2496ED', angle:  90,  abbr: 'Dk' },
-  { name: 'Kubernetes', color: '#326CE5', angle: 120,  abbr: 'K8s' },
-  { name: 'AWS',        color: '#FF5500', angle: 150,  abbr: 'AWS' },
-  { name: 'GCP',        color: '#4285F4', angle: 180,  abbr: 'GCP' },
-  { name: 'Cloudflare', color: '#FF5500', angle: -150, abbr: 'CF' },
-  { name: 'Claude',     color: '#C77DFF', angle: -120, abbr: 'AI' },
+  { name: 'TypeScript', color: '#3178C6' },
+  { name: 'Python', color: '#4BA4C8' },
+  { name: 'Docker', color: '#2496ED' },
+  { name: 'Caddy', color: '#22B638' },
+  { name: 'Hetzner', color: '#D50C2D' },
+  { name: 'TON', color: '#0088CC' },
+  { name: 'PostgreSQL', color: '#336791' },
+  { name: 'React', color: '#61DAFB' },
+  { name: 'HuggingFace', color: '#FFBD45' },
+  { name: 'PyTorch', color: '#EE4C2C' },
+  { name: 'Claude', color: 'var(--mauve)' },
+  { name: 'MCP', color: 'var(--orange)' },
 ];
 
-function TechStackSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-10% 0px' });
+function TechSection() {
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    let ctx: any;
+    async function init() {
+      const { gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      ctx = gsap.context(() => {
+        gsap.fromTo('.tech-pill', { y: 20, opacity: 0 }, {
+          y: 0, opacity: 1, duration: 0.5, stagger: 0.04, ease: 'power2.out',
+          scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
+        });
+      }, ref.current!);
+    }
+    init();
+    return () => ctx?.revert();
+  }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="parallax-section"
-      style={{ backgroundColor: 'var(--bg-1)', padding: '120px 0' }}
-    >
-      <div className="mx-auto max-w-[1200px] px-5 md:px-10">
-        <ScrollReveal>
-          <SectionLabel number="03" text="STACK" />
-        </ScrollReveal>
-
-        <div className="flex flex-col items-start gap-12 lg:flex-row lg:items-center">
-          <div className="max-w-[380px] shrink-0">
-            <ScrollReveal delay={0.1}>
-              <h2
-                className="font-sans tracking-[-0.025em] text-[var(--fg)]"
-                style={{ fontSize: 'clamp(2rem, 4.5vw, 3.2rem)', lineHeight: 1.05 }}
-              >
-                Tools at&nbsp;<span style={{ color: 'var(--mauve)' }}>hand</span>.
-              </h2>
-            </ScrollReveal>
-            <ScrollReveal delay={0.15}>
-              <p
-                className="mt-5 font-sans text-[14px] leading-[1.75]"
-                style={{ color: 'var(--fg-2)' }}
-              >
-                C# for systems. TypeScript for tooling and product. Python for AI workflows.
-                Postgres, Redis, Elasticsearch for state. Docker and Kubernetes when needed; bare
-                Hetzner when not. Cloudflare at the edge. Claude and Codex inside the loop.
-              </p>
-            </ScrollReveal>
-          </div>
-
-          <div
-            className="relative flex flex-1 items-center justify-center"
-            style={{ minHeight: 400 }}
-          >
-            <svg
-              viewBox="0 0 400 400"
-              className="w-full max-w-[500px]"
-              style={{ overflow: 'visible' }}
-            >
-              {techNodes.map((node, i) => {
-                const rad = (node.angle * Math.PI) / 180;
-                const x2 = 200 + 130 * Math.cos(rad);
-                const y2 = 200 + 130 * Math.sin(rad);
-                return (
-                  <line
-                    key={`line-${i}`}
-                    x1={200}
-                    y1={200}
-                    x2={x2}
-                    y2={y2}
-                    stroke="rgba(245,242,237,0.06)"
-                    strokeWidth={1}
-                    strokeDasharray="4 4"
-                    style={{
-                      opacity: isInView ? 1 : 0,
-                      transition: `opacity 0.6s ease ${0.4 + i * 0.07}s`,
-                    }}
-                  />
-                );
-              })}
-
-              {techNodes.map((node, i) => {
-                const rad = (node.angle * Math.PI) / 180;
-                const cx = 200 + 130 * Math.cos(rad);
-                const cy = 200 + 130 * Math.sin(rad);
-                return (
-                  <g
-                    key={`node-${i}`}
-                    style={{
-                      opacity: isInView ? 1 : 0,
-                      transform: isInView ? 'scale(1)' : 'scale(0)',
-                      transformOrigin: `${cx}px ${cy}px`,
-                      transition: `all 0.5s cubic-bezier(0.34,1.56,0.64,1) ${0.5 + i * 0.07}s`,
-                    }}
-                  >
-                    <circle
-                      cx={cx}
-                      cy={cy}
-                      r={22}
-                      fill={`${node.color}10`}
-                      stroke={`${node.color}35`}
-                      strokeWidth={1}
-                    />
-                    <circle
-                      cx={cx}
-                      cy={cy}
-                      r={18}
-                      fill={`${node.color}22`}
-                      stroke={node.color}
-                      strokeWidth={1.5}
-                    />
-                    <text
-                      x={cx}
-                      y={cy + 1}
-                      textAnchor="middle"
-                      dominantBaseline="middle"
-                      fill="#F5F2ED"
-                      fontSize={node.abbr.length > 2 ? 8 : 10}
-                      fontWeight={600}
-                      fontFamily="'JetBrains Mono', monospace"
-                      letterSpacing={-0.5}
-                    >
-                      {node.abbr}
-                    </text>
-                    <text
-                      x={cx}
-                      y={cy + 34}
-                      textAnchor="middle"
-                      fill="var(--fg-3)"
-                      fontSize={9}
-                      fontFamily="'JetBrains Mono', monospace"
-                      letterSpacing={0.5}
-                    >
-                      {node.name}
-                    </text>
-                  </g>
-                );
-              })}
-
-              <g
-                style={{
-                  opacity: isInView ? 1 : 0,
-                  transform: isInView ? 'scale(1)' : 'scale(0)',
-                  transformOrigin: '200px 200px',
-                  transition: 'all 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.3s',
-                }}
-              >
-                <circle
-                  cx={200}
-                  cy={200}
-                  r={28}
-                  fill="rgba(255,85,0,0.08)"
-                  stroke="rgba(255,85,0,0.25)"
-                  strokeWidth={1}
-                />
-                <circle
-                  cx={200}
-                  cy={200}
-                  r={24}
-                  fill="var(--orange)"
-                  style={{ filter: 'drop-shadow(0 0 18px rgba(255,85,0,0.5))' }}
-                />
-                <polygon
-                  points="200,188 210,194 210,206 200,212 190,206 190,194"
-                  fill="none"
-                  stroke="rgba(245,242,237,0.9)"
-                  strokeWidth={1.5}
-                />
-                <circle cx={200} cy={200} r={3} fill="rgba(245,242,237,0.9)" />
-                <text
-                  x={200}
-                  y={200 + 44}
-                  textAnchor="middle"
-                  fill="var(--fg)"
-                  fontSize={11}
-                  fontWeight={500}
-                  fontFamily="'JetBrains Mono', monospace"
-                  letterSpacing={0.5}
-                >
-                  Core Stack
-                </text>
-              </g>
-
-              {isInView &&
-                techNodes.map((node, i) => {
-                  const rad = (node.angle * Math.PI) / 180;
-                  const x2 = 200 + 130 * Math.cos(rad);
-                  const y2 = 200 + 130 * Math.sin(rad);
-                  const dotColor = i % 3 === 0 ? '#C77DFF' : '#FF5500';
-                  return (
-                    <circle
-                      key={`packet-${i}`}
-                      r={2.5}
-                      fill={dotColor}
-                      opacity={0.55}
-                    >
-                      <animateMotion
-                        dur={`${2.2 + (i % 5) * 0.4}s`}
-                        repeatCount="indefinite"
-                        path={`M200,200 L${x2},${y2}`}
-                      />
-                    </circle>
-                  );
-                })}
-            </svg>
-          </div>
+    <section ref={ref} style={{ padding: 'clamp(80px, 10vw, 140px) 0', backgroundColor: 'var(--bg-1)' }}>
+      <div className="mx-auto max-w-[1100px] px-5 md:px-10">
+        <h2 style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', fontWeight: 300, color: 'var(--fg)', letterSpacing: '-0.02em', lineHeight: 1.05, marginBottom: 'clamp(32px, 5vw, 56px)' }}>
+          Tools at <span style={{ color: 'var(--mauve)' }}>hand</span>
+        </h2>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+          {techNodes.map((t) => (
+            <span key={t.name} className="tech-pill"
+              style={{
+                fontFamily: "'Inter', sans-serif", fontSize: '13px', fontWeight: 400, color: t.color,
+                padding: '7px 16px', border: `1px solid ${t.color}33`,
+              }}>
+              {t.name}
+            </span>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-/* ══════════════════ SCENE 6 — PACKAGES ══════════════════ */
+/* ── CTA Section ── */
 
-const packages = [
-  {
-    name: '@teckedd-code2save/datafy',
-    description:
-      'MCP database gateway. Two tools — execute_sql and search_objects — wired into Postgres, MySQL, SQLite, Redis, Elasticsearch, SQL Server, and MariaDB. Zero deps.',
-    stack: ['MCP', 'Node.js', 'Postgres', 'Redis', 'Elasticsearch'],
-    link: 'https://www.npmjs.com/package/@teckedd-code2save/datafy',
-  },
-  {
-    name: '@teckedd-code2save/b2dp',
-    description:
-      'Business-to-data-platform CLI. Turns a spec into a provisioned schema, ORM, integration tests, frontend scaffold, and IaC — orchestrated by a modular MCP skill system.',
-    stack: ['CLI', 'MCP', 'Node.js', 'Agent Workflow'],
-    link: 'https://www.npmjs.com/package/@teckedd-code2save/b2dp',
-  },
-];
+function CTASection() {
+  const ref = useRef<HTMLElement>(null);
 
-function PackageCard({ pkg, index }: { pkg: typeof packages[0]; index: number }) {
-  const scope = pkg.name.split('/')[0];
-  const pkgName = pkg.name.split('/')[1];
+  useEffect(() => {
+    if (!ref.current) return;
+    let ctx: any;
+    async function init() {
+      const { gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      ctx = gsap.context(() => {
+        gsap.fromTo('.cta-line', { y: '100%' }, {
+          y: '0%', duration: 1.4, stagger: 0.16, ease: 'power3.inOut',
+          scrollTrigger: { trigger: ref.current, start: 'top 75%', toggleActions: 'play none none none' },
+        });
+        gsap.fromTo('.cta-btn', { y: 24, opacity: 0 }, {
+          y: 0, opacity: 1, duration: 0.7, delay: 1, ease: 'power2.out',
+          scrollTrigger: { trigger: ref.current, start: 'top 75%', toggleActions: 'play none none none' },
+        });
+      }, ref.current!);
+    }
+    init();
+    return () => ctx?.revert();
+  }, []);
 
   return (
-    <ScrollReveal delay={index * 0.12} translateY={24}>
-      <div
-        className="group grid cursor-default gap-6 transition-all duration-200 sm:grid-cols-[1fr_auto]"
-        style={{
-          backgroundColor: 'var(--bg-2)',
-          border: '1px solid var(--border)',
-          padding: 36,
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'translateX(4px)';
-          e.currentTarget.style.borderColor = 'var(--border-2)';
-          e.currentTarget.style.backgroundColor = 'var(--bg-3)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'translateX(0)';
-          e.currentTarget.style.borderColor = 'var(--border)';
-          e.currentTarget.style.backgroundColor = 'var(--bg-2)';
-        }}
-      >
-        <div>
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="font-sans text-base">
-              <span style={{ color: 'var(--fg-3)' }}>{scope}/</span>
-              <span style={{ color: 'var(--fg)' }}>{pkgName}</span>
-            </span>
-            <Tag text="npm" tone={index === 0 ? 'orange' : 'mauve'} />
+    <section ref={ref} style={{ padding: 'clamp(100px, 14vw, 180px) 0', backgroundColor: 'var(--bg)' }}>
+      <div className="mx-auto max-w-[900px] px-5 md:px-10 text-center">
+        <h2 style={{ fontSize: 'clamp(2.4rem, 7vw, 5.5rem)', fontWeight: 300, color: 'var(--fg)', lineHeight: 1.05, letterSpacing: '-0.03em', overflow: 'hidden' }}>
+          <div className="cta-line" style={{ overflow: 'hidden', marginBottom: '-0.04em' }}>
+            <span>Let&apos;s build</span>
           </div>
-          <p className="mt-4 font-sans text-[13px] leading-[1.78]" style={{ color: 'var(--fg-2)' }}>
-            {pkg.description}
-          </p>
-          <div className="mt-5 flex flex-wrap gap-2">
-            {pkg.stack.map((s) => (
-              <Tag key={s} text={s} />
-            ))}
+          <div className="cta-line" style={{ overflow: 'hidden' }}>
+            <span style={{ color: 'var(--orange)' }}>something real</span>
           </div>
-        </div>
-        <div className="flex items-start">
-          <a
-            href={pkg.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block whitespace-nowrap font-sans text-[11px] transition-all duration-200"
-            style={{
-              border: '1px solid var(--border-2)',
-              padding: '8px 18px',
-              color: 'var(--fg-3)',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = 'var(--orange)';
-              e.currentTarget.style.color = 'var(--orange)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'var(--border-2)';
-              e.currentTarget.style.color = 'var(--fg-3)';
-            }}
-          >
-            npm ↗
+        </h2>
+        <p style={{ fontSize: 'clamp(1rem, 1.4vw, 1.15rem)', fontWeight: 400, color: 'var(--fg-2)', marginTop: '24px', marginBottom: '40px', lineHeight: 1.6, maxWidth: '500px', marginLeft: 'auto', marginRight: 'auto' }}>
+          Backend systems, agent runtimes, infrastructure. Pull me in before the tech debt piles up.
+        </p>
+        <div className="cta-btn" style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <Link to="/contact"
+            style={{ fontFamily: "'Inter', sans-serif", fontSize: '14px', fontWeight: 400, color: 'var(--fg)', padding: '14px 32px', border: '1px solid var(--orange)', backgroundColor: 'rgba(255,85,0,0.08)', textDecoration: 'none', transition: 'all 0.2s' }}
+            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,85,0,0.18)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,85,0,0.08)'; }}>
+            Start a conversation →
+          </Link>
+          <a href="https://github.com/teckedd-code2save" target="_blank" rel="noopener noreferrer"
+            style={{ fontFamily: "'Inter', sans-serif", fontSize: '14px', fontWeight: 400, color: 'var(--fg-2)', padding: '14px 32px', border: '1px solid var(--border-2)', textDecoration: 'none', transition: 'all 0.2s' }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--fg-2)'; e.currentTarget.style.color = 'var(--fg)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border-2)'; e.currentTarget.style.color = 'var(--fg-2)'; }}>
+            GitHub
           </a>
         </div>
       </div>
-    </ScrollReveal>
-  );
-}
-
-function PackagesSection() {
-  return (
-    <section className="parallax-section" style={{ background: 'var(--bg)' }}>
-      <div className="mx-auto max-w-[1200px] px-5 py-[80px] md:px-10 md:py-[140px]">
-        <ScrollReveal>
-          <SectionLabel number="04" text="PACKAGES" />
-        </ScrollReveal>
-        <ScrollReveal delay={0.1}>
-          <h2
-            className="font-sans tracking-[-0.025em] text-[var(--fg)]"
-            style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.05 }}
-          >
-            On&nbsp;<span style={{ color: 'var(--orange)' }}>npm</span>.
-          </h2>
-        </ScrollReveal>
-
-        <div className="mt-12 flex flex-col gap-6">
-          {packages.map((pkg, i) => (
-            <PackageCard key={pkg.name} pkg={pkg} index={i} />
-          ))}
-        </div>
-      </div>
     </section>
   );
 }
 
-/* ══════════════════ SCENE 7 — CREDENTIALS ══════════════════ */
-
-const credentials = [
-  {
-    title: 'Terraform on Google Cloud',
-    category: 'cloud',
-    issuer: 'Google Cloud',
-    date: 'Mar 2026',
-    id: 'QV7GTSK9A0AG',
-    tags: ['Terraform', 'GCP', 'IaC'],
-  },
-  {
-    title: 'Open Generative AI Engineering',
-    category: 'ai',
-    issuer: 'Google',
-    date: 'Feb 2026',
-    id: 'YMOK2TV2T0JK',
-    tags: ['LLMs', 'Agents'],
-  },
-  {
-    title: 'AWS Foundations and Core Services',
-    category: 'cloud',
-    issuer: 'AWS',
-    date: 'Feb 2026',
-    id: 'CK4LVBUM6CFH',
-    tags: ['AWS', 'EC2', 'S3', 'RDS'],
-  },
-  {
-    title: 'Kubernetes — Basics to Guru',
-    category: 'devops',
-    issuer: 'Coursera',
-    date: 'Feb 2026',
-    id: 'DFX1W42R91VU',
-    tags: ['Kubernetes', 'GitOps'],
-  },
-  {
-    title: 'CI/CD with Docker',
-    category: 'devops',
-    issuer: 'Coursera',
-    date: 'Jan 2026',
-    id: 'KJVWV84YKH9J',
-    tags: ['Docker', 'GitHub Actions'],
-  },
-  {
-    title: 'B.S. Computer Science',
-    category: 'education',
-    issuer: 'KNUST',
-    date: '2021',
-    id: null as string | null,
-    tags: ['Algorithms', 'Systems'],
-  },
-];
-
-function CredentialRow({ cred, index }: { cred: typeof credentials[0]; index: number }) {
-  return (
-    <ScrollReveal delay={index * 0.05} translateY={14} duration={0.55}>
-      <div
-        className="group grid cursor-default gap-4 transition-all duration-200 sm:grid-cols-[1fr_auto]"
-        style={{
-          padding: '22px 0',
-          borderBottom: '1px solid var(--border)',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'translateX(4px)';
-          e.currentTarget.style.backgroundColor = 'rgba(255,85,0,0.025)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'translateX(0)';
-          e.currentTarget.style.backgroundColor = 'transparent';
-        }}
-      >
-        <div>
-          <div className="flex flex-wrap items-center gap-3">
-            <h3 className="font-sans text-sm font-medium" style={{ color: 'var(--fg)' }}>
-              {cred.title}
-            </h3>
-            <Tag text={cred.category} tone={cred.category === 'ai' ? 'mauve' : 'neutral'} />
-          </div>
-          <p className="mt-1.5 font-sans text-[11px]" style={{ color: 'var(--fg-2)' }}>
-            {cred.issuer} · {cred.date}
-          </p>
-          <div className="mt-1.5 flex flex-wrap gap-3">
-            {cred.tags.map((t) => (
-              <span
-                key={t}
-                className="font-sans text-[9px] uppercase tracking-widest"
-                style={{ color: 'var(--fg-4)' }}
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-        </div>
-        {cred.id && (
-          <div className="flex items-center">
-            <span className="font-sans text-[10px]" style={{ color: 'var(--fg-4)' }}>
-              {cred.id}
-            </span>
-          </div>
-        )}
-      </div>
-    </ScrollReveal>
-  );
-}
-
-function CredentialsSection() {
-  return (
-    <section className="parallax-section" style={{ background: 'var(--bg-1)' }}>
-      <div className="mx-auto max-w-[1200px] px-5 py-[80px] md:px-10 md:py-[140px]">
-        <ScrollReveal>
-          <SectionLabel number="05" text="CREDENTIALS" />
-        </ScrollReveal>
-        <ScrollReveal delay={0.1}>
-          <h2
-            className="font-sans tracking-[-0.025em] text-[var(--fg)]"
-            style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.05 }}
-          >
-            Paper&nbsp;<span style={{ color: 'var(--mauve)' }}>trail</span>.
-          </h2>
-        </ScrollReveal>
-
-        <div className="mt-10">
-          {credentials.map((cred, i) => (
-            <CredentialRow key={cred.title} cred={cred} index={i} />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ══════════════════ SCENE 8 — CONTACT CTA ══════════════════ */
-
-const contactLinks = [
-  { key: 'email',     value: 'edwardktwumasi1000@gmail.com', href: 'mailto:edwardktwumasi1000@gmail.com' },
-  { key: 'github',    value: 'teckedd-code2save',            href: 'https://github.com/teckedd-code2save' },
-  { key: 'linkedin',  value: 'edward-twumasi',               href: 'https://linkedin.com/in/edward-twumasi' },
-  { key: 'studio',    value: 'serendepify.com',              href: 'https://www.serendepify.com/' },
-];
-
-function ContactCTASection() {
-  return (
-    <section
-      className="parallax-section relative px-5 py-[120px] md:py-[180px]"
-      style={{ background: 'var(--bg)' }}
-    >
-      <div className="pointer-events-none absolute inset-0 opacity-[0.10]">
-        <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-          {([
-            '#FF5500', '#C77DFF', '#FF5500', '#C77DFF', '#FF5500',
-            '#C77DFF', '#FF5500', '#C77DFF', '#FF5500', '#C77DFF',
-            '#FF5500', '#C77DFF', '#FF5500', '#C77DFF', '#FF5500',
-            '#C77DFF', '#FF5500', '#C77DFF', '#FF5500', '#C77DFF',
-          ] as const).map((color, i) => (
-            <circle
-              key={i}
-              cx={`${8 + (i * 4.5) % 86}%`}
-              cy={`${12 + (i * 7) % 76}%`}
-              r={1 + (i % 3) * 0.8}
-              fill={color}
-            >
-              <animate
-                attributeName="cy"
-                dur={`${9 + (i % 7) * 1.5}s`}
-                values={`${12 + (i * 7) % 76}%;${22 + (i * 5) % 56}%;${12 + (i * 7) % 76}%`}
-                repeatCount="indefinite"
-              />
-              <animate
-                attributeName="opacity"
-                dur={`${4 + (i % 5) * 1.2}s`}
-                values="0.25;0.85;0.25"
-                repeatCount="indefinite"
-              />
-            </circle>
-          ))}
-        </svg>
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-[680px] text-center">
-        <ScrollReveal>
-          <SectionLabel number="06" text="CONTACT" />
-        </ScrollReveal>
-
-        <ScrollReveal delay={0.1}>
-          <h2
-            className="mx-auto mt-2 font-sans tracking-[-0.03em] text-[var(--fg)]"
-            style={{ fontSize: 'clamp(2.4rem, 6vw, 4.8rem)', lineHeight: 1 }}
-          >
-            Build something&nbsp;
-            <span style={{ color: 'var(--orange)' }}>real</span>?
-          </h2>
-        </ScrollReveal>
-
-        <ScrollReveal delay={0.2}>
-          <p
-            className="mx-auto mt-6 max-w-[520px] font-sans text-[15px] leading-[1.6]"
-            style={{ color: 'var(--fg-2)' }}
-          >
-            Backend, agents, infra. Contract or full-time. East Africa, EU, US time zones — all fine.
-          </p>
-        </ScrollReveal>
-
-        <div className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {contactLinks.map((link, i) => (
-            <ScrollReveal key={link.key} delay={0.3 + i * 0.08} translateY={20}>
-              <a
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between font-sans text-[13px] transition-all duration-200"
-                style={{
-                  border: '1px solid var(--border)',
-                  padding: '20px 24px',
-                  color: 'var(--fg-3)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--orange)';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.color = 'var(--fg)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--border)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.color = 'var(--fg-3)';
-                }}
-              >
-                <span style={{ color: 'var(--fg-3)' }}>{link.key}</span>
-                <span style={{ color: 'var(--fg-2)' }}>{link.value}</span>
-              </a>
-            </ScrollReveal>
-          ))}
-        </div>
-
-        <ScrollReveal delay={0.7}>
-          <div className="mt-10">
-            <Link
-              to="/contact"
-              className="inline-block font-sans text-xs transition-all duration-200"
-              style={{
-                color: 'var(--fg-3)',
-                borderBottom: '1px solid var(--border)',
-                paddingBottom: 2,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = 'var(--orange)';
-                e.currentTarget.style.borderColor = 'var(--orange)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = 'var(--fg-3)';
-                e.currentTarget.style.borderColor = 'var(--border)';
-              }}
-            >
-              full contact &rarr;
-            </Link>
-          </div>
-        </ScrollReveal>
-      </div>
-    </section>
-  );
-}
-
-/* ══════════════════ HOME PAGE ══════════════════ */
+/* ── Home Page ── */
 
 export default function Home() {
   return (
@@ -1359,13 +319,27 @@ export default function Home() {
         highlightWord="Serendepify"
         subtitle="Agent runtimes · Developer platforms · Infrastructure"
       />
-      <ManifestoSection />
-      <FeaturedProjectsSection />
-      <DeploymentSection />
-      <TechStackSection />
-      <PackagesSection />
-      <CredentialsSection />
-      <ContactCTASection />
+      <StatementSection />
+      <section style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: 'var(--bg)' }}>
+        <div className="mx-auto max-w-[1100px] px-5 md:px-10">
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '10px', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--fg-4)', marginBottom: 'clamp(28px, 4vw, 48px)' }}>
+            Featured projects
+          </p>
+          {featured.map((p, i) => (
+            <ProjectRow key={p.number} project={p} index={i} />
+          ))}
+          <div style={{ textAlign: 'right', marginTop: 'clamp(32px, 4vw, 48px)' }}>
+            <Link to="/projects"
+              style={{ fontFamily: "'Inter', sans-serif", fontSize: '14px', fontWeight: 400, color: 'var(--fg-3)', textDecoration: 'none', borderBottom: '1px solid var(--border-2)', paddingBottom: '3px', transition: 'all 0.2s' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--orange)'; e.currentTarget.style.borderColor = 'var(--orange)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--fg-3)'; e.currentTarget.style.borderColor = 'var(--border-2)'; }}>
+              View all projects →
+            </Link>
+          </div>
+        </div>
+      </section>
+      <TechSection />
+      <CTASection />
     </>
   );
 }

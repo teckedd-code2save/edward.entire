@@ -25,6 +25,12 @@ export default function HorizontalSplitText({ text, highlightWord, subtitle }: H
         const chars = trackRef.current!.querySelectorAll('.hs-char');
         const track = trackRef.current!;
 
+        // Subtitle fade-in at section start
+        gsap.fromTo('.hs-subtitle', { opacity: 0, y: 16 }, {
+          opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' },
+        });
+
         const scrollTween = gsap.to(track, {
           xPercent: -100,
           ease: 'none',
@@ -57,41 +63,16 @@ export default function HorizontalSplitText({ text, highlightWord, subtitle }: H
     return () => ctx?.revert();
   }, []);
 
-  // Split into chars, highlight specific word
+  // Build chars with highlight support
   const parts: { char: string; highlight: boolean }[] = [];
   if (highlightWord && text.includes(highlightWord)) {
     const idx = text.indexOf(highlightWord);
-    // Before highlight
-    for (const ch of text.slice(0, idx)) {
-      parts.push({ char: ch, highlight: false });
-    }
-    // Highlight word
-    for (const ch of highlightWord) {
-      parts.push({ char: ch, highlight: true });
-    }
-    // After highlight
-    for (const ch of text.slice(idx + highlightWord.length)) {
-      parts.push({ char: ch, highlight: false });
-    }
+    for (const ch of text.slice(0, idx)) parts.push({ char: ch, highlight: false });
+    for (const ch of highlightWord) parts.push({ char: ch, highlight: true });
+    for (const ch of text.slice(idx + highlightWord.length)) parts.push({ char: ch, highlight: false });
   } else {
-    for (const ch of text) {
-      parts.push({ char: ch, highlight: false });
-    }
+    for (const ch of text) parts.push({ char: ch, highlight: false });
   }
-
-  const chars = parts.map((p, i) => (
-    <span
-      key={i}
-      className="hs-char"
-      style={{
-        display: 'inline-block',
-        color: p.highlight ? 'var(--orange)' : 'var(--fg)',
-        textShadow: p.highlight ? '0 0 40px rgba(255,85,0,0.35)' : 'none',
-      }}
-    >
-      {p.char === ' ' ? '\u00A0' : p.char}
-    </span>
-  ));
 
   return (
     <section
@@ -107,15 +88,19 @@ export default function HorizontalSplitText({ text, highlightWord, subtitle }: H
         position: 'relative',
       }}
     >
-      {/* Subtitle — visible immediately */}
       {subtitle && (
         <p
-          className="absolute top-[22%] left-0 right-0 text-center font-sans"
+          className="hs-subtitle absolute"
           style={{
-            fontSize: 'clamp(1rem, 2vw, 1.2rem)',
+            top: '18%',
+            left: 0,
+            right: 0,
+            textAlign: 'center',
+            fontSize: 'clamp(0.9rem, 1.6vw, 1.1rem)',
             fontWeight: 400,
             color: 'var(--fg-2)',
             zIndex: 2,
+            fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
           }}
         >
           {subtitle}
@@ -128,21 +113,34 @@ export default function HorizontalSplitText({ text, highlightWord, subtitle }: H
           display: 'flex',
           width: 'max-content',
           whiteSpace: 'nowrap',
+          gap: '4vw',
           paddingLeft: '100vw',
           fontSize: 'clamp(2rem, 10vw, 12rem)',
-          fontWeight: 300,
+          fontWeight: 600,
           lineHeight: 1.1,
+          color: 'var(--fg)',
           fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
           willChange: 'transform',
         }}
       >
-        {chars}
+        {parts.map((p, i) => (
+          <span
+            key={i}
+            className="hs-char"
+            style={{
+              display: 'inline-block',
+              color: p.highlight ? 'var(--orange)' : 'var(--fg)',
+              textShadow: p.highlight ? '0 0 60px rgba(255,85,0,0.5)' : 'none',
+            }}
+          >
+            {p.char === ' ' ? '\u00A0' : p.char}
+          </span>
+        ))}
       </div>
 
-      {/* Scroll hint */}
       <p
-        className="absolute bottom-8 left-0 right-0 text-center font-sans text-xs"
-        style={{ color: 'var(--fg-4)', zIndex: 2 }}
+        className="absolute text-center font-sans text-xs"
+        style={{ bottom: '2rem', left: 0, right: 0, color: 'var(--fg-4)', zIndex: 2 }}
       >
         Scroll to explore
       </p>
