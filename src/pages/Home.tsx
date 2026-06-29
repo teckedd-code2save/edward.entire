@@ -336,18 +336,31 @@ interface Project {
 const featuredProjects: Project[] = [
   {
     number: '01',
-    tag: 'rental marketplace',
-    tone: 'orange',
-    title: 'Rent My Weekend',
-    blurb: 'Peer-to-peer weekend rental marketplace. List, discover, book, and get paid — all around the weekend.',
+    tag: 'infra dashboard',
+    tone: 'mauve',
+    title: 'GroundControl',
+    blurb: 'Self-hosted dashboard for Docker, Caddy, and deployments — ship and monitor from one pane.',
     detail:
-      'Owners list assets with calendar rules and pricing; renters search by location and weekend range. Stripe Connect handles holds and automatic disbursement.',
-    stack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Stripe'],
-    live: 'https://rentmyweekend.serendepify.com/',
+      'Manages container lifecycle, reverse proxy routes, and deployment pipelines on a Hetzner VPS. Real-time logs, one-click GitHub webhook deploys, and system health monitoring — no SSH needed.',
+    stack: ['TypeScript', 'Docker', 'Caddy', 'Hetzner', 'React'],
+    live: 'https://groundcontrol.serendepify.com/',
+    github: 'https://github.com/teckedd-code2save/groundcontrol',
     status: 'public',
   },
   {
     number: '02',
+    tag: 'speech AI research',
+    tone: 'orange',
+    title: 'Akan Speech Lab',
+    blurb: 'Building the first open ASR and TTS pipelines for Akan — a 30M+ speaker language with near-zero speech technology.',
+    detail:
+      'Custom Whisper fine-tuning for tonal Akan phonology. TTS synthesis trained on curated Twi and Fante voice corpora. Dataset release pipeline for reproducible African NLP research.',
+    stack: ['Python', 'PyTorch', 'Whisper', 'TTS', 'HuggingFace'],
+    github: 'https://github.com/teckedd-code2save/akan-speech-lab',
+    status: 'public',
+  },
+  {
+    number: '03',
     tag: 'deployment agent',
     tone: 'mauve',
     title: 'Convoy',
@@ -360,7 +373,7 @@ const featuredProjects: Project[] = [
     status: 'public',
   },
   {
-    number: '03',
+    number: '05',
     tag: 'TON mini app',
     tone: 'orange',
     title: 'HealthWallet TON',
@@ -372,7 +385,7 @@ const featuredProjects: Project[] = [
     status: 'public',
   },
   {
-    number: '04',
+    number: '07',
     tag: 'opportunity tracker',
     tone: 'mauve',
     title: 'Optimi',
@@ -395,6 +408,30 @@ const featuredProjects: Project[] = [
     stack: ['TypeScript', 'Python', 'Stripe Link', 'Replit Agent'],
     live: 'https://x.com/EdwardsTwums/status/2050913151160390006?s=20',
     github: 'https://github.com/teckedd-code2save',
+    status: 'public',
+  },
+  {
+    number: '08',
+    tag: 'rental marketplace',
+    tone: 'mauve',
+    title: 'Rent My Weekend',
+    blurb: 'Peer-to-peer weekend rental marketplace. List, discover, book, and get paid — all around the weekend.',
+    detail:
+      'Owners list assets with calendar rules and pricing; renters search by location and weekend range. Stripe Connect handles holds and automatic disbursement.',
+    stack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Stripe'],
+    live: 'https://rentmyweekend.serendepify.com/',
+    status: 'public',
+  },
+  {
+    number: '12',
+    tag: 'elder care AI',
+    tone: 'orange',
+    title: 'Adwuma Pa',
+    blurb: 'AI family care network connecting Ghanaian elders to coordinated support — health checks, emergency alerts, trusted-family workflows.',
+    detail:
+      'Multi-agent care system with health monitoring agents, emergency escalation through trusted-family graphs, and telemedicine integration. Built in a weekend for the Build Small Hackathon.',
+    stack: ['Python', 'AI', 'Telemedicine', 'Family Network', 'African HealthTech'],
+    github: 'https://github.com/teckedd-code2save/adwuma-pa',
     status: 'public',
   },
 ];

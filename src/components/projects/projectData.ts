@@ -18,27 +18,47 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: 'rentmyweekend',
+    id: 'groundcontrol',
     number: '01',
-    title: 'Rent My Weekend',
-    tag: 'rental marketplace',
-    category: 'commerce',
-    canvasMode: 'exchange',
+    title: 'GroundControl',
+    tag: 'infra dashboard',
+    category: 'deployment',
+    canvasMode: 'terminal',
     description:
-      'Peer-to-peer weekend rental marketplace. Owners list what they have — cars, gear, spaces, experiences — renters book by the weekend. Availability engine, instant booking, and payout automation keep the loop tight.',
-    stack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Stripe', 'Maps API'],
+      'Self-hosted infrastructure dashboard for managing Docker containers, Caddy reverse proxies, deployments, and system health on a Hetzner VPS. Real-time container lifecycle, proxy config editor, and one-click deployments — all from a single pane of glass.',
+    stack: ['TypeScript', 'Docker', 'Caddy', 'Hetzner', 'Node.js', 'React'],
     architecture:
-      'Three-sided marketplace: owners list assets with availability rules and pricing tiers; renters search by location, category, and weekend date range; platform handles booking state, payment hold, and payout release. Postgres for inventory and booking state, Stripe Connect for split payments, geospatial indexing for local discovery.',
+      'Monolithic dashboard connecting to Docker Engine API and Caddy admin API. Container lifecycle management with start/stop/restart/logs. Proxy route editor that writes Caddy config and reloads gracefully. Deployment pipelines triggered from GitHub webhooks with status tracking. System health monitoring via OS metrics.',
     highlights: [
-      'Weekend-native booking model — Friday-to-Sunday as a first-class rental unit.',
-      'Owner dashboard with calendar overlay, pricing rules, and payout tracking.',
-      'Stripe Connect for escrow-style holds and automatic owner disbursement.',
+      'Real-time Docker container lifecycle — start, stop, restart, and stream logs without SSH.',
+      "Caddy reverse proxy editor — add, edit, and remove routes with automatic TLS via Let's Encrypt.",
+      'One-click deployments from GitHub — webhook-driven pipelines with live status tracking.',
     ],
-    liveUrl: 'https://rentmyweekend.serendepify.com/',
+    githubUrl: 'https://github.com/teckedd-code2save/groundcontrol',
+    liveUrl: 'https://groundcontrol.serendepify.com/',
+  },
+  {
+    id: 'akan-speech-lab',
+    number: '02',
+    title: 'Akan Speech Lab',
+    tag: 'speech AI research',
+    category: 'tooling',
+    canvasMode: 'agents',
+    description:
+      "Speech AI research lab building ASR, TTS, and voice datasets for Akan — one of West Africa's most spoken yet technologically underserved languages. Training pipelines, evaluation benchmarks, and open datasets to close the African language gap in speech technology.",
+    stack: ['Python', 'PyTorch', 'ASR', 'TTS', 'Whisper', 'HuggingFace'],
+    architecture:
+      'Research infrastructure for low-resource speech AI. Custom ASR fine-tuning pipelines on Whisper architectures adapted for tonal Akan phonology. TTS synthesis with attention-based models trained on curated Akan voice corpora. Dataset curation tools for aligning, segmenting, and validating transcribed speech in Twi and Fante dialects.',
+    highlights: [
+      'Building the first open ASR pipeline for Akan (Twi/Fante) — a 30M+ speaker language with near-zero speech technology.',
+      'Custom TTS models trained on curated Akan voice data — tackling tonal language synthesis challenges.',
+      'Dataset release pipeline for reproducible African NLP research — aligned transcripts, validated splits, and evaluation benchmarks.',
+    ],
+    githubUrl: 'https://github.com/teckedd-code2save/akan-speech-lab',
   },
   {
     id: 'convoy',
-    number: '02',
+    number: '03',
     title: 'Convoy',
     tag: 'deployment agent',
     category: 'deployment',
@@ -57,42 +77,24 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/teckedd-code2save/convoy',
   },
   {
-    id: 'serendepify',
-    number: '03',
-    title: 'Serendepify',
-    tag: 'developer tools',
-    category: 'company',
+    id: 'ai-build-tools',
+    number: '04',
+    title: 'AI Build Tools',
+    tag: 'dev acceleration',
+    category: 'tooling',
     canvasMode: 'terminal',
     description:
-      'Developer tools platform focused on AI-native workflows and agent-based systems. Builds and ships infrastructure for the Model Context Protocol ecosystem — from database gateways to CLI orchestrators that convert business specifications into production-grade platform scaffolds.',
-    stack: ['React', 'TypeScript', 'Node.js', 'MCP Protocol', 'AI Workflows'],
+      'Developer toolkit that accelerates common build workflows with AI — scaffolding, code generation, dependency management, and project bootstrapping. Designed to cut boilerplate and get from idea to running code faster without sacrificing control.',
+    stack: ['TypeScript', 'Node.js', 'AI Code Gen', 'CLI', 'GitHub Pages'],
     architecture:
-      'Modular platform architecture built around the Model Context Protocol. Each product is a composable tool that agents can discover and invoke. Datafy provides zero-dependency database access. B2DP automates full-stack scaffolding from business specs.',
+      'CLI-first toolkit with AI-assisted code generation and project scaffolding. Template engine with smart parameter injection. Dependency resolver that suggests compatible versions and detects conflicts before install. GitHub Pages deployment for documentation and interactive examples.',
     highlights: [
-      'Datafy — MCP database gateway for 7 backends.',
-      'B2DP — CLI orchestrator for platform scaffolds.',
-      'Built for the agent-native future of software development.',
+      'AI-assisted scaffolding — describe what you want to build and get a configured project structure.',
+      'Smart dependency management — version conflict detection and resolution suggestions.',
+      'GitHub Pages documentation with interactive examples for every tool in the kit.',
     ],
-    liveUrl: 'https://www.serendepify.com/',
-  },
-  {
-    id: 'optimi',
-    number: '04',
-    title: 'Optimi',
-    tag: 'opportunity tracker',
-    category: 'pwa',
-    canvasMode: 'agents',
-    description:
-      'Lightweight, privacy-first Progressive Web App for tracking opportunities — hackathons, grants, accelerators, jobs, and more. Includes a curated opportunity finder and an AI application assistant. Everything stays local; nothing phones home.',
-    stack: ['TypeScript', 'PWA', 'IndexedDB', 'Service Workers', 'AI Assistant'],
-    architecture:
-      'Client-first architecture with no server-side data collection. IndexedDB for persistent local storage, Service Workers for offline capability and push notifications, AI assistant runs inference at the edge. Curated opportunity feed pulled from public sources, deduplicated and ranked locally.',
-    highlights: [
-      'Full offline capability — works without connectivity.',
-      'Privacy-first: opportunity data and application drafts never leave the device.',
-      'AI application assistant drafts tailored submissions from saved profile context.',
-    ],
-    githubUrl: 'https://github.com/teckedd-code2save/optimi',
+    githubUrl: 'https://github.com/teckedd-code2save/ai-build-tools',
+    liveUrl: 'https://teckedd-code2save.github.io/ai-build-tools/',
   },
   {
     id: 'health-wallet-ton',
@@ -114,8 +116,84 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/teckedd-code2save/HealthWallet-TON-MiniApp',
   },
   {
-    id: 'mpp-studio',
+    id: 'website-media-capture-mcp',
     number: '06',
+    title: 'Media Capture MCP',
+    tag: 'browser tooling',
+    category: 'tooling',
+    canvasMode: 'terminal',
+    description:
+      'Browser automation and media capture MCP for turning live websites into usable screenshots and recordings. Built for workflows where agents or developers need repeatable capture of web pages, UI states, and visual evidence from the browser.',
+    stack: ['MCP', 'Browser Automation', 'Screenshots', 'Recordings', 'GitHub Pages'],
+    architecture:
+      'MCP-first browser capture workflow for visiting pages, rendering target states, and extracting visual media in a repeatable way. Designed to fit agentic and developer workflows that need deterministic website screenshots and capture artifacts.',
+    highlights: [
+      'Ships as a public project with GitHub Pages documentation and a live project page.',
+      'Useful wherever browser-based capture needs to be automated or integrated into tool-driven workflows.',
+    ],
+    githubUrl: 'https://github.com/teckedd-code2save/website-media-capture-mcp',
+    liveUrl: 'https://teckedd-code2save.github.io/website-media-capture-mcp/',
+  },
+  {
+    id: 'optimi',
+    number: '07',
+    title: 'Optimi',
+    tag: 'opportunity tracker',
+    category: 'pwa',
+    canvasMode: 'agents',
+    description:
+      'Lightweight, privacy-first Progressive Web App for tracking opportunities — hackathons, grants, accelerators, jobs, and more. Includes a curated opportunity finder and an AI application assistant. Everything stays local; nothing phones home.',
+    stack: ['TypeScript', 'PWA', 'IndexedDB', 'Service Workers', 'AI Assistant'],
+    architecture:
+      'Client-first architecture with no server-side data collection. IndexedDB for persistent local storage, Service Workers for offline capability and push notifications, AI assistant runs inference at the edge. Curated opportunity feed pulled from public sources, deduplicated and ranked locally.',
+    highlights: [
+      'Full offline capability — works without connectivity.',
+      'Privacy-first: opportunity data and application drafts never leave the device.',
+      'AI application assistant drafts tailored submissions from saved profile context.',
+    ],
+    githubUrl: 'https://github.com/teckedd-code2save/optimi',
+  },
+  {
+    id: 'rentmyweekend',
+    number: '08',
+    title: 'Rent My Weekend',
+    tag: 'rental marketplace',
+    category: 'commerce',
+    canvasMode: 'exchange',
+    description:
+      'Peer-to-peer weekend rental marketplace. Owners list what they have — cars, gear, spaces, experiences — renters book by the weekend. Availability engine, instant booking, and payout automation keep the loop tight.',
+    stack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Stripe', 'Maps API'],
+    architecture:
+      'Three-sided marketplace: owners list assets with availability rules and pricing tiers; renters search by location, category, and weekend date range; platform handles booking state, payment hold, and payout release. Postgres for inventory and booking state, Stripe Connect for split payments, geospatial indexing for local discovery.',
+    highlights: [
+      'Weekend-native booking model — Friday-to-Sunday as a first-class rental unit.',
+      'Owner dashboard with calendar overlay, pricing rules, and payout tracking.',
+      'Stripe Connect for escrow-style holds and automatic owner disbursement.',
+    ],
+    liveUrl: 'https://rentmyweekend.serendepify.com/',
+  },
+  {
+    id: 'serendepify',
+    number: '09',
+    title: 'Serendepify',
+    tag: 'developer tools',
+    category: 'company',
+    canvasMode: 'terminal',
+    description:
+      'Developer tools platform focused on AI-native workflows and agent-based systems. Builds and ships infrastructure for the Model Context Protocol ecosystem — from database gateways to CLI orchestrators that convert business specifications into production-grade platform scaffolds.',
+    stack: ['React', 'TypeScript', 'Node.js', 'MCP Protocol', 'AI Workflows'],
+    architecture:
+      'Modular platform architecture built around the Model Context Protocol. Each product is a composable tool that agents can discover and invoke. Datafy provides zero-dependency database access. B2DP automates full-stack scaffolding from business specs.',
+    highlights: [
+      'Datafy — MCP database gateway for 7 backends.',
+      'B2DP — CLI orchestrator for platform scaffolds.',
+      'Built for the agent-native future of software development.',
+    ],
+    liveUrl: 'https://www.serendepify.com/',
+  },
+  {
+    id: 'mpp-studio',
+    number: '10',
     title: 'MPP Studio',
     tag: 'agent commerce',
     category: 'commerce',
@@ -134,7 +212,7 @@ export const projects: Project[] = [
   },
   {
     id: 'shipd',
-    number: '07',
+    number: '11',
     title: 'Shipd',
     tag: 'deployment intel',
     category: 'deployment',
@@ -152,23 +230,23 @@ export const projects: Project[] = [
     liveUrl: 'https://shipd-seven.vercel.app/',
   },
   {
-    id: 'website-media-capture-mcp',
-    number: '09',
-    title: 'Media Capture MCP',
-    tag: 'browser tooling',
-    category: 'tooling',
-    canvasMode: 'terminal',
+    id: 'adwuma-pa',
+    number: '12',
+    title: 'Adwuma Pa',
+    tag: 'elder care AI',
+    category: 'health',
+    canvasMode: 'agents',
     description:
-      'Browser automation and media capture MCP for turning live websites into usable screenshots and recordings. Built for workflows where agents or developers need repeatable capture of web pages, UI states, and visual evidence from the browser.',
-    stack: ['MCP', 'Browser Automation', 'Screenshots', 'Recordings', 'GitHub Pages'],
+      'AI-powered family care network connecting Ghanaian elders to coordinated support — health monitoring, emergency alerts, and trusted-family check-in workflows. Built for the Build Small Hackathon to tackle the gap in tech-enabled elder care across West Africa.',
+    stack: ['Python', 'AI', 'Telemedicine', 'Family Network', 'African HealthTech'],
     architecture:
-      'MCP-first browser capture workflow for visiting pages, rendering target states, and extracting visual media in a repeatable way. Designed to fit agentic and developer workflows that need deterministic website screenshots and capture artifacts.',
+      'Multi-agent care coordination system. Health monitoring agents track check-in cadence and flag anomalies. Emergency escalation routes alerts through a trusted-family graph. Telemedicine integration layer connects elders to remote consultations. Built as a lightweight, deployable prototype for Ghanaian community health contexts.',
     highlights: [
-      'Ships as a public project with GitHub Pages documentation and a live project page.',
-      'Useful wherever browser-based capture needs to be automated or integrated into tool-driven workflows.',
+      'Trusted-family graph — emergency alerts fan out through configurable contact trees.',
+      'Health check-in agent monitors cadence and flags missed check-ins for follow-up.',
+      'Built in a weekend for Build Small Hackathon — African healthtech from first principles.',
     ],
-    githubUrl: 'https://github.com/teckedd-code2save/website-media-capture-mcp',
-    liveUrl: 'https://teckedd-code2save.github.io/website-media-capture-mcp/',
+    githubUrl: 'https://github.com/teckedd-code2save/adwuma-pa',
   },
 ];
 
