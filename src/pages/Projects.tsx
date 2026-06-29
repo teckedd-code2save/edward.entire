@@ -1,6 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { projects, filterCategories } from '@/components/projects/projectData';
-import type { ProjectCategory } from '@/components/projects/projectData';
+import { projects } from '@/components/projects/projectData';
 import ProjectCard from '@/components/projects/ProjectCard';
 
 export default function Projects() {
@@ -81,7 +80,7 @@ export default function Projects() {
           >
             {projects.map((project, i) => (
               <div key={project.id} style={{ gridArea: gridAreas[i] }}>
-                <ProjectCard project={project} index={i} />
+                <ProjectCard project={project} />
               </div>
             ))}
           </div>

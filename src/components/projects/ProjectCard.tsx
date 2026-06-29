@@ -3,10 +3,9 @@ import type { Project } from './projectData';
 
 interface ProjectCardProps {
   project: Project;
-  index: number;
 }
 
-function CardCanvas({ project, index }: { project: Project; index: number }) {
+function CardCanvas({ project }: { project: Project }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -41,7 +40,7 @@ function CardCanvas({ project, index }: { project: Project; index: number }) {
   );
 }
 
-export default function ProjectCard({ project, index }: ProjectCardProps) {
+export default function ProjectCard({ project }: ProjectCardProps) {
   const href = project.liveUrl || project.githubUrl || '#';
 
   return (
@@ -53,7 +52,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
       style={{ backgroundColor: 'var(--bg-2)' }}
     >
       <div className="relative overflow-hidden" style={{ height: '220px' }}>
-        <CardCanvas project={project} index={index} />
+        <CardCanvas project={project} />
       </div>
 
       <div className="p-6">
@@ -77,7 +76,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         <div className="flex flex-wrap gap-1.5">
           {project.stack.slice(0, 4).map((tech) => (
             <span key={tech} className="font-sans text-[9px] uppercase tracking-wide" style={{ color: 'var(--fg-3)' }}>
-              {tech}{' '}
+              {tech}
             </span>
           ))}
         </div>
