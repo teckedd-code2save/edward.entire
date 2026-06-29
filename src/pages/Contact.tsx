@@ -110,7 +110,7 @@ export default function Contact() {
           {/* Heading */}
           <HeaderAnimation delay={0.1}>
             <h1
-              className="font-sans font-bold tracking-[-0.03em]"
+              className="font-sans tracking-[-0.03em]"
               style={{
                 fontSize: 'clamp(3rem, 8vw, 6.6rem)',
                 color: 'var(--fg)',
@@ -199,7 +199,7 @@ export default function Contact() {
           >
             <SectionLabel number="02" text="location" />
             <h2
-              className="font-sans font-bold tracking-[-0.025em]"
+              className="font-sans tracking-[-0.025em]"
               style={{
                 fontSize: 'clamp(2rem, 4.5vw, 3.4rem)',
                 color: 'var(--fg)',
@@ -257,7 +257,7 @@ export default function Contact() {
               resume
             </div>
             <h3
-              className="font-sans font-bold tracking-[-0.025em]"
+              className="font-sans tracking-[-0.025em]"
               style={{
                 fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)',
                 color: 'var(--fg)',

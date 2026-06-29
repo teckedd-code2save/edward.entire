@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, lazy, Suspense } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import type { Project } from './projectData';
 
 const AgentCanvas = lazy(() => import('./AgentCanvas'));
@@ -13,18 +12,14 @@ interface ProjectDetailPanelProps {
 
 function DetailCanvas({ project }: { project: Project }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [size, setSize] = useState({ width: 720, height: 320 });
+  const [size, setSize] = useState({ width: 720, height: 400 });
 
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
-        setSize({
-          width: entry.contentRect.width,
-          height: entry.contentRect.height,
-        });
+        setSize({ width: entry.contentRect.width, height: entry.contentRect.height });
       }
     });
     observer.observe(el);
@@ -33,280 +28,308 @@ function DetailCanvas({ project }: { project: Project }) {
 
   return (
     <div ref={containerRef} style={{ width: '100%', height: '100%' }}>
-      <Suspense fallback={<div style={{ width: '100%', height: '100%', background: '#030303' }} />}>
+      <Suspense fallback={<div style={{ width: '100%', height: '100%', background: '#080808' }} />}>
         {project.canvasMode === 'agents' && (
-          <AgentCanvas width={size.width} height={size.height} speedMultiplier={1.5} />
+          <AgentCanvas width={size.width} height={size.height} speedMultiplier={1.2} />
         )}
         {project.canvasMode === 'terminal' && (
-          <TerminalCanvas width={size.width} height={size.height} speedMultiplier={1.5} projectId={project.id} />
+          <TerminalCanvas width={size.width} height={size.height} speedMultiplier={1.2} projectId={project.id} />
         )}
         {project.canvasMode === 'exchange' && (
-          <ExchangeCanvas width={size.width} height={size.height} speedMultiplier={1.5} />
+          <ExchangeCanvas width={size.width} height={size.height} speedMultiplier={1.2} />
         )}
       </Suspense>
     </div>
   );
 }
 
+function LinkButton({ href, label, variant = 'orange' }: { href: string; label: string; variant?: 'orange' | 'mauve' | 'subtle' }) {
+  const colorVar = variant === 'orange' ? 'var(--orange)' : variant === 'mauve' ? 'var(--mauve)' : 'var(--fg-3)';
+  const borderVar = variant === 'subtle' ? 'var(--border-2)' : `1px solid ${colorVar}`;
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-2 font-sans text-sm transition-all duration-200 hover:-translate-y-0.5"
+      style={{
+        border: borderVar,
+        padding: '10px 22px',
+        color: 'var(--fg)',
+        fontWeight: 400,
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.backgroundColor = variant === 'subtle' ? 'rgba(255,255,255,0.04)' : `${colorVar}18`;
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.backgroundColor = 'transparent';
+      }}
+    >
+      {label} <span style={{ color: colorVar, fontSize: '1.1em' }}>→</span>
+    </a>
+  );
+}
+
 export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPanelProps) {
   const isOpen = project !== null;
+  const panelRef = useRef<HTMLDivElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
 
-  // Lock body scroll when open
+  // Lock body scroll
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      // Scroll to top of panel content
+      setTimeout(() => bodyRef.current?.scrollTo(0, 0), 50);
     } else {
       document.body.style.overflow = '';
     }
-    return () => {
-      document.body.style.overflow = '';
-    };
+    return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
 
-  // Escape key to close
+  // Escape to close
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
-        onClose();
-      }
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) onClose();
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
   }, [isOpen, onClose]);
 
-  return (
-    <AnimatePresence>
-      {isOpen && project && (
-        <>
-          {/* Overlay */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] as [number, number, number, number] }}
-            onClick={onClose}
-            className="fixed inset-0 z-[400]"
-            style={{
-              backgroundColor: 'rgba(0,0,0,0.72)',
-              backdropFilter: 'blur(6px)',
-              WebkitBackdropFilter: 'blur(6px)',
-            }}
-          />
+  // GSAP entrance animation
+  useEffect(() => {
+    if (!isOpen || !panelRef.current) return;
+    let ctx: gsap.Context | undefined;
+    async function init() {
+      const { gsap } = await import('gsap');
+      ctx = gsap.context(() => {
+        const tl = gsap.timeline();
+        tl.fromTo('.detail-overlay', { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'power2.out' })
+          .fromTo('.detail-panel-card', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }, '-=0.15')
+          .fromTo('.detail-section', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.08, ease: 'power2.out' }, '-=0.1')
+          .fromTo('.detail-cta-row', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.1');
+      }, panelRef.current!);
+    }
+    init();
+    return () => ctx?.revert();
+  }, [isOpen, project?.id]);
 
-          {/* Panel */}
-          <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{
-              duration: 0.45,
-              ease: [0.4, 0, 0.2, 1] as [number, number, number, number],
-            }}
-            className="fixed top-0 right-0 z-[401] overflow-y-auto"
-            style={{
-              width: 'min(720px, 100vw)',
-              height: '100svh',
-              backgroundColor: 'var(--bg-1)',
-              borderLeft: '1px solid var(--border-2)',
-            }}
+  if (!isOpen || !project) return null;
+
+  const hasDeployLink = !!project.liveUrl;
+  const hasSourceLink = !!project.githubUrl;
+
+  return (
+    <div ref={panelRef}>
+      {/* Overlay — click to close */}
+      <div
+        className="detail-overlay fixed inset-0 z-[500]"
+        style={{ backgroundColor: 'rgba(0,0,0,0.82)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}
+        onClick={onClose}
+      />
+
+      {/* Scrollable panel */}
+      <div
+        ref={bodyRef}
+        className="fixed inset-0 z-[501] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex min-h-full items-start justify-center p-4 pt-16 pb-24 md:p-8 md:pt-20 md:pb-32">
+          <div
+            className="detail-panel-card w-full"
+            style={{ maxWidth: '820px' }}
           >
-            {/* Header Bar */}
-            <div
-              className="sticky top-0 z-10 flex items-center justify-between"
-              style={{
-                padding: '16px 28px',
-                backgroundColor: 'rgba(5,5,5,0.92)',
-                backdropFilter: 'blur(8px)',
-                WebkitBackdropFilter: 'blur(8px)',
-                borderBottom: '1px solid var(--border)',
-              }}
-            >
-              <span
-                className="font-mono text-[10px] uppercase tracking-[0.12em]"
-                style={{ color: 'var(--fg-3)' }}
-              >
-                {project.number} / {project.id}
-              </span>
+            {/* ── Close button (floating) ── */}
+            <div className="mb-6 flex justify-end">
               <button
                 onClick={onClose}
-                className="cursor-pointer font-mono text-[11px] transition-colors duration-200"
+                className="font-mono text-xs tracking-wider transition-colors duration-200 hover:text-[var(--orange)]"
                 style={{
-                  border: '1px solid var(--border)',
-                  padding: '6px 14px',
-                  color: 'var(--fg-2)',
+                  border: '1px solid var(--border-2)',
+                  padding: '8px 16px',
+                  color: 'var(--fg-3)',
                   background: 'transparent',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--orange)';
-                  e.currentTarget.style.color = 'var(--fg)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--border)';
-                  e.currentTarget.style.color = 'var(--fg-2)';
+                  cursor: 'pointer',
                 }}
               >
-                close &times;
+                ESC
               </button>
             </div>
 
-            {/* Hero Canvas */}
-            <div className="relative" style={{ height: '320px', overflow: 'hidden' }}>
+            {/* ── Hero: Canvas + Title overlay ── */}
+            <div
+              className="relative overflow-hidden"
+              style={{
+                height: 'clamp(240px, 40vw, 380px)',
+                backgroundColor: 'var(--bg-1)',
+                border: '1px solid var(--border)',
+              }}
+            >
               <DetailCanvas project={project} />
-              {/* Gradient overlay at bottom */}
+              {/* Gradient + title overlay */}
               <div
-                className="absolute inset-x-0 bottom-0"
+                className="absolute inset-0 flex flex-col justify-end"
                 style={{
-                  height: '100%',
-                  background: 'linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.6) 55%, transparent 100%)',
+                  background: 'linear-gradient(to top, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.55) 50%, transparent 100%)',
+                  padding: 'clamp(24px, 5vw, 48px)',
                 }}
-              />
-              {/* Hero text overlay */}
-              <div className="absolute bottom-0 left-0" style={{ padding: '28px 36px' }}>
+              >
                 <span
-                  className="font-mono text-[10px] uppercase tracking-[0.16em]"
-                  style={{ color: 'rgba(255,255,255,0.45)' }}
+                  className="font-mono text-[10px] uppercase tracking-[0.18em]"
+                  style={{ color: 'var(--fg-3)' }}
                 >
-                  {project.tag}
+                  {project.number} — {project.tag}
                 </span>
-                <h2
-                  className="mt-1 font-mono font-bold"
+                <h1
+                  className="mt-1 font-sans tracking-[-0.03em]"
                   style={{
-                    fontSize: 'clamp(1.8rem, 4vw, 2.8rem)',
+                    fontSize: 'clamp(2rem, 6vw, 3.6rem)',
+                    fontWeight: 300,
                     color: 'var(--fg)',
+                    lineHeight: 1.05,
                   }}
                 >
                   {project.title}
-                </h2>
+                </h1>
               </div>
             </div>
 
-            {/* Panel Body */}
-            <div style={{ padding: '36px' }}>
-              {/* Overview */}
-              <Section label="overview">
-                <p className="text-[14px] leading-[1.7]" style={{ color: 'var(--fg-2)' }}>
+            {/* ── Body card ── */}
+            <div
+              style={{
+                backgroundColor: 'var(--bg-1)',
+                border: '1px solid var(--border)',
+                borderTop: 'none',
+                padding: 'clamp(28px, 5vw, 52px)',
+              }}
+            >
+              {/* ── CTA Row (top, prominent) ── */}
+              <div className="detail-cta-row mb-10 flex flex-wrap gap-3">
+                {hasDeployLink && (
+                  <LinkButton href={project.liveUrl!} label="View live site" variant="orange" />
+                )}
+                {hasSourceLink && (
+                  <LinkButton href={project.githubUrl!} label="View source" variant={hasDeployLink ? 'mauve' : 'orange'} />
+                )}
+                <LinkButton
+                  href="mailto:edwardktwumasi1000@gmail.com?subject=Regarding%20your%20project"
+                  label="Discuss this project"
+                  variant="subtle"
+                />
+              </div>
+
+              {/* ── Overview ── */}
+              <div className="detail-section mb-10">
+                <SectionLabel>Overview</SectionLabel>
+                <p
+                  className="font-sans leading-relaxed"
+                  style={{ fontSize: 'clamp(0.95rem, 1.3vw, 1.1rem)', color: 'var(--fg-2)', fontWeight: 400 }}
+                >
                   {project.description}
                 </p>
-              </Section>
+              </div>
 
-              {/* Stack */}
-              <Section label="stack">
+              {/* ── Architecture ── */}
+              <div className="detail-section mb-10">
+                <SectionLabel>Architecture</SectionLabel>
+                <p
+                  className="font-sans text-[15px] leading-relaxed"
+                  style={{ color: 'var(--fg-2)', fontWeight: 400 }}
+                >
+                  {project.architecture}
+                </p>
+              </div>
+
+              {/* ── Highlights ── */}
+              <div className="detail-section mb-10">
+                <SectionLabel>Highlights</SectionLabel>
+                <ul className="space-y-3">
+                  {project.highlights.map((h, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <span
+                        className="mt-1.5 block flex-shrink-0"
+                        style={{
+                          width: 6,
+                          height: 6,
+                          backgroundColor: 'var(--orange)',
+                          boxShadow: '0 0 8px var(--orange-glow)',
+                        }}
+                      />
+                      <span
+                        className="font-sans text-[15px] leading-relaxed"
+                        style={{ color: 'var(--fg-2)', fontWeight: 400 }}
+                      >
+                        {h}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* ── Stack ── */}
+              <div className="detail-section mb-10">
+                <SectionLabel>Stack</SectionLabel>
                 <div className="flex flex-wrap gap-2">
-                  {project.stack.map((tech) => (
+                  {project.stack.map((tech, i) => (
                     <span
                       key={tech}
-                      className="font-mono text-[10px] uppercase tracking-wide transition-all duration-200"
+                      className="font-mono text-[10px] uppercase tracking-wider"
                       style={{
-                        border: '1px solid var(--border)',
-                        padding: '4px 10px',
-                        color: 'var(--fg-3)',
+                        border: `1px solid ${i % 2 === 0 ? 'rgba(255,85,0,0.35)' : 'rgba(199,125,255,0.35)'}`,
+                        padding: '5px 12px',
+                        color: 'var(--fg-2)',
                       }}
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
-              </Section>
+              </div>
 
-              {/* Architecture */}
-              <Section label="architecture">
-                <p className="text-[14px] leading-[1.7]" style={{ color: 'var(--fg-2)' }}>
-                  {project.architecture}
+              {/* ── Bottom CTA ── */}
+              <div
+                className="detail-cta-row"
+                style={{
+                  borderTop: '1px solid var(--border)',
+                  paddingTop: '32px',
+                }}
+              >
+                <p
+                  className="mb-4 font-sans text-sm"
+                  style={{ color: 'var(--fg-3)', fontWeight: 400 }}
+                >
+                  Interested in building something similar or collaborating on this project?
                 </p>
-              </Section>
-
-              {/* Highlights */}
-              <Section label="highlights">
-                <ul className="space-y-2">
-                  {project.highlights.map((h, i) => (
-                    <li key={i} className="flex items-start gap-2 text-[14px] leading-[1.7]" style={{ color: 'var(--fg-2)' }}>
-                      <span className="mt-1.5 block h-1 w-1 flex-shrink-0 rounded-full" style={{ backgroundColor: 'var(--orange)' }} />
-                      <span>{h}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Section>
-
-              {/* Links */}
-              {(project.liveUrl || project.githubUrl) && (
-                <Section label="links">
-                  <div className="flex flex-wrap gap-3">
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block font-mono text-[11px] transition-all duration-200"
-                        style={{
-                          border: '1px solid var(--border-2)',
-                          padding: '8px 18px',
-                          color: 'var(--fg-2)',
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = 'var(--orange)';
-                          e.currentTarget.style.color = 'var(--orange)';
-                          e.currentTarget.style.transform = 'translateY(-2px)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = 'var(--border-2)';
-                          e.currentTarget.style.color = 'var(--fg-2)';
-                          e.currentTarget.style.transform = 'translateY(0)';
-                        }}
-                      >
-                        live site &rarr;
-                      </a>
-                    )}
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block font-mono text-[11px] transition-all duration-200"
-                        style={{
-                          border: '1px solid var(--border-2)',
-                          padding: '8px 18px',
-                          color: 'var(--fg-2)',
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = 'var(--mauve)';
-                          e.currentTarget.style.color = 'var(--mauve)';
-                          e.currentTarget.style.transform = 'translateY(-2px)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = 'var(--border-2)';
-                          e.currentTarget.style.color = 'var(--fg-2)';
-                          e.currentTarget.style.transform = 'translateY(0)';
-                        }}
-                      >
-                        github &rarr;
-                      </a>
-                    )}
-                  </div>
-                </Section>
-              )}
+                <div className="flex flex-wrap gap-3">
+                  <LinkButton
+                    href="mailto:edwardktwumasi1000@gmail.com?subject=Collaboration%3A%20Regarding%20your%20project"
+                    label="Start a conversation"
+                    variant="orange"
+                  />
+                  {hasSourceLink && (
+                    <LinkButton href={project.githubUrl!} label="Fork on GitHub" variant="subtle" />
+                  )}
+                </div>
+              </div>
             </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
-function Section({ label, children }: { label: string; children: React.ReactNode }) {
+function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mb-8">
-      <div
-        className="mb-3 flex items-center gap-3"
+    <div className="mb-4 flex items-center gap-3">
+      <span
+        className="font-mono text-[10px] uppercase tracking-[0.16em]"
+        style={{ color: 'var(--fg-4)' }}
       >
-        <span
-          className="font-mono text-[9px] uppercase tracking-[0.14em]"
-          style={{ color: 'rgba(255,255,255,0.4)' }}
-        >
-          {label}
-        </span>
-        <div className="h-px flex-1" style={{ backgroundColor: 'rgba(255,255,255,0.08)' }} />
-      </div>
-      {children}
+        {children}
+      </span>
+      <div className="h-px flex-1" style={{ backgroundColor: 'var(--border)' }} />
     </div>
   );
 }

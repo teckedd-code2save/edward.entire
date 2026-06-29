@@ -39,7 +39,7 @@ export default function CTASection() {
         }}
       >
         <h2
-          className="font-sans font-bold tracking-[-0.025em]"
+          className="font-sans tracking-[-0.025em]"
           style={{
             fontSize: 'clamp(2rem, 4.5vw, 3.4rem)',
             color: 'var(--fg)',

@@ -116,7 +116,7 @@ function ResearchHero() {
         </motion.span>
 
         <motion.h1
-          className="mt-5 font-sans font-bold leading-[0.95] tracking-[-0.03em] text-[var(--fg)]"
+          className="mt-5 font-sans leading-[0.95] tracking-[-0.03em] text-[var(--fg)]"
           style={{ fontSize: 'clamp(3rem, 9vw, 7.6rem)' }}
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -170,7 +170,7 @@ function ProblemSection() {
 
         <ScrollReveal delay={0.1}>
           <h2
-            className="font-sans font-bold tracking-[-0.025em] text-[var(--fg)]"
+            className="font-sans tracking-[-0.025em] text-[var(--fg)]"
             style={{ fontSize: 'clamp(2rem, 5vw, 3.6rem)', lineHeight: 1.05 }}
           >
             You picked up the phone to pay a bill.
@@ -261,7 +261,7 @@ function FoundationsSection() {
         </ScrollReveal>
         <ScrollReveal delay={0.1}>
           <h2
-            className="font-sans font-bold tracking-[-0.025em] text-[var(--fg)]"
+            className="font-sans tracking-[-0.025em] text-[var(--fg)]"
             style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.05 }}
           >
             Five validated pieces of&nbsp;
@@ -355,7 +355,7 @@ function LoopSection() {
         </ScrollReveal>
         <ScrollReveal delay={0.1}>
           <h2
-            className="font-sans font-bold tracking-[-0.025em] text-[var(--fg)]"
+            className="font-sans tracking-[-0.025em] text-[var(--fg)]"
             style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.05 }}
           >
             Anchor intent. Detect drift.
@@ -467,7 +467,7 @@ function PathsSection() {
         </ScrollReveal>
         <ScrollReveal delay={0.1}>
           <h2
-            className="font-sans font-bold tracking-[-0.025em] text-[var(--fg)]"
+            className="font-sans tracking-[-0.025em] text-[var(--fg)]"
             style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.05 }}
           >
             Software-only today.
@@ -499,7 +499,7 @@ function PathsSection() {
                   <Tag text={p.tone === 'orange' ? 'mvp' : 'research'} tone={p.tone} />
                 </div>
                 <h3
-                  className="mt-4 font-sans font-bold tracking-[-0.02em]"
+                  className="mt-4 font-sans tracking-[-0.02em]"
                   style={{
                     fontSize: 'clamp(1.6rem, 3vw, 2.2rem)',
                     color: 'var(--fg)',
@@ -569,7 +569,7 @@ function RoadmapSection() {
         </ScrollReveal>
         <ScrollReveal delay={0.1}>
           <h2
-            className="font-sans font-bold tracking-[-0.025em] text-[var(--fg)]"
+            className="font-sans tracking-[-0.025em] text-[var(--fg)]"
             style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.05 }}
           >
             Seven&nbsp;<span style={{ color: 'var(--orange)' }}>phases</span>, two timelines.
@@ -668,7 +668,7 @@ function ResearchCTA() {
 
         <ScrollReveal delay={0.1}>
           <h2
-            className="font-sans font-bold tracking-[-0.03em] text-[var(--fg)]"
+            className="font-sans tracking-[-0.03em] text-[var(--fg)]"
             style={{ fontSize: 'clamp(2.2rem, 5.5vw, 4rem)', lineHeight: 1 }}
           >
             Research&nbsp;<span style={{ color: 'var(--mauve)' }}>collaborators</span>.

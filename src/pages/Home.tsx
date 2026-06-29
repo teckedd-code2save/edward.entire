@@ -39,6 +39,14 @@ function HeroSection() {
 
   const textY = useTransform(scrollYProgress, [0, 1], ['0px', '120px']);
 
+  const links = [
+    { label: 'GitHub', href: 'https://github.com/teckedd-code2save', variant: 'orange' as const },
+    { label: 'LinkedIn', href: 'https://linkedin.com/in/edward-twumasi', variant: 'subtle' as const },
+    { label: 'Serendepify', href: 'https://www.serendepify.com/', variant: 'subtle' as const },
+    { label: 'GroundControl', href: 'https://groundcontrol.serendepify.com/', variant: 'mauve' as const },
+    { label: 'Email', href: 'mailto:edwardktwumasi1000@gmail.com', variant: 'subtle' as const },
+  ];
+
   return (
     <section ref={heroRef} className="relative min-h-[100dvh] overflow-hidden">
       <HeroBackdrop />
@@ -49,8 +57,8 @@ function HeroSection() {
       >
         <div className="mx-auto w-full max-w-[1240px]">
           <motion.h1
-            className="font-sans font-bold leading-[0.98] tracking-[-0.03em] text-[var(--fg)]"
-            style={{ fontSize: 'clamp(3.4rem, 9vw, 8.2rem)' }}
+            className="font-sans leading-[0.96] tracking-[-0.04em] text-[var(--fg)]"
+            style={{ fontSize: 'clamp(3.4rem, 9vw, 8.2rem)', fontWeight: 300 }}
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.3, ease: easeEnter }}
@@ -62,55 +70,55 @@ function HeroSection() {
           </motion.h1>
 
           <motion.p
-            className="mt-7 max-w-[640px] font-sans font-light leading-[1.45] text-[var(--fg-2)]"
-            style={{ fontSize: 'clamp(1.05rem, 2vw, 1.55rem)' }}
+            className="mt-7 max-w-[680px] font-sans leading-[1.5] text-[var(--fg-2)]"
+            style={{ fontSize: 'clamp(1.05rem, 2vw, 1.45rem)', fontWeight: 400 }}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: easeEnter }}
           >
-            Backend systems. Agent runtimes. Tools that ship to production and stay there.
+            I build backend infrastructure, agent runtimes, and developer tooling
+            that ships to production and stays there. Currently focused on AI-native
+            platforms at <a href="https://www.serendepify.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--orange)', borderBottom: '1px solid rgba(255,85,0,0.3)' }}>Serendepify</a>.
           </motion.p>
 
           <motion.div
-            className="mt-12 flex flex-wrap items-center gap-7"
+            className="mt-10 flex flex-wrap items-center gap-4 md:gap-6"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.7, ease: easeEnter }}
           >
-            {[
-              { label: 'github', href: 'https://github.com/teckedd-code2save' },
-              { label: 'linkedin', href: 'https://linkedin.com/in/edward-twumasi' },
-              { label: 'serendepify', href: 'https://www.serendepify.com/' },
-              { label: 'rentmyweekend', href: 'https://rentmyweekend.serendepify.com/', highlight: true },
-              { label: 'convoy', href: 'https://convoy-home.vercel.app/' },
-              { label: 'email', href: 'mailto:edwardktwumasi1000@gmail.com' },
-            ].map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-[11px] uppercase tracking-[0.14em] transition-all duration-250"
-                style={{
-                  color: link.highlight ? 'var(--mauve)' : 'var(--fg-2)',
-                  borderBottom: '1px solid rgba(245,242,237,0.16)',
-                  paddingBottom: 2,
-                  fontWeight: link.highlight ? 700 : 400,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = link.highlight ? 'var(--mauve)' : 'var(--orange)';
-                  e.currentTarget.style.borderColor = link.highlight ? 'var(--mauve)' : 'var(--orange)';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = link.highlight ? 'var(--mauve)' : 'var(--fg-2)';
-                  e.currentTarget.style.borderColor = 'rgba(245,242,237,0.16)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                {link.label}
-              </a>
-            ))}
+            {links.map((link) => {
+              const accentColor = link.variant === 'orange' ? 'var(--orange)' : link.variant === 'mauve' ? 'var(--mauve)' : 'var(--fg-3)';
+              const borderColor = link.variant === 'orange' ? 'rgba(255,85,0,0.4)' : link.variant === 'mauve' ? 'rgba(199,125,255,0.4)' : 'var(--border-2)';
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-sans text-xs transition-all duration-200 hover:-translate-y-0.5"
+                  style={{
+                    color: link.variant === 'subtle' ? 'var(--fg-2)' : accentColor,
+                    border: `1px solid ${borderColor}`,
+                    padding: '7px 16px',
+                    fontWeight: 400,
+                    letterSpacing: '0.02em',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = accentColor;
+                    e.currentTarget.style.color = link.variant === 'subtle' ? accentColor : e.currentTarget.style.color;
+                    e.currentTarget.style.backgroundColor = link.variant === 'subtle' ? 'rgba(255,255,255,0.03)' : `${accentColor}12`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = borderColor;
+                    e.currentTarget.style.color = link.variant === 'subtle' ? 'var(--fg-2)' : accentColor;
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
           </motion.div>
         </div>
       </motion.div>
@@ -210,7 +218,7 @@ function ManifestoFrame({
           {frame.label}
         </span>
         <h2
-          className="mt-5 font-sans font-bold leading-[0.95] tracking-[-0.03em] text-[var(--fg)]"
+          className="mt-5 font-sans leading-[0.95] tracking-[-0.03em] text-[var(--fg)]"
           style={{ fontSize: 'clamp(3rem, 10vw, 9rem)' }}
         >
           {frame.head}
@@ -595,7 +603,7 @@ function FeaturedProjectsSection() {
         </ScrollReveal>
         <ScrollReveal delay={0.1}>
           <h2
-            className="font-sans font-bold tracking-[-0.025em] text-[var(--fg)]"
+            className="font-sans tracking-[-0.025em] text-[var(--fg)]"
             style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.02 }}
           >
             Currently in&nbsp;
@@ -791,7 +799,7 @@ function DeploymentSection() {
         <motion.div style={{ y: headingY }}>
           <ScrollReveal delay={0.1}>
             <h2
-              className="font-sans font-bold tracking-[-0.025em] text-[var(--fg)]"
+              className="font-sans tracking-[-0.025em] text-[var(--fg)]"
               style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.05 }}
             >
               Push from&nbsp;<span style={{ color: 'var(--orange)' }}>origin</span>.
@@ -946,7 +954,7 @@ function TechStackSection() {
           <div className="max-w-[380px] shrink-0">
             <ScrollReveal delay={0.1}>
               <h2
-                className="font-sans font-bold tracking-[-0.025em] text-[var(--fg)]"
+                className="font-sans tracking-[-0.025em] text-[var(--fg)]"
                 style={{ fontSize: 'clamp(2rem, 4.5vw, 3.2rem)', lineHeight: 1.05 }}
               >
                 Tools at&nbsp;<span style={{ color: 'var(--mauve)' }}>hand</span>.
@@ -1223,7 +1231,7 @@ function PackagesSection() {
         </ScrollReveal>
         <ScrollReveal delay={0.1}>
           <h2
-            className="font-sans font-bold tracking-[-0.025em] text-[var(--fg)]"
+            className="font-sans tracking-[-0.025em] text-[var(--fg)]"
             style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.05 }}
           >
             On&nbsp;<span style={{ color: 'var(--orange)' }}>npm</span>.
@@ -1354,7 +1362,7 @@ function CredentialsSection() {
         </ScrollReveal>
         <ScrollReveal delay={0.1}>
           <h2
-            className="font-sans font-bold tracking-[-0.025em] text-[var(--fg)]"
+            className="font-sans tracking-[-0.025em] text-[var(--fg)]"
             style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.05 }}
           >
             Paper&nbsp;<span style={{ color: 'var(--mauve)' }}>trail</span>.
@@ -1425,7 +1433,7 @@ function ContactCTASection() {
 
         <ScrollReveal delay={0.1}>
           <h2
-            className="mx-auto mt-2 font-sans font-bold tracking-[-0.03em] text-[var(--fg)]"
+            className="mx-auto mt-2 font-sans tracking-[-0.03em] text-[var(--fg)]"
             style={{ fontSize: 'clamp(2.4rem, 6vw, 4.8rem)', lineHeight: 1 }}
           >
             Build something&nbsp;

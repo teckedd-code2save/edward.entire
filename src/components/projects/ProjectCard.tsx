@@ -1,5 +1,4 @@
-import { useState, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef, useEffect } from 'react';
 import type { Project } from './projectData';
 
 interface ProjectCardProps {
@@ -10,17 +9,33 @@ interface ProjectCardProps {
 
 function AnimatedCanvas({ project, index }: { project: Project; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  });
 
-  const y = useTransform(scrollYProgress, [0, 1], ['-20px', '20px']);
-  const rotate = useTransform(scrollYProgress, [0, 1], [-2, 2]);
+  useEffect(() => {
+    if (!ref.current) return;
+    let ctx: any;
+    async function init() {
+      const { gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+      ctx = gsap.context(() => {
+        gsap.fromTo(
+          ref.current,
+          { y: -20, rotate: -2, opacity: 0.5 },
+          {
+            y: 20, rotate: 2, opacity: 0.5,
+            ease: 'none',
+            scrollTrigger: { trigger: ref.current, start: 'top bottom', end: 'bottom top', scrub: 0.8 },
+          }
+        );
+      }, ref.current!);
+    }
+    init();
+    return () => ctx?.revert();
+  }, []);
 
   const isMauve = project.canvasMode === 'agents';
   const accent = isMauve ? 'var(--mauve)' : 'var(--orange)';
-  const glow = isMauve ? 'rgba(199,125,255,0.18)' : 'rgba(255,85,0,0.18)';
+  const glow = isMauve ? 'rgba(199,125,255,0.12)' : 'rgba(255,85,0,0.12)';
 
   return (
     <div
@@ -31,15 +46,13 @@ function AnimatedCanvas({ project, index }: { project: Project; index: number })
         borderBottom: '1px solid var(--border)',
       }}
     >
-      <motion.div
-        aria-hidden
+      {/* Grid background */}
+      <div
         className={`absolute inset-0 ${isMauve ? 'grid-drift grid-drift--mauve' : 'grid-drift'}`}
-        style={{ y, rotate, opacity: 0.5 }}
+        style={{ opacity: 0.4 }}
       />
-
       {/* Soft glow */}
       <div
-        aria-hidden
         className="absolute"
         style={{
           inset: -30,
@@ -47,15 +60,14 @@ function AnimatedCanvas({ project, index }: { project: Project; index: number })
           filter: 'blur(16px)',
         }}
       />
-
-      {/* Number */}
+      {/* Number watermark */}
       <div
-        className="absolute inset-0 flex items-center justify-center font-mono font-bold"
+        className="absolute inset-0 flex items-center justify-center font-mono tracking-[-0.05em]"
         style={{
           fontSize: 'clamp(4rem, 10vw, 7rem)',
           color: accent,
-          opacity: 0.18,
-          letterSpacing: '-0.05em',
+          opacity: 0.14,
+          fontWeight: 700,
         }}
       >
         ·{project.number}
@@ -65,131 +77,150 @@ function AnimatedCanvas({ project, index }: { project: Project; index: number })
 }
 
 export default function ProjectCard({ project, index, onOpenDetail }: ProjectCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
     <div
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="group cursor-pointer overflow-hidden transition-all duration-300"
+      className="group cursor-pointer overflow-hidden"
       style={{
         backgroundColor: 'var(--bg-2)',
         border: '1px solid var(--border)',
-        transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
-        boxShadow: isHovered ? '0 16px 48px rgba(255,85,0,0.08)' : 'none',
       }}
-      onClick={() => onOpenDetail(project)}
     >
-      {/* Animated visual area */}
-      <div
-        className="relative overflow-hidden"
-        style={{ height: '200px' }}
-      >
-        <div
-          className="transition-transform duration-300"
-          style={{
-            transform: isHovered ? 'scale(1.02)' : 'scale(1)',
-            width: '100%',
-            height: '100%',
-          }}
-        >
+      {/* Clickable area → opens detail */}
+      <div onClick={() => onOpenDetail(project)} style={{ cursor: 'pointer' }}>
+        {/* Visual canvas */}
+        <div className="relative overflow-hidden" style={{ height: '200px' }}>
           <AnimatedCanvas project={project} index={index} />
         </div>
-      </div>
 
-      {/* Content Area */}
-      <div className="p-7">
-        {/* Row 1: Number + Tag */}
-        <div className="flex items-center justify-between">
-          <span className="font-mono text-[10px]" style={{ color: 'var(--fg-4)' }}>
-            {project.number}
-          </span>
-          <span
-            className="font-mono text-[9px] uppercase tracking-[0.12em]"
-            style={{
-              border: '1px solid rgba(255,85,0,0.4)',
-              padding: '3px 8px',
-              color: 'var(--orange)',
-            }}
-          >
-            {project.tag}
-          </span>
-        </div>
-
-        {/* Row 2: Title */}
-        <h3
-          className="mt-3 font-sans text-[1.25rem] font-bold tracking-[-0.02em]"
-          style={{ color: 'var(--fg)' }}
-        >
-          {project.title}
-        </h3>
-
-        {/* Row 3: Description */}
-        <p
-          className="mt-2.5 text-[13px] leading-[1.65]"
-          style={{
-            color: 'var(--fg-2)',
-            display: '-webkit-box',
-            WebkitLineClamp: 3,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-          }}
-        >
-          {project.description}
-        </p>
-
-        {/* Row 4: Stack Pills */}
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {project.stack.map((tech, i) => (
+        {/* Content */}
+        <div className="p-6">
+          {/* Number + Tag row */}
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-[10px]" style={{ color: 'var(--fg-4)' }}>
+              {project.number}
+            </span>
             <span
-              key={tech}
-              className="font-mono text-[9px] uppercase tracking-wide"
+              className="font-mono text-[9px] uppercase tracking-[0.12em]"
               style={{
-                border: `1px solid ${i % 2 === 0 ? 'rgba(255,85,0,0.35)' : 'rgba(199,125,255,0.35)'}`,
-                padding: '3px 7px',
-                color: 'var(--fg-3)',
+                border: '1px solid rgba(255,85,0,0.4)',
+                padding: '3px 8px',
+                color: 'var(--orange)',
               }}
             >
-              {tech}
+              {project.tag}
             </span>
-          ))}
-        </div>
+          </div>
 
-        {/* Row 5: Action */}
-        <div className="mt-5 flex items-center justify-between">
-          <span
-            className="font-mono text-[11px] transition-colors duration-200 group-hover:text-[var(--orange)]"
-            style={{ color: 'var(--fg-2)' }}
+          {/* Title */}
+          <h3
+            className="mt-3 font-sans tracking-[-0.02em]"
+            style={{
+              fontSize: '1.25rem',
+              fontWeight: 400,
+              color: 'var(--fg)',
+              lineHeight: 1.2,
+            }}
           >
-            full details &rarr;
-          </span>
-          <div className="flex items-center gap-3">
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="font-mono text-[9px] uppercase tracking-wide transition-colors duration-200 hover:text-[var(--orange)]"
-                style={{ color: 'var(--fg-3)' }}
+            {project.title}
+          </h3>
+
+          {/* Description — 3-line clamp */}
+          <p
+            className="mt-2 font-sans text-[13px] leading-[1.6]"
+            style={{
+              color: 'var(--fg-2)',
+              fontWeight: 400,
+              display: '-webkit-box',
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+            }}
+          >
+            {project.description}
+          </p>
+
+          {/* Stack pills */}
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {project.stack.slice(0, 5).map((tech, i) => (
+              <span
+                key={tech}
+                className="font-mono text-[9px] uppercase tracking-wide"
+                style={{
+                  border: `1px solid ${i % 2 === 0 ? 'rgba(255,85,0,0.35)' : 'rgba(199,125,255,0.35)'}`,
+                  padding: '3px 7px',
+                  color: 'var(--fg-3)',
+                }}
               >
-                live
-              </a>
-            )}
-            {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="font-mono text-[9px] uppercase tracking-wide transition-colors duration-200 hover:text-[var(--orange)]"
-                style={{ color: 'var(--fg-3)' }}
+                {tech}
+              </span>
+            ))}
+            {project.stack.length > 5 && (
+              <span
+                className="font-mono text-[9px]"
+                style={{ color: 'var(--fg-4)', padding: '3px 4px' }}
               >
-                github
-              </a>
+                +{project.stack.length - 5}
+              </span>
             )}
           </div>
         </div>
+      </div>
+
+      {/* Action bar — always visible, outside click-to-detail area */}
+      <div
+        className="flex items-center gap-3 px-6 pb-5"
+        style={{ borderTop: 'none' }}
+      >
+        <button
+          onClick={() => onOpenDetail(project)}
+          className="font-sans text-[12px] transition-colors duration-200 hover:text-[var(--orange)]"
+          style={{
+            border: '1px solid var(--border-2)',
+            padding: '6px 14px',
+            color: 'var(--fg-2)',
+            background: 'transparent',
+            cursor: 'pointer',
+            fontWeight: 400,
+          }}
+        >
+          Full details →
+        </button>
+
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="font-sans text-[12px] transition-all duration-200 hover:-translate-y-0.5"
+            style={{
+              border: '1px solid rgba(255,85,0,0.45)',
+              padding: '6px 14px',
+              color: 'var(--orange)',
+              fontWeight: 400,
+            }}
+          >
+            Live ↗
+          </a>
+        )}
+
+        {project.githubUrl && (
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="font-sans text-[12px] transition-all duration-200 hover:-translate-y-0.5"
+            style={{
+              border: '1px solid rgba(199,125,255,0.45)',
+              padding: '6px 14px',
+              color: 'var(--mauve)',
+              fontWeight: 400,
+            }}
+          >
+            Source ↗
+          </a>
+        )}
       </div>
     </div>
   );

@@ -86,7 +86,7 @@ export default function PageHeader() {
         </motion.div>
 
         <motion.h1
-          className="font-sans font-bold tracking-[-0.03em] text-[var(--fg)]"
+          className="font-sans tracking-[-0.03em] text-[var(--fg)]"
           style={{
             fontSize: 'clamp(3rem, 8vw, 7rem)',
             lineHeight: 0.98,
