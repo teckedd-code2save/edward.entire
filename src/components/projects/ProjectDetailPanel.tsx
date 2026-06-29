@@ -109,8 +109,6 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
               style={{
                 padding: '20px 28px',
                 backgroundColor: 'var(--bg-1)',
-                border: '1px solid var(--border)',
-                borderBottom: 'none',
               }}
             >
               <div>
@@ -124,7 +122,7 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
               <button
                 onClick={onClose}
                 className="font-sans text-xs transition-colors duration-200 hover:text-[var(--orange)]"
-                style={{ border: '1px solid var(--border-2)', padding: '6px 14px', color: 'var(--fg-3)', background: 'transparent', cursor: 'pointer' }}
+                style={{  padding: '6px 14px', color: 'var(--fg-3)', background: 'transparent', cursor: 'pointer' }}
               >
                 Close
               </button>
@@ -134,8 +132,6 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
             <div
               style={{
                 backgroundColor: 'var(--bg-1)',
-                border: '1px solid var(--border)',
-                borderTop: 'none',
                 padding: '0 28px 28px',
               }}
             >
@@ -156,8 +152,6 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
             <div
               style={{
                 backgroundColor: 'var(--bg-1)',
-                border: '1px solid var(--border)',
-                borderTop: 'none',
                 padding: 'clamp(24px, 4vw, 48px) 28px',
               }}
             >

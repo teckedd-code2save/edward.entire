@@ -2,9 +2,11 @@ import { useRef, useEffect } from 'react';
 
 interface HorizontalSplitTextProps {
   text: string;
+  highlightWord?: string;
+  subtitle?: string;
 }
 
-export default function HorizontalSplitText({ text }: HorizontalSplitTextProps) {
+export default function HorizontalSplitText({ text, highlightWord, subtitle }: HorizontalSplitTextProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -55,10 +57,39 @@ export default function HorizontalSplitText({ text }: HorizontalSplitTextProps) 
     return () => ctx?.revert();
   }, []);
 
-  // Split text into individual character spans
-  const chars = text.split('').map((char, i) => (
-    <span key={i} className="hs-char" style={{ display: 'inline-block' }}>
-      {char === ' ' ? '\u00A0' : char}
+  // Split into chars, highlight specific word
+  const parts: { char: string; highlight: boolean }[] = [];
+  if (highlightWord && text.includes(highlightWord)) {
+    const idx = text.indexOf(highlightWord);
+    // Before highlight
+    for (const ch of text.slice(0, idx)) {
+      parts.push({ char: ch, highlight: false });
+    }
+    // Highlight word
+    for (const ch of highlightWord) {
+      parts.push({ char: ch, highlight: true });
+    }
+    // After highlight
+    for (const ch of text.slice(idx + highlightWord.length)) {
+      parts.push({ char: ch, highlight: false });
+    }
+  } else {
+    for (const ch of text) {
+      parts.push({ char: ch, highlight: false });
+    }
+  }
+
+  const chars = parts.map((p, i) => (
+    <span
+      key={i}
+      className="hs-char"
+      style={{
+        display: 'inline-block',
+        color: p.highlight ? 'var(--orange)' : 'var(--fg)',
+        textShadow: p.highlight ? '0 0 40px rgba(255,85,0,0.35)' : 'none',
+      }}
+    >
+      {p.char === ' ' ? '\u00A0' : p.char}
     </span>
   ));
 
@@ -69,12 +100,28 @@ export default function HorizontalSplitText({ text }: HorizontalSplitTextProps) 
         overflow: 'hidden',
         height: '100vh',
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: 'var(--bg)',
-        borderTop: '1px solid var(--border)',
-        borderBottom: '1px solid var(--border)',
+        position: 'relative',
       }}
     >
+      {/* Subtitle — visible immediately */}
+      {subtitle && (
+        <p
+          className="absolute top-[22%] left-0 right-0 text-center font-sans"
+          style={{
+            fontSize: 'clamp(1rem, 2vw, 1.2rem)',
+            fontWeight: 400,
+            color: 'var(--fg-2)',
+            zIndex: 2,
+          }}
+        >
+          {subtitle}
+        </p>
+      )}
+
       <div
         ref={trackRef}
         style={{
@@ -85,13 +132,20 @@ export default function HorizontalSplitText({ text }: HorizontalSplitTextProps) 
           fontSize: 'clamp(2rem, 10vw, 12rem)',
           fontWeight: 300,
           lineHeight: 1.1,
-          color: 'var(--fg)',
           fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
           willChange: 'transform',
         }}
       >
         {chars}
       </div>
+
+      {/* Scroll hint */}
+      <p
+        className="absolute bottom-8 left-0 right-0 text-center font-sans text-xs"
+        style={{ color: 'var(--fg-4)', zIndex: 2 }}
+      >
+        Scroll to explore
+      </p>
     </section>
   );
 }

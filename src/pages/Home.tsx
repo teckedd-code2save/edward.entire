@@ -260,65 +260,28 @@ const featuredProjects: Project[] = [
     status: 'public',
   },
   {
+    number: '04',
+    tag: 'dev acceleration',
+    tone: 'orange',
+    title: 'AI Build Tools',
+    blurb: 'Developer toolkit that accelerates build workflows with AI — scaffolding, code generation, dependency management.',
+    detail:
+      'CLI-first toolkit with AI-assisted code generation and project scaffolding. Smart dependency resolver with version conflict detection. GitHub Pages documentation with interactive examples.',
+    stack: ['TypeScript', 'Node.js', 'AI Code Gen', 'CLI', 'GitHub Pages'],
+    live: 'https://teckedd-code2save.github.io/ai-build-tools/',
+    github: 'https://github.com/teckedd-code2save/ai-build-tools',
+    status: 'public',
+  },
+  {
     number: '05',
     tag: 'TON mini app',
-    tone: 'orange',
+    tone: 'mauve',
     title: 'HealthWallet TON',
     blurb: 'A health record wallet running natively inside Telegram, settled on TON.',
     detail:
       'TypeScript Mini App — credentials, prescriptions, and visit history travel with the user. Encrypted client-side.',
     stack: ['TypeScript', 'TON', 'Telegram Mini App', 'Cryptography'],
     github: 'https://github.com/teckedd-code2save/HealthWallet-TON-MiniApp',
-    status: 'public',
-  },
-  {
-    number: '07',
-    tag: 'opportunity tracker',
-    tone: 'mauve',
-    title: 'Optimi',
-    blurb: 'Privacy-first PWA for hackathons, grants, accelerators, and jobs. Local-only.',
-    detail:
-      'Curated finder + on-device AI application assistant. Nothing leaves the browser unless you press send.',
-    stack: ['TypeScript', 'PWA', 'IndexedDB', 'On-device LLM'],
-    github: 'https://github.com/teckedd-code2save/optimi',
-    status: 'public',
-  },
-  {
-    number: '05',
-    tag: 'emergency response',
-    tone: 'orange',
-    title: 'CareWallet',
-    blurb:
-      'One SOS becomes a coordinated care flow — emergency, hospital match, deposit, contribution, approval.',
-    detail:
-      'Built in 24 hours with Replit Agent. Hospital discovery, care-deposit coordination, trusted-contact contributions, and Stripe Link test approval — moving emergency response from panic to coordinated action.',
-    stack: ['TypeScript', 'Python', 'Stripe Link', 'Replit Agent'],
-    live: 'https://x.com/EdwardsTwums/status/2050913151160390006?s=20',
-    github: 'https://github.com/teckedd-code2save',
-    status: 'public',
-  },
-  {
-    number: '08',
-    tag: 'rental marketplace',
-    tone: 'mauve',
-    title: 'Rent My Weekend',
-    blurb: 'Peer-to-peer weekend rental marketplace. List, discover, book, and get paid — all around the weekend.',
-    detail:
-      'Owners list assets with calendar rules and pricing; renters search by location and weekend range. Stripe Connect handles holds and automatic disbursement.',
-    stack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Stripe'],
-    live: 'https://rentmyweekend.serendepify.com/',
-    status: 'public',
-  },
-  {
-    number: '12',
-    tag: 'elder care AI',
-    tone: 'orange',
-    title: 'Adwuma Pa',
-    blurb: 'AI family care network connecting Ghanaian elders to coordinated support — health checks, emergency alerts, trusted-family workflows.',
-    detail:
-      'Multi-agent care system with health monitoring agents, emergency escalation through trusted-family graphs, and telemedicine integration. Built in a weekend for the Build Small Hackathon.',
-    stack: ['Python', 'AI', 'Telemedicine', 'Family Network', 'African HealthTech'],
-    github: 'https://github.com/teckedd-code2save/adwuma-pa',
     status: 'public',
   },
 ];
@@ -342,7 +305,6 @@ function ProjectCanvas({ tone, index }: { tone: 'orange' | 'mauve'; index: numbe
       className="relative h-full min-h-[280px] w-full overflow-hidden"
       style={{
         backgroundColor: 'var(--bg-2)',
-        border: '1px solid var(--border)',
       }}
     >
       <motion.div
@@ -1392,7 +1354,11 @@ function ContactCTASection() {
 export default function Home() {
   return (
     <>
-      <HorizontalSplitText text="Forging AI-native narratives at Serendepify" />
+      <HorizontalSplitText
+        text="Forging AI-native narratives at Serendepify"
+        highlightWord="Serendepify"
+        subtitle="Agent runtimes · Developer platforms · Infrastructure"
+      />
       <ManifestoSection />
       <FeaturedProjectsSection />
       <DeploymentSection />
