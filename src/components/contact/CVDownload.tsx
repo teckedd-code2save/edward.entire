@@ -14,7 +14,7 @@ export default function CVDownload() {
         delay: 0.9,
         ease: [0.0, 0, 0.2, 1] as [number, number, number, number],
       }}
-      className="group inline-flex items-center gap-2 font-mono"
+      className="group inline-flex items-center gap-2 font-sans"
       style={{
         fontSize: '11px',
         color: 'var(--fg-2)',

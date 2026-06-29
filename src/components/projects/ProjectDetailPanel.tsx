@@ -144,7 +144,7 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
             <div className="mb-6 flex justify-end">
               <button
                 onClick={onClose}
-                className="font-mono text-xs tracking-wider transition-colors duration-200 hover:text-[var(--orange)]"
+                className="font-sans text-xs tracking-wider transition-colors duration-200 hover:text-[var(--orange)]"
                 style={{
                   border: '1px solid var(--border-2)',
                   padding: '8px 16px',
@@ -176,7 +176,7 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
                 }}
               >
                 <span
-                  className="font-mono text-[10px] uppercase tracking-[0.18em]"
+                  className="font-sans text-[10px] uppercase tracking-[0.18em]"
                   style={{ color: 'var(--fg-3)' }}
                 >
                   {project.number} — {project.tag}
@@ -274,7 +274,7 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
                   {project.stack.map((tech, i) => (
                     <span
                       key={tech}
-                      className="font-mono text-[10px] uppercase tracking-wider"
+                      className="font-sans text-[10px] uppercase tracking-wider"
                       style={{
                         border: `1px solid ${i % 2 === 0 ? 'rgba(255,85,0,0.35)' : 'rgba(199,125,255,0.35)'}`,
                         padding: '5px 12px',
@@ -324,7 +324,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="mb-4 flex items-center gap-3">
       <span
-        className="font-mono text-[10px] uppercase tracking-[0.16em]"
+        className="font-sans text-[10px] uppercase tracking-[0.16em]"
         style={{ color: 'var(--fg-4)' }}
       >
         {children}

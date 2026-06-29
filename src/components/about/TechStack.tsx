@@ -137,7 +137,7 @@ export default function TechStack() {
               }}
             >
               <h4
-                className="font-mono text-[14px] font-medium tracking-[-0.01em]"
+                className="font-sans text-[14px] font-medium tracking-[-0.01em]"
                 style={{ color: 'var(--fg)', lineHeight: 1.3 }}
               >
                 {tech.name}

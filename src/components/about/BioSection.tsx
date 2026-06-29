@@ -90,13 +90,13 @@ export default function BioSection() {
                 }}
               >
                 <span
-                  className="min-w-[56px] font-mono text-[11px] capitalize"
+                  className="min-w-[56px] font-sans text-[11px] capitalize"
                   style={{ color: 'var(--fg-4)' }}
                 >
                   {fact.key}
                 </span>
                 <span
-                  className="font-mono text-[11px]"
+                  className="font-sans text-[11px]"
                   style={{ color: 'var(--fg-2)' }}
                 >
                   {fact.value}
@@ -157,7 +157,7 @@ export default function BioSection() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-1.5 font-mono text-[11px] transition-all duration-250"
+                  className="group flex items-center gap-1.5 font-sans text-[11px] transition-all duration-250"
                   style={{
                     color: 'var(--fg-2)',
                     borderBottom: '1px solid var(--border-2)',

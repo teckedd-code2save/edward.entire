@@ -19,7 +19,7 @@ function Tag({ text, tone = 'neutral' }: { text: string; tone?: 'neutral' | 'ora
         : 'var(--border)';
   return (
     <span
-      className="inline-block cursor-default font-mono text-[9px] uppercase tracking-wide transition-all duration-200 hover:-translate-y-px"
+      className="inline-block cursor-default font-sans text-[9px] uppercase tracking-wide transition-all duration-200 hover:-translate-y-px"
       style={{ border: `1px solid ${border}`, padding: '3px 7px', color }}
     >
       {text}
@@ -140,7 +140,7 @@ function HeroSection() {
             style={{ backgroundColor: 'var(--orange)' }}
           />
         </div>
-        <span className="font-mono text-[9px]" style={{ color: 'rgba(245,242,237,0.32)' }}>
+        <span className="font-sans text-[9px]" style={{ color: 'rgba(245,242,237,0.32)' }}>
           scroll
         </span>
       </motion.div>
@@ -212,7 +212,7 @@ function ManifestoFrame({
     >
       <div className="mx-auto w-full max-w-[1240px]">
         <span
-          className="font-mono text-[11px] uppercase tracking-[0.22em]"
+          className="font-sans text-[11px] uppercase tracking-[0.22em]"
           style={{ color: 'var(--fg-3)' }}
         >
           {frame.label}
@@ -485,7 +485,7 @@ function ProjectCanvas({ tone, index }: { tone: 'orange' | 'mauve'; index: numbe
 
       {/* Big mono numeral */}
       <div
-        className="absolute inset-0 flex items-center justify-center font-mono font-bold"
+        className="absolute inset-0 flex items-center justify-center font-sans font-bold"
         style={{
           fontSize: 'clamp(7rem, 16vw, 14rem)',
           color: accent,
@@ -532,7 +532,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
             style={{ padding: '8px 4px' }}
           >
             <div className="flex items-center gap-3">
-              <span className="font-mono text-[11px]" style={{ color: 'var(--fg-3)' }}>
+              <span className="font-sans text-[11px]" style={{ color: 'var(--fg-3)' }}>
                 {project.number}
               </span>
               <span className="h-px w-8" style={{ backgroundColor: 'var(--border-2)' }} />
@@ -567,7 +567,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
               ))}
             </div>
 
-            <div className="mt-6 flex flex-wrap items-center gap-5 font-mono text-[11px]">
+            <div className="mt-6 flex flex-wrap items-center gap-5 font-sans text-[11px]">
               {project.live && (
                 <span style={{ color: 'var(--orange)' }}>live ↗ {new URL(project.live).host}</span>
               )}
@@ -626,7 +626,7 @@ function FeaturedProjectsSection() {
           <div className="mt-12 flex justify-end">
             <Link
               to="/projects"
-              className="inline-block font-mono text-xs transition-all duration-200"
+              className="inline-block font-sans text-xs transition-all duration-200"
               style={{
                 color: 'var(--fg-3)',
                 borderBottom: '1px solid var(--border)',
@@ -699,7 +699,7 @@ function DeploymentChain({
   return (
     <div ref={ref} className="w-full">
       <div
-        className="mb-5 font-mono text-[10px] uppercase tracking-[0.22em]"
+        className="mb-5 font-sans text-[10px] uppercase tracking-[0.22em]"
         style={{ color: 'var(--fg-4)' }}
       >
         {label}
@@ -748,7 +748,7 @@ function DeploymentChain({
                   animationDelay: `-${i * 0.6}s`,
                 }}
               >
-                <span className="font-mono text-[10px] font-medium tracking-widest">
+                <span className="font-sans text-[10px] font-medium tracking-widest">
                   {String(i + 1).padStart(2, '0')}
                 </span>
               </span>
@@ -764,7 +764,7 @@ function DeploymentChain({
                 {node.name}
               </span>
               <span
-                className="mt-1 font-mono text-[10px] uppercase tracking-widest"
+                className="mt-1 font-sans text-[10px] uppercase tracking-widest"
                 style={{ color: 'var(--fg-3)' }}
               >
                 {node.role}
@@ -844,7 +844,7 @@ function DeploymentSection() {
               </svg>
             </div>
             <span
-              className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em]"
+              className="mt-4 font-sans text-[10px] uppercase tracking-[0.2em]"
               style={{ color: 'var(--fg-3)' }}
             >
               Origin
@@ -901,7 +901,7 @@ function DeploymentSection() {
               </svg>
             </div>
             <span
-              className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em]"
+              className="mt-4 font-sans text-[10px] uppercase tracking-[0.2em]"
               style={{ color: 'var(--fg-3)' }}
             >
               Origin
@@ -1179,7 +1179,7 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[0]; index: number })
       >
         <div>
           <div className="flex flex-wrap items-center gap-3">
-            <span className="font-mono text-base">
+            <span className="font-sans text-base">
               <span style={{ color: 'var(--fg-3)' }}>{scope}/</span>
               <span style={{ color: 'var(--fg)' }}>{pkgName}</span>
             </span>
@@ -1199,7 +1199,7 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[0]; index: number })
             href={pkg.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block whitespace-nowrap font-mono text-[11px] transition-all duration-200"
+            className="inline-block whitespace-nowrap font-sans text-[11px] transition-all duration-200"
             style={{
               border: '1px solid var(--border-2)',
               padding: '8px 18px',
@@ -1321,19 +1321,19 @@ function CredentialRow({ cred, index }: { cred: typeof credentials[0]; index: nu
       >
         <div>
           <div className="flex flex-wrap items-center gap-3">
-            <h3 className="font-mono text-sm font-medium" style={{ color: 'var(--fg)' }}>
+            <h3 className="font-sans text-sm font-medium" style={{ color: 'var(--fg)' }}>
               {cred.title}
             </h3>
             <Tag text={cred.category} tone={cred.category === 'ai' ? 'mauve' : 'neutral'} />
           </div>
-          <p className="mt-1.5 font-mono text-[11px]" style={{ color: 'var(--fg-2)' }}>
+          <p className="mt-1.5 font-sans text-[11px]" style={{ color: 'var(--fg-2)' }}>
             {cred.issuer} · {cred.date}
           </p>
           <div className="mt-1.5 flex flex-wrap gap-3">
             {cred.tags.map((t) => (
               <span
                 key={t}
-                className="font-mono text-[9px] uppercase tracking-widest"
+                className="font-sans text-[9px] uppercase tracking-widest"
                 style={{ color: 'var(--fg-4)' }}
               >
                 {t}
@@ -1343,7 +1343,7 @@ function CredentialRow({ cred, index }: { cred: typeof credentials[0]; index: nu
         </div>
         {cred.id && (
           <div className="flex items-center">
-            <span className="font-mono text-[10px]" style={{ color: 'var(--fg-4)' }}>
+            <span className="font-sans text-[10px]" style={{ color: 'var(--fg-4)' }}>
               {cred.id}
             </span>
           </div>
@@ -1457,7 +1457,7 @@ function ContactCTASection() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between font-mono text-[13px] transition-all duration-200"
+                className="flex items-center justify-between font-sans text-[13px] transition-all duration-200"
                 style={{
                   border: '1px solid var(--border)',
                   padding: '20px 24px',
@@ -1485,7 +1485,7 @@ function ContactCTASection() {
           <div className="mt-10">
             <Link
               to="/contact"
-              className="inline-block font-mono text-xs transition-all duration-200"
+              className="inline-block font-sans text-xs transition-all duration-200"
               style={{
                 color: 'var(--fg-3)',
                 borderBottom: '1px solid var(--border)',

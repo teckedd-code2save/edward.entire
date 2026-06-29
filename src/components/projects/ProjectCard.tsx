@@ -62,7 +62,7 @@ function AnimatedCanvas({ project, index }: { project: Project; index: number })
       />
       {/* Number watermark */}
       <div
-        className="absolute inset-0 flex items-center justify-center font-mono tracking-[-0.05em]"
+        className="absolute inset-0 flex items-center justify-center font-sans tracking-[-0.05em]"
         style={{
           fontSize: 'clamp(4rem, 10vw, 7rem)',
           color: accent,
@@ -96,11 +96,11 @@ export default function ProjectCard({ project, index, onOpenDetail }: ProjectCar
         <div className="p-6">
           {/* Number + Tag row */}
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[10px]" style={{ color: 'var(--fg-4)' }}>
+            <span className="font-sans text-[10px]" style={{ color: 'var(--fg-4)' }}>
               {project.number}
             </span>
             <span
-              className="font-mono text-[9px] uppercase tracking-[0.12em]"
+              className="font-sans text-[9px] uppercase tracking-[0.12em]"
               style={{
                 border: '1px solid rgba(255,85,0,0.4)',
                 padding: '3px 8px',
@@ -144,7 +144,7 @@ export default function ProjectCard({ project, index, onOpenDetail }: ProjectCar
             {project.stack.slice(0, 5).map((tech, i) => (
               <span
                 key={tech}
-                className="font-mono text-[9px] uppercase tracking-wide"
+                className="font-sans text-[9px] uppercase tracking-wide"
                 style={{
                   border: `1px solid ${i % 2 === 0 ? 'rgba(255,85,0,0.35)' : 'rgba(199,125,255,0.35)'}`,
                   padding: '3px 7px',
@@ -156,7 +156,7 @@ export default function ProjectCard({ project, index, onOpenDetail }: ProjectCar
             ))}
             {project.stack.length > 5 && (
               <span
-                className="font-mono text-[9px]"
+                className="font-sans text-[9px]"
                 style={{ color: 'var(--fg-4)', padding: '3px 4px' }}
               >
                 +{project.stack.length - 5}

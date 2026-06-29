@@ -165,7 +165,7 @@ export default function WorkApproach() {
                   />
                   {/* Mobile: just show step number */}
                   <span
-                    className="font-mono text-[11px] sm:hidden"
+                    className="font-sans text-[11px] sm:hidden"
                     style={{ color: 'var(--fg-4)' }}
                   >
                     {step.num}
@@ -175,11 +175,11 @@ export default function WorkApproach() {
                 {/* Content */}
                 <div>
                   <h3
-                    className="font-mono text-[16px] font-medium"
+                    className="font-sans text-[16px] font-medium"
                     style={{ color: 'var(--fg)', lineHeight: 1.3 }}
                   >
                     <span
-                      className="mr-2 hidden font-mono text-[11px] sm:inline"
+                      className="mr-2 hidden font-sans text-[11px] sm:inline"
                       style={{ color: 'var(--fg-4)' }}
                     >
                       {step.num} /

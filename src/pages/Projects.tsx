@@ -81,7 +81,7 @@ export default function Projects() {
                 boxShadow: '0 0 10px var(--orange-glow)',
               }}
             />
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em]" style={{ color: 'var(--fg-2)' }}>
+            <span className="font-sans text-[10px] uppercase tracking-[0.22em]" style={{ color: 'var(--fg-2)' }}>
               edward twumasi <span style={{ color: 'var(--fg-4)' }}>/</span> projects
             </span>
             <span
@@ -168,7 +168,7 @@ export default function Projects() {
                   <button
                     key={cat.value}
                     onClick={() => setActiveFilter(cat.value)}
-                    className="font-mono text-[11px] uppercase tracking-widest transition-all duration-200"
+                    className="font-sans text-[11px] uppercase tracking-widest transition-all duration-200"
                     style={{
                       padding: '8px 16px',
                       border: '1px solid',

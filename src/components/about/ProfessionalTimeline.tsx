@@ -155,7 +155,7 @@ export default function ProfessionalTimeline() {
                 {/* Year */}
                 <div className="flex items-start md:justify-end">
                   <span
-                    className="font-mono text-[12px] font-medium tracking-wide"
+                    className="font-sans text-[12px] font-medium tracking-wide"
                     style={{ color: 'var(--fg-3)' }}
                   >
                     {milestone.year}
@@ -178,7 +178,7 @@ export default function ProfessionalTimeline() {
                 {/* Content */}
                 <div>
                   <h3
-                    className="font-mono text-[16px] font-medium"
+                    className="font-sans text-[16px] font-medium"
                     style={{ color: 'var(--fg)', lineHeight: 1.3 }}
                   >
                     {milestone.title}

@@ -16,7 +16,7 @@ function Tag({ text, tone = 'neutral' }: { text: string; tone?: 'neutral' | 'ora
         : 'var(--border)';
   return (
     <span
-      className="inline-block font-mono text-[9px] uppercase tracking-wide"
+      className="inline-block font-sans text-[9px] uppercase tracking-wide"
       style={{ border: `1px solid ${border}`, padding: '3px 7px', color }}
     >
       {text}
@@ -98,7 +98,7 @@ function ResearchHero() {
             }}
           />
           <span
-            className="font-mono text-[10px] uppercase tracking-[0.22em]"
+            className="font-sans text-[10px] uppercase tracking-[0.22em]"
             style={{ color: 'var(--fg-2)' }}
           >
             in research · 2025–2027
@@ -106,7 +106,7 @@ function ResearchHero() {
         </motion.div>
 
         <motion.span
-          className="block font-mono text-[10px] uppercase tracking-[0.22em]"
+          className="block font-sans text-[10px] uppercase tracking-[0.22em]"
           style={{ color: 'var(--fg-3)' }}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -291,7 +291,7 @@ function FoundationsSection() {
                 }}
               >
                 <div className="flex items-baseline gap-3">
-                  <span className="font-mono text-[11px]" style={{ color: 'var(--fg-3)' }}>
+                  <span className="font-sans text-[11px]" style={{ color: 'var(--fg-3)' }}>
                     {f.n}
                   </span>
                   <h3
@@ -311,7 +311,7 @@ function FoundationsSection() {
                   {f.body}
                 </p>
                 <p
-                  className="mt-4 font-mono text-[10px] uppercase tracking-widest"
+                  className="mt-4 font-sans text-[10px] uppercase tracking-widest"
                   style={{ color: 'var(--fg-4)' }}
                 >
                   {f.cite}
@@ -400,7 +400,7 @@ function LoopSection() {
                     animationDelay: `-${i * 0.6}s`,
                   }}
                 >
-                  <span className="font-mono text-[11px] tracking-widest">{node.n}</span>
+                  <span className="font-sans text-[11px] tracking-widest">{node.n}</span>
                 </span>
                 <span
                   className="mt-5 font-sans font-medium"
@@ -413,7 +413,7 @@ function LoopSection() {
                   {node.label}
                 </span>
                 <span
-                  className="mt-1 font-mono text-[10px] uppercase tracking-widest"
+                  className="mt-1 font-sans text-[10px] uppercase tracking-widest"
                   style={{ color: 'var(--fg-3)' }}
                 >
                   {node.sub}
@@ -489,7 +489,7 @@ function PathsSection() {
               >
                 <div className="flex items-center justify-between">
                   <span
-                    className="font-mono text-[10px] uppercase tracking-widest"
+                    className="font-sans text-[10px] uppercase tracking-widest"
                     style={{
                       color: p.tone === 'orange' ? 'var(--orange)' : 'var(--mauve)',
                     }}
@@ -524,7 +524,7 @@ function PathsSection() {
                   {p.bullets.map((b) => (
                     <li
                       key={b}
-                      className="flex items-start gap-3 font-mono text-[11px]"
+                      className="flex items-start gap-3 font-sans text-[11px]"
                       style={{ color: 'var(--fg-2)' }}
                     >
                       <span
@@ -598,7 +598,7 @@ function RoadmapSection() {
                   e.currentTarget.style.backgroundColor = 'transparent';
                 }}
               >
-                <span className="font-mono text-[12px]" style={{ color: 'var(--fg-3)' }}>
+                <span className="font-sans text-[12px]" style={{ color: 'var(--fg-3)' }}>
                   {r.phase}
                 </span>
                 <span
@@ -608,13 +608,13 @@ function RoadmapSection() {
                   {r.what}
                 </span>
                 <span
-                  className="font-mono text-[10px] uppercase tracking-widest"
+                  className="font-sans text-[10px] uppercase tracking-widest"
                   style={{ color: 'var(--fg-4)' }}
                 >
                   {r.when}
                 </span>
                 <span
-                  className="font-mono text-[10px] uppercase tracking-widest"
+                  className="font-sans text-[10px] uppercase tracking-widest"
                   style={{
                     color: r.state === 'research' ? 'var(--mauve)' : 'var(--orange)',
                     textAlign: 'right',
@@ -689,7 +689,7 @@ function ResearchCTA() {
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <a
               href="mailto:edwardktwumasi1000@gmail.com?subject=Intent%20Engine%20Research"
-              className="inline-block font-mono text-[12px] transition-all duration-200"
+              className="inline-block font-sans text-[12px] transition-all duration-200"
               style={{
                 border: '1px solid rgba(199,125,255,0.5)',
                 padding: '12px 26px',
@@ -713,7 +713,7 @@ function ResearchCTA() {
               href="https://github.com/teckedd-code2save/IntentEngine"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block font-mono text-[12px] transition-all duration-200"
+              className="inline-block font-sans text-[12px] transition-all duration-200"
               style={{
                 border: '1px solid var(--border-2)',
                 padding: '12px 26px',

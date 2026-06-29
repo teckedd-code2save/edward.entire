@@ -92,7 +92,7 @@ export default function Contact() {
                 }}
               />
               <span
-                className="font-mono text-[10px] uppercase tracking-[0.22em]"
+                className="font-sans text-[10px] uppercase tracking-[0.22em]"
                 style={{ color: 'var(--fg-2)' }}
               >
                 edward twumasi <span style={{ color: 'var(--fg-4)' }}>/</span> contact
@@ -251,7 +251,7 @@ export default function Contact() {
             className="flex flex-col items-center text-center"
           >
             <div
-              className="mb-4 font-mono uppercase tracking-[0.22em]"
+              className="mb-4 font-sans uppercase tracking-[0.22em]"
               style={{ fontSize: '10px', color: 'var(--fg-3)' }}
             >
               resume
@@ -271,7 +271,7 @@ export default function Contact() {
               href="https://drive.google.com/file/d/1JOOIvOaqkOIb2CNFp-2q66To6ef7sg1P/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 font-mono"
+              className="group inline-flex items-center gap-3 font-sans"
               style={{
                 fontSize: '12px',
                 fontWeight: 500,

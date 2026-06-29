@@ -51,7 +51,7 @@ module.exports = {
         'accent-2': '#163a63',
       },
       fontFamily: {
-        mono: ['"JetBrains Mono"', 'monospace'],
+        mono: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
         sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
       },
       borderRadius: {

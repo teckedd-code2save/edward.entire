@@ -42,7 +42,7 @@ function ContactCard({ icon, label, value, href, index }: ContactCardProps) {
         {icon}
       </div>
       <div
-        className="font-mono uppercase"
+        className="font-sans uppercase"
         style={{
           fontSize: '10px',
           letterSpacing: '0.14em',
@@ -53,7 +53,7 @@ function ContactCard({ icon, label, value, href, index }: ContactCardProps) {
         {label}
       </div>
       <div
-        className="font-mono"
+        className="font-sans"
         style={{
           fontSize: '14px',
           color: 'var(--fg-2)',

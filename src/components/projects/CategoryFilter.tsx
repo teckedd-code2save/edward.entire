@@ -21,7 +21,7 @@ export default function CategoryFilter({ active, onChange }: CategoryFilterProps
             ease: [0.0, 0, 0.2, 1] as [number, number, number, number],
           }}
           onClick={() => onChange(cat.value)}
-          className="relative cursor-pointer font-mono text-[11px] transition-none"
+          className="relative cursor-pointer font-sans text-[11px] transition-none"
           style={{
             padding: '8px 16px',
             border: '1px solid',

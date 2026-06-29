@@ -39,7 +39,7 @@ export default function AvailabilityStatus() {
       <div className="flex items-center gap-3">
         <PulsingDot />
         <span
-          className="font-mono"
+          className="font-sans"
           style={{
             fontSize: '13px',
             fontWeight: 500,
@@ -64,7 +64,7 @@ export default function AvailabilityStatus() {
 
       {/* Response time */}
       <p
-        className="mt-3 font-mono"
+        className="mt-3 font-sans"
         style={{
           fontSize: '10px',
           color: 'var(--fg-3)',

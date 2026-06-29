@@ -38,7 +38,7 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-[1200px] items-center justify-between px-5 py-3 md:px-10">
         <Link
           to="/"
-          className="flex items-center gap-2 font-mono text-[13px] font-bold tracking-tight text-[var(--fg)] transition-colors hover:text-[var(--orange)]"
+          className="flex items-center gap-2 font-sans text-[13px] font-bold tracking-tight text-[var(--fg)] transition-colors hover:text-[var(--orange)]"
         >
           <span
             className="inline-block"
@@ -61,7 +61,7 @@ export default function Navbar() {
               <Link
                 key={link.path}
                 to={link.path}
-                className="font-mono text-[11px] transition-all duration-200"
+                className="font-sans text-[11px] transition-all duration-200"
                 style={{
                   color: active ? 'var(--fg)' : 'var(--fg-2)',
                   borderBottom: active
@@ -78,7 +78,7 @@ export default function Navbar() {
             href="https://drive.google.com/file/d/1EdXxB7T8yNZnyEEdMGH9ZU41Vav53w7Q/view?usp=drive_link"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-mono text-[11px] text-[var(--fg-2)] transition-all duration-200"
+            className="font-sans text-[11px] text-[var(--fg-2)] transition-all duration-200"
             style={{
               border: '1px solid var(--border-2)',
               padding: '6px 14px',
@@ -138,7 +138,7 @@ export default function Navbar() {
               <Link
                 key={link.path}
                 to={link.path}
-                className="py-3 font-mono text-[12px] uppercase tracking-widest transition-colors"
+                className="py-3 font-sans text-[12px] uppercase tracking-widest transition-colors"
                 style={{ color: active ? 'var(--fg)' : 'var(--fg-3)' }}
                 onClick={() => setMenuOpen(false)}
               >
@@ -150,7 +150,7 @@ export default function Navbar() {
             href="https://drive.google.com/file/d/1EdXxB7T8yNZnyEEdMGH9ZU41Vav53w7Q/view?usp=drive_link"
             target="_blank"
             rel="noopener noreferrer"
-            className="py-3 font-mono text-[12px] uppercase tracking-widest text-[var(--fg-3)] transition-colors"
+            className="py-3 font-sans text-[12px] uppercase tracking-widest text-[var(--fg-3)] transition-colors"
           >
             cv
           </a>

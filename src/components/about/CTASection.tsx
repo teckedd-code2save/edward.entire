@@ -59,7 +59,7 @@ export default function CTASection() {
 
         <Link
           to="/contact"
-          className="mt-8 inline-block font-mono text-[12px] transition-all duration-200"
+          className="mt-8 inline-block font-sans text-[12px] transition-all duration-200"
           style={{
             color: 'var(--fg)',
             border: '1px solid rgba(255,85,0,0.5)',

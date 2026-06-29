@@ -14,7 +14,7 @@ export default function WorkingHours() {
     >
       {/* Label */}
       <div
-        className="font-mono uppercase"
+        className="font-sans uppercase"
         style={{
           fontSize: '10px',
           letterSpacing: '0.14em',
@@ -27,7 +27,7 @@ export default function WorkingHours() {
 
       {/* Weekday hours */}
       <div
-        className="font-mono"
+        className="font-sans"
         style={{
           fontSize: '14px',
           color: 'var(--fg-2)',
@@ -40,7 +40,7 @@ export default function WorkingHours() {
 
       {/* Weekend note */}
       <div
-        className="mt-3 font-mono"
+        className="mt-3 font-sans"
         style={{
           fontSize: '12px',
           color: 'var(--fg-3)',

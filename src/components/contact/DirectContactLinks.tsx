@@ -67,7 +67,7 @@ function ContactRow({ link, index }: { link: ContactLink; index: number }) {
     >
       {/* Label */}
       <span
-        className="font-mono uppercase"
+        className="font-sans uppercase"
         style={{
           fontSize: '10px',
           letterSpacing: '0.12em',
@@ -80,7 +80,7 @@ function ContactRow({ link, index }: { link: ContactLink; index: number }) {
 
       {/* Value */}
       <span
-        className="font-mono"
+        className="font-sans"
         style={{
           fontSize: '12px',
           color: hovered ? 'var(--fg)' : 'var(--fg-2)',
@@ -92,7 +92,7 @@ function ContactRow({ link, index }: { link: ContactLink; index: number }) {
 
       {/* Arrow on hover */}
       <span
-        className="ml-auto font-mono"
+        className="ml-auto font-sans"
         style={{
           fontSize: '12px',
           color: 'var(--fg-3)',

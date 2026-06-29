@@ -88,7 +88,7 @@ export default function PhilosophySection() {
             >
               {/* Title in JetBrains Mono */}
               <h3
-                className="font-mono text-[clamp(20px,2vw,28px)] font-medium tracking-[-0.01em]"
+                className="font-sans text-[clamp(20px,2vw,28px)] font-medium tracking-[-0.01em]"
                 style={{ color: 'var(--fg)', lineHeight: 1.15 }}
               >
                 {card.title}

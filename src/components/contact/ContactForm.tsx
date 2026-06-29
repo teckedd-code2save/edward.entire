@@ -156,7 +156,7 @@ export default function ContactForm() {
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="mt-1 font-mono"
+              className="mt-1 font-sans"
               style={{ fontSize: '10px', color: '#ef4444' }}
             >
               {errors.name}
@@ -200,7 +200,7 @@ export default function ContactForm() {
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="mt-1 font-mono"
+              className="mt-1 font-sans"
               style={{ fontSize: '10px', color: '#ef4444' }}
             >
               {errors.email}
@@ -244,7 +244,7 @@ export default function ContactForm() {
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="mt-1 font-mono"
+              className="mt-1 font-sans"
               style={{ fontSize: '10px', color: '#ef4444' }}
             >
               {errors.subject}
@@ -290,7 +290,7 @@ export default function ContactForm() {
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="mt-1 font-mono"
+              className="mt-1 font-sans"
               style={{ fontSize: '10px', color: '#ef4444' }}
             >
               {errors.message}
@@ -308,7 +308,7 @@ export default function ContactForm() {
         <motion.button
           type="submit"
           disabled={status === 'loading' || status === 'success'}
-          className="font-mono w-full sm:w-auto"
+          className="font-sans w-full sm:w-auto"
           style={{
             fontSize: '12px',
             fontWeight: 500,

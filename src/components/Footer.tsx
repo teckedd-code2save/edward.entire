@@ -24,19 +24,19 @@ export default function Footer() {
               boxShadow: '0 0 10px var(--orange-glow)',
             }}
           />
-          <span className="font-mono text-xs" style={{ color: 'var(--fg-2)' }}>
+          <span className="font-sans text-xs" style={{ color: 'var(--fg-2)' }}>
             edward twumasi · accra
           </span>
         </div>
         <div className="flex gap-5">
-          <span className="font-mono text-[11px]" style={{ color: 'var(--fg-3)' }}>
+          <span className="font-sans text-[11px]" style={{ color: 'var(--fg-3)' }}>
             &copy; 2026
           </span>
           <a
             href="https://www.serendepify.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-mono text-[11px] transition-colors"
+            className="font-sans text-[11px] transition-colors"
             style={{ color: 'var(--fg-3)' }}
             onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--orange)')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--fg-3)')}
@@ -47,7 +47,7 @@ export default function Footer() {
             href="https://convoy-home.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-mono text-[11px] font-bold transition-colors"
+            className="font-sans text-[11px] font-bold transition-colors"
             style={{ color: 'var(--mauve)' }}
             onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--orange)')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--mauve)')}

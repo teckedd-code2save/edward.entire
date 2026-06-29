@@ -17,7 +17,7 @@ export default function SectionLabel({ number, text }: SectionLabelProps) {
         }}
       />
       <span
-        className="font-mono text-[10px] uppercase tracking-[0.22em]"
+        className="font-sans text-[10px] uppercase tracking-[0.22em]"
         style={{ color: 'var(--fg-2)' }}
       >
         {number} <span style={{ color: 'var(--fg-4)' }}>/</span> {text}

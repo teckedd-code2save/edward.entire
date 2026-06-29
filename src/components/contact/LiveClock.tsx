@@ -33,7 +33,7 @@ const ClockDisplay = memo(function ClockDisplay() {
 
   return (
     <div
-      className="font-mono"
+      className="font-sans"
       style={{
         fontSize: 'clamp(24px, 4vw, 32px)',
         fontWeight: 300,
@@ -60,7 +60,7 @@ export default function LiveClock() {
     >
       {/* Label */}
       <div
-        className="font-mono uppercase"
+        className="font-sans uppercase"
         style={{
           fontSize: '10px',
           letterSpacing: '0.14em',
@@ -76,7 +76,7 @@ export default function LiveClock() {
 
       {/* UTC info */}
       <div
-        className="mt-2 font-mono"
+        className="mt-2 font-sans"
         style={{
           fontSize: '11px',
           color: 'var(--fg-3)',
