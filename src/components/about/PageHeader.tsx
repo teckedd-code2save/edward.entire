@@ -74,7 +74,7 @@ export default function PageHeader() {
             className="font-sans text-[10px] uppercase tracking-[0.22em]"
             style={{ color: 'var(--fg-2)' }}
           >
-            edward twumasi <span style={{ color: 'var(--fg-4)' }}>/</span> about
+            serendepify <span style={{ color: 'var(--fg-4)' }}>/</span> about
           </span>
           <span
             className="h-px w-24"

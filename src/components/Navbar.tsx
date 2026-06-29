@@ -50,7 +50,7 @@ export default function Navbar() {
               boxShadow: '0 0 8px var(--orange-glow)',
             }}
           />
-          edward twumasi
+          serendepify
         </Link>
 
         {/* Desktop links */}

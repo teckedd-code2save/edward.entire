@@ -62,7 +62,7 @@ export default function BioSection() {
             {/* Image */}
             <img
               src="/profile-cutout.png"
-              alt="Edward Twumasi"
+              alt=""
               className="relative z-10 h-full w-full object-cover transition-all duration-500 group-hover:grayscale-[0.22]"
               style={{
                 borderRadius: 'inherit',
@@ -118,7 +118,7 @@ export default function BioSection() {
               transition: `opacity 0.7s cubic-bezier(${easeEnter.join(',')}) 0.5s, transform 0.7s cubic-bezier(${easeEnter.join(',')}) 0.5s`,
             }}
           >
-            I&apos;m Edward Twumasi — a backend and systems engineer based in
+            I&apos;m Twumasi — a backend and systems engineer based in
             Accra, Ghana. I build production-grade infrastructure, developer
             tooling, and AI workflows with a focus on reliability, throughput,
             and operational clarity.

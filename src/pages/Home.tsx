@@ -4,7 +4,6 @@ import type { MotionValue } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import ScrollReveal from '@/components/ScrollReveal';
 import SectionLabel from '@/components/SectionLabel';
-import HeroBackdrop from '@/components/HeroBackdrop';
 import HorizontalSplitText from '@/components/HorizontalSplitText';
 
 const easeEnter = [0.0, 0, 0.2, 1] as [number, number, number, number];
@@ -28,151 +27,29 @@ function Tag({ text, tone = 'neutral' }: { text: string; tone?: 'neutral' | 'ora
   );
 }
 
-/* ══════════════════ SCENE 1 — HERO ══════════════════ */
-
-function HeroSection() {
-  const heroRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  });
-
-  const textY = useTransform(scrollYProgress, [0, 1], ['0px', '120px']);
-
-  const links = [
-    { label: 'GitHub', href: 'https://github.com/teckedd-code2save', variant: 'orange' as const },
-    { label: 'LinkedIn', href: 'https://linkedin.com/in/edward-twumasi', variant: 'subtle' as const },
-    { label: 'Serendepify', href: 'https://www.serendepify.com/', variant: 'subtle' as const },
-    { label: 'GroundControl', href: 'https://groundcontrol.serendepify.com/', variant: 'mauve' as const },
-    { label: 'Email', href: 'mailto:edwardktwumasi1000@gmail.com', variant: 'subtle' as const },
-  ];
-
-  return (
-    <section ref={heroRef} className="relative min-h-[100dvh] overflow-hidden">
-      <HeroBackdrop />
-
-      <motion.div
-        className="relative z-10 flex min-h-[100dvh] items-center px-5 py-24 md:px-10"
-        style={{ y: textY }}
-      >
-        <div className="mx-auto w-full max-w-[1240px]">
-          <motion.h1
-            className="font-sans leading-[0.96] tracking-[-0.04em] text-[var(--fg)]"
-            style={{ fontSize: 'clamp(3.4rem, 9vw, 8.2rem)', fontWeight: 300 }}
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.3, ease: easeEnter }}
-          >
-            Edward
-            <br />
-            <span style={{ color: 'var(--orange)' }}>Twumasi</span>
-            <span style={{ color: 'var(--mauve)' }}>.</span>
-          </motion.h1>
-
-          <motion.p
-            className="mt-7 max-w-[680px] font-sans leading-[1.5] text-[var(--fg-2)]"
-            style={{ fontSize: 'clamp(1.05rem, 2vw, 1.45rem)', fontWeight: 400 }}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5, ease: easeEnter }}
-          >
-            I forge AI-native narratives at{' '}
-            <a href="https://www.serendepify.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--orange)', borderBottom: '1px solid rgba(255,85,0,0.3)' }}>Serendepify</a>
-            — building agent runtimes, developer platforms, and infrastructure
-            that ships to production and stays there.
-          </motion.p>
-
-          <motion.div
-            className="mt-10 flex flex-wrap items-center gap-4 md:gap-6"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.7, ease: easeEnter }}
-          >
-            {links.map((link) => {
-              const accentColor = link.variant === 'orange' ? 'var(--orange)' : link.variant === 'mauve' ? 'var(--mauve)' : 'var(--fg-3)';
-              const borderColor = link.variant === 'orange' ? 'rgba(255,85,0,0.4)' : link.variant === 'mauve' ? 'rgba(199,125,255,0.4)' : 'var(--border-2)';
-              return (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-sans text-xs transition-all duration-200 hover:-translate-y-0.5"
-                  style={{
-                    color: link.variant === 'subtle' ? 'var(--fg-2)' : accentColor,
-                    border: `1px solid ${borderColor}`,
-                    padding: '7px 16px',
-                    fontWeight: 400,
-                    letterSpacing: '0.02em',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = accentColor;
-                    e.currentTarget.style.color = link.variant === 'subtle' ? accentColor : e.currentTarget.style.color;
-                    e.currentTarget.style.backgroundColor = link.variant === 'subtle' ? 'rgba(255,255,255,0.03)' : `${accentColor}12`;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = borderColor;
-                    e.currentTarget.style.color = link.variant === 'subtle' ? 'var(--fg-2)' : accentColor;
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                  }}
-                >
-                  {link.label}
-                </a>
-              );
-            })}
-          </motion.div>
-        </div>
-      </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.6 }}
-        style={{ opacity: useTransform(scrollYProgress, [0, 0.15], [1, 0]) }}
-      >
-        <div
-          className="h-10 w-px overflow-hidden"
-          style={{ backgroundColor: 'rgba(245,242,237,0.15)' }}
-        >
-          <div
-            className="scroll-line h-full w-full"
-            style={{ backgroundColor: 'var(--orange)' }}
-          />
-        </div>
-        <span className="font-sans text-[9px]" style={{ color: 'rgba(245,242,237,0.32)' }}>
-          scroll
-        </span>
-      </motion.div>
-    </section>
-  );
-}
-
-/* ══════════════════ SCENE 2 — MANIFESTO (sticky-pin scrollytelling) ══════════════════ */
+/* ══════════════════ SCENE 1 — MANIFESTO (sticky-pin scrollytelling) ══════════════════ */
 
 const manifestoFrames = [
   {
-    label: '01 — backend',
-    head: 'Backend',
+    label: '01 — deploy',
+    head: 'Ship',
     accent: 'infrastructure',
     accentColor: 'var(--orange)',
-    body: 'Postgres, Redis, Elasticsearch wired into C#, Python, and TypeScript services. Designed for throughput, observed in production, kept boringly reliable.',
+    body: 'GroundControl manages Docker, Caddy, and deployments on bare-metal Hetzner. Convoy rehearses, ships, and watches your deploy. Shipd scores platforms from your repo — no writes, no guesswork.',
   },
   {
-    label: '02 — agents',
-    head: 'Agent',
-    accent: 'systems',
+    label: '02 — build',
+    head: 'Build',
+    accent: 'platforms',
     accentColor: 'var(--mauve)',
-    body: 'MCP-native runtimes. Datafy for data access, B2DP for platform scaffolds, Convoy for deployment. Tools that let other agents do real work.',
+    body: 'AI Build Tools accelerate scaffolding and dependency management. Serendepify ships MCP-native developer tooling. MPP Studio registers APIs and runs agent-to-agent commerce on HTTP 402.',
   },
   {
-    label: '03 — products',
-    head: 'Products',
-    accent: 'that ship',
+    label: '03 — research',
+    head: 'Push',
+    accent: 'boundaries',
     accentColor: 'var(--orange)',
-    body: 'Rent My Weekend. Optimi. HealthWallet TON. Live on Hetzner and Cloudflare, used daily, maintained.',
+    body: 'Akan Speech Lab builds ASR and TTS for a 30M+ speaker language. Adwuma Pa connects Ghanaian elders to AI-coordinated care. Optimi tracks opportunities with on-device AI — privacy-first.',
   },
 ];
 
@@ -1515,8 +1392,7 @@ function ContactCTASection() {
 export default function Home() {
   return (
     <>
-      <HeroSection />
-      <HorizontalSplitText text="Forging AI-native narratives" />
+      <HorizontalSplitText text="Forging AI-native narratives at Serendepify" />
       <ManifestoSection />
       <FeaturedProjectsSection />
       <DeploymentSection />

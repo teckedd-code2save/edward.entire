@@ -25,7 +25,7 @@ export default function Footer() {
             }}
           />
           <span className="font-sans text-xs" style={{ color: 'var(--fg-2)' }}>
-            edward twumasi · accra
+            serendepify · accra
           </span>
         </div>
         <div className="flex gap-5">
