@@ -101,11 +101,11 @@ export default function Projects() {
             }}
           >
             <div style={{ overflow: 'hidden' }}>
-              <div className="proj-hero-line">Things</div>
+              <div className="proj-hero-line">See the</div>
             </div>
             <div style={{ overflow: 'hidden' }}>
               <div className="proj-hero-line" style={{ color: 'var(--orange)' }}>
-                built<span style={{ color: 'var(--mauve)' }}>.</span>
+                work<span style={{ color: 'var(--mauve)' }}>.</span>
               </div>
             </div>
           </h1>

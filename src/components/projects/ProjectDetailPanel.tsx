@@ -33,7 +33,7 @@ function DetailCanvas({ project }: { project: Project }) {
           <AgentCanvas width={size.width} height={size.height} speedMultiplier={1.2} />
         )}
         {project.canvasMode === 'terminal' && (
-          <TerminalCanvas width={size.width} height={size.height} speedMultiplier={1.2} projectId={project.id} />
+          <TerminalCanvas width={size.width} height={size.height} speedMultiplier={1.2} projectId={project.id} noTyping />
         )}
         {project.canvasMode === 'exchange' && (
           <ExchangeCanvas width={size.width} height={size.height} speedMultiplier={1.2} />

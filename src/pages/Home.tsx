@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import ScrollReveal from '@/components/ScrollReveal';
 import SectionLabel from '@/components/SectionLabel';
 import HeroBackdrop from '@/components/HeroBackdrop';
+import HorizontalSplitText from '@/components/HorizontalSplitText';
 
 const easeEnter = [0.0, 0, 0.2, 1] as [number, number, number, number];
 
@@ -76,9 +77,10 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: easeEnter }}
           >
-            I build backend infrastructure, agent runtimes, and developer tooling
-            that ships to production and stays there. Currently focused on AI-native
-            platforms at <a href="https://www.serendepify.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--orange)', borderBottom: '1px solid rgba(255,85,0,0.3)' }}>Serendepify</a>.
+            I forge AI-native narratives at{' '}
+            <a href="https://www.serendepify.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--orange)', borderBottom: '1px solid rgba(255,85,0,0.3)' }}>Serendepify</a>
+            — building agent runtimes, developer platforms, and infrastructure
+            that ships to production and stays there.
           </motion.p>
 
           <motion.div
@@ -606,8 +608,7 @@ function FeaturedProjectsSection() {
             className="font-sans tracking-[-0.025em] text-[var(--fg)]"
             style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.02 }}
           >
-            Currently in&nbsp;
-            <span style={{ color: 'var(--orange)' }}>flight</span>.
+            Shipping <span style={{ color: 'var(--orange)' }}>now</span>.
           </h2>
         </ScrollReveal>
 
@@ -1515,6 +1516,7 @@ export default function Home() {
   return (
     <>
       <HeroSection />
+      <HorizontalSplitText text="Forging AI-native narratives" />
       <ManifestoSection />
       <FeaturedProjectsSection />
       <DeploymentSection />

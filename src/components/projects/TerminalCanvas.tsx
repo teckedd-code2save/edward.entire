@@ -6,6 +6,7 @@ interface TerminalCanvasProps {
   height?: number;
   isMini?: boolean;
   projectId?: string;
+  noTyping?: boolean;
 }
 
 interface TerminalLine {
@@ -50,7 +51,7 @@ function getLines(projectId?: string): TerminalLine[] {
   ];
 }
 
-export default function TerminalCanvas({ speedMultiplier = 1, width = 400, height = 200, isMini = false, projectId }: TerminalCanvasProps) {
+export default function TerminalCanvas({ speedMultiplier = 1, width = 400, height = 200, isMini = false, projectId, noTyping = false }: TerminalCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animRef = useRef<number>(0);
 
@@ -97,10 +98,14 @@ export default function TerminalCanvas({ speedMultiplier = 1, width = 400, heigh
 
       // Update line visibility and typing
       for (let i = 0; i < lines.length; i++) {
-        if (elapsed >= lines[i].delay / speedMultiplier) {
+        if (noTyping || elapsed >= lines[i].delay / speedMultiplier) {
           lineVisible[i] = true;
-          const typeAmount = Math.floor((elapsed - lines[i].delay / speedMultiplier) * lines[i].typeSpeed * 0.15);
-          typedChars[i] = Math.min(lines[i].text.length, typeAmount);
+          if (noTyping) {
+            typedChars[i] = lines[i].text.length;
+          } else {
+            const typeAmount = Math.floor((elapsed - lines[i].delay / speedMultiplier) * lines[i].typeSpeed * 0.15);
+            typedChars[i] = Math.min(lines[i].text.length, typeAmount);
+          }
           if (typedChars[i] >= lines[i].text.length && i > currentLine) {
             currentLine = i;
           }
@@ -108,7 +113,7 @@ export default function TerminalCanvas({ speedMultiplier = 1, width = 400, heigh
       }
 
       // Draw visible lines
-      ctx.font = `${fontSize}px "JetBrains Mono", monospace`;
+      ctx.font = `${fontSize}px "Inter", -apple-system, sans-serif`;
       ctx.textBaseline = 'top';
 
       let yOffset = padding;
@@ -147,30 +152,30 @@ export default function TerminalCanvas({ speedMultiplier = 1, width = 400, heigh
         if (drawnLines >= maxVisibleLines) break;
       }
 
-      // Blink cursor
-      if (elapsed - lastCursorToggle > 530 / speedMultiplier) {
+      // Blink cursor (skip when noTyping — no animation)
+      if (!noTyping && elapsed - lastCursorToggle > 530 / speedMultiplier) {
         cursorVisible = !cursorVisible;
         lastCursorToggle = elapsed;
       }
 
-      // Loop: reset after all lines typed and some pause
-      const lastLine = lines[lines.length - 1];
-      const totalDuration = (lastLine.delay + 2000) / speedMultiplier;
-      if (elapsed > totalDuration) {
-        // Reset for loop
-        for (let i = 0; i < lines.length; i++) {
-          typedChars[i] = 0;
-          lineVisible[i] = false;
+      // Loop: reset after all lines typed (skip when noTyping — static display)
+      if (!noTyping) {
+        const lastLine = lines[lines.length - 1];
+        const totalDuration = (lastLine.delay + 2000) / speedMultiplier;
+        if (elapsed > totalDuration) {
+          for (let i = 0; i < lines.length; i++) {
+            typedChars[i] = 0;
+            lineVisible[i] = false;
+          }
+          currentLine = 0;
+          const newStart = performance.now();
+          resetTimeOffset = now - newStart;
         }
-        currentLine = 0;
-        // Restart timing by adjusting startTime
-        const newStart = performance.now();
-        // We need to continue the animation but with fresh timing
-        // Use a closure-like approach with a mutable object
-        resetTimeOffset = now - newStart;
       }
 
-      animRef.current = requestAnimationFrame(draw);
+      if (!noTyping) {
+        animRef.current = requestAnimationFrame(draw);
+      }
     };
 
     let resetTimeOffset = 0;
