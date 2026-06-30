@@ -1,12 +1,12 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, ReactNode } from 'react';
 
 interface HorizontalSplitTextProps {
   text: string;
   highlightWord?: string;
-  subtitle?: string;
+  statement?: ReactNode;
 }
 
-export default function HorizontalSplitText({ text, highlightWord, subtitle }: HorizontalSplitTextProps) {
+export default function HorizontalSplitText({ text, highlightWord, statement }: HorizontalSplitTextProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -24,21 +24,22 @@ export default function HorizontalSplitText({ text, highlightWord, subtitle }: H
       ctx = gsap.context(() => {
         const chars = trackRef.current!.querySelectorAll('.hs-char');
         const track = trackRef.current!;
-
-        // Subtitle fade-in at section start
-        gsap.fromTo('.hs-subtitle', { opacity: 0, y: 16 }, {
-          opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' },
-        });
+        const statementEl = sectionRef.current!.querySelector('.hs-statement');
 
         const scrollTween = gsap.to(track, {
-          xPercent: -100,
+          x: () => -(track.scrollWidth - window.innerWidth),
           ease: 'none',
           scrollTrigger: {
             trigger: sectionRef.current,
             pin: true,
-            end: '+=5000px',
+            end: () => `+=${track.scrollWidth}`,
             scrub: true,
+            onUpdate: (self) => {
+              if (statementEl && self.progress > 0.5) {
+                const opacity = Math.min(1, (self.progress - 0.5) * 4);
+                gsap.set(statementEl, { opacity, y: (1 - opacity) * 30 });
+              }
+            },
           },
         });
 
@@ -63,7 +64,7 @@ export default function HorizontalSplitText({ text, highlightWord, subtitle }: H
     return () => ctx?.revert();
   }, []);
 
-  // Build chars with highlight support
+  // Build chars with highlight
   const parts: { char: string; highlight: boolean }[] = [];
   if (highlightWord && text.includes(highlightWord)) {
     const idx = text.indexOf(highlightWord);
@@ -88,39 +89,19 @@ export default function HorizontalSplitText({ text, highlightWord, subtitle }: H
         position: 'relative',
       }}
     >
-      {subtitle && (
-        <p
-          className="hs-subtitle absolute"
-          style={{
-            top: '18%',
-            left: 0,
-            right: 0,
-            textAlign: 'center',
-            fontSize: 'clamp(0.9rem, 1.6vw, 1.1rem)',
-            fontWeight: 400,
-            color: 'var(--fg-2)',
-            zIndex: 2,
-            fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-          }}
-        >
-          {subtitle}
-        </p>
-      )}
-
       <div
         ref={trackRef}
         style={{
           display: 'flex',
-          width: 'max-content',
           whiteSpace: 'nowrap',
           gap: '4vw',
           paddingLeft: '100vw',
+          paddingRight: '20vw',
           fontSize: 'clamp(2rem, 10vw, 12rem)',
           fontWeight: 600,
           lineHeight: 1.1,
           color: 'var(--fg)',
           fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-          willChange: 'transform',
         }}
       >
         {parts.map((p, i) => (
@@ -129,8 +110,11 @@ export default function HorizontalSplitText({ text, highlightWord, subtitle }: H
             className="hs-char"
             style={{
               display: 'inline-block',
-              color: p.highlight ? 'var(--orange)' : 'var(--fg)',
+              color: p.highlight ? 'var(--orange)' : 'inherit',
               textShadow: p.highlight ? '0 0 60px rgba(255,85,0,0.5)' : 'none',
+              fontFamily: 'inherit',
+              fontWeight: 'inherit',
+              fontSize: 'inherit',
             }}
           >
             {p.char === ' ' ? '\u00A0' : p.char}
@@ -138,9 +122,37 @@ export default function HorizontalSplitText({ text, highlightWord, subtitle }: H
         ))}
       </div>
 
+      {/* Statement — fades in as text scrolls off screen */}
+      {statement && (
+        <div
+          className="hs-statement"
+          style={{
+            position: 'absolute',
+            bottom: 'clamp(10%, 15vh, 20%)',
+            left: 0,
+            right: 0,
+            textAlign: 'center',
+            opacity: 0,
+            zIndex: 2,
+          }}
+        >
+          {statement}
+        </div>
+      )}
+
       <p
-        className="absolute text-center font-sans text-xs"
-        style={{ bottom: '2rem', left: 0, right: 0, color: 'var(--fg-4)', zIndex: 2 }}
+        style={{
+          position: 'absolute',
+          bottom: '2rem',
+          left: 0,
+          right: 0,
+          textAlign: 'center',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: '12px',
+          fontWeight: 400,
+          color: 'var(--fg-4)',
+          zIndex: 2,
+        }}
       >
         Scroll to explore
       </p>
