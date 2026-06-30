@@ -94,12 +94,13 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
         style={{
           display: 'flex',
           whiteSpace: 'nowrap',
-          gap: '4vw',
-          paddingLeft: '100vw',
-          paddingRight: '20vw',
-          fontSize: 'clamp(2rem, 10vw, 12rem)',
+          gap: '0.2vw',
+          paddingLeft: 'clamp(40vw, 60vw, 100vw)',
+          paddingRight: '10vw',
+          fontSize: 'clamp(1.8rem, 8vw, 11rem)',
           fontWeight: 600,
-          lineHeight: 1.1,
+          lineHeight: 1,
+          letterSpacing: '-0.03em',
           color: 'var(--fg)',
           fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
         }}
