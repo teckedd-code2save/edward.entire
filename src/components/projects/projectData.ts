@@ -18,27 +18,8 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: 'akan-speech-lab',
-    number: '01',
-    title: 'Akan Speech Lab',
-    tag: 'speech AI research',
-    category: 'tooling',
-    canvasMode: 'agents',
-    description:
-      "Speech AI research lab building ASR, TTS, and voice datasets for Akan — one of West Africa's most spoken yet technologically underserved languages.",
-    stack: ['Python', 'PyTorch', 'ASR', 'TTS', 'Whisper', 'HuggingFace'],
-    architecture:
-      'Research infrastructure for low-resource speech AI. Custom ASR fine-tuning pipelines on Whisper architectures adapted for tonal Akan phonology. TTS synthesis with attention-based models trained on curated Akan voice corpora.',
-    highlights: [
-      'Building the first open ASR pipeline for Akan (Twi/Fante) — a 30M+ speaker language with near-zero speech technology.',
-      'Custom TTS models trained on curated Akan voice data — tackling tonal language synthesis challenges.',
-      'Dataset release pipeline for reproducible African NLP research.',
-    ],
-    githubUrl: 'https://github.com/teckedd-code2save/akan-speech-lab',
-  },
-  {
     id: 'groundcontrol',
-    number: '02',
+    number: '01',
     title: 'GroundControl',
     tag: 'infra dashboard',
     category: 'deployment',
@@ -55,6 +36,25 @@ export const projects: Project[] = [
     ],
     githubUrl: 'https://github.com/teckedd-code2save/groundcontrol',
     liveUrl: 'https://groundcontrol.serendepify.com/',
+  },
+  {
+    id: 'akan-speech-lab',
+    number: '02',
+    title: 'Akan Speech Lab',
+    tag: 'speech AI research',
+    category: 'tooling',
+    canvasMode: 'agents',
+    description:
+      "Speech AI research lab building ASR, TTS, and voice datasets for Akan — one of West Africa's most spoken yet technologically underserved languages.",
+    stack: ['Python', 'PyTorch', 'ASR', 'TTS', 'Whisper', 'HuggingFace'],
+    architecture:
+      'Research infrastructure for low-resource speech AI. Custom ASR fine-tuning pipelines on Whisper architectures adapted for tonal Akan phonology. TTS synthesis with attention-based models trained on curated Akan voice corpora.',
+    highlights: [
+      'Building the first open ASR pipeline for Akan (Twi/Fante) — a 30M+ speaker language with near-zero speech technology.',
+      'Custom TTS models trained on curated Akan voice data — tackling tonal language synthesis challenges.',
+      'Dataset release pipeline for reproducible African NLP research.',
+    ],
+    githubUrl: 'https://github.com/teckedd-code2save/akan-speech-lab',
   },
   {
     id: 'convoy',
