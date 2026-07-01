@@ -104,7 +104,7 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
       ref={sectionRef}
       style={{
         overflow: 'hidden',
-        height: '100vh',
+        height: 'clamp(60vh, 80vh, 100vh)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -118,9 +118,9 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
         style={{
           display: 'flex',
           whiteSpace: 'nowrap',
-          paddingLeft: 'clamp(50vw, 70vw, 100vw)',
+          paddingLeft: 'clamp(30vw, 50vw, 100vw)',
           paddingRight: '15vw',
-          fontSize: 'clamp(2.2rem, 10vw, 12rem)',
+          fontSize: 'clamp(2rem, 9vw, 12rem)',
           fontWeight: 600,
           lineHeight: 1,
           letterSpacing: '-0.03em',

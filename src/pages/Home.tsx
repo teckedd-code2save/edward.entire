@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import HorizontalSplitText from '@/components/HorizontalSplitText';
 import { projects as portfolioProjects } from '@/components/projects/projectData';
@@ -40,218 +40,153 @@ const moreStack = [
    EXPANDABLE BENTO GRID
    ═══════════════════════════════════════════════════ */
 
+const bentoAreas = [
+  '1 / 1 / 3 / 2',
+  '1 / 2 / 2 / 4',
+  '2 / 2 / 4 / 3',
+  '3 / 1 / 4 / 2',
+  '2 / 3 / 4 / 4',
+];
+
 function BentoGrid() {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const [expanded, setExpanded] = useState<number | null>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!wrapRef.current) return;
-    let ctx: any;
+    if (!wrapRef.current || !gridRef.current) return;
+    let flipCtx: any;
+
     async function init() {
       const { gsap } = await import('gsap');
       const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-      gsap.registerPlugin(ScrollTrigger);
+      const { Flip } = await import('gsap/Flip');
+      gsap.registerPlugin(ScrollTrigger, Flip);
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      ctx = gsap.context(() => {
-        const items = wrapRef.current!.querySelectorAll('.bento-item');
-        gsap.fromTo(items,
-          { y: 60, scale: 0.94, opacity: 0 },
-          {
-            y: 0, scale: 1, opacity: 1,
-            duration: 0.8, stagger: 0.1, ease: 'power3.out',
-            scrollTrigger: { trigger: wrapRef.current, start: 'top 80%', toggleActions: 'play none none none' },
-          }
-        );
-      }, wrapRef.current!);
+
+      const createTween = () => {
+        const grid = gridRef.current!;
+        const items = grid.querySelectorAll('.bento-item');
+
+        flipCtx?.revert();
+        grid.classList.remove('bento-final');
+
+        flipCtx = gsap.context(() => {
+          grid.classList.add('bento-final');
+          const flipState = Flip.getState(items);
+          grid.classList.remove('bento-final');
+
+          const flip = Flip.to(flipState, {
+            simple: true,
+            ease: 'expoScale(1, 5)',
+          });
+
+          gsap.timeline({
+            scrollTrigger: {
+              trigger: wrapRef.current,
+              start: 'top top',
+              end: '+=120%',
+              scrub: true,
+              pin: true,
+            },
+          }).add(flip);
+
+          return () => gsap.set(items, { clearProps: 'all' });
+        }, grid);
+      };
+
+      createTween();
+      window.addEventListener('resize', createTween);
+      return () => {
+        window.removeEventListener('resize', createTween);
+        flipCtx?.revert();
+      };
     }
+
     init();
-    return () => ctx?.revert();
+    return () => { flipCtx?.revert(); };
   }, []);
 
   return (
-    <section ref={wrapRef} style={{ padding: 'clamp(40px, 6vw, 80px) 0', backgroundColor: 'var(--bg)' }}>
-      <div className="mx-auto px-5 md:px-10" style={{ maxWidth: '1200px' }}>
-        <p style={{
-          fontFamily: "'Inter', sans-serif", fontSize: 'clamp(10px, 1.2vw, 11px)', fontWeight: 500,
-          textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--fg-4)', marginBottom: 'clamp(20px, 3vw, 32px)',
-        }}>
-          Featured Work
-        </p>
-
-        <div className="bento-grid" style={{
-          display: 'grid', gap: 'clamp(8px, 1vw, 12px)',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gridTemplateRows: 'repeat(4, minmax(100px, auto))',
-        }}>
-          {projects.map((p, i) => {
-            const isOpen = expanded === i;
-            const areas = [
-              '1 / 1 / 3 / 2',
-              '1 / 2 / 2 / 4',
-              '2 / 2 / 4 / 3',
-              '3 / 1 / 4 / 2',
-              '2 / 3 / 4 / 4',
-            ];
-            return (
-              <div
-                key={p.number}
-                className="bento-item"
-                style={{
-                  gridArea: isOpen ? '1 / 1 / -1 / -1' : areas[i],
-                  position: 'relative',
-                  overflow: 'hidden',
-                  backgroundColor: 'var(--bg-2)',
-                  cursor: 'pointer',
-                  minHeight: isOpen ? 'auto' : '100px',
-                  transition: 'grid-area 0.4s cubic-bezier(0.4, 0, 0.2, 1), min-height 0.4s ease',
-                }}
-                onClick={() => setExpanded(isOpen ? null : i)}
-              >
-                {/* Compact view */}
-                {!isOpen && (
-                  <div style={{
-                    padding: 'clamp(14px, 2vw, 24px)',
-                    height: '100%',
-                    display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
-                  }}>
-                    <span style={{
-                      fontFamily: "'Inter', sans-serif", fontSize: 'clamp(9px, 0.9vw, 11px)', fontWeight: 500,
-                      textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--fg-3)',
-                    }}>
-                      {p.number} — {p.tag}
-                    </span>
-                    <h3 style={{
-                      fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1rem, 1.8vw, 1.4rem)',
-                      fontWeight: 400, color: 'var(--fg)', letterSpacing: '-0.02em',
-                      lineHeight: 1.15, margin: '4px 0 4px',
-                    }}>
-                      {p.title}
-                    </h3>
-                    <p style={{
-                      fontFamily: "'Inter', sans-serif", fontSize: 'clamp(10px, 0.9vw, 12px)',
-                      fontWeight: 400, color: 'var(--fg-2)', lineHeight: 1.4, margin: 0,
-                    }}>
-                      {p.blurb}
-                    </p>
-                    <span style={{
-                      position: 'absolute', top: 0, right: 0,
-                      fontSize: 'clamp(2.5rem, 4vw, 4rem)', fontWeight: 700,
-                      color: 'var(--fg)', opacity: 0.04,
-                      fontFamily: "'Inter', sans-serif", lineHeight: 1, padding: '0.1em 0.2em 0 0',
-                    }}>
-                      {p.number}
-                    </span>
-                  </div>
-                )}
-
-                {/* Expanded view */}
-                {isOpen && (
-                  <div style={{
-                    padding: 'clamp(20px, 4vw, 48px)',
-                    display: 'flex', flexDirection: 'column',
-                    gap: 'clamp(20px, 3vw, 32px)',
-                  }}>
-                    {/* Top: close hint */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{
-                        fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 500,
-                        textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--fg-3)',
-                      }}>
-                        {p.number} — {p.tag}
-                      </span>
-                      <span style={{
-                        fontFamily: "'Inter', sans-serif", fontSize: '12px', color: 'var(--fg-4)',
-                      }}>
-                        Click to close
-                      </span>
-                    </div>
-
-                    {/* Content row */}
-                    <div className="expanded-content" style={{
-                      display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(20px, 3vw, 40px)',
-                      alignItems: 'center',
-                    }}>
-                      <div>
-                        <h3 style={{
-                          fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1.6rem, 3.5vw, 2.8rem)',
-                          fontWeight: 300, color: 'var(--fg)', letterSpacing: '-0.03em',
-                          lineHeight: 1.05, margin: '0 0 16px',
-                        }}>
-                          {p.title}
-                        </h3>
-                        <p style={{
-                          fontFamily: "'Inter', sans-serif", fontSize: 'clamp(0.9rem, 1.2vw, 1.05rem)',
-                          fontWeight: 400, color: 'var(--fg-2)', lineHeight: 1.6, marginBottom: '20px',
-                        }}>
-                          {p.detail}
-                        </p>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '24px' }}>
-                          {p.stack.map(s => (
-                            <span key={s} style={{
-                              fontFamily: "'Inter', sans-serif", fontSize: '11px', color: 'var(--fg-3)',
-                            }}>{s}</span>
-                          ))}
-                        </div>
-                        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                          {p.live && (
-                            <a href={p.live} target="_blank" rel="noopener noreferrer"
-                              onClick={e => e.stopPropagation()}
-                              style={{
-                                fontFamily: "'Inter', sans-serif", fontSize: '13px', color: 'var(--fg)',
-                                textDecoration: 'none', borderBottom: '1px solid var(--fg)',
-                                paddingBottom: '2px', fontWeight: 400,
-                              }}>
-                              Live →
-                            </a>
-                          )}
-                          {p.github && (
-                            <a href={p.github} target="_blank" rel="noopener noreferrer"
-                              onClick={e => e.stopPropagation()}
-                              style={{
-                                fontFamily: "'Inter', sans-serif", fontSize: '13px', color: 'var(--fg-2)',
-                                textDecoration: 'none', borderBottom: '1px solid var(--fg-3)',
-                                paddingBottom: '2px', fontWeight: 400,
-                              }}>
-                              Source →
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                      {/* Ambient number fills visual space */}
-                      <div style={{
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        minHeight: '200px', position: 'relative', overflow: 'hidden',
-                      }}>
-                        <span style={{
-                          fontSize: 'clamp(6rem, 16vw, 14rem)', fontWeight: 700,
-                          color: 'var(--fg)', opacity: 0.03,
-                          fontFamily: "'Inter', sans-serif", lineHeight: 1,
-                        }}>
-                          {p.number}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-
-        {/* View all — under projects */}
-        <div style={{ marginTop: 'clamp(24px, 3vw, 32px)', textAlign: 'right' }}>
-          <Link to="/projects"
+    <section
+      ref={wrapRef}
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        backgroundColor: 'var(--bg)',
+      }}
+    >
+      <div
+        ref={gridRef}
+        className="bento-grid"
+        style={{
+          display: 'grid',
+          gap: '1vh',
+          gridTemplateColumns: 'repeat(3, 32.5vw)',
+          gridTemplateRows: 'repeat(4, 23vh)',
+          justifyContent: 'center',
+          alignContent: 'center',
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+          flex: 'none',
+        }}
+      >
+        {projects.map((p, i) => (
+          <a
+            key={p.number}
+            href={p.live || p.github || '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bento-item"
             style={{
-              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(12px, 1.2vw, 14px)', fontWeight: 400,
-              color: 'var(--fg)', textDecoration: 'none',
-              borderBottom: '1px solid var(--fg)', paddingBottom: '2px',
-              transition: 'opacity 0.2s',
+              gridArea: bentoAreas[i],
+              position: 'relative',
+              overflow: 'hidden',
+              backgroundColor: 'var(--bg-2)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-end',
+              padding: 'clamp(14px, 2.5vw, 28px)',
+              textDecoration: 'none',
+              transition: 'background-color 0.3s',
             }}
-            onMouseEnter={e => { e.currentTarget.style.opacity = '0.6'; }}
-            onMouseLeave={e => { e.currentTarget.style.opacity = '1'; }}>
-            View all projects →
-          </Link>
-        </div>
+            onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--bg-1)'; }}
+            onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'var(--bg-2)'; }}
+          >
+            <span style={{
+              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(9px, 1vw, 11px)', fontWeight: 500,
+              textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--fg-3)',
+            }}>
+              {p.number} — {p.tag}
+            </span>
+            <h3 style={{
+              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1rem, 2vw, 1.5rem)',
+              fontWeight: 400, color: 'var(--fg)', letterSpacing: '-0.02em',
+              lineHeight: 1.15, margin: '6px 0 4px',
+            }}>
+              {p.title}
+            </h3>
+            <p style={{
+              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(10px, 1vw, 13px)',
+              fontWeight: 400, color: 'var(--fg-2)', lineHeight: 1.4, margin: 0,
+            }}>
+              {p.blurb}
+            </p>
+            <span style={{
+              position: 'absolute', top: 0, right: 0,
+              fontSize: 'clamp(3rem, 5vw, 5rem)', fontWeight: 700,
+              color: 'var(--fg)', opacity: 0.04,
+              fontFamily: "'Inter', sans-serif", lineHeight: 1, padding: '0.1em 0.2em 0 0',
+            }}>
+              {p.number}
+            </span>
+          </a>
+        ))}
       </div>
     </section>
   );
@@ -412,6 +347,11 @@ function CTASection() {
    ═══════════════════════════════════════════════════ */
 
 const mobileCSS = `
+.bento-final {
+  grid-template-columns: repeat(3, 100vw) !important;
+  grid-template-rows: repeat(4, 49.5vh) !important;
+  gap: 1vh !important;
+}
 @media (max-width: 768px) {
   .bento-grid {
     grid-template-columns: 1fr !important;
@@ -422,12 +362,9 @@ const mobileCSS = `
     grid-area: auto !important;
     min-height: 120px !important;
   }
-  .bento-item[style*="1 / 1 / -1"] {
-    min-height: auto !important;
-  }
-  .expanded-content {
-    grid-template-columns: 1fr !important;
-    gap: 20px !important;
+  .bento-final {
+    grid-template-columns: repeat(3, 100vw) !important;
+    grid-template-rows: repeat(4, 49.5vh) !important;
   }
 }
 `;
