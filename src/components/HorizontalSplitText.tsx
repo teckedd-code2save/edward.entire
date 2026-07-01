@@ -26,6 +26,16 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
         const track = trackRef.current!;
         const statementEl = sectionRef.current!.querySelector('.hs-statement');
 
+        // Phase 1: Characters fly in from below with rotation — staggered entrance
+        gsap.fromTo(chars,
+          { yPercent: 120, rotation: -8, opacity: 0 },
+          {
+            yPercent: 0, rotation: 0, opacity: 1,
+            duration: 0.8, stagger: 0.03, ease: 'power3.out', delay: 0.3,
+          }
+        );
+
+        // Phase 2: Horizontal scroll — characters drift as you scroll
         const scrollTween = gsap.to(track, {
           x: () => -(track.scrollWidth - window.innerWidth),
           ease: 'none',
@@ -33,27 +43,29 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
             trigger: sectionRef.current,
             pin: true,
             end: () => `+=${track.scrollWidth}`,
-            scrub: true,
+            scrub: 1,
             onUpdate: (self) => {
-              if (statementEl && self.progress > 0.5) {
-                const opacity = Math.min(1, (self.progress - 0.5) * 4);
-                gsap.set(statementEl, { opacity, y: (1 - opacity) * 30 });
+              // Statement fades in as text scrolls off (past 60% progress)
+              if (statementEl && self.progress > 0.55) {
+                const op = Math.min(1, (self.progress - 0.55) * 3.5);
+                gsap.set(statementEl, { opacity: op, y: (1 - op) * 24 });
               }
             },
           },
         });
 
+        // Phase 3: Character-level scroll-driven animation during horizontal scroll
         chars.forEach((char) => {
-          gsap.from(char, {
-            yPercent: () => gsap.utils.random(-200, 200),
-            rotation: () => gsap.utils.random(-20, 20),
-            ease: 'back.out(1.2)',
+          gsap.to(char, {
+            yPercent: () => gsap.utils.random(-60, 60),
+            rotation: () => gsap.utils.random(-8, 8),
+            ease: 'none',
             scrollTrigger: {
               trigger: char,
               containerAnimation: scrollTween,
-              start: 'left 100%',
-              end: 'left 30%',
-              scrub: 1,
+              start: 'left 90%',
+              end: 'left 20%',
+              scrub: 0.5,
             },
           });
         });
@@ -64,7 +76,7 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
     return () => ctx?.revert();
   }, []);
 
-  // Build chars with highlight
+  // Build chars
   const parts: { char: string; highlight: boolean }[] = [];
   if (highlightWord && text.includes(highlightWord)) {
     const idx = text.indexOf(highlightWord);
@@ -94,8 +106,8 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
         style={{
           display: 'flex',
           whiteSpace: 'nowrap',
-          paddingLeft: 'clamp(60vw, 80vw, 100vw)',
-          paddingRight: '10vw',
+          paddingLeft: 'clamp(55vw, 75vw, 100vw)',
+          paddingRight: '15vw',
           fontSize: 'clamp(1.5rem, 7vw, 11rem)',
           fontWeight: 600,
           lineHeight: 1,
@@ -111,10 +123,11 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
             style={{
               display: 'inline-block',
               color: p.highlight ? 'var(--orange)' : 'inherit',
-              textShadow: p.highlight ? '0 0 60px rgba(255,85,0,0.5)' : 'none',
+              textShadow: p.highlight ? '0 0 60px rgba(255,85,0,0.4)' : 'none',
               fontFamily: 'inherit',
               fontWeight: 'inherit',
               fontSize: 'inherit',
+              willChange: 'transform',
             }}
           >
             {p.char === ' ' ? '\u00A0' : p.char}
@@ -122,13 +135,13 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
         ))}
       </div>
 
-      {/* Statement — fades in as text scrolls off screen */}
+      {/* Statement — fades in as text scrolls off */}
       {statement && (
         <div
           className="hs-statement"
           style={{
             position: 'absolute',
-            bottom: 'clamp(10%, 15vh, 20%)',
+            bottom: '15vh',
             left: 0,
             right: 0,
             textAlign: 'center',
@@ -140,21 +153,15 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
         </div>
       )}
 
+      {/* Scroll hint */}
       <p
         style={{
-          position: 'absolute',
-          bottom: '2rem',
-          left: 0,
-          right: 0,
-          textAlign: 'center',
-          fontFamily: "'Inter', sans-serif",
-          fontSize: '12px',
-          fontWeight: 400,
-          color: 'var(--fg-4)',
-          zIndex: 2,
+          position: 'absolute', bottom: '2rem', left: 0, right: 0, textAlign: 'center',
+          fontFamily: "'Inter', sans-serif", fontSize: '12px', fontWeight: 400,
+          color: 'var(--fg-4)', zIndex: 2,
         }}
       >
-        Scroll to explore
+        Scroll
       </p>
     </section>
   );
