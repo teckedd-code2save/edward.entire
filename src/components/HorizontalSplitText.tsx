@@ -72,17 +72,13 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
           });
         });
 
-        // Phase 4: Magnetic pull — text subtly follows cursor (from research: quickTo pattern)
-        if (!window.matchMedia('(hover: none)').matches) {  // skip on touch devices
-          const xTo = gsap.quickTo(track, 'x', { duration: 0.8, ease: 'power2.out' });
+        // Phase 4: Magnetic pull — text subtly follows cursor (Y only, X is scroll-driven)
+        if (!window.matchMedia('(hover: none)').matches) {
           const yTo = gsap.quickTo(track, 'y', { duration: 0.8, ease: 'power2.out' });
           sectionRef.current!.addEventListener('mousemove', (e) => {
             const rect = sectionRef.current!.getBoundingClientRect();
-            const x = (e.clientX - rect.left - rect.width / 2) * 0.02;
             const y = (e.clientY - rect.top - rect.height / 2) * 0.02;
             yTo(y);
-            // Don't override horizontal scroll tween — only apply Y magnetic pull
-            // X is driven by scroll
           });
         }
       }, sectionRef.current!);

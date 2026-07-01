@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, type ReactNode } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HorizontalSplitText from '@/components/HorizontalSplitText';
 import { projects as portfolioProjects } from '@/components/projects/projectData';
@@ -110,7 +110,6 @@ function BentoGrid() {
         >
           {projects.map((p, i) => {
             const isOpen = expanded === i;
-            const href = p.live || p.github || '#';
             return (
               <div
                 key={p.number}
