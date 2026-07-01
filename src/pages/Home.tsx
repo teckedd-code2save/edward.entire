@@ -4,7 +4,7 @@ import HorizontalSplitText from '@/components/HorizontalSplitText';
 import { projects as portfolioProjects } from '@/components/projects/projectData';
 
 /* ═══════════════════════════════════════════════════
-   PROJECT DATA — derived from projectData.ts (single source of truth)
+   PROJECT DATA — derived from projectData.ts
    ═══════════════════════════════════════════════════ */
 
 const projects = portfolioProjects.map(p => ({
@@ -19,7 +19,7 @@ const projects = portfolioProjects.map(p => ({
 }));
 
 /* ═══════════════════════════════════════════════════
-   STACK — from actual GitHub repos
+   STACK + AND MANY MORE (merged)
    ═══════════════════════════════════════════════════ */
 
 const stack = [
@@ -31,24 +31,22 @@ const stack = [
 ];
 
 const moreRepos = [
-  { name: 'Datafy', desc: 'MCP database gateway for 7 backends', stars: 1, lang: 'TypeScript' },
-  { name: 'AgentMart', desc: 'Autonomous AI agent economy on MPP', stars: 1, lang: 'TypeScript' },
-  { name: 'MedKit', desc: 'Voice-first AI patient simulator', stars: 0, lang: 'TypeScript' },
-  { name: 'OpsMesh', desc: 'Infrastructure mesh networking', stars: 1, lang: 'TypeScript' },
-  { name: 'System Heartbeat', desc: 'macOS health monitoring', stars: 1, lang: 'TypeScript' },
-  { name: 'Semantic Chain', desc: 'Semantic search agent with LangChain', stars: 0, lang: 'TypeScript' },
-  { name: 'Career Ops', desc: 'AI-powered job search, 14 skill modes', stars: 0, lang: 'JavaScript' },
-  { name: 'Shipd', desc: 'Deployment platform intelligence adviser', stars: 1, lang: 'TypeScript' },
-  { name: 'Optimi', desc: 'Privacy-first PWA for opportunity tracking', stars: 0, lang: 'TypeScript' },
-  { name: 'Serendepify Web', desc: 'AI tooling and LLM infrastructure platform', stars: 0, lang: 'TypeScript' },
-  { name: 'Custom Twi ASR', desc: 'Twi transcription inference server with Docker', stars: 0, lang: 'Python' },
-  { name: 'Reachy Health', desc: 'Healthcare platform backend', stars: 0, lang: 'TypeScript' },
-  { name: 'Goclis', desc: 'Go CLI tool', stars: 1, lang: 'Go' },
-  { name: 'AI-LAB', desc: 'AI and ML project catalogue', stars: 0, lang: 'Python' },
+  { name: 'Datafy', desc: 'MCP database gateway for 7 backends', lang: 'TypeScript' },
+  { name: 'AgentMart', desc: 'Autonomous AI agent economy on MPP', lang: 'TypeScript' },
+  { name: 'MedKit', desc: 'Voice-first AI patient simulator', lang: 'TypeScript' },
+  { name: 'OpsMesh', desc: 'Infrastructure mesh networking', lang: 'TypeScript' },
+  { name: 'System Heartbeat', desc: 'macOS health monitoring', lang: 'TypeScript' },
+  { name: 'Semantic Chain', desc: 'Semantic search agent with LangChain', lang: 'TypeScript' },
+  { name: 'Career Ops', desc: 'AI-powered job search, 14 skill modes', lang: 'JavaScript' },
+  { name: 'Shipd', desc: 'Deployment platform intelligence adviser', lang: 'TypeScript' },
+  { name: 'Optimi', desc: 'Privacy-first PWA for opportunity tracking', lang: 'TypeScript' },
+  { name: 'Custom Twi ASR', desc: 'Twi transcription inference server', lang: 'Python' },
+  { name: 'Goclis', desc: 'Go CLI tool', lang: 'Go' },
+  { name: 'AI-LAB', desc: 'AI and ML project catalogue', lang: 'Python' },
 ];
 
 /* ═══════════════════════════════════════════════════
-   EXPANDABLE BENTO GRID
+   EXPANDABLE BENTO GRID — GSAP Flip
    ═══════════════════════════════════════════════════ */
 
 const bentoAreas = [
@@ -61,7 +59,9 @@ const bentoAreas = [
 
 function BentoGrid() {
   const wrapRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
   const [expanded, setExpanded] = useState<number | null>(null);
+  const flipStateRef = useRef<any>(null);
 
   useEffect(() => {
     if (!wrapRef.current) return;
@@ -88,10 +88,42 @@ function BentoGrid() {
     return () => ctx?.revert();
   }, []);
 
+  // GSAP Flip expansion
+  useEffect(() => {
+    if (!gridRef.current) return;
+    let flipCtx: any;
+
+    async function runFlip() {
+      const { gsap } = await import('gsap');
+      const { Flip } = await import('gsap/Flip');
+      gsap.registerPlugin(Flip);
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      const items = gridRef.current!.querySelectorAll('.bento-item');
+      const state = Flip.getState(items);
+
+      // Toggle the expanded class/state is handled by React state
+      // We just animate from previous state to new state
+      flipCtx?.revert();
+      flipCtx = gsap.context(() => {
+        Flip.from(state, {
+          duration: 0.5,
+          ease: 'power3.inOut',
+          absolute: true,
+          nested: true,
+        });
+      }, gridRef.current!);
+    }
+
+    if (expanded !== null || flipStateRef.current !== null) {
+      flipStateRef.current = expanded;
+      runFlip();
+    }
+  }, [expanded]);
+
   return (
     <section ref={wrapRef} style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: 'var(--bg)' }}>
       <div className="mx-auto px-5 md:px-10" style={{ maxWidth: '1200px' }}>
-        {/* Label */}
         <p style={{
           fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 500,
           textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--fg-4)', marginBottom: '32px',
@@ -99,8 +131,8 @@ function BentoGrid() {
           Featured Work
         </p>
 
-        {/* Grid */}
         <div
+          ref={gridRef}
           className="bento-grid"
           style={{
             display: 'grid', gap: '12px',
@@ -119,7 +151,6 @@ function BentoGrid() {
                   position: 'relative',
                   overflow: 'hidden',
                   backgroundColor: 'var(--bg-2)',
-                  transition: 'grid-area 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
                   cursor: 'pointer',
                 }}
                 onClick={() => setExpanded(isOpen ? null : i)}
@@ -222,7 +253,6 @@ function BentoGrid() {
                         )}
                       </div>
                     </div>
-                    {/* Visual space — ambient number */}
                     <div style={{
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       minHeight: '300px', position: 'relative', overflow: 'hidden',
@@ -241,13 +271,28 @@ function BentoGrid() {
             );
           })}
         </div>
+
+        {/* View all — under projects section */}
+        <div style={{ textAlign: 'right', marginTop: '32px' }}>
+          <Link to="/projects"
+            style={{
+              fontFamily: "'Inter', sans-serif", fontSize: '14px', fontWeight: 400,
+              color: 'var(--fg)', textDecoration: 'none',
+              borderBottom: '1px solid var(--fg)', paddingBottom: '2px',
+              transition: 'opacity 0.2s',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.opacity = '0.6'; }}
+            onMouseLeave={e => { e.currentTarget.style.opacity = '1'; }}>
+            View all projects →
+          </Link>
+        </div>
       </div>
     </section>
   );
 }
 
 /* ═══════════════════════════════════════════════════
-   STACK SECTION — real languages from GitHub
+   STACK + AND MANY MORE (merged section)
    ═══════════════════════════════════════════════════ */
 
 function StackSection() {
@@ -266,6 +311,10 @@ function StackSection() {
           y: 0, opacity: 1, duration: 0.4, stagger: 0.03, ease: 'power2.out',
           scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
         });
+        gsap.fromTo('.more-row', { x: -16, opacity: 0 }, {
+          x: 0, opacity: 1, duration: 0.4, stagger: 0.03, ease: 'power2.out',
+          scrollTrigger: { trigger: '.more-list', start: 'top 85%', toggleActions: 'play none none none' },
+        });
       }, ref.current!);
     }
     init();
@@ -275,13 +324,14 @@ function StackSection() {
   return (
     <section ref={ref} style={{ padding: 'clamp(80px, 10vw, 140px) 0', backgroundColor: 'var(--bg-1)' }}>
       <div className="mx-auto px-5 md:px-10" style={{ maxWidth: '1100px' }}>
+        {/* Stack pills */}
         <h2 style={{
           fontFamily: "'Inter', sans-serif", fontSize: 'clamp(2rem, 4vw, 3rem)',
           fontWeight: 300, color: 'var(--fg)', letterSpacing: '-0.02em', marginBottom: '32px',
         }}>
           Stack
         </h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: 'clamp(60px, 8vw, 100px)' }}>
           {stack.map(s => (
             <span key={s} className="stack-item" style={{
               fontFamily: "'Inter', sans-serif", fontSize: '13px', fontWeight: 400,
@@ -291,58 +341,26 @@ function StackSection() {
             </span>
           ))}
         </div>
-      </div>
-    </section>
-  );
-}
 
-/* ═══════════════════════════════════════════════════
-   AND MANY MORE — GitHub repos
-   ═══════════════════════════════════════════════════ */
-
-function MoreSection() {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (!ref.current) return;
-    let ctx: any;
-    async function init() {
-      const { gsap } = await import('gsap');
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-      gsap.registerPlugin(ScrollTrigger);
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      ctx = gsap.context(() => {
-        gsap.fromTo('.more-row', { x: -20, opacity: 0 }, {
-          x: 0, opacity: 1, duration: 0.4, stagger: 0.04, ease: 'power2.out',
-          scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
-        });
-      }, ref.current!);
-    }
-    init();
-    return () => ctx?.revert();
-  }, []);
-
-  return (
-    <section ref={ref} style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: 'var(--bg)' }}>
-      <div className="mx-auto px-5 md:px-10" style={{ maxWidth: '1100px' }}>
-        <h2 style={{
-          fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)',
+        {/* And many more — merged into same section */}
+        <h3 style={{
+          fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1.4rem, 2.5vw, 2rem)',
           fontWeight: 300, color: 'var(--fg)', letterSpacing: '-0.02em', marginBottom: '8px',
         }}>
           And many more
-        </h2>
+        </h3>
         <p style={{
-          fontFamily: "'Inter', sans-serif", fontSize: '14px', color: 'var(--fg-3)', marginBottom: '32px',
+          fontFamily: "'Inter', sans-serif", fontSize: '13px', color: 'var(--fg-3)', marginBottom: '28px',
         }}>
-          {moreRepos.length} public repositories on GitHub
+          {moreRepos.length} additional repositories on GitHub
         </p>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className="more-list" style={{ display: 'flex', flexDirection: 'column' }}>
           {moreRepos.map(r => (
             <a key={r.name} href={`https://github.com/teckedd-code2save/${r.name.replace(/\s/g, '')}`}
               target="_blank" rel="noopener noreferrer" className="more-row"
               style={{
                 display: 'grid', gridTemplateColumns: '1fr auto', gap: '12px', alignItems: 'center',
-                padding: '14px 0', borderBottom: '1px solid var(--border)',
+                padding: '12px 0', borderBottom: '1px solid var(--border)',
                 textDecoration: 'none', transition: 'padding 0.2s',
               }}
               onMouseEnter={e => { e.currentTarget.style.paddingLeft = '8px'; }}
@@ -357,31 +375,19 @@ function MoreSection() {
                   fontFamily: "'Inter', sans-serif", fontSize: '12px', color: 'var(--fg-3)',
                 }}>{r.desc}</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <span style={{
-                  fontFamily: "'Inter', sans-serif", fontSize: '11px', color: 'var(--fg-4)',
-                }}>{r.lang}</span>
-                <span style={{
-                  fontFamily: "'Inter', sans-serif", fontSize: '11px', color: 'var(--fg-3)',
-                }}>★ {r.stars}</span>
-              </div>
+              <span style={{
+                fontFamily: "'Inter', sans-serif", fontSize: '11px', color: 'var(--fg-4)',
+              }}>{r.lang}</span>
             </a>
           ))}
         </div>
-        <a href="https://github.com/teckedd-code2save" target="_blank" rel="noopener noreferrer" style={{
-          display: 'inline-block', marginTop: '32px',
-          fontFamily: "'Inter', sans-serif", fontSize: '14px', color: 'var(--fg)',
-          textDecoration: 'none', borderBottom: '1px solid var(--fg)', paddingBottom: '2px', fontWeight: 400,
-        }}>
-          View all on GitHub →
-        </a>
       </div>
     </section>
   );
 }
 
 /* ═══════════════════════════════════════════════════
-   CTA
+   CTA — rethought, bold, minimal
    ═══════════════════════════════════════════════════ */
 
 function CTASection() {
@@ -396,12 +402,12 @@ function CTASection() {
       gsap.registerPlugin(ScrollTrigger);
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       ctx = gsap.context(() => {
-        gsap.fromTo('.cta-line', { y: '100%' }, {
-          y: '0%', duration: 1.2, stagger: 0.14, ease: 'power3.inOut',
+        gsap.fromTo('.cta-word', { y: '100%', opacity: 0 }, {
+          y: '0%', opacity: 1, duration: 1.0, stagger: 0.12, ease: 'power3.inOut',
           scrollTrigger: { trigger: ref.current, start: 'top 75%', toggleActions: 'play none none none' },
         });
-        gsap.fromTo('.cta-desc', { y: 20, opacity: 0 }, {
-          y: 0, opacity: 1, duration: 0.7, delay: 0.8, ease: 'power2.out',
+        gsap.fromTo('.cta-links', { y: 20, opacity: 0 }, {
+          y: 0, opacity: 1, duration: 0.6, delay: 0.8, ease: 'power2.out',
           scrollTrigger: { trigger: ref.current, start: 'top 75%', toggleActions: 'play none none none' },
         });
       }, ref.current!);
@@ -411,30 +417,53 @@ function CTASection() {
   }, []);
 
   return (
-    <section ref={ref} style={{ padding: 'clamp(100px, 14vw, 180px) 0', backgroundColor: 'var(--bg)' }}>
-      <div className="mx-auto px-5 md:px-10 text-center" style={{ maxWidth: '800px' }}>
+    <section ref={ref} style={{
+      padding: 'clamp(120px, 16vw, 200px) 0',
+      backgroundColor: 'var(--bg)',
+      position: 'relative',
+      overflow: 'hidden',
+    }}>
+      <div className="mx-auto px-5 md:px-10" style={{ maxWidth: '900px', textAlign: 'center' }}>
         <h2 style={{
-          fontFamily: "'Inter', sans-serif", fontSize: 'clamp(2.4rem, 7vw, 5rem)',
-          fontWeight: 300, color: 'var(--fg)', lineHeight: 1.05, letterSpacing: '-0.03em', overflow: 'hidden',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: 'clamp(2.5rem, 8vw, 6.5rem)',
+          fontWeight: 300,
+          color: 'var(--fg)',
+          lineHeight: 1.0,
+          letterSpacing: '-0.04em',
+          marginBottom: '40px',
         }}>
-          <div className="cta-line" style={{ overflow: 'hidden' }}><span>Let&apos;s build</span></div>
-          <div className="cta-line" style={{ overflow: 'hidden' }}><span>something real</span></div>
+          <span className="cta-word" style={{ display: 'inline-block', overflow: 'hidden' }}>Build</span>{' '}
+          <span className="cta-word" style={{ display: 'inline-block', overflow: 'hidden' }}>with</span>{' '}
+          <span className="cta-word" style={{ display: 'inline-block', overflow: 'hidden', color: 'var(--orange)' }}>me</span>
+          <span style={{ color: 'var(--fg)' }}>.</span>
         </h2>
-        <p className="cta-desc" style={{
-          fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1rem, 1.4vw, 1.15rem)',
-          fontWeight: 400, color: 'var(--fg-2)', margin: '24px auto 40px', lineHeight: 1.6, maxWidth: '480px',
+        <div className="cta-links" style={{
+          display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap',
         }}>
-          Backend systems, agent runtimes, infrastructure.
-        </p>
-        <Link to="/contact" style={{
-          fontFamily: "'Inter', sans-serif", fontSize: '14px', fontWeight: 400,
-          color: 'var(--fg)', padding: '14px 32px', border: '1px solid var(--fg)',
-          textDecoration: 'none', transition: 'all 0.2s',
-        }}
-        onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--fg)'; e.currentTarget.style.color = 'var(--bg)'; }}
-        onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--fg)'; }}>
-          Start a conversation →
-        </Link>
+          <Link to="/contact"
+            style={{
+              fontFamily: "'Inter', sans-serif", fontSize: '15px', fontWeight: 400,
+              color: 'var(--fg)', padding: '14px 36px',
+              border: '1px solid var(--fg)', textDecoration: 'none',
+              transition: 'all 0.2s',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--fg)'; e.currentTarget.style.color = 'var(--bg)'; }}
+            onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--fg)'; }}>
+            Start a conversation →
+          </Link>
+          <a href="https://github.com/teckedd-code2save" target="_blank" rel="noopener noreferrer"
+            style={{
+              fontFamily: "'Inter', sans-serif", fontSize: '15px', fontWeight: 400,
+              color: 'var(--fg-2)', padding: '14px 36px',
+              border: '1px solid var(--border-2)', textDecoration: 'none',
+              transition: 'all 0.2s',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--fg)'; e.currentTarget.style.color = 'var(--fg)'; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-2)'; e.currentTarget.style.color = 'var(--fg-2)'; }}>
+            GitHub
+          </a>
+        </div>
       </div>
     </section>
   );
@@ -489,7 +518,6 @@ export default function Home() {
       />
       <BentoGrid />
       <StackSection />
-      <MoreSection />
       <CTASection />
     </>
   );

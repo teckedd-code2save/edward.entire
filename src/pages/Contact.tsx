@@ -95,7 +95,7 @@ export default function Contact() {
                 className="font-sans text-[10px] uppercase tracking-[0.22em]"
                 style={{ color: 'var(--fg-2)' }}
               >
-                serendepify <span style={{ color: 'var(--fg-4)' }}>/</span> contact
+                precision xyz <span style={{ color: 'var(--fg-4)' }}>/</span> contact
               </span>
               <span
                 className="h-px w-24"

@@ -112,7 +112,7 @@ function ResearchHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1, ease: easeEnter }}
         >
-          serendepify <span style={{ color: 'var(--fg-4)' }}>/</span> research
+          precision xyz <span style={{ color: 'var(--fg-4)' }}>/</span> research
         </motion.span>
 
         <motion.h1

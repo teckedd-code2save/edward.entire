@@ -4,7 +4,6 @@ import type { ReactNode } from 'react';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
-import About from './pages/About';
 import Contact from './pages/Contact';
 import Research from './pages/Research';
 
@@ -51,14 +50,6 @@ function AnimatedRoutes() {
           element={
             <PageWrapper>
               <Research />
-            </PageWrapper>
-          }
-        />
-        <Route
-          path="/about"
-          element={
-            <PageWrapper>
-              <About />
             </PageWrapper>
           }
         />
