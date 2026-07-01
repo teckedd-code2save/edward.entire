@@ -118,9 +118,9 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
         style={{
           display: 'flex',
           whiteSpace: 'nowrap',
-          paddingLeft: 'clamp(55vw, 75vw, 100vw)',
+          paddingLeft: 'clamp(50vw, 70vw, 100vw)',
           paddingRight: '15vw',
-          fontSize: 'clamp(1.5rem, 7vw, 11rem)',
+          fontSize: 'clamp(2.2rem, 10vw, 12rem)',
           fontWeight: 600,
           lineHeight: 1,
           letterSpacing: '-0.03em',

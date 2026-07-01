@@ -55,10 +55,11 @@ function BentoGrid() {
       ctx = gsap.context(() => {
         const items = wrapRef.current!.querySelectorAll('.bento-item');
         gsap.fromTo(items,
-          { y: 40, opacity: 0 },
+          { y: 60, scale: 0.94, opacity: 0 },
           {
-            y: 0, opacity: 1, duration: 0.6, stagger: 0.08, ease: 'power3.out',
-            scrollTrigger: { trigger: wrapRef.current, start: 'top 75%', toggleActions: 'play none none none' },
+            y: 0, scale: 1, opacity: 1,
+            duration: 0.8, stagger: 0.1, ease: 'power3.out',
+            scrollTrigger: { trigger: wrapRef.current, start: 'top 80%', toggleActions: 'play none none none' },
           }
         );
       }, wrapRef.current!);
@@ -68,7 +69,7 @@ function BentoGrid() {
   }, []);
 
   return (
-    <section ref={wrapRef} style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: 'var(--bg)' }}>
+    <section ref={wrapRef} style={{ padding: 'clamp(40px, 6vw, 80px) 0', backgroundColor: 'var(--bg)' }}>
       <div className="mx-auto px-5 md:px-10" style={{ maxWidth: '1200px' }}>
         <p style={{
           fontFamily: "'Inter', sans-serif", fontSize: 'clamp(10px, 1.2vw, 11px)', fontWeight: 500,
@@ -287,7 +288,7 @@ function StackSection() {
   }, []);
 
   return (
-    <section ref={ref} style={{ padding: 'clamp(80px, 10vw, 140px) 0', backgroundColor: 'var(--bg-1)' }}>
+    <section ref={ref} style={{ padding: 'clamp(60px, 8vw, 120px) 0', backgroundColor: 'var(--bg-1)' }}>
       <div className="mx-auto px-5 md:px-10" style={{ maxWidth: '1100px' }}>
         {/* Stack */}
         <h2 style={{
@@ -361,7 +362,7 @@ function CTASection() {
 
   return (
     <section ref={ref} style={{
-      padding: 'clamp(80px, 12vw, 160px) 0',
+      padding: 'clamp(60px, 10vw, 140px) 0',
       backgroundColor: 'var(--bg)',
       position: 'relative', overflow: 'hidden',
     }}>
