@@ -1,62 +1,22 @@
 import { useRef, useEffect, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import HorizontalSplitText from '@/components/HorizontalSplitText';
+import { projects as portfolioProjects } from '@/components/projects/projectData';
 
 /* ═══════════════════════════════════════════════════
-   PROJECT DATA — synced by cron, top 5 by activity
+   PROJECT DATA — derived from projectData.ts (single source of truth)
    ═══════════════════════════════════════════════════ */
 
-interface Project {
-  number: string;
-  tag: string;
-  title: string;
-  blurb: string;
-  detail: string;
-  stack: string[];
-  live?: string;
-  github?: string;
-}
-
-const projects: Project[] = [
-  {
-    number: '01', tag: 'Infra Dashboard', title: 'GroundControl',
-    blurb: 'Docker, Caddy, deployments — one pane.',
-    detail: 'Self-hosted dashboard for Docker containers, Caddy reverse proxies, and deployment pipelines on a Hetzner VPS.',
-    stack: ['TypeScript', 'Docker', 'Caddy', 'Hetzner'],
-    live: 'https://groundcontrol.serendepify.com/',
-    github: 'https://github.com/teckedd-code2save/groundcontrol',
-  },
-  {
-    number: '02', tag: 'Speech AI', title: 'Akan Speech Lab',
-    blurb: 'First open ASR for Akan — 30M+ speakers.',
-    detail: 'Building ASR, TTS, and voice datasets for Akan. Custom Whisper fine-tuning for tonal phonology.',
-    stack: ['Python', 'PyTorch', 'Whisper', 'HuggingFace'],
-    github: 'https://github.com/teckedd-code2save/akan-speech-lab',
-  },
-  {
-    number: '03', tag: 'Deployment Agent', title: 'Convoy',
-    blurb: 'Rehearses your deploy. Ships it. Watches.',
-    detail: 'Agent runtime on Claude Opus 4.7. Three phases: rehearsal, ship, observe. No code modifications.',
-    stack: ['TypeScript', 'Claude Opus 4.7', 'MCP'],
-    live: 'https://convoy-home.vercel.app/',
-    github: 'https://github.com/teckedd-code2save/convoy',
-  },
-  {
-    number: '04', tag: 'Dev Tools', title: 'AI Build Tools',
-    blurb: 'AI-powered CLI — scaffolding, code gen.',
-    detail: 'Developer toolkit with AI-assisted scaffolding, dependency resolution, and project bootstrapping.',
-    stack: ['TypeScript', 'Node.js', 'AI Code Gen'],
-    live: 'https://teckedd-code2save.github.io/ai-build-tools/',
-    github: 'https://github.com/teckedd-code2save/ai-build-tools',
-  },
-  {
-    number: '05', tag: 'Blockchain', title: 'HealthWallet',
-    blurb: 'Health records on-chain. Patients control.',
-    detail: 'TON blockchain mini-app. Patients own and control health records, granting access via wallet signatures.',
-    stack: ['TypeScript', 'TON', 'Telegram Mini App'],
-    github: 'https://github.com/teckedd-code2save/HealthWallet-TON-MiniApp',
-  },
-];
+const projects = portfolioProjects.map(p => ({
+  number: p.number,
+  tag: p.tag,
+  title: p.title,
+  blurb: p.description.split('.')[0] + '.',
+  detail: p.architecture.split('.')[0] + '.',
+  stack: p.stack,
+  live: p.liveUrl,
+  github: p.githubUrl,
+}));
 
 /* ═══════════════════════════════════════════════════
    STACK — from actual GitHub repos
