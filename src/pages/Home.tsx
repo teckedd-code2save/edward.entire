@@ -93,14 +93,12 @@ function BentoGrid() {
         className="bento-grid"
         style={{
           display: 'grid',
-          gap: '1vh',
-          gridTemplateColumns: 'repeat(3, 32.5vw)',
-          gridTemplateRows: 'repeat(4, 23vh)',
-          justifyContent: 'center',
-          alignContent: 'center',
+          gap: '12px',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridTemplateRows: 'repeat(4, 1fr)',
+          width: 'min(1200px, 90vw)',
+          height: 'min(80vh, 600px)',
           position: 'relative',
-          width: '100%',
-          height: '100%',
         }}
       >
         {featured.map((p, i) => (
@@ -120,21 +118,21 @@ function BentoGrid() {
               justifyContent: 'flex-end',
               padding: 'clamp(16px, 2.5vw, 28px)',
               textDecoration: 'none',
-              transition: 'background-color 0.3s',
+              transition: 'background-color 0.3s, transform 0.3s',
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--bg-1)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--bg-2)'; }}
+            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--bg-1)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--bg-2)'; e.currentTarget.style.transform = 'translateY(0)'; }}
           >
-            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(10px, 1.2vw, 12px)', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.1em', color: p.tone === 'orange' ? 'var(--orange)' : 'var(--mauve)' }}>
+            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(9px, 1vw, 11px)', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.1em', color: p.tone === 'orange' ? 'var(--orange)' : 'var(--mauve)' }}>
               {p.number} — {p.tag}
             </span>
-            <h3 style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1.1rem, 2.2vw, 1.6rem)', fontWeight: 300, color: 'var(--fg)', letterSpacing: '-0.02em', lineHeight: 1.15, margin: '6px 0 4px' }}>
+            <h3 style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1rem, 2vw, 1.5rem)', fontWeight: 300, color: 'var(--fg)', letterSpacing: '-0.02em', lineHeight: 1.15, margin: '6px 0 4px' }}>
               {p.title}
             </h3>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(11px, 1.1vw, 13px)', fontWeight: 400, color: 'var(--fg-3)', lineHeight: 1.4, margin: 0 }}>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(10px, 1vw, 13px)', fontWeight: 400, color: 'var(--fg-2)', lineHeight: 1.4, margin: 0 }}>
               {p.blurb}
             </p>
-            <span style={{ position: 'absolute', top: 0, right: 0, fontSize: 'clamp(3rem, 6vw, 6rem)', fontWeight: 700, color: p.tone === 'orange' ? 'var(--orange)' : 'var(--mauve)', opacity: 0.06, fontFamily: "'Inter', sans-serif", lineHeight: 1, padding: '0.1em 0.2em 0 0' }}>
+            <span style={{ position: 'absolute', top: 0, right: 0, fontSize: 'clamp(3rem, 5vw, 5rem)', fontWeight: 700, color: p.tone === 'orange' ? 'var(--orange)' : 'var(--mauve)', opacity: 0.08, fontFamily: "'Inter', sans-serif", lineHeight: 1, padding: '0.1em 0.2em 0 0' }}>
               {p.number}
             </span>
           </a>
@@ -264,6 +262,20 @@ const bentoCSS = `
   grid-template-columns: repeat(3, 100vw) !important;
   grid-template-rows: repeat(4, 49.5vh) !important;
   gap: 1vh !important;
+}
+@media (max-width: 768px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: repeat(3, auto) !important;
+    gap: 8px !important;
+    width: 92vw !important;
+    height: auto !important;
+  }
+  .bento-item:nth-child(1) { grid-area: 1 / 1 / 2 / 2 !important; }
+  .bento-item:nth-child(2) { grid-area: 1 / 2 / 2 / 3 !important; }
+  .bento-item:nth-child(3) { grid-area: 2 / 1 / 3 / 3 !important; }
+  .bento-item:nth-child(4) { grid-area: 3 / 1 / 4 / 2 !important; }
+  .bento-item:nth-child(5) { grid-area: 3 / 2 / 4 / 3 !important; }
 }
 `;
 
