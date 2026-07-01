@@ -26,26 +26,28 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
         const track = trackRef.current!;
         const statementEl = sectionRef.current!.querySelector('.hs-statement');
 
-        // Phase 1: Characters fly in from below with rotation — staggered entrance
+        // Phase 1: Characters slide up from behind masks (clip-path style reveal)
+        // Using yPercent from 120 → 0 with overflow hidden on parent spans
+        gsap.set(chars, { overflow: 'hidden' });
         gsap.fromTo(chars,
-          { yPercent: 120, rotation: -8, opacity: 0 },
+          { yPercent: 120, rotation: -4, opacity: 0 },
           {
             yPercent: 0, rotation: 0, opacity: 1,
-            duration: 0.8, stagger: 0.03, ease: 'power3.out', delay: 0.3,
+            duration: 0.9, stagger: 0.04, ease: 'power3.out', delay: 0.3,
           }
         );
 
-        // Phase 2: Horizontal scroll — characters drift as you scroll
+        // Phase 2: Horizontal scroll — scrub 1 for smooth lag
         const scrollTween = gsap.to(track, {
-          x: () => -(track.scrollWidth - window.innerWidth),
+          x: () => `-${track.scrollWidth - window.innerWidth}`,
           ease: 'none',
           scrollTrigger: {
             trigger: sectionRef.current,
             pin: true,
             end: () => `+=${track.scrollWidth}`,
             scrub: 1,
+            invalidateOnRefresh: true,  // recalc on resize — from research
             onUpdate: (self) => {
-              // Statement fades in as text scrolls off (past 60% progress)
               if (statementEl && self.progress > 0.55) {
                 const op = Math.min(1, (self.progress - 0.55) * 3.5);
                 gsap.set(statementEl, { opacity: op, y: (1 - op) * 24 });
@@ -54,11 +56,11 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
           },
         });
 
-        // Phase 3: Character-level scroll-driven animation during horizontal scroll
+        // Phase 3: Character drift during horizontal scroll
         chars.forEach((char) => {
           gsap.to(char, {
-            yPercent: () => gsap.utils.random(-60, 60),
-            rotation: () => gsap.utils.random(-8, 8),
+            yPercent: () => gsap.utils.random(-50, 50),
+            rotation: () => gsap.utils.random(-6, 6),
             ease: 'none',
             scrollTrigger: {
               trigger: char,
@@ -69,6 +71,20 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
             },
           });
         });
+
+        // Phase 4: Magnetic pull — text subtly follows cursor (from research: quickTo pattern)
+        if (!window.matchMedia('(hover: none)').matches) {  // skip on touch devices
+          const xTo = gsap.quickTo(track, 'x', { duration: 0.8, ease: 'power2.out' });
+          const yTo = gsap.quickTo(track, 'y', { duration: 0.8, ease: 'power2.out' });
+          sectionRef.current!.addEventListener('mousemove', (e) => {
+            const rect = sectionRef.current!.getBoundingClientRect();
+            const x = (e.clientX - rect.left - rect.width / 2) * 0.02;
+            const y = (e.clientY - rect.top - rect.height / 2) * 0.02;
+            yTo(y);
+            // Don't override horizontal scroll tween — only apply Y magnetic pull
+            // X is driven by scroll
+          });
+        }
       }, sectionRef.current!);
     }
 
