@@ -18,8 +18,27 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: 'groundcontrol',
+    id: 'akan-speech-lab',
     number: '01',
+    title: 'Akan Speech Lab',
+    tag: 'speech AI research',
+    category: 'tooling',
+    canvasMode: 'agents',
+    description:
+      "Speech AI research lab building ASR, TTS, and voice datasets for Akan — one of West Africa's most spoken yet technologically underserved languages.",
+    stack: ['Python', 'PyTorch', 'ASR', 'TTS', 'Whisper', 'HuggingFace'],
+    architecture:
+      'Research infrastructure for low-resource speech AI. Custom ASR fine-tuning pipelines on Whisper architectures adapted for tonal Akan phonology. TTS synthesis with attention-based models trained on curated Akan voice corpora.',
+    highlights: [
+      'Building the first open ASR pipeline for Akan (Twi/Fante) — a 30M+ speaker language with near-zero speech technology.',
+      'Custom TTS models trained on curated Akan voice data — tackling tonal language synthesis challenges.',
+      'Dataset release pipeline for reproducible African NLP research.',
+    ],
+    githubUrl: 'https://github.com/teckedd-code2save/akan-speech-lab',
+  },
+  {
+    id: 'groundcontrol',
+    number: '02',
     title: 'GroundControl',
     tag: 'infra dashboard',
     category: 'deployment',
@@ -36,25 +55,6 @@ export const projects: Project[] = [
     ],
     githubUrl: 'https://github.com/teckedd-code2save/groundcontrol',
     liveUrl: 'https://groundcontrol.serendepify.com/',
-  },
-  {
-    id: 'akan-speech-lab',
-    number: '02',
-    title: 'Akan Speech Lab',
-    tag: 'speech AI research',
-    category: 'tooling',
-    canvasMode: 'agents',
-    description:
-      "Speech AI research lab building ASR, TTS, and voice datasets for Akan — one of West Africa's most spoken yet technologically underserved languages.",
-    stack: ['Python', 'PyTorch', 'ASR', 'TTS', 'Whisper', 'HuggingFace'],
-    architecture:
-      'Research infrastructure for low-resource speech AI. Custom ASR fine-tuning pipelines on Whisper architectures adapted for tonal Akan phonology. TTS synthesis with attention-based models trained on curated Akan voice corpora.',
-    highlights: [
-      'Building the first open ASR pipeline for Akan (Twi/Fante) — a 30M+ speaker language with near-zero speech technology.',
-      'Custom TTS models trained on curated Akan voice data — tackling tonal language synthesis challenges.',
-      'Dataset release pipeline for reproducible African NLP research.',
-    ],
-    githubUrl: 'https://github.com/teckedd-code2save/akan-speech-lab',
   },
   {
     id: 'convoy',
@@ -77,8 +77,27 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/teckedd-code2save/convoy',
   },
   {
-    id: 'ai-build-tools',
+    id: 'adwuma-pa',
     number: '04',
+    title: 'Adwuma Pa',
+    tag: 'elder care AI',
+    category: 'health',
+    canvasMode: 'agents',
+    description:
+      'AI family care network for Ghanaian elders — voice check-ins, concern scoring, and family coordinator dashboards, built for the Build Small Hackathon.',
+    stack: ['Python', 'Gradio', 'HuggingFace', 'Qwen', 'Whisper', 'Modal'],
+    architecture:
+      'Gradio dashboard driving a multi-agent pipeline: Whisper ASR fine-tuned for Akan handles voice check-ins in Twi, Fante, or English; NLLB translates to English; Qwen 2.5 scores concern levels; a relay service routes escalation alerts to nearby relatives. SQLite persistence with silence detection.',
+    highlights: [
+      'Small-model compliant — every model under 32B parameters, runs on consumer hardware.',
+      'Voice-first UX — elders respond in Twi, Fante, or English; ASR fine-tuned on Akan speech.',
+      'Coordinator dashboard with live checkup requests, concern scores, and family relay routing.',
+    ],
+    githubUrl: 'https://github.com/teckedd-code2save/adwuma-pa',
+  },
+  {
+    id: 'ai-build-tools',
+    number: '05',
     title: 'AI Build Tools',
     tag: 'dev acceleration',
     category: 'tooling',
@@ -95,25 +114,6 @@ export const projects: Project[] = [
     ],
     githubUrl: 'https://github.com/teckedd-code2save/ai-build-tools',
     liveUrl: 'https://teckedd-code2save.github.io/ai-build-tools/',
-  },
-  {
-    id: 'health-wallet-ton',
-    number: '05',
-    title: 'HealthWallet',
-    tag: 'TON mini-app',
-    category: 'health',
-    canvasMode: 'exchange',
-    description:
-      'Health data wallet built as a TON blockchain mini-app. Patients own and control their health records on-chain, granting and revoking access to providers without intermediaries.',
-    stack: ['TypeScript', 'TON Blockchain', 'Telegram Mini App', 'Smart Contracts', 'Web3'],
-    architecture:
-      'TON smart contracts own the access-control layer. Patient health records stored encrypted with keys only the patient holds. Mini-app distribution via Telegram for zero-friction onboarding.',
-    highlights: [
-      'Patients control their records — no hospital lock-in.',
-      'Telegram-native delivery: no app store, no install friction.',
-      'On-chain access audit trail for every read/write event.',
-    ],
-    githubUrl: 'https://github.com/teckedd-code2save/HealthWallet-TON-MiniApp',
   },
 ];
 

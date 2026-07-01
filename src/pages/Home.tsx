@@ -10,21 +10,21 @@ interface FeaturedProject {
 }
 
 const featured: FeaturedProject[] = [
-  { number: '01', tag: 'infra dashboard', tone: 'mauve', title: 'GroundControl', blurb: 'Docker, Caddy, deployments — one pane of glass.', stack: ['TypeScript', 'Docker', 'Caddy', 'Hetzner', 'React'], live: 'https://groundcontrol.serendepify.com/', github: 'https://github.com/teckedd-code2save/groundcontrol' },
-  { number: '02', tag: 'speech AI', tone: 'orange', title: 'Akan Speech Lab', blurb: 'First open ASR and TTS for Akan — 30M+ speakers.', stack: ['Python', 'PyTorch', 'Whisper', 'TTS', 'HuggingFace'], github: 'https://github.com/teckedd-code2save/akan-speech-lab' },
+  { number: '01', tag: 'speech AI', tone: 'orange', title: 'Akan Speech Lab', blurb: 'First open ASR and TTS for Akan — 30M+ speakers.', stack: ['Python', 'PyTorch', 'Whisper', 'TTS', 'HuggingFace'], github: 'https://github.com/teckedd-code2save/akan-speech-lab' },
+  { number: '02', tag: 'infra dashboard', tone: 'mauve', title: 'GroundControl', blurb: 'Docker, Caddy, deployments — one pane of glass.', stack: ['TypeScript', 'Docker', 'Caddy', 'Hetzner', 'React'], live: 'https://groundcontrol.serendepify.com/', github: 'https://github.com/teckedd-code2save/groundcontrol' },
   { number: '03', tag: 'deployment agent', tone: 'mauve', title: 'Convoy', blurb: 'Rehearses your deploy. Ships it. Watches.', stack: ['TypeScript', 'Claude Opus 4.7', 'MCP'], live: 'https://convoy-home.vercel.app/', github: 'https://github.com/teckedd-code2save/convoy' },
-  { number: '04', tag: 'dev tools', tone: 'orange', title: 'AI Build Tools', blurb: 'AI-powered CLI — scaffolding, code gen, deps.', stack: ['TypeScript', 'Node.js', 'AI Code Gen', 'CLI'], live: 'https://teckedd-code2save.github.io/ai-build-tools/', github: 'https://github.com/teckedd-code2save/ai-build-tools' },
-  { number: '05', tag: 'TON mini app', tone: 'mauve', title: 'HealthWallet', blurb: 'Health records on-chain — patients control access.', stack: ['TypeScript', 'TON Blockchain', 'Telegram Mini App'], github: 'https://github.com/teckedd-code2save/HealthWallet-TON-MiniApp' },
+  { number: '04', tag: 'elder care AI', tone: 'orange', title: 'Adwuma Pa', blurb: 'AI elder care — voice check-ins for Ghanaian families.', stack: ['Python', 'Gradio', 'HuggingFace', 'Whisper', 'Qwen'], github: 'https://github.com/teckedd-code2save/adwuma-pa' },
+  { number: '05', tag: 'dev tools', tone: 'orange', title: 'AI Build Tools', blurb: 'AI-powered CLI — scaffolding, code gen, deps.', stack: ['TypeScript', 'Node.js', 'AI Code Gen', 'CLI'], live: 'https://teckedd-code2save.github.io/ai-build-tools/', github: 'https://github.com/teckedd-code2save/ai-build-tools' },
 ];
 
 /* ── Bento Grid with GSAP Flip ── */
 
 const bentoAreas = [
+  '1 / 2 / 2 / 4',  // Akan Speech Lab — wide top (most active)
   '1 / 1 / 3 / 2',  // GroundControl — tall left
-  '1 / 2 / 2 / 4',  // Akan Speech Lab — wide top
   '2 / 2 / 4 / 3',  // Convoy — tall middle
+  '2 / 3 / 4 / 4',  // Adwuma Pa — tall right
   '3 / 1 / 4 / 2',  // AI Build Tools — left bottom
-  '2 / 3 / 4 / 4',  // HealthWallet — tall right
 ];
 
 function BentoGrid() {
