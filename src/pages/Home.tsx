@@ -126,9 +126,9 @@ function BentoGrid() {
         className="bento-grid"
         style={{
           display: 'grid',
-          gap: '1vh',
-          gridTemplateColumns: 'repeat(3, 32.5vw)',
-          gridTemplateRows: 'repeat(4, 23vh)',
+          gap: '1.5vh',
+          gridTemplateColumns: 'repeat(3, 34vw)',
+          gridTemplateRows: 'repeat(4, 24.5vh)',
           justifyContent: 'center',
           alignContent: 'center',
           position: 'relative',
@@ -152,7 +152,7 @@ function BentoGrid() {
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'flex-end',
-              padding: 'clamp(14px, 2.5vw, 28px)',
+              padding: 'clamp(18px, 3vw, 32px)',
               textDecoration: 'none',
               transition: 'background-color 0.3s',
             }}
@@ -350,8 +350,8 @@ function CTASection() {
 const mobileCSS = `
 .bento-final {
   grid-template-columns: repeat(3, 100vw) !important;
-  grid-template-rows: repeat(4, 49.5vh) !important;
-  gap: 1vh !important;
+  grid-template-rows: repeat(4, 50vh) !important;
+  gap: 1.5vh !important;
 }
 @media (max-width: 768px) {
   /* Bento: stack vertically, reduce height */
