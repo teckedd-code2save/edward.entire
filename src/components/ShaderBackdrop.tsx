@@ -22,7 +22,6 @@ export default function ShaderBackdrop() {
         sizeRange={0.3}
         opacityRange={0.2}
         shape="circle"
-        speed={0.15}
         scale={1}
         style={{ width: '100%', height: '100%' }}
       />
