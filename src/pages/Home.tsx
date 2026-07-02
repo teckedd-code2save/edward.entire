@@ -194,6 +194,74 @@ function BentoGrid() {
 }
 
 /* ═══════════════════════════════════════════════════
+   MOBILE PROJECTS — stacked cards (shown only ≤ 768px)
+   ═══════════════════════════════════════════════════ */
+
+function MobileProjects() {
+  return (
+    <section className="mobile-projects" style={{ padding: '0 0 clamp(20px, 4vw, 40px)', backgroundColor: 'var(--bg)' }}>
+      <div className="mx-auto px-5" style={{ maxWidth: '500px' }}>
+        <p style={{
+          fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 500,
+          textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--fg-4)', marginBottom: '20px',
+        }}>
+          Featured Work
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          {projects.map((p) => (
+            <a
+              key={p.number}
+              href={p.live || p.github || '#'}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'block',
+                padding: 'clamp(18px, 4vw, 28px)',
+                backgroundColor: 'var(--bg-2)',
+                textDecoration: 'none',
+                position: 'relative',
+                overflow: 'hidden',
+              }}
+            >
+              <span style={{
+                fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 500,
+                textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--fg-3)',
+                marginBottom: '6px', display: 'block',
+              }}>
+                {p.number} — {p.tag}
+              </span>
+              <h3 style={{
+                fontFamily: "'Inter', sans-serif", fontSize: '1.3rem',
+                fontWeight: 400, color: 'var(--fg)', letterSpacing: '-0.02em',
+                lineHeight: 1.15, margin: '0 0 4px',
+              }}>
+                {p.title}
+              </h3>
+              <p style={{
+                fontFamily: "'Inter', sans-serif", fontSize: '13px',
+                fontWeight: 400, color: 'var(--fg-2)', lineHeight: 1.5, margin: 0,
+              }}>
+                {p.blurb}
+              </p>
+            </a>
+          ))}
+        </div>
+        <div style={{ marginTop: '20px' }}>
+          <Link to="/projects"
+            style={{
+              fontFamily: "'Inter', sans-serif", fontSize: '13px', fontWeight: 400,
+              color: 'var(--fg)', textDecoration: 'none',
+              borderBottom: '1px solid var(--fg)', paddingBottom: '2px',
+            }}>
+            View all projects →
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
    STACK + AND MANY MORE (merged — abstract pills)
    ═══════════════════════════════════════════════════ */
 
@@ -348,31 +416,21 @@ function CTASection() {
    ═══════════════════════════════════════════════════ */
 
 const mobileCSS = `
+/* Desktop: show bento, hide mobile stack */
+.mobile-projects { display: none; }
+/* Bento final state for GSAP Flip */
 .bento-final {
   grid-template-columns: repeat(3, 100vw) !important;
   grid-template-rows: repeat(4, 50vh) !important;
   gap: 1.5vh !important;
 }
+
 @media (max-width: 768px) {
-  /* Bento: stack vertically, reduce height */
-  .bento-section {
-    height: auto !important;
-    min-height: auto !important;
-  }
-  .bento-grid {
-    grid-template-columns: 1fr !important;
-    grid-template-rows: auto !important;
-    gap: 8px !important;
-    height: auto !important;
-  }
-  .bento-item {
-    grid-area: auto !important;
-    min-height: 160px !important;
-  }
-  .bento-final {
-    display: none !important;
-  }
-  /* Reduce all section gaps on mobile */
+  /* Mobile: hide bento section entirely */
+  .bento-section { display: none !important; }
+  /* Show mobile stacked cards */
+  .mobile-projects { display: block; }
+  /* Reduce section gaps on mobile */
   section[style*="padding"] {
     padding-top: clamp(30px, 5vw, 60px) !important;
     padding-bottom: clamp(30px, 5vw, 60px) !important;
@@ -410,6 +468,7 @@ export default function Home() {
         }
       />
       <BentoGrid />
+      <MobileProjects />
       <StackSection />
       <CTASection />
     </>
