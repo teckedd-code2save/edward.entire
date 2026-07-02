@@ -217,10 +217,3 @@
   background-size: 1px 10px;
   animation: dash-march-v 0.4s linear infinite;
 }
-
-/* Shader backdrop drift */
-@keyframes shader-drift {
-  0%   { opacity: 0.35; }
-  50%  { opacity: 0.50; }
-  100% { opacity: 0.35; }
-}

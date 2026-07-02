@@ -1,4 +1,5 @@
-/** Animated gradient backdrop — soft aurora-like effect blending dark tones */
+import { NeuroNoise } from '@paper-design/shaders-react';
+
 export default function ShaderBackdrop() {
   return (
     <div
@@ -7,14 +8,18 @@ export default function ShaderBackdrop() {
         inset: 0,
         zIndex: 0,
         pointerEvents: 'none',
-        opacity: 0.45,
-        background: `
-          radial-gradient(ellipse 80% 60% at 20% 30%, rgba(20,15,30,0.8) 0%, transparent 60%),
-          radial-gradient(ellipse 60% 80% at 80% 60%, rgba(25,18,22,0.6) 0%, transparent 55%),
-          radial-gradient(ellipse 50% 50% at 50% 50%, rgba(10,8,12,0.4) 0%, transparent 50%)
-        `,
-        animation: 'shader-drift 12s ease-in-out infinite alternate',
+        opacity: 0.35,
       }}
-    />
+    >
+      <NeuroNoise
+        colorBack="#080808"
+        color1="#1a1a2e"
+        color2="#16213e"
+        color3="#0f3460"
+        scale={0.8}
+        speed={0.25}
+        style={{ width: '100%', height: '100%' }}
+      />
+    </div>
   );
 }
