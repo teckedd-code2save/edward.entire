@@ -1,4 +1,5 @@
 import { useRef, useEffect, type ReactNode } from 'react';
+import ShaderBackdrop from '@/components/ShaderBackdrop';
 
 interface HorizontalSplitTextProps {
   text: string;
@@ -104,21 +105,22 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
       ref={sectionRef}
       style={{
         overflow: 'hidden',
-        height: 'clamp(60vh, 80vh, 100vh)',
+        height: 'clamp(50vh, 70vh, 100vh)',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'center',
         backgroundColor: 'var(--bg)',
         position: 'relative',
       }}
     >
+      <ShaderBackdrop />
       <div
         ref={trackRef}
         style={{
           display: 'flex',
           whiteSpace: 'nowrap',
-          paddingLeft: 'clamp(30vw, 50vw, 100vw)',
+          paddingLeft: 'clamp(5vw, 20vw, 80vw)',
           paddingRight: '15vw',
           fontSize: 'clamp(2rem, 9vw, 12rem)',
           fontWeight: 600,

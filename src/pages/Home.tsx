@@ -109,6 +109,7 @@ function BentoGrid() {
   return (
     <section
       ref={wrapRef}
+      className="bento-section"
       style={{
         position: 'relative',
         width: '100%',
@@ -353,18 +354,28 @@ const mobileCSS = `
   gap: 1vh !important;
 }
 @media (max-width: 768px) {
+  /* Bento: stack vertically, reduce height */
+  .bento-section {
+    height: auto !important;
+    min-height: auto !important;
+  }
   .bento-grid {
     grid-template-columns: 1fr !important;
     grid-template-rows: auto !important;
     gap: 8px !important;
+    height: auto !important;
   }
   .bento-item {
     grid-area: auto !important;
-    min-height: 120px !important;
+    min-height: 100px !important;
   }
   .bento-final {
-    grid-template-columns: repeat(3, 100vw) !important;
-    grid-template-rows: repeat(4, 49.5vh) !important;
+    display: none !important;
+  }
+  /* Reduce all section gaps on mobile */
+  section[style*="padding"] {
+    padding-top: clamp(30px, 5vw, 60px) !important;
+    padding-bottom: clamp(30px, 5vw, 60px) !important;
   }
 }
 `;
