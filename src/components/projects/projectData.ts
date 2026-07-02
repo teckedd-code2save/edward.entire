@@ -18,8 +18,28 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: 'groundcontrol',
+    id: 'ai-build-tools',
     number: '01',
+    title: 'AI Build Tools',
+    tag: 'dev acceleration',
+    category: 'tooling',
+    canvasMode: 'terminal',
+    description:
+      'Developer toolkit that accelerates common build workflows with AI — scaffolding, code generation, dependency management, and project bootstrapping.',
+    stack: ['TypeScript', 'Node.js', 'AI Code Gen', 'CLI', 'GitHub Pages'],
+    architecture:
+      'CLI-first toolkit with AI-assisted code generation and project scaffolding. Template engine with smart parameter injection. Dependency resolver that suggests compatible versions and detects conflicts before install.',
+    highlights: [
+      'AI-assisted scaffolding — describe what you want to build and get a configured project structure.',
+      'Smart dependency management — version conflict detection and resolution suggestions.',
+      'GitHub Pages documentation with interactive examples for every tool in the kit.',
+    ],
+    githubUrl: 'https://github.com/teckedd-code2save/ai-build-tools',
+    liveUrl: 'https://teckedd-code2save.github.io/ai-build-tools/',
+  },
+  {
+    id: 'groundcontrol',
+    number: '02',
     title: 'GroundControl',
     tag: 'infra dashboard',
     category: 'deployment',
@@ -36,25 +56,6 @@ export const projects: Project[] = [
     ],
     githubUrl: 'https://github.com/teckedd-code2save/groundcontrol',
     liveUrl: 'https://groundcontrol.serendepify.com/',
-  },
-  {
-    id: 'akan-speech-lab',
-    number: '02',
-    title: 'Akan Speech Lab',
-    tag: 'speech AI research',
-    category: 'tooling',
-    canvasMode: 'agents',
-    description:
-      "Speech AI research lab building ASR, TTS, and voice datasets for Akan — one of West Africa's most spoken yet technologically underserved languages.",
-    stack: ['Python', 'PyTorch', 'ASR', 'TTS', 'Whisper', 'HuggingFace'],
-    architecture:
-      'Research infrastructure for low-resource speech AI. Custom ASR fine-tuning pipelines on Whisper architectures adapted for tonal Akan phonology. TTS synthesis with attention-based models trained on curated Akan voice corpora.',
-    highlights: [
-      'Building the first open ASR pipeline for Akan (Twi/Fante) — a 30M+ speaker language with near-zero speech technology.',
-      'Custom TTS models trained on curated Akan voice data — tackling tonal language synthesis challenges.',
-      'Dataset release pipeline for reproducible African NLP research.',
-    ],
-    githubUrl: 'https://github.com/teckedd-code2save/akan-speech-lab',
   },
   {
     id: 'convoy',
@@ -77,8 +78,27 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/teckedd-code2save/convoy',
   },
   {
-    id: 'adwuma-pa',
+    id: 'akan-speech-lab',
     number: '04',
+    title: 'Akan Speech Lab',
+    tag: 'speech AI research',
+    category: 'tooling',
+    canvasMode: 'agents',
+    description:
+      "Speech AI research lab building ASR, TTS, and voice datasets for Akan — one of West Africa's most spoken yet technologically underserved languages.",
+    stack: ['Python', 'PyTorch', 'ASR', 'TTS', 'Whisper', 'HuggingFace'],
+    architecture:
+      'Research infrastructure for low-resource speech AI. Custom ASR fine-tuning pipelines on Whisper architectures adapted for tonal Akan phonology. TTS synthesis with attention-based models trained on curated Akan voice corpora.',
+    highlights: [
+      'Building the first open ASR pipeline for Akan (Twi/Fante) — a 30M+ speaker language with near-zero speech technology.',
+      'Custom TTS models trained on curated Akan voice data — tackling tonal language synthesis challenges.',
+      'Dataset release pipeline for reproducible African NLP research.',
+    ],
+    githubUrl: 'https://github.com/teckedd-code2save/akan-speech-lab',
+  },
+  {
+    id: 'adwuma-pa',
+    number: '05',
     title: 'Adwuma Pa',
     tag: 'elder care AI',
     category: 'health',
@@ -94,26 +114,6 @@ export const projects: Project[] = [
       'Coordinator dashboard with live checkup requests, concern scores, and family relay routing.',
     ],
     githubUrl: 'https://github.com/teckedd-code2save/adwuma-pa',
-  },
-  {
-    id: 'ai-build-tools',
-    number: '05',
-    title: 'AI Build Tools',
-    tag: 'dev acceleration',
-    category: 'tooling',
-    canvasMode: 'terminal',
-    description:
-      'Developer toolkit that accelerates common build workflows with AI — scaffolding, code generation, dependency management, and project bootstrapping.',
-    stack: ['TypeScript', 'Node.js', 'AI Code Gen', 'CLI', 'GitHub Pages'],
-    architecture:
-      'CLI-first toolkit with AI-assisted code generation and project scaffolding. Template engine with smart parameter injection. Dependency resolver that suggests compatible versions and detects conflicts before install.',
-    highlights: [
-      'AI-assisted scaffolding — describe what you want to build and get a configured project structure.',
-      'Smart dependency management — version conflict detection and resolution suggestions.',
-      'GitHub Pages documentation with interactive examples for every tool in the kit.',
-    ],
-    githubUrl: 'https://github.com/teckedd-code2save/ai-build-tools',
-    liveUrl: 'https://teckedd-code2save.github.io/ai-build-tools/',
   },
 ];
 
