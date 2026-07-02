@@ -38,28 +38,8 @@ export const projects: Project[] = [
     liveUrl: 'https://teckedd-code2save.github.io/ai-build-tools/',
   },
   {
-    id: 'groundcontrol',
-    number: '02',
-    title: 'GroundControl',
-    tag: 'infra dashboard',
-    category: 'deployment',
-    canvasMode: 'terminal',
-    description:
-      'Self-hosted infrastructure dashboard for managing Docker containers, Caddy reverse proxies, deployments, and system health on a Hetzner VPS.',
-    stack: ['TypeScript', 'Docker', 'Caddy', 'Hetzner', 'Node.js', 'React'],
-    architecture:
-      'Monolithic dashboard connecting to Docker Engine API and Caddy admin API. Container lifecycle management with start/stop/restart/logs. Proxy route editor that writes Caddy config and reloads gracefully. Deployment pipelines triggered from GitHub webhooks.',
-    highlights: [
-      'Real-time Docker container lifecycle — start, stop, restart, and stream logs without SSH.',
-      "Caddy reverse proxy editor — add, edit, and remove routes with automatic TLS via Let's Encrypt.",
-      'One-click deployments from GitHub — webhook-driven pipelines with live status tracking.',
-    ],
-    githubUrl: 'https://github.com/teckedd-code2save/groundcontrol',
-    liveUrl: 'https://groundcontrol.serendepify.com/',
-  },
-  {
     id: 'convoy',
-    number: '03',
+    number: '02',
     title: 'Convoy',
     tag: 'deployment agent',
     category: 'deployment',
@@ -76,6 +56,26 @@ export const projects: Project[] = [
     ],
     liveUrl: 'https://convoy-home.vercel.app/',
     githubUrl: 'https://github.com/teckedd-code2save/convoy',
+  },
+  {
+    id: 'groundcontrol',
+    number: '03',
+    title: 'GroundControl',
+    tag: 'infra dashboard',
+    category: 'deployment',
+    canvasMode: 'terminal',
+    description:
+      'Self-hosted infrastructure dashboard for managing Docker containers, Caddy reverse proxies, deployments, and system health on a Hetzner VPS.',
+    stack: ['TypeScript', 'Docker', 'Caddy', 'Hetzner', 'Node.js', 'React'],
+    architecture:
+      'Monolithic dashboard connecting to Docker Engine API and Caddy admin API. Container lifecycle management with start/stop/restart/logs. Proxy route editor that writes Caddy config and reloads gracefully. Deployment pipelines triggered from GitHub webhooks.',
+    highlights: [
+      'Real-time Docker container lifecycle — start, stop, restart, and stream logs without SSH.',
+      "Caddy reverse proxy editor — add, edit, and remove routes with automatic TLS via Let's Encrypt.",
+      'One-click deployments from GitHub — webhook-driven pipelines with live status tracking.',
+    ],
+    githubUrl: 'https://github.com/teckedd-code2save/groundcontrol',
+    liveUrl: 'https://groundcontrol.serendepify.com/',
   },
   {
     id: 'akan-speech-lab',
