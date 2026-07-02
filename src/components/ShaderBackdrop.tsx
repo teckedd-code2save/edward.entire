@@ -8,17 +8,17 @@ export default function ShaderBackdrop() {
         inset: 0,
         zIndex: 0,
         pointerEvents: 'none',
-        opacity: 0.3,
+        opacity: 0.5,
       }}
     >
       <DotGrid
         colorBack="#080808"
-        colorFill="#1a1a2e"
-        colorStroke="#2a2a4e"
-        size={3}
-        gapX={48}
-        gapY={48}
-        strokeWidth={1}
+        colorFill="#1a1a3e"
+        colorStroke="#3a3a6e"
+        size={4}
+        gapX={40}
+        gapY={40}
+        strokeWidth={1.5}
         sizeRange={0.3}
         opacityRange={0.2}
         shape="circle"

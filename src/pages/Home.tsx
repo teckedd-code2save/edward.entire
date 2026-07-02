@@ -367,7 +367,7 @@ const mobileCSS = `
   }
   .bento-item {
     grid-area: auto !important;
-    min-height: 100px !important;
+    min-height: 160px !important;
   }
   .bento-final {
     display: none !important;
