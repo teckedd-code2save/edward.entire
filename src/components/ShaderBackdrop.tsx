@@ -13,11 +13,12 @@ export default function ShaderBackdrop() {
     >
       <NeuroNoise
         colorBack="#080808"
-        color1="#1a1a2e"
-        color2="#16213e"
-        color3="#0f3460"
+        colorMid="#16213e"
+        colorFront="#0f3460"
         scale={0.8}
-        speed={0.25}
+        speed={0.2}
+        brightness={0.04}
+        contrast={0.2}
         style={{ width: '100%', height: '100%' }}
       />
     </div>
