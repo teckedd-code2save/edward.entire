@@ -18,28 +18,8 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: 'ai-build-tools',
-    number: '01',
-    title: 'AI Build Tools',
-    tag: 'dev acceleration',
-    category: 'tooling',
-    canvasMode: 'terminal',
-    description:
-      'Developer toolkit that accelerates common build workflows with AI — scaffolding, code generation, dependency management, and project bootstrapping.',
-    stack: ['TypeScript', 'Node.js', 'AI Code Gen', 'CLI', 'GitHub Pages'],
-    architecture:
-      'CLI-first toolkit with AI-assisted code generation and project scaffolding. Template engine with smart parameter injection. Dependency resolver that suggests compatible versions and detects conflicts before install.',
-    highlights: [
-      'AI-assisted scaffolding — describe what you want to build and get a configured project structure.',
-      'Smart dependency management — version conflict detection and resolution suggestions.',
-      'GitHub Pages documentation with interactive examples for every tool in the kit.',
-    ],
-    githubUrl: 'https://github.com/teckedd-code2save/ai-build-tools',
-    liveUrl: 'https://teckedd-code2save.github.io/ai-build-tools/',
-  },
-  {
     id: 'groundcontrol',
-    number: '02',
+    number: '01',
     title: 'GroundControl',
     tag: 'infra dashboard',
     category: 'deployment',
@@ -56,6 +36,26 @@ export const projects: Project[] = [
     ],
     githubUrl: 'https://github.com/teckedd-code2save/groundcontrol',
     liveUrl: 'https://groundcontrol.serendepify.com/',
+  },
+  {
+    id: 'ai-build-tools',
+    number: '02',
+    title: 'AI Build Tools',
+    tag: 'dev acceleration',
+    category: 'tooling',
+    canvasMode: 'terminal',
+    description:
+      'Developer toolkit that accelerates common build workflows with AI — scaffolding, code generation, dependency management, and project bootstrapping.',
+    stack: ['TypeScript', 'Node.js', 'AI Code Gen', 'CLI', 'GitHub Pages'],
+    architecture:
+      'CLI-first toolkit with AI-assisted code generation and project scaffolding. Template engine with smart parameter injection. Dependency resolver that suggests compatible versions and detects conflicts before install.',
+    highlights: [
+      'AI-assisted scaffolding — describe what you want to build and get a configured project structure.',
+      'Smart dependency management — version conflict detection and resolution suggestions.',
+      'GitHub Pages documentation with interactive examples for every tool in the kit.',
+    ],
+    githubUrl: 'https://github.com/teckedd-code2save/ai-build-tools',
+    liveUrl: 'https://teckedd-code2save.github.io/ai-build-tools/',
   },
   {
     id: 'convoy',
