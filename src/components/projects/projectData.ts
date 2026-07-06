@@ -18,48 +18,8 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: 'groundcontrol',
-    number: '01',
-    title: 'GroundControl',
-    tag: 'infra dashboard',
-    category: 'deployment',
-    canvasMode: 'terminal',
-    description:
-      'Self-hosted infrastructure dashboard for managing Docker containers, Caddy reverse proxies, deployments, and system health on a Hetzner VPS.',
-    stack: ['TypeScript', 'Docker', 'Caddy', 'Hetzner', 'Node.js', 'React'],
-    architecture:
-      'Monolithic dashboard connecting to Docker Engine API and Caddy admin API. Container lifecycle management with start/stop/restart/logs. Proxy route editor that writes Caddy config and reloads gracefully. Deployment pipelines triggered from GitHub webhooks.',
-    highlights: [
-      'Real-time Docker container lifecycle — start, stop, restart, and stream logs without SSH.',
-      "Caddy reverse proxy editor — add, edit, and remove routes with automatic TLS via Let's Encrypt.",
-      'One-click deployments from GitHub — webhook-driven pipelines with live status tracking.',
-    ],
-    githubUrl: 'https://github.com/teckedd-code2save/groundcontrol',
-    liveUrl: 'https://groundcontrol.serendepify.com/',
-  },
-  {
-    id: 'ai-build-tools',
-    number: '02',
-    title: 'AI Build Tools',
-    tag: 'dev acceleration',
-    category: 'tooling',
-    canvasMode: 'terminal',
-    description:
-      'Developer toolkit that accelerates common build workflows with AI — scaffolding, code generation, dependency management, and project bootstrapping.',
-    stack: ['TypeScript', 'Node.js', 'AI Code Gen', 'CLI', 'GitHub Pages'],
-    architecture:
-      'CLI-first toolkit with AI-assisted code generation and project scaffolding. Template engine with smart parameter injection. Dependency resolver that suggests compatible versions and detects conflicts before install.',
-    highlights: [
-      'AI-assisted scaffolding — describe what you want to build and get a configured project structure.',
-      'Smart dependency management — version conflict detection and resolution suggestions.',
-      'GitHub Pages documentation with interactive examples for every tool in the kit.',
-    ],
-    githubUrl: 'https://github.com/teckedd-code2save/ai-build-tools',
-    liveUrl: 'https://teckedd-code2save.github.io/ai-build-tools/',
-  },
-  {
     id: 'convoy',
-    number: '03',
+    number: '01',
     title: 'Convoy',
     tag: 'deployment agent',
     category: 'deployment',
@@ -79,7 +39,7 @@ export const projects: Project[] = [
   },
   {
     id: 'akan-speech-lab',
-    number: '04',
+    number: '02',
     title: 'Akan Speech Lab',
     tag: 'speech AI research',
     category: 'tooling',
@@ -95,6 +55,46 @@ export const projects: Project[] = [
       'Dataset release pipeline for reproducible African NLP research.',
     ],
     githubUrl: 'https://github.com/teckedd-code2save/akan-speech-lab',
+  },
+  {
+    id: 'ai-build-tools',
+    number: '03',
+    title: 'AI Build Tools',
+    tag: 'dev acceleration',
+    category: 'tooling',
+    canvasMode: 'terminal',
+    description:
+      'Developer toolkit that accelerates common build workflows with AI — scaffolding, code generation, dependency management, and project bootstrapping.',
+    stack: ['TypeScript', 'Node.js', 'AI Code Gen', 'CLI', 'GitHub Pages'],
+    architecture:
+      'CLI-first toolkit with AI-assisted code generation and project scaffolding. Template engine with smart parameter injection. Dependency resolver that suggests compatible versions and detects conflicts before install.',
+    highlights: [
+      'AI-assisted scaffolding — describe what you want to build and get a configured project structure.',
+      'Smart dependency management — version conflict detection and resolution suggestions.',
+      'GitHub Pages documentation with interactive examples for every tool in the kit.',
+    ],
+    githubUrl: 'https://github.com/teckedd-code2save/ai-build-tools',
+    liveUrl: 'https://teckedd-code2save.github.io/ai-build-tools/',
+  },
+  {
+    id: 'groundcontrol',
+    number: '04',
+    title: 'GroundControl',
+    tag: 'infra dashboard',
+    category: 'deployment',
+    canvasMode: 'terminal',
+    description:
+      'Self-hosted infrastructure dashboard for managing Docker containers, Caddy reverse proxies, deployments, and system health on a Hetzner VPS.',
+    stack: ['TypeScript', 'Docker', 'Caddy', 'Hetzner', 'Node.js', 'React'],
+    architecture:
+      'Monolithic dashboard connecting to Docker Engine API and Caddy admin API. Container lifecycle management with start/stop/restart/logs. Proxy route editor that writes Caddy config and reloads gracefully. Deployment pipelines triggered from GitHub webhooks.',
+    highlights: [
+      'Real-time Docker container lifecycle — start, stop, restart, and stream logs without SSH.',
+      "Caddy reverse proxy editor — add, edit, and remove routes with automatic TLS via Let's Encrypt.",
+      'One-click deployments from GitHub — webhook-driven pipelines with live status tracking.',
+    ],
+    githubUrl: 'https://github.com/teckedd-code2save/groundcontrol',
+    liveUrl: 'https://groundcontrol.serendepify.com/',
   },
   {
     id: 'adwuma-pa',
