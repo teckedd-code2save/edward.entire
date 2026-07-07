@@ -38,28 +38,8 @@ export const projects: Project[] = [
     liveUrl: 'https://teckedd-code2save.github.io/ai-build-tools/',
   },
   {
-    id: 'convoy',
-    number: '02',
-    title: 'Convoy',
-    tag: 'deployment agent',
-    category: 'deployment',
-    canvasMode: 'terminal',
-    description:
-      'Deployment agent built for the Claude Code hackathon. Rehearses the deploy, ships it, then keeps watch — without touching your code.',
-    stack: ['TypeScript', 'Claude Opus 4.7', 'Claude Code', 'Deployment Pipelines', 'Observability'],
-    architecture:
-      'Agent runtime built on Claude Opus 4.7. Three-phase execution: rehearsal (dry-run analysis), ship (coordinated rollout), observe (post-deploy health checks). Designed as a Claude Code tool integration.',
-    highlights: [
-      'Built for the Claude Code hackathon — Opus 4.7 powering the agent loop.',
-      'Rehearse-ship-observe pattern keeps humans informed, not in the way.',
-      'No code modifications — pure deployment coordination.',
-    ],
-    liveUrl: 'https://convoy-home.vercel.app/',
-    githubUrl: 'https://github.com/teckedd-code2save/convoy',
-  },
-  {
     id: 'groundcontrol',
-    number: '03',
+    number: '02',
     title: 'GroundControl',
     tag: 'infra dashboard',
     category: 'deployment',
@@ -79,7 +59,7 @@ export const projects: Project[] = [
   },
   {
     id: 'akan-speech-lab',
-    number: '04',
+    number: '03',
     title: 'Akan Speech Lab',
     tag: 'speech AI research',
     category: 'tooling',
@@ -95,6 +75,26 @@ export const projects: Project[] = [
       'Dataset release pipeline for reproducible African NLP research.',
     ],
     githubUrl: 'https://github.com/teckedd-code2save/akan-speech-lab',
+  },
+  {
+    id: 'convoy',
+    number: '04',
+    title: 'Convoy',
+    tag: 'deployment agent',
+    category: 'deployment',
+    canvasMode: 'terminal',
+    description:
+      'Deployment agent built for the Claude Code hackathon. Rehearses the deploy, ships it, then keeps watch — without touching your code.',
+    stack: ['TypeScript', 'Claude Opus 4.7', 'Claude Code', 'Deployment Pipelines', 'Observability'],
+    architecture:
+      'Agent runtime built on Claude Opus 4.7. Three-phase execution: rehearsal (dry-run analysis), ship (coordinated rollout), observe (post-deploy health checks). Designed as a Claude Code tool integration.',
+    highlights: [
+      'Built for the Claude Code hackathon — Opus 4.7 powering the agent loop.',
+      'Rehearse-ship-observe pattern keeps humans informed, not in the way.',
+      'No code modifications — pure deployment coordination.',
+    ],
+    liveUrl: 'https://convoy-home.vercel.app/',
+    githubUrl: 'https://github.com/teckedd-code2save/convoy',
   },
   {
     id: 'adwuma-pa',
