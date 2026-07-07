@@ -18,47 +18,8 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: 'convoy',
-    number: '01',
-    title: 'Convoy',
-    tag: 'deployment agent',
-    category: 'deployment',
-    canvasMode: 'terminal',
-    description:
-      'Deployment agent built for the Claude Code hackathon. Rehearses the deploy, ships it, then keeps watch — without touching your code.',
-    stack: ['TypeScript', 'Claude Opus 4.7', 'Claude Code', 'Deployment Pipelines', 'Observability'],
-    architecture:
-      'Agent runtime built on Claude Opus 4.7. Three-phase execution: rehearsal (dry-run analysis), ship (coordinated rollout), observe (post-deploy health checks). Designed as a Claude Code tool integration.',
-    highlights: [
-      'Built for the Claude Code hackathon — Opus 4.7 powering the agent loop.',
-      'Rehearse-ship-observe pattern keeps humans informed, not in the way.',
-      'No code modifications — pure deployment coordination.',
-    ],
-    liveUrl: 'https://convoy-home.vercel.app/',
-    githubUrl: 'https://github.com/teckedd-code2save/convoy',
-  },
-  {
-    id: 'akan-speech-lab',
-    number: '02',
-    title: 'Akan Speech Lab',
-    tag: 'speech AI research',
-    category: 'tooling',
-    canvasMode: 'agents',
-    description:
-      "Speech AI research lab building ASR, TTS, and voice datasets for Akan — one of West Africa's most spoken yet technologically underserved languages.",
-    stack: ['Python', 'PyTorch', 'ASR', 'TTS', 'Whisper', 'HuggingFace'],
-    architecture:
-      'Research infrastructure for low-resource speech AI. Custom ASR fine-tuning pipelines on Whisper architectures adapted for tonal Akan phonology. TTS synthesis with attention-based models trained on curated Akan voice corpora.',
-    highlights: [
-      'Building the first open ASR pipeline for Akan (Twi/Fante) — a 30M+ speaker language with near-zero speech technology.',
-      'Custom TTS models trained on curated Akan voice data — tackling tonal language synthesis challenges.',
-      'Dataset release pipeline for reproducible African NLP research.',
-    ],
-    githubUrl: 'https://github.com/teckedd-code2save/akan-speech-lab',
-  },
-  {
     id: 'ai-build-tools',
-    number: '03',
+    number: '01',
     title: 'AI Build Tools',
     tag: 'dev acceleration',
     category: 'tooling',
@@ -77,8 +38,28 @@ export const projects: Project[] = [
     liveUrl: 'https://teckedd-code2save.github.io/ai-build-tools/',
   },
   {
+    id: 'convoy',
+    number: '02',
+    title: 'Convoy',
+    tag: 'deployment agent',
+    category: 'deployment',
+    canvasMode: 'terminal',
+    description:
+      'Deployment agent built for the Claude Code hackathon. Rehearses the deploy, ships it, then keeps watch — without touching your code.',
+    stack: ['TypeScript', 'Claude Opus 4.7', 'Claude Code', 'Deployment Pipelines', 'Observability'],
+    architecture:
+      'Agent runtime built on Claude Opus 4.7. Three-phase execution: rehearsal (dry-run analysis), ship (coordinated rollout), observe (post-deploy health checks). Designed as a Claude Code tool integration.',
+    highlights: [
+      'Built for the Claude Code hackathon — Opus 4.7 powering the agent loop.',
+      'Rehearse-ship-observe pattern keeps humans informed, not in the way.',
+      'No code modifications — pure deployment coordination.',
+    ],
+    liveUrl: 'https://convoy-home.vercel.app/',
+    githubUrl: 'https://github.com/teckedd-code2save/convoy',
+  },
+  {
     id: 'groundcontrol',
-    number: '04',
+    number: '03',
     title: 'GroundControl',
     tag: 'infra dashboard',
     category: 'deployment',
@@ -95,6 +76,25 @@ export const projects: Project[] = [
     ],
     githubUrl: 'https://github.com/teckedd-code2save/groundcontrol',
     liveUrl: 'https://groundcontrol.serendepify.com/',
+  },
+  {
+    id: 'akan-speech-lab',
+    number: '04',
+    title: 'Akan Speech Lab',
+    tag: 'speech AI research',
+    category: 'tooling',
+    canvasMode: 'agents',
+    description:
+      "Speech AI research lab building ASR, TTS, and voice datasets for Akan — one of West Africa's most spoken yet technologically underserved languages.",
+    stack: ['Python', 'PyTorch', 'ASR', 'TTS', 'Whisper', 'HuggingFace'],
+    architecture:
+      'Research infrastructure for low-resource speech AI. Custom ASR fine-tuning pipelines on Whisper architectures adapted for tonal Akan phonology. TTS synthesis with attention-based models trained on curated Akan voice corpora.',
+    highlights: [
+      'Building the first open ASR pipeline for Akan (Twi/Fante) — a 30M+ speaker language with near-zero speech technology.',
+      'Custom TTS models trained on curated Akan voice data — tackling tonal language synthesis challenges.',
+      'Dataset release pipeline for reproducible African NLP research.',
+    ],
+    githubUrl: 'https://github.com/teckedd-code2save/akan-speech-lab',
   },
   {
     id: 'adwuma-pa',
