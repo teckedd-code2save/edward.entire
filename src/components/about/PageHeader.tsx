@@ -66,8 +66,8 @@ export default function PageHeader() {
               width: 6,
               height: 6,
               borderRadius: '50%',
-              backgroundColor: 'var(--orange)',
-              boxShadow: '0 0 10px var(--orange-glow)',
+              backgroundColor: 'var(--acid)',
+              boxShadow: '0 0 10px var(--acid-glow)',
             }}
           />
           <span
@@ -97,9 +97,9 @@ export default function PageHeader() {
         >
           Engineer.
           <br />
-          <span style={{ color: 'var(--mauve)' }}>Systems</span>
+          <span style={{ color: 'var(--azure)' }}>Systems</span>
           <span style={{ color: 'var(--fg)' }}>&nbsp;thinker</span>
-          <span style={{ color: 'var(--orange)' }}>.</span>
+          <span style={{ color: 'var(--acid)' }}>.</span>
         </motion.h1>
 
         <motion.p

@@ -27,11 +27,11 @@ function CardCanvas({ project }: { project: Project }) {
   }, []);
 
   const isMauve = project.canvasMode === 'agents';
-  const accent = isMauve ? 'var(--mauve)' : 'var(--orange)';
+  const accent = isAzure ? 'var(--azure)' : 'var(--acid)';
 
   return (
     <div ref={ref} className="relative h-full w-full overflow-hidden" style={{ backgroundColor: 'var(--bg-2)' }}>
-      <div className={`absolute inset-0 ${isMauve ? 'grid-drift grid-drift--mauve' : 'grid-drift'}`} style={{ opacity: 0.35 }} />
+      <div className={`absolute inset-0 ${isAzure ? 'grid-drift grid-drift--azure' : 'grid-drift'}`} style={{ opacity: 0.35 }} />
       <div className="absolute inset-0 flex items-center justify-center font-sans tracking-[-0.05em]"
         style={{ fontSize: 'clamp(4rem, 10vw, 7rem)', color: accent, opacity: 0.12, fontWeight: 700 }}>
         ·{project.number}
@@ -60,7 +60,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           <span className="font-sans text-[10px] uppercase tracking-[0.14em]" style={{ color: 'var(--fg-4)' }}>
             {project.number}
           </span>
-          <span className="font-sans text-[9px] uppercase tracking-[0.12em]" style={{ color: 'var(--orange)' }}>
+          <span className="font-sans text-[9px] uppercase tracking-[0.12em]" style={{ color: 'var(--acid)' }}>
             {project.tag}
           </span>
         </div>

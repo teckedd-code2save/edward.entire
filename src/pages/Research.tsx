@@ -5,13 +5,13 @@ import SectionLabel from '@/components/SectionLabel';
 
 const easeEnter = [0.0, 0, 0.2, 1] as [number, number, number, number];
 
-function Tag({ text, tone = 'neutral' }: { text: string; tone?: 'neutral' | 'orange' | 'mauve' }) {
+function Tag({ text, tone = 'neutral' }: { text: string; tone?: 'neutral' | 'acid' | 'azure' }) {
   const color =
-    tone === 'orange' ? 'var(--orange)' : tone === 'mauve' ? 'var(--mauve)' : 'var(--fg-3)';
+    tone === 'acid' ? 'var(--acid)' : tone === 'azure' ? 'var(--azure)' : 'var(--fg-3)';
   const border =
-    tone === 'orange'
+    tone === 'acid'
       ? 'rgba(255,85,0,0.45)'
-      : tone === 'mauve'
+      : tone === 'azure'
         ? 'rgba(199,125,255,0.45)'
         : 'var(--border)';
   return (
@@ -93,8 +93,8 @@ function ResearchHero() {
               width: 6,
               height: 6,
               borderRadius: '50%',
-              backgroundColor: 'var(--mauve)',
-              boxShadow: '0 0 12px var(--mauve-glow)',
+              backgroundColor: 'var(--azure)',
+              boxShadow: '0 0 12px var(--azure-glow)',
             }}
           />
           <span
@@ -124,8 +124,8 @@ function ResearchHero() {
         >
           Intent
           <br />
-          <span style={{ color: 'var(--mauve)' }}>Engine</span>
-          <span style={{ color: 'var(--orange)' }}>.</span>
+          <span style={{ color: 'var(--azure)' }}>Engine</span>
+          <span style={{ color: 'var(--acid)' }}>.</span>
         </motion.h1>
 
         <motion.p
@@ -145,10 +145,10 @@ function ResearchHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.5, ease: easeEnter }}
         >
-          <Tag text="cognitive science" tone="mauve" />
+          <Tag text="cognitive science" tone="azure" />
           <Tag text="android · kotlin" />
           <Tag text="on-device ml" />
-          <Tag text="EEG · BCI" tone="mauve" />
+          <Tag text="EEG · BCI" tone="azure" />
           <Tag text="meta TRIBE v2" />
           <Tag text="executorch" />
           <Tag text="nestjs · prisma" />
@@ -175,7 +175,7 @@ function ProblemSection() {
           >
             You picked up the phone to pay a bill.
             <br />
-            <span style={{ color: 'var(--orange)' }}>Thirty minutes later, you&apos;re in Reels.</span>
+            <span style={{ color: 'var(--acid)' }}>Thirty minutes later, you&apos;re in Reels.</span>
           </h2>
         </ScrollReveal>
 
@@ -203,7 +203,7 @@ function ProblemSection() {
               This is not a willpower failure. It is a cognitive-architecture failure. Existing
               tools treat the symptom (screen time) instead of the disease
               (intent-action misalignment). What is needed is not another blocker but a&nbsp;
-              <span style={{ color: 'var(--mauve)' }}>persistent intent anchor</span>.
+              <span style={{ color: 'var(--azure)' }}>persistent intent anchor</span>.
             </p>
           </ScrollReveal>
         </div>
@@ -218,35 +218,35 @@ const foundations = [
   {
     n: '01',
     name: 'Prospective Memory',
-    tone: 'orange' as const,
+    tone: 'acid' as const,
     body: 'Remembering to do something later is fragile. Brief delay between intention and execution degrades follow-through — especially under attentional capture.',
     cite: 'Einstein & McDaniel · 1996; Smith · 2003',
   },
   {
     n: '02',
     name: 'Digital Doorway',
-    tone: 'mauve' as const,
+    tone: 'azure' as const,
     body: 'Crossing an event boundary segments experience and reduces accessibility of prior context. The lock-screen unlock is the doorway.',
     cite: 'Radvansky & Copeland · 2006, 2011',
   },
   {
     n: '03',
     name: 'Implementation Intentions',
-    tone: 'orange' as const,
+    tone: 'acid' as const,
     body: '"If X then Y" planning produces a medium-large effect on goal attainment by delegating control to environmental cues. The unlock becomes the cue.',
     cite: 'Gollwitzer · 1993, 1999 · meta d=0.65',
   },
   {
     n: '04',
     name: 'Executive Function',
-    tone: 'mauve' as const,
+    tone: 'azure' as const,
     body: 'Updating, shifting, and inhibition. Digital surfaces overwhelm inhibition; prepotent responses (scroll, tap, watch) win. The Engine acts as an external scaffold.',
     cite: 'Miyake et al. · 2000',
   },
   {
     n: '05',
     name: 'P300 ERP',
-    tone: 'orange' as const,
+    tone: 'acid' as const,
     body: 'A positive deflection ~300ms after a stimulus, marking attention allocation and significance detection. The neural verification signal for intent recognition.',
     cite: 'Sutton et al. · 1965 · Polich · 2007',
   },
@@ -265,7 +265,7 @@ function FoundationsSection() {
             style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.05 }}
           >
             Five validated pieces of&nbsp;
-            <span style={{ color: 'var(--mauve)' }}>cognitive science</span>.
+            <span style={{ color: 'var(--azure)' }}>cognitive science</span>.
           </h2>
         </ScrollReveal>
 
@@ -298,7 +298,7 @@ function FoundationsSection() {
                     className="font-sans font-medium tracking-[-0.01em]"
                     style={{
                       fontSize: '1.15rem',
-                      color: f.tone === 'orange' ? 'var(--orange)' : 'var(--mauve)',
+                      color: f.tone === 'acid' ? 'var(--acid)' : 'var(--azure)',
                     }}
                   >
                     {f.name}
@@ -328,11 +328,11 @@ function FoundationsSection() {
 /* ══════════════════ THE LOOP ══════════════════ */
 
 const loopNodes = [
-  { n: '01', label: 'Screen on',     sub: 'doorway crossed',          tone: 'orange' as const },
-  { n: '02', label: 'Intent prompt', sub: 'voice or quick-tap',       tone: 'mauve'  as const },
-  { n: '03', label: 'Anchor bubble', sub: 'persistent overlay',       tone: 'orange' as const },
-  { n: '04', label: 'Intervention',  sub: 'haptic on drift',          tone: 'mauve'  as const },
-  { n: '05', label: 'Resolve',       sub: 'archive · learn',          tone: 'orange' as const },
+  { n: '01', label: 'Screen on',     sub: 'doorway crossed',          tone: 'acid' as const },
+  { n: '02', label: 'Intent prompt', sub: 'voice or quick-tap',       tone: 'azure'  as const },
+  { n: '03', label: 'Anchor bubble', sub: 'persistent overlay',       tone: 'acid' as const },
+  { n: '04', label: 'Intervention',  sub: 'haptic on drift',          tone: 'azure'  as const },
+  { n: '05', label: 'Resolve',       sub: 'archive · learn',          tone: 'acid' as const },
 ];
 
 function LoopSection() {
@@ -360,7 +360,7 @@ function LoopSection() {
           >
             Anchor intent. Detect drift.
             <br />
-            <span style={{ color: 'var(--orange)' }}>Intervene before it&apos;s too late</span>.
+            <span style={{ color: 'var(--acid)' }}>Intervene before it&apos;s too late</span>.
           </h2>
         </ScrollReveal>
 
@@ -376,7 +376,7 @@ function LoopSection() {
               width: lineProgress,
               maxWidth: '84%',
               background:
-                'linear-gradient(90deg, var(--orange), var(--mauve), var(--orange), var(--mauve), var(--orange))',
+                'linear-gradient(90deg, var(--acid), var(--azure), var(--acid), var(--azure), var(--acid))',
               boxShadow: '0 0 14px rgba(255,85,0,0.45)',
             }}
           />
@@ -390,11 +390,11 @@ function LoopSection() {
                     width: 72,
                     height: 72,
                     borderRadius: '50%',
-                    border: `1px solid ${node.tone === 'orange' ? 'rgba(255,85,0,0.5)' : 'rgba(199,125,255,0.5)'}`,
+                    border: `1px solid ${node.tone === 'acid' ? 'rgba(255,85,0,0.5)' : 'rgba(199,125,255,0.5)'}`,
                     backgroundColor: 'var(--bg)',
-                    color: node.tone === 'orange' ? 'var(--orange)' : 'var(--mauve)',
+                    color: node.tone === 'acid' ? 'var(--acid)' : 'var(--azure)',
                     boxShadow:
-                      node.tone === 'orange'
+                      node.tone === 'acid'
                         ? '0 0 28px rgba(255,85,0,0.18)'
                         : '0 0 28px rgba(199,125,255,0.18)',
                     animationDelay: `-${i * 0.6}s`,
@@ -431,7 +431,7 @@ function LoopSection() {
 
 const paths = [
   {
-    tone: 'orange' as const,
+    tone: 'acid' as const,
     badge: 'now',
     title: 'The MVP',
     sub: 'Ships first. Solves the problem with software alone.',
@@ -444,7 +444,7 @@ const paths = [
     ],
   },
   {
-    tone: 'mauve' as const,
+    tone: 'azure' as const,
     badge: 'next',
     title: 'The Research Branch',
     sub: 'Validates intent at the neural level, not just self-report.',
@@ -472,7 +472,7 @@ function PathsSection() {
           >
             Software-only today.
             <br />
-            <span style={{ color: 'var(--mauve)' }}>Neural-validated tomorrow</span>.
+            <span style={{ color: 'var(--azure)' }}>Neural-validated tomorrow</span>.
           </h2>
         </ScrollReveal>
 
@@ -491,12 +491,12 @@ function PathsSection() {
                   <span
                     className="font-sans text-[10px] uppercase tracking-widest"
                     style={{
-                      color: p.tone === 'orange' ? 'var(--orange)' : 'var(--mauve)',
+                      color: p.tone === 'acid' ? 'var(--acid)' : 'var(--azure)',
                     }}
                   >
                     {p.badge}
                   </span>
-                  <Tag text={p.tone === 'orange' ? 'mvp' : 'research'} tone={p.tone} />
+                  <Tag text={p.tone === 'acid' ? 'mvp' : 'research'} tone={p.tone} />
                 </div>
                 <h3
                   className="mt-4 font-sans tracking-[-0.02em]"
@@ -529,7 +529,7 @@ function PathsSection() {
                     >
                       <span
                         style={{
-                          color: p.tone === 'orange' ? 'var(--orange)' : 'var(--mauve)',
+                          color: p.tone === 'acid' ? 'var(--acid)' : 'var(--azure)',
                           marginTop: 1,
                         }}
                       >
@@ -572,7 +572,7 @@ function RoadmapSection() {
             className="font-sans tracking-[-0.025em] text-[var(--fg)]"
             style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)', lineHeight: 1.05 }}
           >
-            Seven&nbsp;<span style={{ color: 'var(--orange)' }}>phases</span>, two timelines.
+            Seven&nbsp;<span style={{ color: 'var(--acid)' }}>phases</span>, two timelines.
           </h2>
         </ScrollReveal>
 
@@ -616,7 +616,7 @@ function RoadmapSection() {
                 <span
                   className="font-sans text-[10px] uppercase tracking-widest"
                   style={{
-                    color: r.state === 'research' ? 'var(--mauve)' : 'var(--orange)',
+                    color: r.state === 'research' ? 'var(--azure)' : 'var(--acid)',
                     textAlign: 'right',
                   }}
                 >
@@ -639,9 +639,9 @@ function ResearchCTA() {
       <div className="pointer-events-none absolute inset-0 opacity-[0.10]">
         <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
           {([
-            '#C77DFF', '#FF5500', '#C77DFF', '#FF5500', '#C77DFF',
-            '#FF5500', '#C77DFF', '#FF5500', '#C77DFF', '#FF5500',
-            '#C77DFF', '#FF5500', '#C77DFF', '#FF5500', '#C77DFF',
+            '#536dff', '#d8ff3e', '#536dff', '#d8ff3e', '#536dff',
+            '#d8ff3e', '#536dff', '#d8ff3e', '#536dff', '#d8ff3e',
+            '#536dff', '#d8ff3e', '#536dff', '#d8ff3e', '#536dff',
           ] as const).map((color, i) => (
             <circle
               key={i}
@@ -671,7 +671,7 @@ function ResearchCTA() {
             className="font-sans tracking-[-0.03em] text-[var(--fg)]"
             style={{ fontSize: 'clamp(2.2rem, 5.5vw, 4rem)', lineHeight: 1 }}
           >
-            Research&nbsp;<span style={{ color: 'var(--mauve)' }}>collaborators</span>.
+            Research&nbsp;<span style={{ color: 'var(--azure)' }}>collaborators</span>.
           </h2>
         </ScrollReveal>
 
@@ -697,7 +697,7 @@ function ResearchCTA() {
                 backgroundColor: 'rgba(199,125,255,0.06)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'var(--mauve)';
+                e.currentTarget.style.borderColor = 'var(--azure)';
                 e.currentTarget.style.backgroundColor = 'rgba(199,125,255,0.12)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }}
@@ -720,8 +720,8 @@ function ResearchCTA() {
                 color: 'var(--fg-3)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'var(--orange)';
-                e.currentTarget.style.color = 'var(--orange)';
+                e.currentTarget.style.borderColor = 'var(--acid)';
+                e.currentTarget.style.color = 'var(--acid)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }}
               onMouseLeave={(e) => {

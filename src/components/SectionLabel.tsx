@@ -12,8 +12,8 @@ export default function SectionLabel({ number, text }: SectionLabelProps) {
           width: 6,
           height: 6,
           borderRadius: '50%',
-          backgroundColor: 'var(--orange)',
-          boxShadow: '0 0 10px var(--orange-glow)',
+          backgroundColor: 'var(--acid)',
+          boxShadow: '0 0 10px var(--acid-glow)',
         }}
       />
       <span

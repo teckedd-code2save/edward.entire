@@ -396,7 +396,7 @@ function CTASection() {
         }}>
           <span className="cta-word" style={{ display: 'inline-block', overflow: 'hidden' }}>Build</span>{' '}
           <span className="cta-word" style={{ display: 'inline-block', overflow: 'hidden' }}>with</span>{' '}
-          <span className="cta-word" style={{ display: 'inline-block', overflow: 'hidden', color: 'var(--orange)' }}>me</span>
+          <span className="cta-word" style={{ display: 'inline-block', overflow: 'hidden', color: 'var(--acid)' }}>me</span>
           <span>.</span>
         </h2>
         <div className="cta-links" style={{

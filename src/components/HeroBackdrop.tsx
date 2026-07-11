@@ -2,10 +2,10 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 
 /**
- * Cinematic hero backdrop — calm, mauve+orange, foreground-friendly.
+ * Cinematic hero backdrop — calm, azure+acid, foreground-friendly.
  * Layers (back to front):
  *   1. Solid black base
- *   2. Two slow-drifting blurred orbs (mauve, orange)
+ *   2. Two slow-drifting blurred orbs (azure, acid)
  *   3. Faint dotted grid
  *   4. Slow horizontal scanline
  *   5. Subtle noise texture
@@ -39,7 +39,7 @@ export default function HeroBackdrop() {
           height: 'min(720px, 80vw)',
           borderRadius: '50%',
           background:
-            'radial-gradient(circle at 50% 50%, rgba(199,125,255,0.32) 0%, rgba(199,125,255,0.10) 32%, transparent 65%)',
+            'radial-gradient(circle at 50% 50%, rgba(83,109,255,0.32) 0%, rgba(83,109,255,0.10) 32%, transparent 65%)',
           filter: 'blur(40px)',
         }}
       />
@@ -55,13 +55,13 @@ export default function HeroBackdrop() {
           height: 'min(820px, 90vw)',
           borderRadius: '50%',
           background:
-            'radial-gradient(circle at 50% 50%, rgba(255,85,0,0.30) 0%, rgba(255,85,0,0.08) 35%, transparent 65%)',
+            'radial-gradient(circle at 50% 50%, rgba(216,255,62,0.30) 0%, rgba(216,255,62,0.08) 35%, transparent 65%)',
           filter: 'blur(48px)',
           animationDelay: '-8s',
         }}
       />
 
-      {/* Tertiary deep-mauve shadow blob, low + center, anchors the composition */}
+      {/* Tertiary deep-azure shadow blob, low + center, anchors the composition */}
       <div
         className="absolute"
         style={{
@@ -71,7 +71,7 @@ export default function HeroBackdrop() {
           height: '60%',
           borderRadius: '50%',
           background:
-            'radial-gradient(circle, rgba(74,30,90,0.28), transparent 60%)',
+            'radial-gradient(circle, rgba(83,109,255,0.28), transparent 60%)',
           filter: 'blur(60px)',
         }}
       />
@@ -96,8 +96,8 @@ export default function HeroBackdrop() {
         className="absolute left-0 right-0 h-px"
         style={{
           background:
-            'linear-gradient(90deg, transparent 0%, rgba(255,85,0,0.45) 50%, transparent 100%)',
-          boxShadow: '0 0 18px rgba(255,85,0,0.25)',
+            'linear-gradient(90deg, transparent 0%, rgba(216,255,62,0.45) 50%, transparent 100%)',
+          boxShadow: '0 0 18px rgba(216,255,62,0.25)',
         }}
         initial={{ top: '20%', opacity: 0 }}
         animate={{ top: ['20%', '80%', '20%'], opacity: [0, 0.45, 0] }}
@@ -109,8 +109,8 @@ export default function HeroBackdrop() {
         className="absolute left-0 right-0 h-px"
         style={{
           background:
-            'linear-gradient(90deg, transparent 0%, rgba(199,125,255,0.40) 50%, transparent 100%)',
-          boxShadow: '0 0 16px rgba(199,125,255,0.22)',
+            'linear-gradient(90deg, transparent 0%, rgba(83,109,255,0.40) 50%, transparent 100%)',
+          boxShadow: '0 0 16px rgba(83,109,255,0.22)',
         }}
         initial={{ top: '70%', opacity: 0 }}
         animate={{ top: ['70%', '15%', '70%'], opacity: [0, 0.4, 0] }}

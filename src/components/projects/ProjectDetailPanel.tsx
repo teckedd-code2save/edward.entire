@@ -6,8 +6,8 @@ interface ProjectDetailPanelProps {
   onClose: () => void;
 }
 
-function LinkButton({ href, label, variant = 'orange' }: { href: string; label: string; variant?: 'orange' | 'mauve' | 'subtle' }) {
-  const colorVar = variant === 'orange' ? 'var(--orange)' : variant === 'mauve' ? 'var(--mauve)' : 'var(--fg-3)';
+function LinkButton({ href, label, variant = 'acid' }: { href: string; label: string; variant?: 'acid' | 'azure' | 'subtle' }) {
+  const colorVar = variant === 'acid' ? 'var(--acid)' : variant === 'azure' ? 'var(--azure)' : 'var(--fg-3)';
   const borderVar = variant === 'subtle' ? 'var(--border-2)' : `1px solid ${colorVar}`;
 
   return (
@@ -121,7 +121,7 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
               </div>
               <button
                 onClick={onClose}
-                className="font-sans text-xs transition-colors duration-200 hover:text-[var(--orange)]"
+                className="font-sans text-xs transition-colors duration-200 hover:text-[var(--acid)]"
                 style={{  padding: '6px 14px', color: 'var(--fg-3)', background: 'transparent', cursor: 'pointer' }}
               >
                 Close
@@ -158,10 +158,10 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
               {/* CTAs */}
               <div className="detail-cta-row mb-10 flex flex-wrap gap-3">
                 {hasDeployLink && (
-                  <LinkButton href={project.liveUrl!} label="View live site" variant="orange" />
+                  <LinkButton href={project.liveUrl!} label="View live site" variant="acid" />
                 )}
                 {hasSourceLink && (
-                  <LinkButton href={project.githubUrl!} label="View source" variant={hasDeployLink ? 'mauve' : 'orange'} />
+                  <LinkButton href={project.githubUrl!} label="View source" variant={hasDeployLink ? 'azure' : 'acid'} />
                 )}
                 <LinkButton
                   href="mailto:edwardktwumasi1000@gmail.com"
@@ -194,7 +194,7 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
                     <li key={i} className="flex items-start gap-3">
                       <span
                         className="mt-1.5 block flex-shrink-0"
-                        style={{ width: 6, height: 6, backgroundColor: 'var(--orange)', boxShadow: '0 0 8px var(--orange-glow)' }}
+                        style={{ width: 6, height: 6, backgroundColor: 'var(--acid)', boxShadow: '0 0 8px var(--acid-glow)' }}
                       />
                       <span className="font-sans text-[15px] leading-relaxed" style={{ color: 'var(--fg-2)', fontWeight: 400 }}>
                         {h}
@@ -226,7 +226,7 @@ export default function ProjectDetailPanel({ project, onClose }: ProjectDetailPa
                   Interested in building something similar?
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  <LinkButton href="mailto:edwardktwumasi1000@gmail.com" label="Start a conversation" variant="orange" />
+                  <LinkButton href="mailto:edwardktwumasi1000@gmail.com" label="Start a conversation" variant="acid" />
                   {hasSourceLink && (
                     <LinkButton href={project.githubUrl!} label="Fork on GitHub" variant="subtle" />
                   )}

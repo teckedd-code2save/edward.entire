@@ -42,13 +42,13 @@ export default function Projects() {
       >
         <div className="mx-auto max-w-[1200px] px-5 md:px-10">
           <div className="proj-badge mb-5 flex items-center gap-3">
-            <span className="inline-block" style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: 'var(--orange)', boxShadow: '0 0 10px var(--orange-glow)' }} />
+            <span className="inline-block" style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: 'var(--acid)', boxShadow: '0 0 10px var(--acid-glow)' }} />
             <span className="font-sans text-[10px] uppercase tracking-[0.18em]" style={{ color: 'var(--fg-3)' }}>Projects</span>
           </div>
 
           <h1 className="font-sans tracking-[-0.03em]" style={{ fontSize: 'clamp(2.5rem, 7vw, 5.5rem)', fontWeight: 300, color: 'var(--fg)', lineHeight: 0.98 }}>
             <div style={{ overflow: 'hidden' }}><div className="proj-line">See the</div></div>
-            <div style={{ overflow: 'hidden' }}><div className="proj-line" style={{ color: 'var(--orange)' }}>work<span style={{ color: 'var(--mauve)' }}>.</span></div></div>
+            <div style={{ overflow: 'hidden' }}><div className="proj-line" style={{ color: 'var(--acid)' }}>work<span style={{ color: 'var(--azure)' }}>.</span></div></div>
           </h1>
 
           <p className="proj-sub mt-5 font-sans leading-relaxed" style={{ fontSize: 'clamp(0.95rem, 1.4vw, 1.15rem)', fontWeight: 400, color: 'var(--fg-2)', maxWidth: '560px' }}>
@@ -62,7 +62,7 @@ export default function Projects() {
               onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,85,0,0.14)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,85,0,0.06)'; }}
             >
-              View all on GitHub <span style={{ color: 'var(--orange)' }}>→</span>
+              View all on GitHub <span style={{ color: 'var(--acid)' }}>→</span>
             </a>
           </div>
         </div>

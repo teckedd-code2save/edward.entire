@@ -87,8 +87,8 @@ export default function Contact() {
                   width: 6,
                   height: 6,
                   borderRadius: '50%',
-                  backgroundColor: 'var(--orange)',
-                  boxShadow: '0 0 10px var(--orange-glow)',
+                  backgroundColor: 'var(--acid)',
+                  boxShadow: '0 0 10px var(--acid-glow)',
                 }}
               />
               <span
@@ -118,8 +118,8 @@ export default function Contact() {
               }}
             >
               Open a&nbsp;
-              <span style={{ color: 'var(--orange)' }}>line</span>
-              <span style={{ color: 'var(--mauve)' }}>.</span>
+              <span style={{ color: 'var(--acid)' }}>line</span>
+              <span style={{ color: 'var(--azure)' }}>.</span>
             </h1>
           </HeaderAnimation>
 
@@ -207,7 +207,7 @@ export default function Contact() {
                 marginBottom: '40px',
               }}
             >
-              Accra<span style={{ color: 'var(--orange)' }}>.</span>
+              Accra<span style={{ color: 'var(--acid)' }}>.</span>
             </h2>
           </motion.div>
 
@@ -265,7 +265,7 @@ export default function Contact() {
                 lineHeight: 1.05,
               }}
             >
-              Want the&nbsp;<span style={{ color: 'var(--mauve)' }}>full ledger</span>?
+              Want the&nbsp;<span style={{ color: 'var(--azure)' }}>full ledger</span>?
             </h3>
             <motion.a
               href="https://drive.google.com/file/d/1JOOIvOaqkOIb2CNFp-2q66To6ef7sg1P/view?usp=sharing"
@@ -283,7 +283,7 @@ export default function Contact() {
               }}
               whileHover={{
                 y: -2,
-                borderColor: 'var(--orange)',
+                borderColor: 'var(--acid)',
                 backgroundColor: 'rgba(255,85,0,0.12)',
                 transition: { duration: 0.2 },
               }}

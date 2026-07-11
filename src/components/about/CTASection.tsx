@@ -47,7 +47,7 @@ export default function CTASection() {
           }}
         >
           Take a problem, return&nbsp;
-          <span style={{ color: 'var(--orange)' }}>infrastructure</span>.
+          <span style={{ color: 'var(--acid)' }}>infrastructure</span>.
         </h2>
 
         <p
@@ -67,7 +67,7 @@ export default function CTASection() {
             backgroundColor: 'rgba(255,85,0,0.05)',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = 'var(--orange)';
+            e.currentTarget.style.borderColor = 'var(--acid)';
             e.currentTarget.style.backgroundColor = 'rgba(255,85,0,0.12)';
             e.currentTarget.style.transform = 'translateY(-2px)';
           }}

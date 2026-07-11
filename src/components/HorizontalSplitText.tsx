@@ -136,7 +136,7 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
             className="hs-char"
             style={{
               display: 'inline-block',
-              color: p.highlight ? 'var(--orange)' : 'inherit',
+              color: p.highlight ? 'var(--acid)' : 'inherit',
               textShadow: p.highlight ? '0 0 60px rgba(255,85,0,0.4)' : 'none',
               fontFamily: 'inherit',
               fontWeight: 'inherit',

@@ -154,7 +154,7 @@ export default function TechStack() {
                 <div
                   className="h-full"
                   style={{
-                    background: `linear-gradient(90deg, var(--orange) 0%, var(--mauve) 100%)`,
+                    background: `linear-gradient(90deg, var(--acid) 0%, var(--azure) 100%)`,
                     width: `${tech.proficiency * 100}%`,
                     transform: isInView ? 'scaleX(1)' : 'scaleX(0)',
                     transformOrigin: 'left',
