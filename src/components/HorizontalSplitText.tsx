@@ -1,5 +1,4 @@
 import { useRef, useEffect, type ReactNode } from 'react';
-import ShaderBackdrop from '@/components/ShaderBackdrop';
 
 interface HorizontalSplitTextProps {
   text: string;
@@ -49,8 +48,8 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
             scrub: 1,
             invalidateOnRefresh: true,  // recalc on resize — from research
             onUpdate: (self) => {
-              if (statementEl && self.progress > 0.55) {
-                const op = Math.min(1, (self.progress - 0.55) * 3.5);
+              if (statementEl && self.progress > 0.80) {
+                const op = Math.min(1, (self.progress - 0.80) * 8);
                 gsap.set(statementEl, { opacity: op, y: (1 - op) * 24 });
               }
             },
@@ -114,7 +113,6 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
         position: 'relative',
       }}
     >
-      <ShaderBackdrop />
       <div
         ref={trackRef}
         style={{

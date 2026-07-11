@@ -149,17 +149,18 @@ function BentoGrid() {
               position: 'relative',
               overflow: 'hidden',
               backgroundColor: 'var(--bg-2)',
+              border: '1px solid var(--border)',
               borderRadius: 'var(--radius)',
               boxShadow: 'var(--shadow-card)',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'flex-end',
-              padding: 'clamp(18px, 3vw, 32px)',
+              padding: 'clamp(20px, 3.5vw, 36px)',
               textDecoration: 'none',
-              transition: 'background-color 0.3s',
+              transition: 'border-color 0.3s, background-color 0.3s',
             }}
-            onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--bg-1)'; }}
-            onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'var(--bg-2)'; }}
+            onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--bg-1)'; e.currentTarget.style.borderColor = 'var(--acid)'; }}
+            onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'var(--bg-2)'; e.currentTarget.style.borderColor = 'var(--border)'; }}
           >
             <span style={{
               fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(9px, 1vw, 11px)', fontWeight: 600,
@@ -218,8 +219,9 @@ function MobileProjects() {
               rel="noopener noreferrer"
               style={{
                 display: 'block',
-                padding: 'clamp(18px, 4vw, 28px)',
+                padding: 'clamp(20px, 4vw, 32px)',
                 backgroundColor: 'var(--bg-2)',
+                border: '1px solid var(--border)',
                 borderRadius: 'var(--radius)',
                 boxShadow: 'var(--shadow-card)',
                 textDecoration: 'none',
