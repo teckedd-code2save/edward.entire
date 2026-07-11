@@ -309,8 +309,11 @@ function StackSection() {
           {stack.map(s => (
             <span key={s} className="stack-item" style={{
               fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(11px, 1.2vw, 13px)', fontWeight: 600,
-              color: 'var(--fg-2)', padding: '6px 14px', border: '1px solid var(--border)',
-            }}>
+              color: 'var(--fg-2)', padding: '7px 16px', border: '1px solid var(--border)',
+              borderRadius: '999px', transition: 'border-color 0.2s, color 0.2s',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--acid)'; e.currentTarget.style.color = 'var(--fg)'; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--fg-2)'; }}>
               {s}
             </span>
           ))}
@@ -327,8 +330,11 @@ function StackSection() {
           {moreStack.map(s => (
             <span key={s} className="more-item" style={{
               fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(11px, 1.2vw, 13px)', fontWeight: 600,
-              color: 'var(--fg-4)', padding: '6px 14px',
-            }}>
+              color: 'var(--fg-4)', padding: '7px 16px', borderRadius: '999px',
+              transition: 'color 0.2s',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.color = 'var(--acid)'; }}
+            onMouseLeave={e => { e.currentTarget.style.color = 'var(--fg-4)'; }}>
               {s}
             </span>
           ))}

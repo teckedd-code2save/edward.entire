@@ -115,12 +115,12 @@ export default function Footer() {
                 style={{
                   fontFamily: "'Manrope', system-ui, sans-serif",
                   fontSize: '16px',
-                  fontWeight: 400,
+                  fontWeight: 600,
                   color: 'var(--fg-2)',
                   textDecoration: 'none',
                   transition: 'color 0.2s',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.color = 'var(--fg)'; }}
+                onMouseEnter={e => { e.currentTarget.style.color = 'var(--acid)'; }}
                 onMouseLeave={e => { e.currentTarget.style.color = 'var(--fg-2)'; }}
               >
                 serendepify.com →
@@ -132,12 +132,12 @@ export default function Footer() {
                 style={{
                   fontFamily: "'Manrope', system-ui, sans-serif",
                   fontSize: '16px',
-                  fontWeight: 400,
+                  fontWeight: 600,
                   color: 'var(--fg-2)',
                   textDecoration: 'none',
                   transition: 'color 0.2s',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.color = 'var(--fg)'; }}
+                onMouseEnter={e => { e.currentTarget.style.color = 'var(--acid)'; }}
                 onMouseLeave={e => { e.currentTarget.style.color = 'var(--fg-2)'; }}
               >
                 GitHub →

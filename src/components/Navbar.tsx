@@ -77,13 +77,14 @@ export default function Navbar() {
                 style={{
                   fontFamily: "'Manrope', system-ui, sans-serif",
                   fontSize: '13px',
-                  fontWeight: 400,
+                  fontWeight: 600,
                   letterSpacing: '0.01em',
                   color: active ? 'var(--fg)' : 'var(--fg-3)',
                   textDecoration: 'none',
-                  borderBottom: active ? '1px solid var(--fg)' : '1px solid transparent',
-                  paddingBottom: '2px',
+                  borderBottom: active ? '1px solid var(--acid)' : '1px solid transparent',
                 }}
+                onMouseEnter={e => { if (!active) e.currentTarget.style.color = 'var(--fg)'; }}
+                onMouseLeave={e => { if (!active) e.currentTarget.style.color = 'var(--fg-3)'; }}
               >
                 {link.label}
               </Link>
