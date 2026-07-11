@@ -69,14 +69,14 @@ export default function Home() {
                     <span className="project-arrow">View the build <span aria-hidden="true">↗</span></span>
                   </div>
                   <div className="project-visual" aria-hidden="true">
-                    <div className="project-glyph">{index === 0 ? 'I' : index === 1 ? 'S' : 'C'}</div>
+                    <div className="project-glyph">{index === 2 ? 'GH' : project.title.charAt(0)}</div>
                     <small>{project.stack.slice(0, 3).join(' · ')}</small>
                   </div>
                 </a>
               );
             })}
           </div>
-          <div style={{ marginTop: 34 }}><Link className="button-ghost" to="/projects">View all six systems →</Link></div>
+          <div style={{ marginTop: 34 }}><Link className="button-ghost" to="/projects">View all seven systems →</Link></div>
         </div>
       </section>
 

@@ -10,10 +10,10 @@ const tracks = [
   },
   {
     number: '02',
-    title: 'African speech intelligence',
-    body: 'Fine-tuning and serving speech recognition for Akan, with a wider goal of practical voice interfaces for Twi, Ga, Nzema, and other underserved languages.',
-    link: 'https://github.com/teckedd-code2save/akan-speech-lab',
-    label: 'Explore the speech lab',
+    title: 'Ghana Health AI',
+    body: 'Exploring how Twi-first voice interaction, grounded health knowledge, and careful escalation can make everyday health information more accessible in Ghana.',
+    link: 'https://github.com/teckedd-code2save/ghana-health-ai',
+    label: 'Explore the health AI build',
   },
   {
     number: '03',
@@ -41,7 +41,7 @@ export default function Research() {
             <p className="lede">My research interests sit between interactive AI, machine learning, human–computer interaction, and the realities of building for communities underrepresented in today’s technology.</p>
             <a className="button-primary" href="https://precisionxyz.serendepify.com/#/research" target="_blank" rel="noreferrer">Visit the research hub ↗</a>
           </div>
-          <div className="research-orb" aria-hidden="true"><div className="research-ring" /><div className="research-core">R</div><span className="signal-chip one">HCI</span><span className="signal-chip two">edge AI</span><span className="signal-chip three">speech</span></div>
+          <div className="research-orb" aria-hidden="true"><div className="research-ring" /><div className="research-core">R</div><span className="signal-chip one">HCI</span><span className="signal-chip two">edge AI</span><span className="signal-chip three">health AI</span></div>
         </motion.div>
       </section>
 
