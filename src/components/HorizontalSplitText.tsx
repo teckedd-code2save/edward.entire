@@ -127,7 +127,7 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
           lineHeight: 1,
           letterSpacing: '-0.03em',
           color: 'var(--fg)',
-          fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          fontFamily: "'(Manrope', system-ui, sans-serif",
         }}
       >
         {parts.map((p, i) => (

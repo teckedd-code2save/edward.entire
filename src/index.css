@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -29,6 +29,15 @@
     --mauve-muted: rgba(199,125,255,0.18);
     --mauve-glow: rgba(199,125,255,0.30);
     --mauve-glow-soft: rgba(199,125,255,0.10);
+
+    /* Acid accent — Pocket Models lime */
+    --acid: #d8ff3e;
+    --acid-muted: rgba(216,255,62,0.12);
+
+    /* Shadows — deep, generous */
+    --shadow-card: 0 20px 60px rgba(0,0,0,0.40);
+    --shadow-button: 0 8px 0 rgba(255,255,255,0.10);
+    --radius: 24px;
 
     --terminal-green: #4ade80;
     --terminal-amber: #fbbf24;
@@ -63,7 +72,7 @@
   body {
     background-color: var(--bg);
     color: var(--fg);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Manrope', system-ui, sans-serif;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -71,14 +80,14 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-weight: 300;
-    letter-spacing: -0.02em;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.04em;
   }
 
-  h1 { font-weight: 300; }
-  h2 { font-weight: 350; }
-  h3 { font-weight: 400; }
+  h1 { font-weight: 700; letter-spacing: -0.06em; }
+  h2 { font-weight: 600; letter-spacing: -0.04em; }
+  h3 { font-weight: 500; letter-spacing: -0.02em; }
 
   /* Custom Scrollbar */
   ::-webkit-scrollbar {

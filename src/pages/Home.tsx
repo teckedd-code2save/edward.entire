@@ -149,6 +149,8 @@ function BentoGrid() {
               position: 'relative',
               overflow: 'hidden',
               backgroundColor: 'var(--bg-2)',
+              borderRadius: 'var(--radius)',
+              boxShadow: 'var(--shadow-card)',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'flex-end',
@@ -160,21 +162,21 @@ function BentoGrid() {
             onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'var(--bg-2)'; }}
           >
             <span style={{
-              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(9px, 1vw, 11px)', fontWeight: 500,
+              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(9px, 1vw, 11px)', fontWeight: 600,
               textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--fg-3)',
             }}>
               {p.number} — {p.tag}
             </span>
             <h3 style={{
               fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1rem, 2vw, 1.5rem)',
-              fontWeight: 400, color: 'var(--fg)', letterSpacing: '-0.02em',
+              fontWeight: 600, color: 'var(--fg)', letterSpacing: '-0.02em',
               lineHeight: 1.15, margin: '6px 0 4px',
             }}>
               {p.title}
             </h3>
             <p style={{
               fontFamily: "'Inter', sans-serif", fontSize: 'clamp(10px, 1vw, 13px)',
-              fontWeight: 400, color: 'var(--fg-2)', lineHeight: 1.4, margin: 0,
+              fontWeight: 600, color: 'var(--fg-2)', lineHeight: 1.4, margin: 0,
             }}>
               {p.blurb}
             </p>
@@ -202,7 +204,7 @@ function MobileProjects() {
     <section className="mobile-projects" style={{ padding: '0 0 clamp(20px, 4vw, 40px)', backgroundColor: 'var(--bg)' }}>
       <div className="mx-auto px-5" style={{ maxWidth: '500px' }}>
         <p style={{
-          fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 500,
+          fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 600,
           textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--fg-4)', marginBottom: '20px',
         }}>
           Featured Work
@@ -218,13 +220,15 @@ function MobileProjects() {
                 display: 'block',
                 padding: 'clamp(18px, 4vw, 28px)',
                 backgroundColor: 'var(--bg-2)',
+                borderRadius: 'var(--radius)',
+                boxShadow: 'var(--shadow-card)',
                 textDecoration: 'none',
                 position: 'relative',
                 overflow: 'hidden',
               }}
             >
               <span style={{
-                fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 500,
+                fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 600,
                 textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--fg-3)',
                 marginBottom: '6px', display: 'block',
               }}>
@@ -232,14 +236,14 @@ function MobileProjects() {
               </span>
               <h3 style={{
                 fontFamily: "'Inter', sans-serif", fontSize: '1.3rem',
-                fontWeight: 400, color: 'var(--fg)', letterSpacing: '-0.02em',
+                fontWeight: 600, color: 'var(--fg)', letterSpacing: '-0.02em',
                 lineHeight: 1.15, margin: '0 0 4px',
               }}>
                 {p.title}
               </h3>
               <p style={{
                 fontFamily: "'Inter', sans-serif", fontSize: '13px',
-                fontWeight: 400, color: 'var(--fg-2)', lineHeight: 1.5, margin: 0,
+                fontWeight: 600, color: 'var(--fg-2)', lineHeight: 1.5, margin: 0,
               }}>
                 {p.blurb}
               </p>
@@ -249,7 +253,7 @@ function MobileProjects() {
         <div style={{ marginTop: '20px' }}>
           <Link to="/projects"
             style={{
-              fontFamily: "'Inter', sans-serif", fontSize: '13px', fontWeight: 400,
+              fontFamily: "'Inter', sans-serif", fontSize: '13px', fontWeight: 600,
               color: 'var(--fg)', textDecoration: 'none',
               borderBottom: '1px solid var(--fg)', paddingBottom: '2px',
             }}>
@@ -297,14 +301,14 @@ function StackSection() {
         {/* Stack */}
         <h2 style={{
           fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1.8rem, 4vw, 3rem)',
-          fontWeight: 300, color: 'var(--fg)', letterSpacing: '-0.02em', marginBottom: 'clamp(20px, 3vw, 32px)',
+          fontWeight: 600, color: 'var(--fg)', letterSpacing: '-0.02em', marginBottom: 'clamp(20px, 3vw, 32px)',
         }}>
           Stack
         </h2>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: 'clamp(48px, 6vw, 80px)' }}>
           {stack.map(s => (
             <span key={s} className="stack-item" style={{
-              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(11px, 1.2vw, 13px)', fontWeight: 400,
+              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(11px, 1.2vw, 13px)', fontWeight: 600,
               color: 'var(--fg-2)', padding: '6px 14px', border: '1px solid var(--border)',
             }}>
               {s}
@@ -315,14 +319,14 @@ function StackSection() {
         {/* And many more — abstract pills, not repo list */}
         <h3 style={{
           fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)',
-          fontWeight: 300, color: 'var(--fg-3)', letterSpacing: '-0.02em', marginBottom: 'clamp(16px, 2vw, 24px)',
+          fontWeight: 600, color: 'var(--fg-3)', letterSpacing: '-0.02em', marginBottom: 'clamp(16px, 2vw, 24px)',
         }}>
           And many more
         </h3>
         <div className="more-grid" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
           {moreStack.map(s => (
             <span key={s} className="more-item" style={{
-              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(11px, 1.2vw, 13px)', fontWeight: 400,
+              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(11px, 1.2vw, 13px)', fontWeight: 600,
               color: 'var(--fg-4)', padding: '6px 14px',
             }}>
               {s}
@@ -374,7 +378,7 @@ function CTASection() {
         <h2 style={{
           fontFamily: "'Inter', sans-serif",
           fontSize: 'clamp(2rem, 7vw, 6rem)',
-          fontWeight: 300, color: 'var(--fg)',
+          fontWeight: 600, color: 'var(--fg)',
           lineHeight: 1.0, letterSpacing: '-0.04em', marginBottom: 'clamp(24px, 4vw, 40px)',
         }}>
           <span className="cta-word" style={{ display: 'inline-block', overflow: 'hidden' }}>Build</span>{' '}
@@ -387,19 +391,24 @@ function CTASection() {
         }}>
           <Link to="/contact"
             style={{
-              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(13px, 1.3vw, 15px)', fontWeight: 400,
-              color: 'var(--fg)', padding: 'clamp(12px, 2vw, 14px) clamp(24px, 3vw, 36px)',
-              border: '1px solid var(--fg)', textDecoration: 'none', transition: 'all 0.2s',
+              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(13px, 1.3vw, 15px)', fontWeight: 700,
+              padding: 'clamp(12px, 2vw, 15px) clamp(24px, 3vw, 36px)',
+              background: 'var(--fg)', color: 'var(--bg)',
+              borderRadius: '999px', textDecoration: 'none',
+              boxShadow: 'var(--shadow-button)',
+              transition: 'transform 0.2s, box-shadow 0.2s',
+              display: 'inline-flex', gap: '8px',
             }}
-            onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--fg)'; e.currentTarget.style.color = 'var(--bg)'; }}
-            onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--fg)'; }}>
-            Start a conversation →
+            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 0 rgba(255,255,255,.16)'; }}
+            onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 0 rgba(255,255,255,.12)'; }}>
+            Start a conversation <span aria-hidden="true">↘</span>
           </Link>
           <a href="https://github.com/teckedd-code2save" target="_blank" rel="noopener noreferrer"
             style={{
-              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(13px, 1.3vw, 15px)', fontWeight: 400,
-              color: 'var(--fg-2)', padding: 'clamp(12px, 2vw, 14px) clamp(24px, 3vw, 36px)',
-              border: '1px solid var(--border-2)', textDecoration: 'none', transition: 'all 0.2s',
+              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(13px, 1.3vw, 15px)', fontWeight: 600,
+              color: 'var(--fg-2)', padding: 'clamp(12px, 2vw, 15px) clamp(24px, 3vw, 36px)',
+              borderRadius: '999px', textDecoration: 'none',
+              border: '1px solid var(--border-2)', transition: 'all 0.2s',
             }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--fg)'; e.currentTarget.style.color = 'var(--fg)'; }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-2)'; e.currentTarget.style.color = 'var(--fg-2)'; }}>
@@ -453,14 +462,14 @@ export default function Home() {
           <div style={{ maxWidth: '700px', margin: '0 auto', padding: '0 20px' }}>
             <h2 style={{
               fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1.4rem, 5vw, 4rem)',
-              fontWeight: 300, color: 'var(--fg)', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '12px',
+              fontWeight: 600, color: 'var(--fg)', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '12px',
             }}>
               Building infrastructure<br />
               <span style={{ color: 'var(--orange)' }}>for the agent-native era</span>
             </h2>
             <p style={{
               fontFamily: "'Inter', sans-serif", fontSize: 'clamp(0.85rem, 1.3vw, 1.05rem)',
-              fontWeight: 400, color: 'var(--fg-2)', lineHeight: 1.6,
+              fontWeight: 600, color: 'var(--fg-2)', lineHeight: 1.6,
             }}>
               Tools that let agents and teams accomplish more.
             </p>

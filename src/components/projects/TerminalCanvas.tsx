@@ -113,7 +113,7 @@ export default function TerminalCanvas({ speedMultiplier = 1, width = 400, heigh
       }
 
       // Draw visible lines
-      ctx.font = `${fontSize}px "Inter", -apple-system, sans-serif`;
+      ctx.font = `${fontSize}px "Manrope", system-ui, sans-serif`;
       ctx.textBaseline = 'top';
 
       let yOffset = padding;
