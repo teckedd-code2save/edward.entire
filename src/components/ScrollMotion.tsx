@@ -55,7 +55,7 @@ export default function ScrollMotion() {
                 yPercent: -8,
                 rotate: -2,
                 ease: 'none',
-                scrollTrigger: { trigger: visual, start: 'top bottom', end: 'bottom top', scrub: 0.8 },
+                scrollTrigger: { trigger: visual, start: 'top bottom', end: 'bottom top', scrub: 0.35 },
               },
             );
           });

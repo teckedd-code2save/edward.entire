@@ -27,6 +27,7 @@ export default function AmbientSignalCanvas() {
     let width = 0;
     let height = 0;
     let frame = 0;
+    let isVisible = true;
     let signals: Signal[] = [];
 
     const createSignals = () => {
@@ -93,7 +94,7 @@ export default function AmbientSignalCanvas() {
         context.fill();
       });
 
-      if (!reducedMotion) frame = requestAnimationFrame(draw);
+      if (!reducedMotion && isVisible) frame = requestAnimationFrame(draw);
     };
 
     const onPointerMove = (event: PointerEvent) => {
@@ -107,7 +108,16 @@ export default function AmbientSignalCanvas() {
     };
 
     const observer = new ResizeObserver(resize);
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        cancelAnimationFrame(frame);
+        if (isVisible && !reducedMotion) frame = requestAnimationFrame(draw);
+      },
+      { rootMargin: '120px' },
+    );
     observer.observe(stage);
+    visibilityObserver.observe(stage);
     stage.addEventListener('pointermove', onPointerMove);
     stage.addEventListener('pointerleave', onPointerLeave);
     resize();
@@ -116,6 +126,7 @@ export default function AmbientSignalCanvas() {
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
+      visibilityObserver.disconnect();
       stage.removeEventListener('pointermove', onPointerMove);
       stage.removeEventListener('pointerleave', onPointerLeave);
     };
