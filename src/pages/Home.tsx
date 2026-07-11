@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { projects } from '@/components/projects/projectData';
+import AmbientSignalCanvas from '@/components/AmbientSignalCanvas';
 
 const stack = ['.NET 8', 'C#', 'TypeScript', 'Python', 'Kotlin', 'PostgreSQL', 'Redis', 'Kafka', 'Docker', 'LiteRT', 'Hugging Face', 'Agent systems'];
 
@@ -40,6 +41,7 @@ export default function Home() {
         </motion.div>
 
         <motion.div className="portrait-stage" initial={{ opacity: 0, scale: .94 }} animate={{ opacity: 1, scale: 1 }} transition={{ ...enter, delay: .16 }} aria-label="Portrait of Edward Twumasi surrounded by areas of expertise">
+          <AmbientSignalCanvas />
           <div className="portrait-orbit" aria-hidden="true" />
           <div className="signal-chip one">backend systems</div>
           <div className="signal-chip two">on-device AI</div>

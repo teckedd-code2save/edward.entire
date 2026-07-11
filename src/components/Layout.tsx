@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import Lenis from '@studio-freight/lenis';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import ScrollMotion from './ScrollMotion';
 
 interface LayoutProps {
   children: ReactNode;
@@ -39,6 +40,7 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <div className="min-h-[100dvh] flex flex-col">
+      <ScrollMotion />
       <a className="skip-link" href="#main-content">Skip to content</a>
       <Navbar />
       <main id="main-content" className="flex-1">{children}</main>
