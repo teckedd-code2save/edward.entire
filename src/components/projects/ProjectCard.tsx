@@ -26,7 +26,7 @@ function CardCanvas({ project }: { project: Project }) {
     return () => ctx?.revert();
   }, []);
 
-  const isMauve = project.canvasMode === 'agents';
+  const isAzure = project.canvasMode === 'agents';
   const accent = isAzure ? 'var(--azure)' : 'var(--acid)';
 
   return (
