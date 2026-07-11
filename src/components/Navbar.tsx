@@ -12,7 +12,7 @@ function Logo() {
     <Link to="/" className="flex items-center gap-2.5 group" style={{ textDecoration: 'none' }}>
       <span
         style={{
-          fontFamily: "'Inter', sans-serif",
+          fontFamily: "'Manrope', system-ui, sans-serif",
           fontSize: '15px',
           fontWeight: 600,
           letterSpacing: '-0.04em',
@@ -25,7 +25,7 @@ function Logo() {
       </span>
       <span
         style={{
-          fontFamily: "'Inter', sans-serif",
+          fontFamily: "'Manrope', system-ui, sans-serif",
           fontSize: '15px',
           fontWeight: 300,
           letterSpacing: '-0.04em',
@@ -75,7 +75,7 @@ export default function Navbar() {
                 to={link.path}
                 className="transition-all duration-200"
                 style={{
-                  fontFamily: "'Inter', sans-serif",
+                  fontFamily: "'Manrope', system-ui, sans-serif",
                   fontSize: '13px',
                   fontWeight: 400,
                   letterSpacing: '0.01em',
@@ -116,7 +116,7 @@ export default function Navbar() {
                 key={link.path}
                 to={link.path}
                 style={{
-                  fontFamily: "'Inter', sans-serif",
+                  fontFamily: "'Manrope', system-ui, sans-serif",
                   fontSize: '15px',
                   fontWeight: 400,
                   color: active ? 'var(--fg)' : 'var(--fg-3)',

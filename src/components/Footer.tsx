@@ -53,7 +53,7 @@ export default function Footer() {
           bottom: '-0.15em',
           left: '50%',
           transform: 'translateX(-50%)',
-          fontFamily: "'Inter', sans-serif",
+          fontFamily: "'Manrope', system-ui, sans-serif",
           fontSize: 'clamp(6rem, 22vw, 20rem)',
           fontWeight: 700,
           letterSpacing: '-0.06em',
@@ -85,7 +85,7 @@ export default function Footer() {
             {/* Brand */}
             <div>
               <div style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Manrope', system-ui, sans-serif",
                 fontSize: '24px',
                 fontWeight: 600,
                 letterSpacing: '-0.04em',
@@ -95,7 +95,7 @@ export default function Footer() {
                 precision <span style={{ fontWeight: 300, fontStyle: 'italic', color: 'var(--fg-3)' }}>xyz</span>
               </div>
               <p style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Manrope', system-ui, sans-serif",
                 fontSize: '14px',
                 fontWeight: 400,
                 color: 'var(--fg-3)',
@@ -113,7 +113,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  fontFamily: "'Inter', sans-serif",
+                  fontFamily: "'Manrope', system-ui, sans-serif",
                   fontSize: '16px',
                   fontWeight: 400,
                   color: 'var(--fg-2)',
@@ -130,7 +130,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  fontFamily: "'Inter', sans-serif",
+                  fontFamily: "'Manrope', system-ui, sans-serif",
                   fontSize: '16px',
                   fontWeight: 400,
                   color: 'var(--fg-2)',
@@ -154,7 +154,7 @@ export default function Footer() {
             borderTop: '1px solid var(--border)',
           }}>
             <span style={{
-              fontFamily: "'Inter', sans-serif",
+              fontFamily: "'Manrope', system-ui, sans-serif",
               fontSize: '12px',
               fontWeight: 400,
               color: 'var(--fg-4)',
@@ -162,7 +162,7 @@ export default function Footer() {
               © 2026
             </span>
             <span style={{
-              fontFamily: "'Inter', sans-serif",
+              fontFamily: "'Manrope', system-ui, sans-serif",
               fontSize: '12px',
               fontWeight: 400,
               color: 'var(--fg-4)',

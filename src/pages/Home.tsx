@@ -162,20 +162,20 @@ function BentoGrid() {
             onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'var(--bg-2)'; }}
           >
             <span style={{
-              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(9px, 1vw, 11px)', fontWeight: 600,
+              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(9px, 1vw, 11px)', fontWeight: 600,
               textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--fg-3)',
             }}>
               {p.number} — {p.tag}
             </span>
             <h3 style={{
-              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1rem, 2vw, 1.5rem)',
+              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(1rem, 2vw, 1.5rem)',
               fontWeight: 600, color: 'var(--fg)', letterSpacing: '-0.02em',
               lineHeight: 1.15, margin: '6px 0 4px',
             }}>
               {p.title}
             </h3>
             <p style={{
-              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(10px, 1vw, 13px)',
+              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(10px, 1vw, 13px)',
               fontWeight: 600, color: 'var(--fg-2)', lineHeight: 1.4, margin: 0,
             }}>
               {p.blurb}
@@ -184,7 +184,7 @@ function BentoGrid() {
               position: 'absolute', top: 0, right: 0,
               fontSize: 'clamp(3rem, 5vw, 5rem)', fontWeight: 700,
               color: 'var(--fg)', opacity: 0.04,
-              fontFamily: "'Inter', sans-serif", lineHeight: 1, padding: '0.1em 0.2em 0 0',
+              fontFamily: "'Manrope', system-ui, sans-serif", lineHeight: 1, padding: '0.1em 0.2em 0 0',
             }}>
               {p.number}
             </span>
@@ -204,7 +204,7 @@ function MobileProjects() {
     <section className="mobile-projects" style={{ padding: '0 0 clamp(20px, 4vw, 40px)', backgroundColor: 'var(--bg)' }}>
       <div className="mx-auto px-5" style={{ maxWidth: '500px' }}>
         <p style={{
-          fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 600,
+          fontFamily: "'Manrope', system-ui, sans-serif", fontSize: '11px', fontWeight: 600,
           textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--fg-4)', marginBottom: '20px',
         }}>
           Featured Work
@@ -228,21 +228,21 @@ function MobileProjects() {
               }}
             >
               <span style={{
-                fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 600,
+                fontFamily: "'Manrope', system-ui, sans-serif", fontSize: '11px', fontWeight: 600,
                 textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--fg-3)',
                 marginBottom: '6px', display: 'block',
               }}>
                 {p.number} — {p.tag}
               </span>
               <h3 style={{
-                fontFamily: "'Inter', sans-serif", fontSize: '1.3rem',
+                fontFamily: "'Manrope', system-ui, sans-serif", fontSize: '1.3rem',
                 fontWeight: 600, color: 'var(--fg)', letterSpacing: '-0.02em',
                 lineHeight: 1.15, margin: '0 0 4px',
               }}>
                 {p.title}
               </h3>
               <p style={{
-                fontFamily: "'Inter', sans-serif", fontSize: '13px',
+                fontFamily: "'Manrope', system-ui, sans-serif", fontSize: '13px',
                 fontWeight: 600, color: 'var(--fg-2)', lineHeight: 1.5, margin: 0,
               }}>
                 {p.blurb}
@@ -253,7 +253,7 @@ function MobileProjects() {
         <div style={{ marginTop: '20px' }}>
           <Link to="/projects"
             style={{
-              fontFamily: "'Inter', sans-serif", fontSize: '13px', fontWeight: 600,
+              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: '13px', fontWeight: 600,
               color: 'var(--fg)', textDecoration: 'none',
               borderBottom: '1px solid var(--fg)', paddingBottom: '2px',
             }}>
@@ -300,7 +300,7 @@ function StackSection() {
       <div className="mx-auto px-5 md:px-10" style={{ maxWidth: '1100px' }}>
         {/* Stack */}
         <h2 style={{
-          fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1.8rem, 4vw, 3rem)',
+          fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(1.8rem, 4vw, 3rem)',
           fontWeight: 600, color: 'var(--fg)', letterSpacing: '-0.02em', marginBottom: 'clamp(20px, 3vw, 32px)',
         }}>
           Stack
@@ -308,7 +308,7 @@ function StackSection() {
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: 'clamp(48px, 6vw, 80px)' }}>
           {stack.map(s => (
             <span key={s} className="stack-item" style={{
-              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(11px, 1.2vw, 13px)', fontWeight: 600,
+              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(11px, 1.2vw, 13px)', fontWeight: 600,
               color: 'var(--fg-2)', padding: '6px 14px', border: '1px solid var(--border)',
             }}>
               {s}
@@ -318,7 +318,7 @@ function StackSection() {
 
         {/* And many more — abstract pills, not repo list */}
         <h3 style={{
-          fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)',
+          fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)',
           fontWeight: 600, color: 'var(--fg-3)', letterSpacing: '-0.02em', marginBottom: 'clamp(16px, 2vw, 24px)',
         }}>
           And many more
@@ -326,7 +326,7 @@ function StackSection() {
         <div className="more-grid" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
           {moreStack.map(s => (
             <span key={s} className="more-item" style={{
-              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(11px, 1.2vw, 13px)', fontWeight: 600,
+              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(11px, 1.2vw, 13px)', fontWeight: 600,
               color: 'var(--fg-4)', padding: '6px 14px',
             }}>
               {s}
@@ -376,7 +376,7 @@ function CTASection() {
     }}>
       <div className="mx-auto px-5 md:px-10" style={{ maxWidth: '900px', textAlign: 'center' }}>
         <h2 style={{
-          fontFamily: "'Inter', sans-serif",
+          fontFamily: "'Manrope', system-ui, sans-serif",
           fontSize: 'clamp(2rem, 7vw, 6rem)',
           fontWeight: 600, color: 'var(--fg)',
           lineHeight: 1.0, letterSpacing: '-0.04em', marginBottom: 'clamp(24px, 4vw, 40px)',
@@ -461,14 +461,14 @@ export default function Home() {
         statement={
           <div style={{ maxWidth: '700px', margin: '0 auto', padding: '0 20px' }}>
             <h2 style={{
-              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1.4rem, 5vw, 4rem)',
+              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(1.4rem, 5vw, 4rem)',
               fontWeight: 600, color: 'var(--fg)', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '12px',
             }}>
               Building infrastructure<br />
               <span style={{ color: 'var(--orange)' }}>for the agent-native era</span>
             </h2>
             <p style={{
-              fontFamily: "'Inter', sans-serif", fontSize: 'clamp(0.85rem, 1.3vw, 1.05rem)',
+              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(0.85rem, 1.3vw, 1.05rem)',
               fontWeight: 600, color: 'var(--fg-2)', lineHeight: 1.6,
             }}>
               Tools that let agents and teams accomplish more.

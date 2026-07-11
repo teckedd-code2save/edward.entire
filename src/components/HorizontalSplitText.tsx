@@ -171,7 +171,7 @@ export default function HorizontalSplitText({ text, highlightWord, statement }: 
       <p
         style={{
           position: 'absolute', bottom: '2rem', left: 0, right: 0, textAlign: 'center',
-          fontFamily: "'Inter', sans-serif", fontSize: '12px', fontWeight: 400,
+          fontFamily: "'Manrope', system-ui, sans-serif", fontSize: '12px', fontWeight: 400,
           color: 'var(--fg-4)', zIndex: 2,
         }}
       >
