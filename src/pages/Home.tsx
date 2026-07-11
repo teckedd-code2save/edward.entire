@@ -299,9 +299,16 @@ function StackSection() {
     <section ref={ref} style={{ padding: 'clamp(60px, 8vw, 120px) 0', backgroundColor: 'var(--bg-1)' }}>
       <div className="mx-auto px-5 md:px-10" style={{ maxWidth: '1100px' }}>
         {/* Stack */}
+        <p style={{
+          fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(10px, 1vw, 12px)', fontWeight: 700,
+          textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--acid)',
+          marginBottom: 'clamp(12px, 2vw, 16px)',
+        }}>
+          Technologies I reach for
+        </p>
         <h2 style={{
-          fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(1.8rem, 4vw, 3rem)',
-          fontWeight: 600, color: 'var(--fg)', letterSpacing: '-0.02em', marginBottom: 'clamp(20px, 3vw, 32px)',
+          fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(2.2rem, 5vw, 4rem)',
+          fontWeight: 700, color: 'var(--fg)', letterSpacing: '-0.05em', marginBottom: 'clamp(24px, 3vw, 36px)',
         }}>
           Stack
         </h2>
@@ -321,8 +328,8 @@ function StackSection() {
 
         {/* And many more — abstract pills, not repo list */}
         <h3 style={{
-          fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)',
-          fontWeight: 600, color: 'var(--fg-3)', letterSpacing: '-0.02em', marginBottom: 'clamp(16px, 2vw, 24px)',
+          fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(1.4rem, 3vw, 2.2rem)',
+          fontWeight: 700, color: 'var(--acid)', letterSpacing: '-0.04em', marginBottom: 'clamp(16px, 2vw, 24px)',
         }}>
           And many more
         </h3>
@@ -383,9 +390,9 @@ function CTASection() {
       <div className="mx-auto px-5 md:px-10" style={{ maxWidth: '900px', textAlign: 'center' }}>
         <h2 style={{
           fontFamily: "'Manrope', system-ui, sans-serif",
-          fontSize: 'clamp(2rem, 7vw, 6rem)',
-          fontWeight: 600, color: 'var(--fg)',
-          lineHeight: 1.0, letterSpacing: '-0.04em', marginBottom: 'clamp(24px, 4vw, 40px)',
+          fontSize: 'clamp(2.5rem, 9vw, 7rem)',
+          fontWeight: 700, color: 'var(--fg)',
+          lineHeight: 0.9, letterSpacing: '-0.06em', marginBottom: 'clamp(24px, 4vw, 40px)',
         }}>
           <span className="cta-word" style={{ display: 'inline-block', overflow: 'hidden' }}>Build</span>{' '}
           <span className="cta-word" style={{ display: 'inline-block', overflow: 'hidden' }}>with</span>{' '}
@@ -467,15 +474,15 @@ export default function Home() {
         statement={
           <div style={{ maxWidth: '700px', margin: '0 auto', padding: '0 20px' }}>
             <h2 style={{
-              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(1.4rem, 5vw, 4rem)',
-              fontWeight: 600, color: 'var(--fg)', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '12px',
+              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(2rem, 7vw, 5.5rem)',
+              fontWeight: 700, color: 'var(--fg)', lineHeight: 0.95, letterSpacing: '-0.06em', marginBottom: '14px',
             }}>
               Building infrastructure<br />
-              <span style={{ color: 'var(--orange)' }}>for the agent-native era</span>
+              <span style={{ color: 'var(--acid)' }}>for the agent-native era</span>
             </h2>
             <p style={{
-              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(0.85rem, 1.3vw, 1.05rem)',
-              fontWeight: 600, color: 'var(--fg-2)', lineHeight: 1.6,
+              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(0.95rem, 1.3vw, 1.1rem)',
+              fontWeight: 600, color: 'var(--fg-3)', lineHeight: 1.6,
             }}>
               Tools that let agents and teams accomplish more.
             </p>

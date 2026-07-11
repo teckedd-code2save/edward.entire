@@ -29,7 +29,7 @@ function Logo() {
           fontSize: '15px',
           fontWeight: 300,
           letterSpacing: '-0.04em',
-          color: 'var(--fg-3)',
+          color: 'var(--acid)',
           fontStyle: 'italic',
         }}
       >

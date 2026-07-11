@@ -35,8 +35,8 @@
     --acid-muted: rgba(216,255,62,0.12);
 
     /* Shadows — deep, generous */
-    --shadow-card: 0 20px 60px rgba(0,0,0,0.40);
-    --shadow-button: 0 8px 0 rgba(255,255,255,0.10);
+    --shadow-card: 0 20px 60px rgba(0,0,0,0.60), 0 1px 0 rgba(255,255,255,0.04);
+    --shadow-button: 0 6px 0 rgba(216,255,62,0.16);
     --radius: 24px;
 
     --terminal-green: #4ade80;
