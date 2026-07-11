@@ -1,500 +1,110 @@
-import { useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import HorizontalSplitText from '@/components/HorizontalSplitText';
-import { projects as portfolioProjects } from '@/components/projects/projectData';
+import { projects } from '@/components/projects/projectData';
 
-/* ═══════════════════════════════════════════════════
-   PROJECT DATA — derived from projectData.ts
-   ═══════════════════════════════════════════════════ */
+const stack = ['.NET 8', 'C#', 'TypeScript', 'Python', 'Kotlin', 'PostgreSQL', 'Redis', 'Kafka', 'Docker', 'LiteRT', 'Hugging Face', 'Agent systems'];
 
-const projects = portfolioProjects.map(p => ({
-  number: p.number,
-  tag: p.tag,
-  title: p.title,
-  blurb: p.description.split('.')[0] + '.',
-  detail: p.architecture.split('.')[0] + '.',
-  stack: p.stack,
-  live: p.liveUrl,
-  github: p.githubUrl,
-}));
-
-/* ═══════════════════════════════════════════════════
-   STACK + AND MANY MORE (merged — abstract, not repo list)
-   ═══════════════════════════════════════════════════ */
-
-const stack = [
-  'TypeScript', 'Python', 'Go', 'C#', 'JavaScript',
-  'React', 'Node.js', 'Docker', 'Caddy', 'PostgreSQL',
-  'PyTorch', 'HuggingFace', 'Whisper', 'TON',
-  'Telegram API', 'MCP Protocol', 'Claude', 'IndexedDB',
-  'Shell', 'Redis', 'Cloudflare', 'Hetzner',
+const principles = [
+  {
+    number: '01',
+    title: 'Systems first.',
+    body: 'Clear boundaries, observable behavior, and boring reliability underneath every ambitious interface.',
+  },
+  {
+    number: '02',
+    title: 'AI where useful.',
+    body: 'Models earn their place by reducing friction or enabling something genuinely new—not by decorating a feature list.',
+  },
+  {
+    number: '03',
+    title: 'Ghana outward.',
+    body: 'Built from the realities of Accra, designed for products and infrastructure that can travel anywhere.',
+  },
 ];
 
-const moreStack = [
-  'LangChain', 'Gradio', 'Modal', 'Qwen', 'Stripe',
-  'AWS', 'GCP', 'Kubernetes', 'Nginx', 'Elasticsearch',
-  'Docker Compose', 'GitHub Actions', 'Vercel', 'Onnx',
-];
-
-/* ═══════════════════════════════════════════════════
-   EXPANDABLE BENTO GRID
-   ═══════════════════════════════════════════════════ */
-
-const bentoAreas = [
-  '1 / 1 / 3 / 2',
-  '1 / 2 / 2 / 4',
-  '2 / 2 / 4 / 3',
-  '3 / 1 / 4 / 2',
-  '2 / 3 / 4 / 4',
-];
-
-function BentoGrid() {
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!wrapRef.current || !gridRef.current) return;
-    let flipCtx: any;
-
-    async function init() {
-      const { gsap } = await import('gsap');
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-      const { Flip } = await import('gsap/Flip');
-      gsap.registerPlugin(ScrollTrigger, Flip);
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-      const createTween = () => {
-        const grid = gridRef.current!;
-        const items = grid.querySelectorAll('.bento-item');
-
-        flipCtx?.revert();
-        grid.classList.remove('bento-final');
-
-        flipCtx = gsap.context(() => {
-          grid.classList.add('bento-final');
-          const flipState = Flip.getState(items);
-          grid.classList.remove('bento-final');
-
-          const flip = Flip.to(flipState, {
-            simple: true,
-            ease: 'expoScale(1, 5)',
-          });
-
-          gsap.timeline({
-            scrollTrigger: {
-              trigger: wrapRef.current,
-              start: 'top top',
-              end: '+=120%',
-              scrub: true,
-              pin: true,
-            },
-          }).add(flip);
-
-          return () => gsap.set(items, { clearProps: 'all' });
-        }, grid);
-      };
-
-      createTween();
-      window.addEventListener('resize', createTween);
-      return () => {
-        window.removeEventListener('resize', createTween);
-        flipCtx?.revert();
-      };
-    }
-
-    init();
-    return () => { flipCtx?.revert(); };
-  }, []);
-
-  return (
-    <section
-      ref={wrapRef}
-      className="bento-section"
-      style={{
-        position: 'relative',
-        width: '100%',
-        height: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-        backgroundColor: 'var(--bg)',
-      }}
-    >
-      <div
-        ref={gridRef}
-        className="bento-grid"
-        style={{
-          display: 'grid',
-          gap: '1.5vh',
-          gridTemplateColumns: 'repeat(3, 34vw)',
-          gridTemplateRows: 'repeat(4, 24.5vh)',
-          justifyContent: 'center',
-          alignContent: 'center',
-          position: 'relative',
-          width: '100%',
-          height: '100%',
-          flex: 'none',
-        }}
-      >
-        {projects.map((p, i) => (
-          <a
-            key={p.number}
-            href={p.live || p.github || '#'}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bento-item"
-            style={{
-              gridArea: bentoAreas[i],
-              position: 'relative',
-              overflow: 'hidden',
-              backgroundColor: 'var(--bg-2)',
-              border: '1px solid var(--border)',
-              borderRadius: 'var(--radius)',
-              boxShadow: 'var(--shadow-card)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              padding: 'clamp(20px, 3.5vw, 36px)',
-              textDecoration: 'none',
-              transition: 'border-color 0.3s, background-color 0.3s',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--bg-1)'; e.currentTarget.style.borderColor = 'var(--acid)'; }}
-            onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'var(--bg-2)'; e.currentTarget.style.borderColor = 'var(--border)'; }}
-          >
-            <span style={{
-              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(9px, 1vw, 11px)', fontWeight: 600,
-              textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--fg-3)',
-            }}>
-              {p.number} — {p.tag}
-            </span>
-            <h3 style={{
-              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(1rem, 2vw, 1.5rem)',
-              fontWeight: 600, color: 'var(--fg)', letterSpacing: '-0.02em',
-              lineHeight: 1.15, margin: '6px 0 4px',
-            }}>
-              {p.title}
-            </h3>
-            <p style={{
-              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(10px, 1vw, 13px)',
-              fontWeight: 600, color: 'var(--fg-2)', lineHeight: 1.4, margin: 0,
-            }}>
-              {p.blurb}
-            </p>
-            <span style={{
-              position: 'absolute', top: 0, right: 0,
-              fontSize: 'clamp(3rem, 5vw, 5rem)', fontWeight: 700,
-              color: 'var(--fg)', opacity: 0.04,
-              fontFamily: "'Manrope', system-ui, sans-serif", lineHeight: 1, padding: '0.1em 0.2em 0 0',
-            }}>
-              {p.number}
-            </span>
-          </a>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════
-   MOBILE PROJECTS — stacked cards (shown only ≤ 768px)
-   ═══════════════════════════════════════════════════ */
-
-function MobileProjects() {
-  return (
-    <section className="mobile-projects" style={{ padding: '0 0 clamp(20px, 4vw, 40px)', backgroundColor: 'var(--bg)' }}>
-      <div className="mx-auto px-5" style={{ maxWidth: '500px' }}>
-        <p style={{
-          fontFamily: "'Manrope', system-ui, sans-serif", fontSize: '11px', fontWeight: 600,
-          textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--fg-4)', marginBottom: '20px',
-        }}>
-          Featured Work
-        </p>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          {projects.map((p) => (
-            <a
-              key={p.number}
-              href={p.live || p.github || '#'}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'block',
-                padding: 'clamp(20px, 4vw, 32px)',
-                backgroundColor: 'var(--bg-2)',
-                border: '1px solid var(--border)',
-                borderRadius: 'var(--radius)',
-                boxShadow: 'var(--shadow-card)',
-                textDecoration: 'none',
-                position: 'relative',
-                overflow: 'hidden',
-              }}
-            >
-              <span style={{
-                fontFamily: "'Manrope', system-ui, sans-serif", fontSize: '11px', fontWeight: 600,
-                textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--fg-3)',
-                marginBottom: '6px', display: 'block',
-              }}>
-                {p.number} — {p.tag}
-              </span>
-              <h3 style={{
-                fontFamily: "'Manrope', system-ui, sans-serif", fontSize: '1.3rem',
-                fontWeight: 600, color: 'var(--fg)', letterSpacing: '-0.02em',
-                lineHeight: 1.15, margin: '0 0 4px',
-              }}>
-                {p.title}
-              </h3>
-              <p style={{
-                fontFamily: "'Manrope', system-ui, sans-serif", fontSize: '13px',
-                fontWeight: 600, color: 'var(--fg-2)', lineHeight: 1.5, margin: 0,
-              }}>
-                {p.blurb}
-              </p>
-            </a>
-          ))}
-        </div>
-        <div style={{ marginTop: '20px' }}>
-          <Link to="/projects"
-            style={{
-              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: '13px', fontWeight: 600,
-              color: 'var(--fg)', textDecoration: 'none',
-              borderBottom: '1px solid var(--fg)', paddingBottom: '2px',
-            }}>
-            View all projects →
-          </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════
-   STACK + AND MANY MORE (merged — abstract pills)
-   ═══════════════════════════════════════════════════ */
-
-function StackSection() {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (!ref.current) return;
-    let ctx: any;
-    async function init() {
-      const { gsap } = await import('gsap');
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-      gsap.registerPlugin(ScrollTrigger);
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      ctx = gsap.context(() => {
-        gsap.fromTo('.stack-item', { y: 16, opacity: 0 }, {
-          y: 0, opacity: 1, duration: 0.4, stagger: 0.03, ease: 'power2.out',
-          scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
-        });
-        gsap.fromTo('.more-item', { y: 16, opacity: 0 }, {
-          y: 0, opacity: 1, duration: 0.4, stagger: 0.03, ease: 'power2.out',
-          scrollTrigger: { trigger: '.more-grid', start: 'top 85%', toggleActions: 'play none none none' },
-        });
-      }, ref.current!);
-    }
-    init();
-    return () => ctx?.revert();
-  }, []);
-
-  return (
-    <section ref={ref} style={{ padding: 'clamp(60px, 8vw, 120px) 0', backgroundColor: 'var(--bg-1)' }}>
-      <div className="mx-auto px-5 md:px-10" style={{ maxWidth: '1100px' }}>
-        {/* Stack */}
-        <p style={{
-          fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(10px, 1vw, 12px)', fontWeight: 700,
-          textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--acid)',
-          marginBottom: 'clamp(12px, 2vw, 16px)',
-        }}>
-          Technologies I reach for
-        </p>
-        <h2 style={{
-          fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(2.2rem, 5vw, 4rem)',
-          fontWeight: 700, color: 'var(--fg)', letterSpacing: '-0.05em', marginBottom: 'clamp(24px, 3vw, 36px)',
-        }}>
-          Stack
-        </h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: 'clamp(48px, 6vw, 80px)' }}>
-          {stack.map(s => (
-            <span key={s} className="stack-item" style={{
-              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(11px, 1.2vw, 13px)', fontWeight: 600,
-              color: 'var(--fg-2)', padding: '7px 16px', border: '1px solid var(--border)',
-              borderRadius: '999px', transition: 'border-color 0.2s, color 0.2s',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--acid)'; e.currentTarget.style.color = 'var(--fg)'; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--fg-2)'; }}>
-              {s}
-            </span>
-          ))}
-        </div>
-
-        {/* And many more — abstract pills, not repo list */}
-        <h3 style={{
-          fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(1.4rem, 3vw, 2.2rem)',
-          fontWeight: 700, color: 'var(--acid)', letterSpacing: '-0.04em', marginBottom: 'clamp(16px, 2vw, 24px)',
-        }}>
-          And many more
-        </h3>
-        <div className="more-grid" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-          {moreStack.map(s => (
-            <span key={s} className="more-item" style={{
-              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(11px, 1.2vw, 13px)', fontWeight: 600,
-              color: 'var(--fg-4)', padding: '7px 16px', borderRadius: '999px',
-              transition: 'color 0.2s',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.color = 'var(--acid)'; }}
-            onMouseLeave={e => { e.currentTarget.style.color = 'var(--fg-4)'; }}>
-              {s}
-            </span>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════
-   CTA — bold, minimal
-   ═══════════════════════════════════════════════════ */
-
-function CTASection() {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (!ref.current) return;
-    let ctx: any;
-    async function init() {
-      const { gsap } = await import('gsap');
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-      gsap.registerPlugin(ScrollTrigger);
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      ctx = gsap.context(() => {
-        gsap.fromTo('.cta-word', { y: '100%', opacity: 0 }, {
-          y: '0%', opacity: 1, duration: 1.0, stagger: 0.12, ease: 'power3.inOut',
-          scrollTrigger: { trigger: ref.current, start: 'top 75%', toggleActions: 'play none none none' },
-        });
-        gsap.fromTo('.cta-links', { y: 20, opacity: 0 }, {
-          y: 0, opacity: 1, duration: 0.6, delay: 0.8, ease: 'power2.out',
-          scrollTrigger: { trigger: ref.current, start: 'top 75%', toggleActions: 'play none none none' },
-        });
-      }, ref.current!);
-    }
-    init();
-    return () => ctx?.revert();
-  }, []);
-
-  return (
-    <section ref={ref} style={{
-      padding: 'clamp(60px, 10vw, 140px) 0',
-      backgroundColor: 'var(--bg)',
-      position: 'relative', overflow: 'hidden',
-    }}>
-      <div className="mx-auto px-5 md:px-10" style={{ maxWidth: '900px', textAlign: 'center' }}>
-        <h2 style={{
-          fontFamily: "'Manrope', system-ui, sans-serif",
-          fontSize: 'clamp(2.5rem, 9vw, 7rem)',
-          fontWeight: 700, color: 'var(--fg)',
-          lineHeight: 0.9, letterSpacing: '-0.06em', marginBottom: 'clamp(24px, 4vw, 40px)',
-        }}>
-          <span className="cta-word" style={{ display: 'inline-block', overflow: 'hidden' }}>Build</span>{' '}
-          <span className="cta-word" style={{ display: 'inline-block', overflow: 'hidden' }}>with</span>{' '}
-          <span className="cta-word" style={{ display: 'inline-block', overflow: 'hidden', color: 'var(--acid)' }}>me</span>
-          <span>.</span>
-        </h2>
-        <div className="cta-links" style={{
-          display: 'flex', gap: 'clamp(12px, 2vw, 24px)', justifyContent: 'center', flexWrap: 'wrap',
-        }}>
-          <Link to="/contact"
-            style={{
-              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(13px, 1.3vw, 15px)', fontWeight: 700,
-              padding: 'clamp(12px, 2vw, 15px) clamp(24px, 3vw, 36px)',
-              background: 'var(--fg)', color: 'var(--bg)',
-              borderRadius: '999px', textDecoration: 'none',
-              boxShadow: 'var(--shadow-button)',
-              transition: 'transform 0.2s, box-shadow 0.2s',
-              display: 'inline-flex', gap: '8px',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 0 rgba(255,255,255,.16)'; }}
-            onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 0 rgba(255,255,255,.12)'; }}>
-            Start a conversation <span aria-hidden="true">↘</span>
-          </Link>
-          <a href="https://github.com/teckedd-code2save" target="_blank" rel="noopener noreferrer"
-            style={{
-              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(13px, 1.3vw, 15px)', fontWeight: 600,
-              color: 'var(--fg-2)', padding: 'clamp(12px, 2vw, 15px) clamp(24px, 3vw, 36px)',
-              borderRadius: '999px', textDecoration: 'none',
-              border: '1px solid var(--border-2)', transition: 'all 0.2s',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--fg)'; e.currentTarget.style.color = 'var(--fg)'; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-2)'; e.currentTarget.style.color = 'var(--fg-2)'; }}>
-            GitHub
-          </a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════
-   MOBILE CSS
-   ═══════════════════════════════════════════════════ */
-
-const mobileCSS = `
-/* Desktop: show bento, hide mobile stack */
-.mobile-projects { display: none; }
-/* Bento final state for GSAP Flip */
-.bento-final {
-  grid-template-columns: repeat(3, 100vw) !important;
-  grid-template-rows: repeat(4, 50vh) !important;
-  gap: 1.5vh !important;
-}
-
-@media (max-width: 768px) {
-  /* Mobile: hide bento section entirely */
-  .bento-section { display: none !important; }
-  /* Show mobile stacked cards */
-  .mobile-projects { display: block; }
-  /* Reduce section gaps on mobile */
-  section[style*="padding"] {
-    padding-top: clamp(30px, 5vw, 60px) !important;
-    padding-bottom: clamp(30px, 5vw, 60px) !important;
-  }
-}
-`;
-
-/* ═══════════════════════════════════════════════════
-   HOME PAGE
-   ═══════════════════════════════════════════════════ */
+const enter = { duration: 0.75, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] };
 
 export default function Home() {
   return (
-    <>
-      <style>{mobileCSS}</style>
-      <HorizontalSplitText
-        text="Forging AI-native narratives at Serendepify"
-        highlightWord="Serendepify"
-        statement={
-          <div style={{ maxWidth: '700px', margin: '0 auto', padding: '0 20px' }}>
-            <h2 style={{
-              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(2rem, 7vw, 5.5rem)',
-              fontWeight: 700, color: 'var(--fg)', lineHeight: 0.95, letterSpacing: '-0.06em', marginBottom: '14px',
-            }}>
-              Building infrastructure<br />
-              <span style={{ color: 'var(--acid)' }}>for the agent-native era</span>
-            </h2>
-            <p style={{
-              fontFamily: "'Manrope', system-ui, sans-serif", fontSize: 'clamp(0.95rem, 1.3vw, 1.1rem)',
-              fontWeight: 600, color: 'var(--fg-3)', lineHeight: 1.6,
-            }}>
-              Tools that let agents and teams accomplish more.
-            </p>
+    <div>
+      <section className="page-shell home-hero">
+        <motion.div className="hero-copy" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={enter}>
+          <p className="eyebrow">Lead backend engineer · AI systems builder</p>
+          <h1 className="display">I build systems that<br /><span>think, ship &</span><br />stay useful.</h1>
+          <p className="lede">I’m Edward Twumasi—a software engineer in Accra working across dependable backend systems, deployment tooling, on-device AI, and African-language technology.</p>
+          <div className="hero-actions">
+            <Link className="button-primary" to="/projects">Explore selected work <span aria-hidden="true">↘</span></Link>
+            <Link className="button-ghost" to="/research">Enter the research lab</Link>
           </div>
-        }
-      />
-      <BentoGrid />
-      <MobileProjects />
-      <StackSection />
-      <CTASection />
-    </>
+          <p className="availability-line"><strong>Current signal:</strong> building local-first AI and infrastructure tools through Serendepify.</p>
+        </motion.div>
+
+        <motion.div className="portrait-stage" initial={{ opacity: 0, scale: .94 }} animate={{ opacity: 1, scale: 1 }} transition={{ ...enter, delay: .16 }} aria-label="Portrait of Edward Twumasi surrounded by areas of expertise">
+          <div className="portrait-orbit" aria-hidden="true" />
+          <div className="signal-chip one">backend systems</div>
+          <div className="signal-chip two">on-device AI</div>
+          <div className="signal-chip three">agent workflows</div>
+          <div className="portrait-card"><img src="/profile-cutout.png" alt="Edward Twumasi" /></div>
+          <span className="hero-number" aria-hidden="true">05+</span>
+        </motion.div>
+      </section>
+
+      <section className="editorial-section" style={{ background: 'var(--paper-2)' }}>
+        <div className="page-shell">
+          <div className="section-head">
+            <div><p className="eyebrow">01 · Selected systems</p><h2 className="section-title">Useful things,<br />properly built.</h2></div>
+            <p className="lede">A few products where backend depth, product judgment, and AI meet real-world constraints.</p>
+          </div>
+          <div className="project-stories">
+            {projects.slice(0, 3).map((project, index) => {
+              const href = project.liveUrl || project.githubUrl || '#';
+              return (
+                <a key={project.id} className="project-story" href={href} target="_blank" rel="noreferrer">
+                  <div className="project-copy">
+                    <div>
+                      <div className="project-meta"><span>{project.number} / {project.tag}</span><span>2026</span></div>
+                      <h3>{project.title}</h3>
+                      <p>{project.description}</p>
+                    </div>
+                    <span className="project-arrow">View the build <span aria-hidden="true">↗</span></span>
+                  </div>
+                  <div className="project-visual" aria-hidden="true">
+                    <div className="project-glyph">{index === 0 ? 'I' : index === 1 ? 'S' : 'C'}</div>
+                    <small>{project.stack.slice(0, 3).join(' · ')}</small>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+          <div style={{ marginTop: 34 }}><Link className="button-ghost" to="/projects">View all six systems →</Link></div>
+        </div>
+      </section>
+
+      <section className="editorial-section dark-section">
+        <div className="page-shell">
+          <div className="section-head">
+            <div><p className="eyebrow">02 · Operating principles</p><h2 className="section-title">Precision without<br />the theatre.</h2></div>
+            <p className="lede">The goal is not clever code. It is a system people can understand, trust, operate, and extend.</p>
+          </div>
+          <div className="principles">
+            {principles.map((principle) => (
+              <article className="principle" key={principle.number}>
+                <b>{principle.number}</b><h3>{principle.title}</h3><p>{principle.body}</p>
+              </article>
+            ))}
+          </div>
+          <div className="stack-cloud" aria-label="Technology stack">
+            {stack.map((item) => <span className="stack-pill" key={item}>{item}</span>)}
+          </div>
+        </div>
+      </section>
+
+      <section className="editorial-section">
+        <div className="page-shell section-head" style={{ marginBottom: 0 }}>
+          <div><p className="eyebrow">03 · Next hard thing</p><h2 className="section-title">Have a system that<br /><span style={{ color: 'var(--blue)' }}>should exist?</span></h2></div>
+          <div><p className="lede">I’m interested in thoughtful backend, AI, health, infrastructure, and research collaborations.</p><Link className="button-primary" to="/contact">Open a conversation ↗</Link></div>
+        </div>
+      </section>
+    </div>
   );
 }

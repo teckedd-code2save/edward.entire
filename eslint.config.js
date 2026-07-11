@@ -6,7 +6,16 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores([
+    'dist',
+    // Generated shadcn primitives and retired pre-overhaul presentation components.
+    // They are kept temporarily for reference but are not imported into the shipped site.
+    'src/components/ui/**',
+    'src/components/HorizontalSplitText.tsx',
+    'src/components/projects/ProjectCard.tsx',
+    'src/components/projects/ProjectDetailPanel.tsx',
+    'src/components/projects/TerminalCanvas.tsx',
+  ]),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [

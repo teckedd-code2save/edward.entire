@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import type { ReactNode } from 'react';
+import Lenis from '@studio-freight/lenis';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
@@ -13,33 +14,21 @@ export default function Layout({ children }: LayoutProps) {
 
   // Initialize Lenis smooth scrolling
   useEffect(() => {
-    let lenis: any = null;
-
-    const initLenis = async () => {
-      try {
-        const Lenis = (await import('@studio-freight/lenis')).default;
-        lenis = new Lenis({
-          duration: 1.2,
-          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          smoothWheel: true,
-        });
-
-        function raf(time: number) {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-      } catch (e) {
-        // Lenis failed to load, continue without smooth scroll
-      }
+    const lenis = new Lenis({
+      duration: 1.1,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
+    let frame = 0;
+    const raf = (time: number) => {
+      lenis.raf(time);
+      frame = requestAnimationFrame(raf);
     };
-
-    initLenis();
+    frame = requestAnimationFrame(raf);
 
     return () => {
-      if (lenis) {
-        lenis.destroy();
-      }
+      cancelAnimationFrame(frame);
+      lenis.destroy();
     };
   }, []);
 
@@ -50,8 +39,9 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <div className="min-h-[100dvh] flex flex-col">
+      <a className="skip-link" href="#main-content">Skip to content</a>
       <Navbar />
-      <main className="flex-1">{children}</main>
+      <main id="main-content" className="flex-1">{children}</main>
       <Footer />
     </div>
   );
