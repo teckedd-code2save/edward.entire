@@ -61,7 +61,7 @@ export default function BioSection() {
             />
             {/* Image */}
             <img
-              src="/profile-cutout.png"
+              src="/profile-photo.jpg"
               alt=""
               className="relative z-10 h-full w-full object-cover transition-all duration-500 group-hover:grayscale-[0.22]"
               style={{

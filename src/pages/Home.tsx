@@ -44,7 +44,7 @@ export default function Home() {
           <div className="signal-chip one">backend systems</div>
           <div className="signal-chip two">on-device AI</div>
           <div className="signal-chip three">agent workflows</div>
-          <div className="portrait-card"><img src="/profile-cutout.png" alt="Edward Twumasi" /></div>
+          <div className="portrait-card"><img src="/profile-photo.jpg" alt="Edward Twumasi" /></div>
           <span className="hero-number" aria-hidden="true">05+</span>
         </motion.div>
       </section>
