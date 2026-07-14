@@ -4,6 +4,10 @@ import type { ReactNode } from 'react';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
+import Pitches from './pages/Pitches';
+import DeckViewer from './pages/DeckViewer';
+import Articles from './pages/Articles';
+import ArticleViewer from './pages/ArticleViewer';
 import Contact from './pages/Contact';
 import Research from './pages/Research';
 
@@ -42,6 +46,38 @@ function AnimatedRoutes() {
           element={
             <PageWrapper>
               <Projects />
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="/pitches"
+          element={
+            <PageWrapper>
+              <Pitches />
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="/articles"
+          element={
+            <PageWrapper>
+              <Articles />
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="/deck/:id"
+          element={
+            <PageWrapper>
+              <DeckViewer />
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="/article/:id"
+          element={
+            <PageWrapper>
+              <ArticleViewer />
             </PageWrapper>
           }
         />
