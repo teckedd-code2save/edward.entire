@@ -69,6 +69,7 @@ export const projects: Project[] = [
       'Architecture views covering privacy, latency, and cost.',
     ],
     githubUrl: 'https://github.com/teckedd-code2save/pocket-models',
+    liveUrl: 'https://pocket-models.serendepify.com/',
   },
   {
     id: 'intent-engine',
