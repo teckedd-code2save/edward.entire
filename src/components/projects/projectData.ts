@@ -18,26 +18,8 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: 'pocket-models',
-    number: '01',
-    title: 'Pocket Models',
-    tag: 'Android model field guide',
-    category: 'tooling',
-    canvasMode: 'exchange',
-    description: 'An interactive field guide for comparing open models on Android and assembling practical on-device or hybrid AI stacks.',
-    stack: ['JavaScript', 'Android AI', 'Open models', 'Edge inference'],
-    architecture: 'A dependency-free client-side explorer filters models, explains deployment tradeoffs, and recommends a stack from device memory, modality, and product priorities.',
-    highlights: [
-      'Concrete on-device and hybrid stack recommendations.',
-      'Model comparisons grounded in footprint, modality, and licensing.',
-      'Architecture views covering privacy, latency, and cost.',
-    ],
-    githubUrl: 'https://github.com/teckedd-code2save/pocket-models',
-    liveUrl: 'https://pocket-models.serendepify.com/',
-  },
-  {
     id: 'groundcontrol',
-    number: '02',
+    number: '01',
     title: 'GroundControl',
     tag: 'self-hosted infrastructure',
     category: 'deployment',
@@ -52,6 +34,24 @@ export const projects: Project[] = [
     ],
     githubUrl: 'https://github.com/teckedd-code2save/groundcontrol',
     liveUrl: 'https://groundcontrol.serendepify.com/',
+  },
+  {
+    id: 'pocket-models',
+    number: '02',
+    title: 'Pocket Models',
+    tag: 'Android model field guide',
+    category: 'tooling',
+    canvasMode: 'exchange',
+    description: 'An interactive field guide for comparing open models on Android and assembling practical on-device or hybrid AI stacks.',
+    stack: ['JavaScript', 'Android AI', 'Open models', 'Edge inference'],
+    architecture: 'A dependency-free client-side explorer filters models, explains deployment tradeoffs, and recommends a stack from device memory, modality, and product priorities.',
+    highlights: [
+      'Concrete on-device and hybrid stack recommendations.',
+      'Model comparisons grounded in footprint, modality, and licensing.',
+      'Architecture views covering privacy, latency, and cost.',
+    ],
+    githubUrl: 'https://github.com/teckedd-code2save/pocket-models',
+    liveUrl: 'https://pocket-models.serendepify.com/',
   },
   {
     id: 'intent-engine',
