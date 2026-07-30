@@ -18,26 +18,8 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: 'groundcontrol',
-    number: '01',
-    title: 'GroundControl',
-    tag: 'self-hosted infrastructure',
-    category: 'deployment',
-    canvasMode: 'terminal',
-    description: 'A single control surface for Docker workloads, Caddy routes, deployments, and machine health on a self-hosted VPS.',
-    stack: ['TypeScript', 'Docker', 'Caddy', 'Hetzner', 'React'],
-    architecture: 'A web control plane talks directly to Docker and Caddy APIs, turning common infrastructure operations into observable workflows.',
-    highlights: [
-      'Container lifecycle and live logs without an SSH session.',
-      'Safe reverse-proxy editing with automatic TLS.',
-      'Webhook-driven deployments with visible status.',
-    ],
-    githubUrl: 'https://github.com/teckedd-code2save/groundcontrol',
-    liveUrl: 'https://groundcontrol.serendepify.com/',
-  },
-  {
     id: 'pocket-models',
-    number: '02',
+    number: '01',
     title: 'Pocket Models',
     tag: 'Android model field guide',
     category: 'tooling',
@@ -52,6 +34,24 @@ export const projects: Project[] = [
     ],
     githubUrl: 'https://github.com/teckedd-code2save/pocket-models',
     liveUrl: 'https://pocket-models.serendepify.com/',
+  },
+  {
+    id: 'groundcontrol',
+    number: '02',
+    title: 'GroundControl',
+    tag: 'self-hosted infrastructure',
+    category: 'deployment',
+    canvasMode: 'terminal',
+    description: 'A single control surface for Docker workloads, Caddy routes, deployments, and machine health on a self-hosted VPS.',
+    stack: ['TypeScript', 'Docker', 'Caddy', 'Hetzner', 'React'],
+    architecture: 'A web control plane talks directly to Docker and Caddy APIs, turning common infrastructure operations into observable workflows.',
+    highlights: [
+      'Container lifecycle and live logs without an SSH session.',
+      'Safe reverse-proxy editing with automatic TLS.',
+      'Webhook-driven deployments with visible status.',
+    ],
+    githubUrl: 'https://github.com/teckedd-code2save/groundcontrol',
+    liveUrl: 'https://groundcontrol.serendepify.com/',
   },
   {
     id: 'convoy',
