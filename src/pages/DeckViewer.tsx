@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const decks: Record<string, {
   title: string; line1: string; line2: string; subtitle: string;
-  slides: { title?: string; accent?: string; body: string[]; bullets?: string[]; stats?: {num: string; label: string}[]; code?: string; tags?: string[] }[];
+  slides: { title?: string; accent?: string; body?: string[]; bullets?: string[]; stats?: {num: string; label: string}[]; code?: string; tags?: string[] }[];
 }> = {
   groundcontrol: {
     title: 'GroundControl',

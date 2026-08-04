@@ -40,7 +40,7 @@ This is a living document for the Edward Twumasi portfolio. Add entries when you
 
 **What:** `npm run build` runs `tsc` (via `vite build` with `tsconfig.app.json`), and strict mode is on with `noUnusedLocals` and `noUnusedParameters`.
 
-**Why it matters:** Any `any` usage, unused variable, or type error fails the production build — the build is the only type gate since there is no CI yet.
+**Why it matters:** Any `any` usage, unused variable, or type error fails the production build. CI (`.github/workflows/ci.yml`) now runs `tsc -b`, lint, and the build on every push/PR to `main`, so type regressions are caught before they reach Vercel.
 
 **Mitigation:** Run `npm run build` locally before pushing. Prefer `unknown` with narrowing over `any`.
 
@@ -62,7 +62,7 @@ This is a living document for the Edward Twumasi portfolio. Add entries when you
 
 ## 8. No test infrastructure [Severity: MEDIUM]
 
-**What:** There is no test framework, no `.test.`/`.spec.` files, and no CI pipeline. Lint (`npm run lint`) and the type-checked build are the only gates.
+**What:** There is no test framework and no `.test.`/`.spec.` files. A CI pipeline (`.github/workflows/ci.yml`, issue #26) now runs lint, type-checking, and the production build on every push/PR to `main`.
 
 **Why it matters:** Refactors (like the repeated portfolio reordering) ship without automated regression coverage.
 
@@ -74,6 +74,6 @@ This is a living document for the Edward Twumasi portfolio. Add entries when you
 
 Items explicitly tracked as future work, not sharp edges:
 
-1. CI pipeline (GitHub Actions) — tracked in open issues #26, #39, #45–49.
+1. ~~CI pipeline (GitHub Actions)~~ — **done** in `.github/workflows/ci.yml` (typecheck + lint + build; issue #26).
 2. Test infrastructure with Vitest — tracked in issue #40.
 3. README usage section — README currently covers stack and local development but not production usage.

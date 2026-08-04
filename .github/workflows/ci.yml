@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        # Root tsconfig.json is a solution-style config (files: [] + references),
+        # so `tsc --noEmit` alone is a silent no-op — `tsc -b` is the real check
+        # and is what the production build runs first.
+        run: npx tsc -b
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
