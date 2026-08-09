@@ -47,6 +47,8 @@ edward.entire/
 | Dev | `npm run dev` | Start dev server (port 3000) |
 | Build | `npm run build` | TypeScript check + Vite production build |
 | Lint | `npm run lint` | ESLint on all files |
+| Test | `npm test` | Run the Vitest suite once (CI) |
+| Test (watch) | `npm run test:watch` | Run Vitest in watch mode |
 | Preview | `npm run preview` | Preview production build locally |
 
 ## 4. Development
