@@ -60,13 +60,13 @@ This is a living document for the Edward Twumasi portfolio. Add entries when you
 
 **Mitigation:** Follow the split from `AGENTS.md` §6 — Framer Motion for transitions/scroll, GSAP for complex timelines, R3F only in dedicated 3D components.
 
-## 8. No test infrastructure [Severity: MEDIUM]
+## 8. No test infrastructure [Severity: MEDIUM] — **fixed** `69b0c0c`
 
 **What:** There is no test framework and no `.test.`/`.spec.` files. A CI pipeline (`.github/workflows/ci.yml`, issue #26) now runs lint, type-checking, and the production build on every push/PR to `main`.
 
 **Why it matters:** Refactors (like the repeated portfolio reordering) ship without automated regression coverage.
 
-**Mitigation:** Until Vitest infrastructure lands (tracked in open issues), manually verify `npm run lint` and `npm run build` pass and spot-check the affected pages.
+**Mitigation:** Vitest infrastructure landed in `69b0c0c` (issue #40): `vitest.config.ts`, `vitest.setup.ts` (jsdom stubs for matchMedia/observers/media APIs), `test`/`test:watch` scripts, `src/__tests__/App.test.tsx`, and a `Test` step in CI. Run `npm test` before pushing; new components should ship with colocated tests.
 
 ---
 
@@ -75,5 +75,5 @@ This is a living document for the Edward Twumasi portfolio. Add entries when you
 Items explicitly tracked as future work, not sharp edges:
 
 1. ~~CI pipeline (GitHub Actions)~~ — **done** in `.github/workflows/ci.yml` (typecheck + lint + build; issue #26).
-2. Test infrastructure with Vitest — tracked in issue #40.
+2. ~~Test infrastructure with Vitest~~ — **done** in `69b0c0c` (issue #40): vitest + RTL + jest-dom + jsdom, `test`/`test:watch` scripts, `src/__tests__/App.test.tsx`, CI `Test` step.
 3. README usage section — README currently covers stack and local development but not production usage.
