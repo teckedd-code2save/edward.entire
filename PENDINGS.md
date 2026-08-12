@@ -12,13 +12,13 @@ This is a living document for the Edward Twumasi portfolio. Add entries when you
 
 **Mitigation:** Keep `HashRouter` in `src/App.tsx`. If a route change is ever needed, add the rewrite rules to `vercel.json` in the same change.
 
-## 2. AGENTS.md structure section is stale [Severity: LOW]
+## 2. AGENTS.md structure section is stale [Severity: LOW] — **fixed** `3427523`
 
-**What:** `AGENTS.md` documents a `src/sections/` layout, but the actual structure is `src/pages/` (About, Projects, Research, Pitches, Articles, Contact, Home) plus `src/components/` with `about/`, `contact/`, `projects/`, and `ui/` subdirectories.
+**What:** `AGENTS.md` documented a `src/sections/` layout, but the actual structure is `src/pages/` (About, Projects, Research, Pitches, Articles, Contact, Home) plus `src/components/` with `about/`, `contact/`, `projects/`, and `ui/` subdirectories.
 
 **Why it matters:** New agents following AGENTS.md will look for files that don't exist and may create a parallel `sections/` tree.
 
-**Mitigation:** Read `src/App.tsx` to see which components are actually mounted before adding new sections.
+**Mitigation:** Read `src/App.tsx` to see which components are actually mounted before adding new sections. AGENTS.md §2 now documents the real layout (`src/pages/` + `src/components/<area>/`) and points at `src/App.tsx` as the source of truth.
 
 ## 3. Portfolio ordering is a manual chore [Severity: LOW]
 
