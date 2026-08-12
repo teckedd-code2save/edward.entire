@@ -24,21 +24,27 @@
 edward.entire/
 ├── public/                   Static assets
 ├── src/
+│   ├── __tests__/           Vitest + RTL tests (App.test.tsx)
 │   ├── components/
+│   │   ├── about/           About page sections (BioSection, TechStack, WorkApproach)
+│   │   ├── contact/         Contact page sections (ContactForm, LiveClock, WorkingHours)
+│   │   ├── projects/        Project page sections (ProjectCard, AgentCanvas, TerminalCanvas)
 │   │   └── ui/              shadcn/ui primitives (40+ components)
-│   ├── sections/            Page sections
-│   ├── hooks/               Custom React hooks
-│   ├── types/               TypeScript type definitions
-│   ├── App.tsx              Root React component
+│   ├── hooks/               Custom React hooks (use-mobile)
+│   ├── lib/                 Utilities (utils.ts with cn())
+│   ├── pages/               Route pages: Home, Projects, Pitches, Articles,
+│   │                        ArticleViewer, DeckViewer, Research, Contact
+│   ├── App.tsx              Root component — source of truth for mounted routes
 │   ├── main.tsx             Entry point
-│   ├── index.css            Global styles
-│   └── App.css              Webapp-specific styles
+│   └── index.css            Global styles
 ├── index.html               HTML entry point
 ├── vite.config.ts           Vite configuration
 ├── tailwind.config.js       Tailwind theme configuration
 ├── vercel.json              Vercel deployment settings
 └── package.json             Dependencies and scripts
 ```
+
+**Source of truth for structure:** `src/App.tsx` defines every mounted route. There is no `src/sections/` or `src/types/` — page-level sections live in `src/pages/`, reusable sections in `src/components/<area>/`, and shadcn primitives in `src/components/ui/`.
 
 ## 3. Key Scripts
 
@@ -79,5 +85,5 @@ Vercel deployment (configured via `vercel.json`):
 - **UI components:** Import from `@/components/ui/component-name` (shadcn convention).
 - **Styling:** Tailwind utility classes. Use `cn()` from `tailwind-merge` for conditional classes.
 - **Animations:** Framer Motion for page transitions and scroll effects. GSAP for complex timeline animations.
-- **3D:** React Three Fiber components in dedicated section files.
+- **3D:** React Three Fiber components in dedicated component files (see `src/components/`).
 - **TypeScript:** Strict mode enabled. Avoid `any` — prefer proper types or `unknown` with narrowing.
