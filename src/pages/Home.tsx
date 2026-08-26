@@ -1,26 +1,17 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { projects } from '@/components/projects/projectData';
-import AmbientSignalCanvas from '@/components/AmbientSignalCanvas';
 
-const stack = ['.NET 8', 'C#', 'TypeScript', 'Python', 'Kotlin', 'PostgreSQL', 'Redis', 'Kafka', 'Docker', 'LiteRT', 'Hugging Face', 'Agent systems'];
+const featuredIds = ['ghana-health-ai', 'groundcontrol', 'convoy'];
+const featured = featuredIds.flatMap((id) => {
+  const project = projects.find((item) => item.id === id);
+  return project ? [project] : [];
+});
 
-const principles = [
-  {
-    number: '01',
-    title: 'Systems first.',
-    body: 'Clear boundaries, observable behavior, and boring reliability underneath every ambitious interface.',
-  },
-  {
-    number: '02',
-    title: 'AI where useful.',
-    body: 'Models earn their place by reducing friction or enabling something genuinely new—not by decorating a feature list.',
-  },
-  {
-    number: '03',
-    title: 'Ghana outward.',
-    body: 'Built from the realities of Accra, designed for products and infrastructure that can travel anywhere.',
-  },
+const evidence = [
+  ['27.31%', 'best Twi ASR WER', 'DONDO v2 + language-model decoding'],
+  ['21', 'public models', 'published on Hugging Face'],
+  ['live', 'production product', 'Ghana Health AI on self-hosted infrastructure'],
 ];
 
 const enter = { duration: 0.75, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] };
@@ -28,84 +19,53 @@ const enter = { duration: 0.75, ease: [0.16, 1, 0.3, 1] as [number, number, numb
 export default function Home() {
   return (
     <div>
-      <section className="page-shell home-hero">
-        <motion.div className="hero-copy" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={enter}>
-          <p className="eyebrow">Backend · AI infrastructure · voice systems</p>
-          <h1 className="display">I take AI from<br /><span>evaluation to</span><br />production.</h1>
-          <p className="lede">I’m Edward Twumasi—an Accra-based software engineer building dependable backend platforms, agent infrastructure, and voice products for languages and communities mainstream technology overlooks.</p>
-          <div className="hero-actions">
-            <Link className="button-primary" to="/projects">Explore selected work <span aria-hidden="true">↘</span></Link>
-            <Link className="button-ghost" to="/research">Enter the research lab</Link>
-            <Link className="button-ghost" to="/fit">See where I fit</Link>
+      <section className="home-hero home-hero-current">
+        <motion.div className="page-shell home-hero-grid" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={enter}>
+          <div className="hero-copy">
+            <p className="eyebrow">Edward Twumasi · Backend + applied AI engineer</p>
+            <h1 className="display">AI systems,<br /><span>built to hold up</span><br />in the real world.</h1>
+            <p className="lede">I build the software around intelligent products: backend services, speech-model evaluation, GPU inference, deployment infrastructure, and the safeguards that make them usable.</p>
+            <div className="hero-actions">
+              <Link className="button-primary" to="/projects">See the work <span aria-hidden="true">↘</span></Link>
+              <Link className="button-ghost" to="/research">Open the research lab</Link>
+            </div>
           </div>
-          <p className="availability-line"><strong>Current signal:</strong> shipping Twi speech benchmarks, production health AI, and self-hosted deployment systems through Serendepify.</p>
-        </motion.div>
 
-        <motion.div className="portrait-stage" initial={{ opacity: 0, scale: .94 }} animate={{ opacity: 1, scale: 1 }} transition={{ ...enter, delay: .16 }} aria-label="Portrait of Edward Twumasi surrounded by areas of expertise">
-          <AmbientSignalCanvas />
-          <div className="portrait-orbit" aria-hidden="true" />
-          <div className="signal-chip one">backend systems</div>
-          <div className="signal-chip two">on-device AI</div>
-          <div className="signal-chip three">agent workflows</div>
-          <div className="portrait-card"><img src="/profile-photo.jpg" alt="Edward Twumasi" /></div>
-          <span className="hero-number" aria-hidden="true">05+</span>
+          <aside className="home-evidence" aria-label="Current evidence">
+            <div className="home-evidence-head"><span>Current evidence</span><span>Accra · 2026</span></div>
+            {evidence.map(([value, label, detail]) => <div className="home-evidence-row" key={label}><strong>{value}</strong><div><b>{label}</b><small>{detail}</small></div></div>)}
+            <Link to="/fit">Why this work fits senior AI roles ↗</Link>
+          </aside>
         </motion.div>
       </section>
 
       <section className="editorial-section" style={{ background: 'var(--paper-2)' }}>
         <div className="page-shell">
           <div className="section-head">
-            <div><p className="eyebrow">01 · Selected systems</p><h2 className="section-title">Useful things,<br />properly built.</h2></div>
-            <p className="lede">A few products where backend depth, product judgment, and AI meet real-world constraints.</p>
+            <div><p className="eyebrow">01 · Flagship work</p><h2 className="section-title">Three systems.<br />One through-line.</h2></div>
+            <p className="lede">Research, product engineering, and infrastructure treated as one delivery problem—not separate portfolios.</p>
           </div>
-          <div className="project-stories">
-            {projects.slice(0, 3).map((project, index) => {
+          <div className="home-work-list">
+            {featured.map((project, index) => {
               const href = project.liveUrl || project.githubUrl || '#';
-              return (
-                <a key={project.id} className="project-story" href={href} target="_blank" rel="noreferrer">
-                  <div className="project-copy">
-                    <div>
-                      <div className="project-meta"><span>{project.number} / {project.tag}</span><span>2026</span></div>
-                      <h3>{project.title}</h3>
-                      <p>{project.description}</p>
-                    </div>
-                    <span className="project-arrow">View the build <span aria-hidden="true">↗</span></span>
-                  </div>
-                  <div className="project-visual" aria-hidden="true">
-                    <div className="project-glyph">{index === 2 ? 'GH' : project.title.charAt(0)}</div>
-                    <small>{project.stack.slice(0, 3).join(' · ')}</small>
-                  </div>
-                </a>
-              );
+              return <a href={href} target="_blank" rel="noreferrer" className="home-work-row" key={project.id}><span>0{index + 1}</span><div><p>{project.tag}</p><h3>{project.title}</h3></div><p>{project.description}</p><strong>View ↗</strong></a>;
             })}
           </div>
-          <div style={{ marginTop: 34 }}><Link className="button-ghost" to="/projects">View all seven systems →</Link></div>
+          <div className="home-section-action"><Link className="button-ghost" to="/projects">Explore the full work index →</Link></div>
         </div>
       </section>
 
-      <section className="editorial-section dark-section">
-        <div className="page-shell">
-          <div className="section-head">
-            <div><p className="eyebrow">02 · Operating principles</p><h2 className="section-title">Precision without<br />the theatre.</h2></div>
-            <p className="lede">The goal is not clever code. It is a system people can understand, trust, operate, and extend.</p>
-          </div>
-          <div className="principles">
-            {principles.map((principle) => (
-              <article className="principle" key={principle.number}>
-                <b>{principle.number}</b><h3>{principle.title}</h3><p>{principle.body}</p>
-              </article>
-            ))}
-          </div>
-          <div className="stack-cloud" aria-label="Technology stack">
-            {stack.map((item) => <span className="stack-pill" key={item}>{item}</span>)}
-          </div>
+      <section className="home-research-band">
+        <div className="page-shell home-research-grid">
+          <div><p className="eyebrow">02 · Active research</p><h2 className="section-title">Twi speech models<br /><span>with receipts.</span></h2></div>
+          <div><p className="lede">Published checkpoints, Modal GPU training and serving, WER/CER evaluation, frozen holdouts, model cards, and promotion gates—including experiments that were rejected.</p><Link className="lab-button" to="/research">Inspect the model ledger ↗</Link></div>
         </div>
       </section>
 
       <section className="editorial-section">
         <div className="page-shell section-head" style={{ marginBottom: 0 }}>
-          <div><p className="eyebrow">03 · Next hard thing</p><h2 className="section-title">Have a system that<br /><span style={{ color: 'var(--blue)' }}>should exist?</span></h2></div>
-          <div><p className="lede">I’m interested in thoughtful backend, AI, health, infrastructure, and research collaborations.</p><Link className="button-primary" to="/contact">Open a conversation ↗</Link></div>
+          <div><p className="eyebrow">03 · Work together</p><h2 className="section-title">Building AI that<br /><span style={{ color: 'var(--blue)' }}>has to work?</span></h2></div>
+          <div><p className="lede">I’m most useful where backend depth, model behavior, and production ownership meet.</p><div className="hero-actions"><Link className="button-primary" to="/contact">Start a conversation ↗</Link><Link className="button-ghost" to="/fit">Review role fit</Link></div></div>
         </div>
       </section>
     </div>

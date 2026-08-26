@@ -14,14 +14,13 @@ describe('App', () => {
     const nav = screen.getByRole('navigation', { name: /Primary navigation/ });
     expect(nav).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Work' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Pitches' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Role fit' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Contact' })).toBeInTheDocument();
 
     // Home hero (h1 text is split across <br /> and nested spans)
     const heading = screen.getByRole('heading', { level: 1 });
-    expect(heading).toHaveTextContent(/I take AI from/);
-    expect(heading).toHaveTextContent(/production/);
+    expect(heading).toHaveTextContent(/AI systems/);
+    expect(heading).toHaveTextContent(/real world/);
 
     // Footer brand + copyright (brand text spans a nested <em>, so assert on the footer element)
     const footer = screen.getByRole('contentinfo');

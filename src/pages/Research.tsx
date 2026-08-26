@@ -89,12 +89,6 @@ export default function Research() {
             <p className="lede">My research sits between speech ML, interactive AI, and production engineering. I train and publish Ghanaian-language models, run GPU workloads on Modal, and build the evaluation and safety machinery required to put them in front of real users.</p>
             <div className="hero-actions"><a className="lab-button" href="https://huggingface.co/teckedd" target="_blank" rel="noreferrer">Open model registry ↗</a><a className="lab-text-link" href="https://github.com/teckedd-code2save/ghana-health-ai" target="_blank" rel="noreferrer">Inspect research code</a></div>
           </div>
-          <div className="lab-instrument" aria-label="Current research instrument status">
-            <div className="instrument-head"><span>ASR / EXP-026</span><span className="status-live">● live</span></div>
-            <div className="signal-display" aria-hidden="true"><div className="signal-line" /><div className="signal-scan" /><span>AKAN SPEECH INPUT</span></div>
-            <div className="instrument-readout"><div><small>candidate</small><strong>DONDO v2</strong></div><div><small>decoder</small><strong>CTC + LM</strong></div><div><small>decision</small><strong>BETA / HOLD</strong></div></div>
-            <p><span>NOTE</span> Best product-domain signal so far. Stable route stays unchanged until the larger multi-speaker gate passes.</p>
-          </div>
         </motion.div>
         <motion.div className="page-shell lab-metrics" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .45, duration: .7 }}>
           {labMetrics.map(([value, label, context]) => <div key={label}><strong>{value}</strong><span>{label}</span><small>{context}</small></div>)}

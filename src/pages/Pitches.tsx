@@ -78,12 +78,6 @@ export default function Pitches() {
         </div>
       </section>
 
-      <section className="editorial-section dark-section">
-        <div className="page-shell section-head" style={{ marginBottom: 0 }}>
-          <div><p className="eyebrow">What these represent</p><h2 className="section-title">Every product.<br /><span style={{ color: 'var(--acid)' }}>Has a story.</span></h2></div>
-          <p className="lede">A pitch deck is not a feature list. It is the argument for why a system exists — the problem it solves, the insight that makes it different, and the evidence that it works. These decks are living documents, updated as the products grow.</p>
-        </div>
-      </section>
     </div>
   );
 }
