@@ -24,6 +24,53 @@ const tracks = [
   },
 ];
 
+const modelWork = [
+  {
+    name: 'DONDO v2 · Twi ASR',
+    repo: 'teckedd/gha-dondo-w2v-bert-twi-v2',
+    href: 'https://huggingface.co/teckedd/gha-dondo-w2v-bert-twi-v2',
+    result: '27.31% WER',
+    note: 'Fine-tuned W2V-BERT with a Twi KenLM decoder. Beat the stable Whisper v6 comparison on the same 300-sample Waxal slice and became the beta candidate, pending broader held-out validation.',
+  },
+  {
+    name: 'DONDO v1 · Twi ASR',
+    repo: 'teckedd/gha-dondo-w2v-bert-twi-v1',
+    href: 'https://huggingface.co/teckedd/gha-dondo-w2v-bert-twi-v1',
+    result: '71.91 → 35.77% WER',
+    note: 'An 800-step domain-adaptation run that converted a weak zero-shot baseline into useful evidence. Published with evaluation, intended use, limitations, and a non-promotion decision.',
+  },
+  {
+    name: 'Whisper v6 · stable route',
+    repo: 'teckedd/gha-whisper-small-twi-v6',
+    href: 'https://huggingface.co/teckedd/gha-whisper-small-twi-v6',
+    result: '30.44% WER',
+    note: 'The current stable Twi checkpoint. Cross-language testing exposed severe English regression, leading to separate language routes instead of hiding the weakness behind one model.',
+  },
+  {
+    name: 'Balanced v7 · retention trials',
+    repo: 'Whisper small · frozen + unfrozen',
+    href: 'https://huggingface.co/teckedd',
+    result: '2 controlled failures',
+    note: 'Mixed Twi and English fine-tunes improved English retention but regressed Twi. The models remain public as reproducible negative results and were correctly rejected for production.',
+  },
+];
+
+const modalStages = [
+  ['01', 'Prepare', 'Stream and cap Waxal, Common Voice, and local product audio; preserve frozen holdouts and provenance.'],
+  ['02', 'Train', 'Run resumable Whisper and W2V-BERT jobs on Modal GPUs with checkpoint volumes, explicit phase logs, and cost-aware smoke runs.'],
+  ['03', 'Evaluate', 'Measure WER/CER across Twi, English retention, health language, code-switching, phone noise, and product-domain audio.'],
+  ['04', 'Publish', 'Push checkpoints and validated model cards to Hugging Face, including base model, data, metrics, limitations, and safety scope.'],
+  ['05', 'Serve', 'Deploy separate Modal ASR, TTS, and Twi embedding endpoints with cached model volumes and health checks.'],
+  ['06', 'Promote', 'Require automated gates and production evidence; a completed training run is never treated as a shipping decision.'],
+];
+
+const labMetrics = [
+  ['21', 'public models', 'Hugging Face'],
+  ['27.31%', 'best Waxal WER', 'DONDO v2 + LM'],
+  ['06', 'promotion gates', 'before serving'],
+  ['03', 'live modalities', 'ASR · TTS · embeddings'],
+];
+
 const questions = [
   ['Now', 'How can useful language and agent capabilities fit locally on everyday devices?'],
   ['Near', 'How should AI systems explain confidence, escalation, and intervention to the people relying on them?'],
@@ -33,21 +80,49 @@ const questions = [
 export default function Research() {
   return (
     <div>
-      <section className="editorial-section" style={{ paddingTop: 170 }}>
+      <section className="research-lab-hero">
+        <div className="lab-grid" aria-hidden="true" />
         <motion.div className="page-shell research-intro" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .75, ease: [0.16, 1, 0.3, 1] }}>
           <div>
-            <p className="eyebrow">Research · intelligent human systems</p>
-            <h1 className="display">Machines that<br /><span style={{ color: 'var(--blue)' }}>work with us.</span></h1>
-            <p className="lede">My research interests sit between interactive AI, machine learning, human–computer interaction, and the realities of building for communities underrepresented in today’s technology.</p>
-            <a className="button-primary" href="https://precisionxyz.serendepify.com/#/research" target="_blank" rel="noreferrer">Visit the research hub ↗</a>
+            <p className="eyebrow lab-kicker"><i /> Research environment · Accra / GH</p>
+            <h1 className="display">Language AI,<br /><span>under test.</span></h1>
+            <p className="lede">My research sits between speech ML, interactive AI, and production engineering. I train and publish Ghanaian-language models, run GPU workloads on Modal, and build the evaluation and safety machinery required to put them in front of real users.</p>
+            <div className="hero-actions"><a className="lab-button" href="https://huggingface.co/teckedd" target="_blank" rel="noreferrer">Open model registry ↗</a><a className="lab-text-link" href="https://github.com/teckedd-code2save/ghana-health-ai" target="_blank" rel="noreferrer">Inspect research code</a></div>
           </div>
-          <div className="research-orb" aria-hidden="true"><div className="research-ring" /><div className="research-core">R</div><span className="signal-chip one">HCI</span><span className="signal-chip two">edge AI</span><span className="signal-chip three">health AI</span></div>
+          <div className="lab-instrument" aria-label="Current research instrument status">
+            <div className="instrument-head"><span>ASR / EXP-026</span><span className="status-live">● live</span></div>
+            <div className="signal-display" aria-hidden="true"><div className="signal-line" /><div className="signal-scan" /><span>AKAN SPEECH INPUT</span></div>
+            <div className="instrument-readout"><div><small>candidate</small><strong>DONDO v2</strong></div><div><small>decoder</small><strong>CTC + LM</strong></div><div><small>decision</small><strong>BETA / HOLD</strong></div></div>
+            <p><span>NOTE</span> Best product-domain signal so far. Stable route stays unchanged until the larger multi-speaker gate passes.</p>
+          </div>
         </motion.div>
+        <motion.div className="page-shell lab-metrics" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .45, duration: .7 }}>
+          {labMetrics.map(([value, label, context]) => <div key={label}><strong>{value}</strong><span>{label}</span><small>{context}</small></div>)}
+        </motion.div>
+      </section>
+
+      <section className="editorial-section model-ledger-section">
+        <div className="page-shell">
+          <div className="section-head"><div><p className="eyebrow">01 · Hugging Face model ledger</p><h2 className="section-title">Results, including<br />the ones that failed.</h2></div><div><p className="lede">My Hugging Face profile currently carries 21 public models. The important signal is not the count—it is the recorded chain from baseline to experiment to deployment decision.</p><a className="project-arrow" href="https://huggingface.co/teckedd" target="_blank" rel="noreferrer">View the full Hugging Face profile ↗</a></div></div>
+          <div className="model-ledger">
+            {modelWork.map((model, index) => <a className="model-row" href={model.href} target="_blank" rel="noreferrer" key={model.name}><span className="track-number">0{index + 1}</span><div><h3>{model.name}</h3><code>{model.repo}</code></div><strong>{model.result}</strong><p>{model.note}</p><i aria-hidden="true">↗</i></a>)}
+          </div>
+        </div>
+      </section>
+
+      <section className="editorial-section dark-section">
+        <div className="page-shell">
+          <div className="section-head"><div><p className="eyebrow">02 · Modal research infrastructure</p><h2 className="section-title">A lab that can<br /><span style={{ color: 'var(--acid)' }}>actually ship.</span></h2></div><p className="lede">Modal is the compute and serving layer—not a one-off notebook host. The same system supports controlled training, evaluation recovery, artifact storage, and production inference.</p></div>
+          <div className="modal-pipeline">
+            {modalStages.map(([number, title, body]) => <article key={number}><b>{number}</b><h3>{title}</h3><p>{body}</p></article>)}
+          </div>
+          <div className="research-proof-strip"><span>GPU training</span><span>persistent volumes</span><span>detached + resumable runs</span><span>FastAPI / ASGI endpoints</span><span>HF token secrets</span><span>promotion audits</span></div>
+        </div>
       </section>
 
       <section className="editorial-section" style={{ background: 'var(--paper-2)' }}>
         <div className="page-shell">
-          <div className="section-head"><div><p className="eyebrow">01 · Active tracks</p><h2 className="section-title">Questions with<br />working code.</h2></div><p className="lede">Research is strongest when the argument can meet a real user, device, dataset, or deployment constraint.</p></div>
+          <div className="section-head"><div><p className="eyebrow">03 · Active tracks</p><h2 className="section-title">Questions with<br />working code.</h2></div><p className="lede">Research is strongest when the argument can meet a real user, device, dataset, or deployment constraint.</p></div>
           <div>
             {tracks.map((track) => (
               <article className="research-track" key={track.number}>
@@ -62,7 +137,7 @@ export default function Research() {
 
       <section className="editorial-section dark-section">
         <div className="page-shell">
-          <div className="section-head"><div><p className="eyebrow">02 · Research horizon</p><h2 className="section-title">Build now.<br /><span style={{ color: 'var(--acid)' }}>Ask further.</span></h2></div><p className="lede">A practical thread connects today’s prototypes to longer-term work in accountable autonomous systems.</p></div>
+          <div className="section-head"><div><p className="eyebrow">04 · Research horizon</p><h2 className="section-title">Build now.<br /><span style={{ color: 'var(--acid)' }}>Ask further.</span></h2></div><p className="lede">A practical thread connects today’s prototypes to longer-term work in accountable autonomous systems.</p></div>
           <div className="principles">
             {questions.map(([time, question], index) => <article className="principle" key={time}><b>0{index + 1} / {time}</b><h3>{question}</h3></article>)}
           </div>

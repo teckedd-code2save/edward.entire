@@ -10,6 +10,7 @@ import Articles from './pages/Articles';
 import ArticleViewer from './pages/ArticleViewer';
 import Contact from './pages/Contact';
 import Research from './pages/Research';
+import Fit from './pages/Fit';
 
 function PageWrapper({ children }: { children: ReactNode }) {
   return (
@@ -86,6 +87,14 @@ function AnimatedRoutes() {
           element={
             <PageWrapper>
               <Research />
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="/fit"
+          element={
+            <PageWrapper>
+              <Fit />
             </PageWrapper>
           }
         />

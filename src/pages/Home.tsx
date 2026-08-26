@@ -30,14 +30,15 @@ export default function Home() {
     <div>
       <section className="page-shell home-hero">
         <motion.div className="hero-copy" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={enter}>
-          <p className="eyebrow">Lead backend engineer · AI systems builder</p>
-          <h1 className="display">I build systems that<br /><span>think, ship &</span><br />stay useful.</h1>
-          <p className="lede">I’m Edward Twumasi—a software engineer in Accra working across dependable backend systems, deployment tooling, on-device AI, and African-language technology.</p>
+          <p className="eyebrow">Backend · AI infrastructure · voice systems</p>
+          <h1 className="display">I take AI from<br /><span>evaluation to</span><br />production.</h1>
+          <p className="lede">I’m Edward Twumasi—an Accra-based software engineer building dependable backend platforms, agent infrastructure, and voice products for languages and communities mainstream technology overlooks.</p>
           <div className="hero-actions">
             <Link className="button-primary" to="/projects">Explore selected work <span aria-hidden="true">↘</span></Link>
             <Link className="button-ghost" to="/research">Enter the research lab</Link>
+            <Link className="button-ghost" to="/fit">See where I fit</Link>
           </div>
-          <p className="availability-line"><strong>Current signal:</strong> building local-first AI and infrastructure tools through Serendepify.</p>
+          <p className="availability-line"><strong>Current signal:</strong> shipping Twi speech benchmarks, production health AI, and self-hosted deployment systems through Serendepify.</p>
         </motion.div>
 
         <motion.div className="portrait-stage" initial={{ opacity: 0, scale: .94 }} animate={{ opacity: 1, scale: 1 }} transition={{ ...enter, delay: .16 }} aria-label="Portrait of Edward Twumasi surrounded by areas of expertise">
