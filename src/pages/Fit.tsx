@@ -6,29 +6,57 @@ const roles = [
     fit: 'Best fit',
     title: 'Senior backend engineer, AI products',
     signal: 'Strong now',
-    body: 'Edward brings TypeScript and Python services, Postgres, APIs, Docker, production ownership, and AI features backed by real evaluation—not demo-only integrations.',
+    body: 'Hire Edward when the backend has to do more than move JSON: it must coordinate models, data, safety, payments, and infrastructure without becoming fragile.',
+    evidence: [
+      'Built Ghana Health AI across typed APIs, Postgres/Prisma, retrieval, commerce, authentication, rate limits, audit trails, and streamed conversations.',
+      'Runs the product on a self-hosted Docker and Caddy stack with secret sync, migrations, CI/CD, smoke checks, logs, and rollback paths.',
+      'Built GhanaAPI and infrastructure control tooling, showing reusable API and operational judgment beyond a single product.',
+    ],
     proof: ['Ghana Health AI', 'GroundControl', 'GhanaAPI'],
+    route: '/projects',
+    routeLabel: 'See the production systems',
   },
   {
     fit: 'Differentiated',
     title: 'Applied AI / voice engineer',
     signal: 'Strong with the right team',
-    body: 'A rare combination of low-resource language work—Twi ASR/TTS, synthetic corpora, model benchmarking, promotion gates, and fallback behavior—with the engineering to put it in a user-facing system.',
+    body: 'Hire Edward when speech research must leave the notebook and survive contact with real users, noisy audio, code-switching, safety constraints, and production latency.',
+    evidence: [
+      'Published 21 Hugging Face models and documented the lineage from Whisper baselines through balanced-language failures to DONDO v2.',
+      'Improved DONDO from 71.91% zero-shot WER to 35.77% in v1, then reached 27.31% with v2 plus a Twi language-model decoder.',
+      'Built Twi ASR, TTS, embedding, synthetic-audio, and semantic-recovery paths with domain, English-retention, code-switch, and phone-noise gates.',
+    ],
     proof: ['Twi benchmark suite', 'Modal GPU services', 'Akan Speech Lab'],
+    route: '/research',
+    routeLabel: 'Enter the research lab',
   },
   {
     fit: 'Competitive',
     title: 'AI platform / agent infrastructure engineer',
     signal: 'Credible, needs scale evidence',
-    body: 'Agent runtimes, observability, deployment automation, safe action boundaries, and self-hosted operations make this a credible match. The next proof point is sustained multi-team or high-throughput platform scale.',
+    body: 'Hire Edward to build the dependable layer around agents: execution boundaries, observable workflows, deployment decisions, and human control over consequential actions.',
+    evidence: [
+      'Convoy turns deployment into an explicit rehearse–ship–observe agent loop instead of an opaque one-shot action.',
+      'Agent Ops and GroundControl combine runtime supervision, logs, container operations, reverse-proxy control, and human-readable status.',
+      'Shipd inspects a real repository, compares eleven platforms, explains trade-offs, and produces an actionable deployment plan.',
+    ],
     proof: ['Agent Ops', 'Convoy', 'Shipd'],
+    route: '/projects',
+    routeLabel: 'Inspect the platform work',
   },
   {
     fit: 'Selective',
     title: 'Founding engineer, AI startup',
     signal: 'High-upside match',
-    body: 'For a founding team, Edward can move across product, backend, frontend, models, and operations while keeping the system coherent. The fit is strongest where end-to-end technical ownership matters.',
-    proof: ['Production ownership', 'Rapid product breadth', 'Ghana-first judgment'],
+    body: 'Hire Edward as a founding engineer when the company needs one owner who can turn an underserved problem into a coherent product, technical system, research program, and production operation.',
+    evidence: [
+      'Took Ghana Health AI from a Ghana-specific product thesis to UX, health and commerce workflows, voice intelligence, model evaluation, and a live deployment.',
+      'Works across React and Next.js, TypeScript and Python, Postgres, GPU inference, Docker, CI/CD, secrets, observability, and product safety without losing the user problem.',
+      'Repeated the zero-to-working-system pattern across deployment agents, on-device AI, family care, Ghanaian APIs, and infrastructure tools.',
+    ],
+    proof: ['0→1 product ownership', 'Research + engineering', 'Build + operate'],
+    route: '/projects',
+    routeLabel: 'See the range of 0→1 work',
   },
 ];
 
@@ -80,8 +108,10 @@ export default function Fit() {
             {roles.map((role, index) => (
               <article className="fit-card" key={role.title}>
                 <div className="fit-card-top"><span>0{index + 1} / {role.fit}</span><strong>{role.signal}</strong></div>
-                <h2>{role.title}</h2><p>{role.body}</p>
+                <h2>{role.title}</h2><p className="fit-thesis">{role.body}</p>
+                <div className="fit-evidence"><span>Why the work supports it</span><ul>{role.evidence.map((item) => <li key={item}>{item}</li>)}</ul></div>
                 <div className="tag-row">{role.proof.map((item) => <span className="tiny-tag" key={item}>{item}</span>)}</div>
+                <Link className="fit-proof-link" to={role.route}>{role.routeLabel} ↗</Link>
               </article>
             ))}
           </div>

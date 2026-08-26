@@ -194,11 +194,14 @@ button, input, textarea { font: inherit; }
 .fit-stamp { padding: 20px; border: 1px solid var(--ink); border-radius: 18px; background: var(--paper-3); box-shadow: 7px 7px 0 var(--ink); transform: rotate(1deg); }
 .fit-stamp strong, .fit-stamp span { display: block; }.fit-stamp strong { margin-bottom: 10px; font-family: 'DM Mono'; font-size: .6rem; text-transform: uppercase; }.fit-stamp span { font-size: .88rem; line-height: 1.55; }
 .fit-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
-.fit-card { min-height: 400px; padding: 30px; display: flex; flex-direction: column; border: 1px solid var(--ink); border-radius: var(--radius); background: var(--paper-3); box-shadow: 9px 9px 0 var(--ink); }
+.fit-card { min-height: 660px; padding: 30px; display: flex; flex-direction: column; border: 1px solid var(--ink); border-radius: var(--radius); background: var(--paper-3); box-shadow: 9px 9px 0 var(--ink); }
 .fit-card:nth-child(2) { background: var(--acid); }.fit-card:nth-child(3) { background: var(--blue); color: white; }.fit-card:nth-child(4) { background: var(--orange); }
 .fit-card-top { display: flex; justify-content: space-between; gap: 16px; font-family: 'DM Mono'; font-size: .57rem; text-transform: uppercase; }.fit-card-top strong { font-weight: 500; }
-.fit-card h2 { max-width: 600px; margin: auto 0 18px; font-size: clamp(2rem, 4vw, 3.8rem); font-weight: 800; letter-spacing: -.065em; line-height: .96; }
+.fit-card h2 { max-width: 600px; margin: 54px 0 18px; font-size: clamp(2rem, 4vw, 3.8rem); font-weight: 800; letter-spacing: -.065em; line-height: .96; }
 .fit-card p { max-width: 580px; font-size: .84rem; line-height: 1.7; opacity: .78; }
+.fit-thesis { min-height: 88px; }
+.fit-evidence { margin-top: 24px; padding-top: 20px; border-top: 1px solid currentColor; }.fit-evidence > span { display: block; margin-bottom: 14px; font-family: 'DM Mono'; font-size: .54rem; letter-spacing: .06em; text-transform: uppercase; opacity: .66; }.fit-evidence ul { margin: 0; padding: 0; list-style: none; }.fit-evidence li { position: relative; padding: 0 0 12px 18px; font-size: .72rem; line-height: 1.55; opacity: .82; }.fit-evidence li::before { content: '↳'; position: absolute; left: 0; font-family: 'DM Mono'; }
+.fit-card .tag-row { margin-top: auto; padding-top: 16px; }.fit-proof-link { display: inline-flex; align-self: flex-start; margin-top: 20px; color: currentColor; font-size: .68rem; font-weight: 800; text-underline-offset: 5px; }
 .gap-list { border-top: 1px solid var(--line-dark); }
 .gap-row { display: grid; grid-template-columns: 70px .8fr 1.2fr; gap: 26px; padding: 34px 0; border-bottom: 1px solid var(--line-dark); }
 .gap-row b { color: var(--acid); font-family: 'DM Mono'; font-size: .64rem; }.gap-row h3 { margin: 0; font-size: clamp(1.5rem, 3vw, 2.6rem); letter-spacing: -.05em; }.gap-row p { margin: 0 0 15px; color: #a8aaa1; font-size: .84rem; line-height: 1.7; }.gap-row span { color: var(--acid); font-family: 'DM Mono'; font-size: .6rem; line-height: 1.6; text-transform: uppercase; }
@@ -287,7 +290,7 @@ button, input, textarea { font: inherit; }
   .research-lab-hero { padding-top: 135px; }.signal-display { height: 170px; }.instrument-readout { grid-template-columns: 1fr; }.lab-metrics { grid-template-columns: 1fr; }.lab-metrics > div { min-height: 105px; border-right: 0; }.lab-metrics > div:nth-child(2) { border-right: 0; }
   .model-row { grid-template-columns: 1fr; }.model-row p { grid-column: 1; }.modal-pipeline { grid-template-columns: 1fr; }.modal-pipeline article, .modal-pipeline article:nth-child(odd), .modal-pipeline article:nth-child(even) { min-height: auto; padding: 24px 0; border-right: 0; }.modal-pipeline h3 { margin-top: 34px; }
   .footer-main { flex-direction: column; }.footer-bottom { gap: 20px; flex-wrap: wrap; }
-  .gap-row { grid-template-columns: 1fr; }.gap-row > div { grid-column: 1; }.fit-card { min-height: 360px; box-shadow: 7px 7px 0 var(--ink); }
+  .gap-row { grid-template-columns: 1fr; }.gap-row > div { grid-column: 1; }.fit-card { min-height: auto; box-shadow: 7px 7px 0 var(--ink); }.fit-thesis { min-height: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
