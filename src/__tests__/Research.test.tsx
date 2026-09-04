@@ -5,8 +5,10 @@ import Research from '../pages/Research';
 describe('Research evidence', () => {
   it('shows the dated understanding update and its source', () => {
     render(<Research />);
-    expect(screen.getByRole('heading', { name: /Build the data.*Test the meaning/ })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /From meaning.*to an answer/ })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: '9f4ff2c' })).toHaveAttribute('href', expect.stringContaining('9f4ff2c490da50762f7a6afc9e807143d4842e84'));
+    expect(screen.getByRole('link', { name: 'd459c2a' })).toHaveAttribute('href', expect.stringContaining('d459c2a'));
+    expect(screen.getByText(/Today it exports zero/)).toBeInTheDocument();
   });
 
   it('keeps research results distinct from production and gold data', () => {

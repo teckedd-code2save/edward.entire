@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { newArticles } from '../content/article-library';
 
 const articles = [
   {
@@ -11,24 +12,7 @@ const articles = [
     date: 'July 2026',
     color: 'var(--blue)',
   },
-  {
-    id: 'exactly-once',
-    title: 'Exactly-Once at 250k Scale',
-    subtitle: 'How a Redis idempotency pattern guarantees nobody gets paid twice',
-    description: 'Processing monthly payroll for 250k+ people means a duplicate payment is someones rent. This walks through the Kafka consumer, Redis idempotency keys, and the parallelized pipeline that ensures exactly-once settlement.',
-    tags: ['payments', 'kafka', 'redis', 'distributed-systems'],
-    date: 'Coming soon',
-    color: 'var(--acid)',
-  },
-  {
-    id: 'agent-brain',
-    title: 'An Agent That Never Lies',
-    subtitle: 'Profile-grounded judgment and why confidence scoring matters',
-    description: 'The hardest problem in autonomous agents is not capability — it is trust. This covers the HANDS+BRAIN+LOOP architecture, how the answer engine reasons over a candidate profile with hard guardrails, and why deferring to a human is the most honest thing an agent can do.',
-    tags: ['ai', 'agents', 'architecture'],
-    date: 'Coming soon',
-    color: 'var(--blue)',
-  },
+  ...newArticles,
 ];
 
 export default function Articles() {
@@ -55,13 +39,19 @@ export default function Articles() {
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
-                onClick={() => article.id === 'nsenter-bridge' ? navigate(`/article/${article.id}`) : null}
-                style={{ cursor: article.id === 'nsenter-bridge' ? 'pointer' : 'default' }}
+                onClick={() => navigate(`/article/${article.id}`)}
+                style={{ cursor: 'pointer' }}
+                role="link"
+                tabIndex={0}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') navigate(`/article/${article.id}`);
+                }}
               >
                 <div className="work-card-top"><span>{article.date}</span><span>{article.subtitle}</span></div>
                 <h2>{article.title}</h2>
                 <p>{article.description}</p>
                 <div className="tag-row">{article.tags.map((item) => <span className="tiny-tag" key={item}>{item}</span>)}</div>
+                <span className="article-card-link">Read article →</span>
               </motion.div>
             ))}
           </div>

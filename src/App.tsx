@@ -7,6 +7,8 @@ import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import Research from './pages/Research';
 import Fit from './pages/Fit';
+import Articles from './pages/Articles';
+import ArticleViewer from './pages/ArticleViewer';
 
 function PageWrapper({ children }: { children: ReactNode }) {
   return (
@@ -30,6 +32,14 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
+        <Route
+          path="/articles"
+          element={<PageWrapper><Articles /></PageWrapper>}
+        />
+        <Route
+          path="/article/:id"
+          element={<PageWrapper><ArticleViewer /></PageWrapper>}
+        />
         <Route
           path="/"
           element={

@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { newArticles } from '../content/article-library';
 
 const articles: Record<string, {title: string; accent: string; date: string; html: string}> = {
   'nsenter-bridge': {
@@ -70,6 +71,7 @@ const articles: Record<string, {title: string; accent: string; date: string; htm
 
 <p style="margin-top:56px;padding-top:28px;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem">If you are building infrastructure tooling and wrestling with container-host boundaries, reach out: <a href="mailto:edwardktwumasi1000@gmail.com" style="color:var(--blue)">edwardktwumasi1000@gmail.com</a></p>`
   },
+  ...Object.fromEntries(newArticles.map((article) => [article.id, article])),
 };
 
 export default function ArticleViewer() {
