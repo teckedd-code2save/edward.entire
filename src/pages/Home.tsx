@@ -9,9 +9,9 @@ const featured = featuredIds.flatMap((id) => {
 });
 
 const evidence = [
-  ['27.31%', 'best Twi ASR WER', 'DONDO v2 + language-model decoding'],
-  ['21', 'public models', 'published on Hugging Face'],
-  ['live', 'production product', 'Ghana Health AI on self-hosted infrastructure'],
+  ['27.31%', 'Waxal test WER', 'DONDO v2 + LM · 300-sample evaluation'],
+  ['7,814', 'silver corpus rows', 'research training data · not human-verified gold'],
+  ['v3', 'understanding adapter', 'Qwen LoRA · published, not promoted'],
 ];
 
 const enter = { duration: 0.75, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] };
@@ -76,8 +76,8 @@ export default function Home() {
 
       <section className="home-research-band">
         <div className="page-shell home-research-grid">
-          <div><p className="eyebrow">03 · Active research</p><h2 className="section-title">Twi speech models<br /><span>with receipts.</span></h2></div>
-          <div><p className="lede">Published checkpoints, Modal GPU training and serving, WER/CER evaluation, frozen holdouts, model cards, and promotion gates—including experiments that were rejected.</p><Link className="lab-button" to="/research">Inspect the model ledger ↗</Link></div>
+          <div><p className="eyebrow">03 · Research update · September 2026</p><h2 className="section-title">From recognizing speech<br /><span>to recovering meaning.</span></h2></div>
+          <div><p className="lede">The latest Health AI work connects a traceable corpus, human-review tooling, Qwen LoRA training on Modal, and product-level semantic tests. Published adapters remain research candidates until they preserve meaning reliably.</p><Link className="lab-button" to="/research">Explore the latest research ↗</Link></div>
         </div>
       </section>
 

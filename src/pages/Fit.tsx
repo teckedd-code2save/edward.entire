@@ -22,9 +22,9 @@ const roles = [
     signal: 'Strong with the right team',
     body: 'Hire Edward when speech research must leave the notebook and survive contact with real users, noisy audio, code-switching, safety constraints, and production latency.',
     evidence: [
-      'Published 21 Hugging Face models and documented the lineage from Whisper baselines through balanced-language failures to DONDO v2.',
+      'Published speech checkpoints and Qwen LoRA understanding adapters, connecting Whisper/DONDO research to a 7,814-row silver corpus and Modal A100 training.',
       'Improved DONDO from 71.91% zero-shot WER to 35.77% in v1, then reached 27.31% with v2 plus a Twi language-model decoder.',
-      'Built Twi ASR, TTS, embedding, synthetic-audio, and semantic-recovery paths with domain, English-retention, code-switch, and phone-noise gates.',
+      'Built a 12,223-candidate review queue, human-review and export tooling, shadow integration, and semantic tests; held v3 back despite 7/11 fixture passes because meaning errors remained.',
     ],
     proof: ['Twi benchmark suite', 'Modal GPU services', 'Akan Speech Lab'],
     route: '/research',

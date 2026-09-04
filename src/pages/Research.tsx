@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 const tracks = [
   {
     number: '01',
-    title: 'Intent Engine',
-    body: 'A local-first Android system exploring how declared intent, contextual signals, and careful intervention can help people stay aligned with what they meant to do.',
-    link: 'https://github.com/teckedd-code2save/IntentEngine-mvp',
-    label: 'Open the Android research build',
+    title: 'Twi semantic recovery',
+    body: 'Recovering faithful meaning, intent, entities, and uncertainty from imperfect Twi transcripts. The latest Qwen LoRA adapter is published but held back after product tests exposed remaining semantic errors.',
+    link: 'https://huggingface.co/teckedd/gha-understand-twi-medical-plus-language-v3',
+    label: 'Inspect the v3 adapter',
   },
   {
     number: '02',
@@ -17,10 +17,10 @@ const tracks = [
   },
   {
     number: '03',
-    title: 'Human–AI collaboration',
-    body: 'Designing agents and interfaces that expose their reasoning boundaries, preserve user control, and turn intelligence into understandable action.',
-    link: 'https://precisionxyz.serendepify.com/#/research',
-    label: 'Read the research notes',
+    title: 'Human-reviewed language data',
+    body: 'A review workbench with persisted decisions, CSV round-trips, source provenance, and split-safe exports. Model drafts, silver research data, and reviewed gold data remain distinct evidence classes.',
+    link: 'https://github.com/teckedd-code2save/ghana-health-ai/blob/main/data/understanding-corpus/README.md',
+    label: 'Read the corpus protocol',
   },
 ];
 
@@ -65,14 +65,14 @@ const modalStages = [
 ];
 
 const labMetrics = [
-  ['21', 'public models', 'Hugging Face'],
-  ['27.31%', 'best Waxal WER', 'DONDO v2 + LM'],
-  ['06', 'promotion gates', 'before serving'],
-  ['03', 'live modalities', 'ASR · TTS · embeddings'],
+  ['12,223', 'review candidates', 'source-traceable queue'],
+  ['7,814', 'silver corpus rows', 'not human-verified gold'],
+  ['650', 'v3 training steps', 'Qwen LoRA · Modal A100'],
+  ['7 / 11', 'v3 product fixtures', 'not promoted'],
 ];
 
 const questions = [
-  ['Now', 'How can useful language and agent capabilities fit locally on everyday devices?'],
+  ['Now', 'Can a small adapted model recover Twi meaning without inventing symptoms, intent, or context?'],
   ['Near', 'How should AI systems explain confidence, escalation, and intervention to the people relying on them?'],
   ['Long', 'What does accountable human–robot and human–agent collaboration look like in health, energy, and public systems?'],
 ];
@@ -95,9 +95,20 @@ export default function Research() {
         </motion.div>
       </section>
 
+      <section className="editorial-section" aria-labelledby="understanding-update">
+        <div className="page-shell">
+          <div className="section-head"><div><p className="eyebrow">Latest work · 4 September 2026</p><h2 id="understanding-update" className="section-title">Build the data.<br />Test the meaning.</h2></div><p className="lede">Health AI now includes a language-understanding research pipeline, not only speech recognition. The engineering challenge is preserving meaning from source data through model output to the product.</p></div>
+          <div className="research-track"><span className="track-number">DATA</span><div><h2>From review queue to silver corpus</h2></div><p>The 12,223-candidate queue carries 9,245 draft proposals. A separate 7,814-row silver artifact combines medical symptoms, GhanaNLP speech, WAXAL, and targeted product-failure seeds. Its splits contain 6,329 train, 725 dev, and 760 test rows. These are research labels—not clinician-validated or human-verified gold data.</p></div>
+          <div className="research-track"><span className="track-number">TRAIN</span><div><h2>Qwen adaptation on Modal</h2></div><p>Fine-tuned Qwen2.5-1.5B-Instruct with LoRA on Modal A100 infrastructure. V3 completed 650 steps after removing unrelated context from ambiguity notes and aligning JSON-only training targets with the inference prompt. Checkpoints and model cards were published to Hugging Face.</p></div>
+          <div className="research-track"><span className="track-number">GATE</span><div><h2>Published does not mean promoted</h2><a className="project-arrow" href="https://huggingface.co/teckedd/gha-understand-twi-medical-plus-language-v3" target="_blank" rel="noreferrer">Inspect v3 on Hugging Face ↗</a></div><p>V2 passed 3/8 product fixtures; v3 passed 7/11 on an expanded suite. The different denominators prevent a like-for-like improvement claim. V3 still confuses an eye-pain phrase with cough and misreads a hospital-location request, so it has not been promoted to the live Research endpoint.</p></div>
+          <div className="research-track"><span className="track-number">SHIP</span><div><h2>Research modes with boundaries</h2></div><p>Built shadow-adapter integration, an explicit research-mode picker, latency limits, on-demand review lanes, and compact corpus summaries. The workbench persists human decisions and supports CSV review and strict export gates, keeping experimental adaptation separate from accepted evidence.</p></div>
+          <p className="lede">Evidence snapshot: repository commit <a href="https://github.com/teckedd-code2save/ghana-health-ai/tree/9f4ff2c490da50762f7a6afc9e807143d4842e84" target="_blank" rel="noreferrer">9f4ff2c</a>. The medical source is marked for non-commercial research in the corpus inventory; neither the corpus nor these adapters establish clinical safety.</p>
+        </div>
+      </section>
+
       <section className="editorial-section model-ledger-section">
         <div className="page-shell">
-          <div className="section-head"><div><p className="eyebrow">01 · Hugging Face model ledger</p><h2 className="section-title">Results, including<br />the ones that failed.</h2></div><div><p className="lede">My Hugging Face profile currently carries 21 public models. The important signal is not the count—it is the recorded chain from baseline to experiment to deployment decision.</p><a className="project-arrow" href="https://huggingface.co/teckedd" target="_blank" rel="noreferrer">View the full Hugging Face profile ↗</a></div></div>
+          <div className="section-head"><div><p className="eyebrow">01 · Speech-model lineage</p><h2 className="section-title">Results, including<br />the ones that failed.</h2></div><div><p className="lede">The speech experiments underpin the newer understanding work. These results retain their original evaluation context; the model cards document intended use and limitations.</p><a className="project-arrow" href="https://huggingface.co/teckedd" target="_blank" rel="noreferrer">View the full Hugging Face profile ↗</a></div></div>
           <div className="model-ledger">
             {modelWork.map((model, index) => <a className="model-row" href={model.href} target="_blank" rel="noreferrer" key={model.name}><span className="track-number">0{index + 1}</span><div><h3>{model.name}</h3><code>{model.repo}</code></div><strong>{model.result}</strong><p>{model.note}</p><i aria-hidden="true">↗</i></a>)}
           </div>
