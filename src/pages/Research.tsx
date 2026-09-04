@@ -67,8 +67,8 @@ const modalStages = [
 const labMetrics = [
   ['12,223', 'review candidates', 'source-traceable queue'],
   ['7,814', 'silver corpus rows', 'not human-verified gold'],
-  ['650', 'v3 training steps', 'Qwen LoRA · Modal A100'],
-  ['7 / 11', 'v3 product fixtures', 'not promoted'],
+  ['0', 'reviewed response rows', 'training correctly blocked'],
+  ['100', 'minimum response rows', 'train + dev + test gate'],
 ];
 
 const questions = [
@@ -97,12 +97,13 @@ export default function Research() {
 
       <section className="editorial-section" aria-labelledby="understanding-update">
         <div className="page-shell">
-          <div className="section-head"><div><p className="eyebrow">Latest work · 4 September 2026</p><h2 id="understanding-update" className="section-title">Build the data.<br />Test the meaning.</h2></div><p className="lede">Health AI now includes a language-understanding research pipeline, not only speech recognition. The engineering challenge is preserving meaning from source data through model output to the product.</p></div>
+          <div className="section-head"><div><p className="eyebrow">Latest work · 4 September 2026</p><h2 id="understanding-update" className="section-title">From meaning<br />to an answer.</h2></div><p className="lede">The next research lane changes the objective: train a Twi-native model to produce both an inspectable interpretation and its own bounded response, rather than hiding an interpreter behind a hosted writer.</p></div>
           <div className="research-track"><span className="track-number">DATA</span><div><h2>From review queue to silver corpus</h2></div><p>The 12,223-candidate queue carries 9,245 draft proposals. A separate 7,814-row silver artifact combines medical symptoms, GhanaNLP speech, WAXAL, and targeted product-failure seeds. Its splits contain 6,329 train, 725 dev, and 760 test rows. These are research labels—not clinician-validated or human-verified gold data.</p></div>
           <div className="research-track"><span className="track-number">TRAIN</span><div><h2>Qwen adaptation on Modal</h2></div><p>Fine-tuned Qwen2.5-1.5B-Instruct with LoRA on Modal A100 infrastructure. V3 completed 650 steps after removing unrelated context from ambiguity notes and aligning JSON-only training targets with the inference prompt. Checkpoints and model cards were published to Hugging Face.</p></div>
           <div className="research-track"><span className="track-number">GATE</span><div><h2>Published does not mean promoted</h2><a className="project-arrow" href="https://huggingface.co/teckedd/gha-understand-twi-medical-plus-language-v3" target="_blank" rel="noreferrer">Inspect v3 on Hugging Face ↗</a></div><p>V2 passed 3/8 product fixtures; v3 passed 7/11 on an expanded suite. The different denominators prevent a like-for-like improvement claim. V3 still confuses an eye-pain phrase with cough and misreads a hospital-location request, so it has not been promoted to the live Research endpoint.</p></div>
           <div className="research-track"><span className="track-number">SHIP</span><div><h2>Research modes with boundaries</h2></div><p>Built shadow-adapter integration, an explicit research-mode picker, latency limits, on-demand review lanes, and compact corpus summaries. The workbench persists human decisions and supports CSV review and strict export gates, keeping experimental adaptation separate from accepted evidence.</p></div>
-          <p className="lede">Evidence snapshot: repository commit <a href="https://github.com/teckedd-code2save/ghana-health-ai/tree/9f4ff2c490da50762f7a6afc9e807143d4842e84" target="_blank" rel="noreferrer">9f4ff2c</a>. The medical source is marked for non-commercial research in the corpus inventory; neither the corpus nor these adapters establish clinical safety.</p>
+          <div className="research-track"><span className="track-number">NEXT</span><div><h2>Response-capable review loop</h2><a className="project-arrow" href="https://github.com/teckedd-code2save/ghana-health-ai/tree/d459c2a" target="_blank" rel="noreferrer">Inspect the active research commit ↗</a></div><p>The active branch adds reviewed Twi replies, explicit routine-to-emergency safety labels, and consented multi-speaker recordings tied to individual phrases. A strict exporter refuses to train until at least 100 reviewed response rows exist across train, development, and test splits. Today it exports zero—the correct result while review is incomplete.</p></div>
+          <p className="lede">Evidence snapshots: semantic pipeline <a href="https://github.com/teckedd-code2save/ghana-health-ai/tree/9f4ff2c490da50762f7a6afc9e807143d4842e84" target="_blank" rel="noreferrer">9f4ff2c</a>; active response-corpus work <a href="https://github.com/teckedd-code2save/ghana-health-ai/tree/d459c2a" target="_blank" rel="noreferrer">d459c2a</a>. The latter is active branch work, not a trained or promoted model. Neither corpus establishes clinical safety.</p>
         </div>
       </section>
 

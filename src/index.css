@@ -178,6 +178,17 @@ button, input, textarea { font: inherit; }
 .work-card-top { display: flex; justify-content: space-between; font-family: 'DM Mono'; font-size: .58rem; text-transform: uppercase; }
 .work-card h2 { margin: auto 0 16px; font-size: clamp(2.4rem, 5vw, 4.7rem); font-weight: 800; letter-spacing: -.075em; line-height: .92; }
 .work-card p { max-width: 520px; font-size: .84rem; line-height: 1.65; opacity: .78; }
+.article-card-link { margin-top: 18px; font-size: .7rem; font-weight: 850; letter-spacing: .04em; text-transform: uppercase; }
+.article-body { font-size: 1rem; line-height: 1.85; }
+.article-body h2 { margin: 56px 0 16px; font-size: clamp(1.65rem, 4vw, 2.35rem); font-weight: 850; letter-spacing: -.045em; line-height: 1.05; }
+.article-body p { margin: 0 0 22px; }
+.article-body .article-standfirst { max-width: 660px; font-size: 1.16rem; line-height: 1.7; }
+.article-body blockquote { margin: 34px 0; padding: 6px 0 6px 24px; border-left: 3px solid var(--blue); color: var(--muted); font-size: 1.08rem; font-style: italic; line-height: 1.7; }
+.article-body ul { margin: 20px 0 28px; padding-left: 22px; color: var(--muted); }
+.article-body li { margin-bottom: 12px; padding-left: 4px; line-height: 1.7; }
+.article-body code { padding: .12em .35em; border: 1px solid var(--line); border-radius: 4px; background: var(--paper-2); font-family: 'DM Mono', monospace; font-size: .84em; }
+.article-body a { color: var(--blue); font-weight: 700; text-underline-offset: 4px; }
+.article-body .article-footnote { margin-top: 54px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: .82rem; }
 .work-card-links { display: flex; gap: 18px; margin-top: 26px; }
 .work-card-links a { font-size: .7rem; font-weight: 800; text-underline-offset: 4px; }
 .tag-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 20px; }

@@ -15,6 +15,7 @@ describe('App', () => {
     expect(nav).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Work' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Role fit' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Writing' })).toHaveAttribute('href', '#/articles');
     expect(screen.getByRole('link', { name: 'Contact' })).toBeInTheDocument();
 
     // Home hero (h1 text is split across <br /> and nested spans)
