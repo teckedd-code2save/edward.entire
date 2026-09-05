@@ -5,7 +5,7 @@ import { newArticles } from '../content/article-library';
 const articles = [
   {
     id: 'nsenter-bridge',
-    title: 'The Container That Escaped',
+    title: 'Running Host Commands from a Container',
     subtitle: 'How GroundControl breaks out of Docker to run host commands',
     description: 'Every self-hosted dashboard hits the same wall: containers are jails. This is the story of how GroundControl uses an ephemeral privileged helper and 5 lines of shell to run host commands from inside Docker — no SSH, no host agent, no --pid=host.',
     tags: ['infrastructure', 'docker', 'architecture'],
@@ -23,8 +23,8 @@ export default function Articles() {
       <header className="page-hero">
         <motion.div className="page-shell" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}>
           <p className="eyebrow">Writing index</p>
-          <h1 className="display">Technical<br /><span style={{ color: 'var(--blue)' }}>articles.</span></h1>
-          <p className="lede">Deep dives into infrastructure, distributed systems, and AI agents. No fluff, no SEO filler — just the architecture and the decisions behind it.</p>
+          <h1 className="display">Engineering<br /><span style={{ color: 'var(--blue)' }}>notes.</span></h1>
+          <p className="lede">Detailed accounts of systems I have built, the failures that changed them, and the evidence behind each engineering decision.</p>
         </motion.div>
       </header>
 
@@ -48,7 +48,7 @@ export default function Articles() {
                 }}
               >
                 <div className="work-card-top"><span>{article.date}</span><span>{article.subtitle}</span></div>
-                <h2>{article.title}</h2>
+                <h2>{article.title}{'accent' in article ? ` ${article.accent}` : ''}</h2>
                 <p>{article.description}</p>
                 <div className="tag-row">{article.tags.map((item) => <span className="tiny-tag" key={item}>{item}</span>)}</div>
                 <span className="article-card-link">Read article →</span>
@@ -60,8 +60,8 @@ export default function Articles() {
 
       <section className="editorial-section dark-section">
         <div className="page-shell section-head" style={{ marginBottom: 0 }}>
-          <div><p className="eyebrow">The philosophy</p><h2 className="section-title">Write what you<br /><span style={{ color: 'var(--acid)' }}>built.</span></h2></div>
-          <p className="lede">Every article documents a real system, a real decision, a real tradeoff. No theory without practice. These are technical post-mortems from production, not blog posts from a desk.</p>
+          <div><p className="eyebrow">Editorial standard</p><h2 className="section-title">Written from<br /><span style={{ color: 'var(--acid)' }}>production evidence.</span></h2></div>
+          <p className="lede">Each article links its argument to a working system, measured result, production incident, or research artifact.</p>
         </div>
       </section>
     </div>

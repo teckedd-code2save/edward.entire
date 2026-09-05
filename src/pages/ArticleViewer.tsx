@@ -4,7 +4,7 @@ import { newArticles } from '../content/article-library';
 
 const articles: Record<string, {title: string; accent: string; date: string; html: string}> = {
   'nsenter-bridge': {
-    title: 'The Container That', accent: 'Escaped',
+    title: 'Running Host Commands', accent: 'from a Container',
     date: 'Edward Twumasi · July 2026',
     html: `<p style="font-size:1.05rem;max-width:660px">GroundControl is a VPS fleet control plane. It lives inside a Docker container on the very server it manages. When you click "Restart Service" in the dashboard, it should run <code>systemctl restart caddy</code> on the host. But containers are jails — and <code>systemctl</code> does not exist inside one.</p>
 <p style="font-size:1.05rem;max-width:660px">This is the story of how I broke out.</p>

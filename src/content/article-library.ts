@@ -12,8 +12,8 @@ export type Article = {
 export const newArticles: Article[] = [
   {
     id: 'training-an-interpreter-not-an-assistant',
-    title: 'We Trained an Interpreter.',
-    accent: 'Not an Assistant.',
+    title: 'Training a Direct-Response',
+    accent: 'Twi Model',
     subtitle: 'Why Ghana Health AI needs a new dataset before it can replace the hosted response model',
     description: 'The first Twi adapter learned to recover meaning. It did not learn to answer. Here is why the next corpus adds reviewed Twi replies, safety decisions, and a hard gate before training.',
     tags: ['ghana-health-ai', 'twi', 'datasets', 'llm-training'],
@@ -46,8 +46,8 @@ export const newArticles: Article[] = [
   },
   {
     id: 'meaning-before-medicine',
-    title: 'Meaning Before',
-    accent: 'Medicine.',
+    title: 'Semantic Accuracy as a',
+    accent: 'Health Safety Boundary',
     subtitle: 'Why semantic errors are the first safety problem in a Twi health assistant',
     description: 'A safe health policy is useless if the language model routes eye pain as cough or mistakes rest for work. The safety case begins with faithful meaning.',
     tags: ['health-ai', 'safety', 'evaluation', 'akan'],
@@ -80,8 +80,8 @@ export const newArticles: Article[] = [
   },
   {
     id: 'garbage-collection-is-product-design',
-    title: 'Garbage Collection Is',
-    accent: 'Product Design.',
+    title: 'Designing Safe Docker',
+    accent: 'Garbage Collection',
     subtitle: 'What a full VPS taught GroundControl about safe infrastructure cleanup',
     description: 'A production deploy ran out of disk while old images and build cache occupied the server. The fix was not another prune command—it was a governed cleanup product.',
     tags: ['groundcontrol', 'docker', 'operations', 'product-design'],
@@ -118,8 +118,8 @@ export const newArticles: Article[] = [
   },
   {
     id: 'when-green-deploy-looks-red',
-    title: 'When a Green Deploy',
-    accent: 'Looks Red.',
+    title: 'When Cleanup Fails After a',
+    accent: 'Successful Deploy',
     subtitle: 'Separating release correctness from non-critical cleanup in GroundControl',
     description: 'The application deployed and passed its public smoke test, but a concurrent Docker prune marked the workflow failed. That is an observability bug with operational consequences.',
     tags: ['groundcontrol', 'ci-cd', 'reliability', 'observability'],
