@@ -93,7 +93,7 @@ export default function Fit() {
       <header className="page-hero fit-hero">
         <motion.div className="page-shell" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .75, ease: [0.16, 1, 0.3, 1] }}>
           <p className="eyebrow">Market position · evidence over adjectives</p>
-          <h1 className="display">Where the work<br /><span style={{ color: 'var(--blue)' }}>competes.</span></h1>
+          <h1 className="display">Roles backed by<br /><span style={{ color: 'var(--blue)' }}>shipped work.</span></h1>
           <div className="fit-intro">
             <p className="lede">For teams hiring at the intersection of backend engineering and applied AI, Edward offers something unusually complete: model evaluation, product infrastructure, deployment ownership, and grounded work in low-resource voice technology.</p>
             <div className="fit-stamp"><strong>Best hiring case</strong><span>A backend engineer who can evaluate, ship, and operate production AI systems.</span></div>
