@@ -191,6 +191,15 @@ button, input, textarea { font: inherit; }
 .article-body .article-footnote { margin-top: 54px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: .82rem; }
 .work-card-links { display: flex; gap: 18px; margin-top: 26px; }
 .work-card-links a { font-size: .7rem; font-weight: 800; text-underline-offset: 4px; }
+.featured-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.featured-card { padding: clamp(26px, 4vw, 44px); border: 1px solid var(--ink); border-radius: var(--radius); background: var(--paper-3); box-shadow: 10px 10px 0 var(--ink); }
+.featured-card:first-child { grid-column: 1 / -1; background: var(--ink); color: white; }
+.featured-card h2 { max-width: 900px; margin: 44px 0 18px; font-size: clamp(2.25rem, 5vw, 4.8rem); font-weight: 850; letter-spacing: -.07em; line-height: .95; }
+.featured-card p { max-width: 740px; font-size: .94rem; line-height: 1.7; opacity: .78; }
+.featured-card ul { max-width: 760px; margin: 24px 0; padding-left: 18px; font-size: .78rem; line-height: 1.7; opacity: .78; }
+.featured-card li { margin-bottom: 7px; }
+.featured-card .tag-row { margin-top: 22px; }
+.archive-work-section { background: var(--paper-2); }
 .tag-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 20px; }
 .tiny-tag { padding: 5px 8px; border: 1px solid currentColor; border-radius: 999px; font-family: 'DM Mono'; font-size: .52rem; opacity: .72; }
 
@@ -280,6 +289,8 @@ button, input, textarea { font: inherit; }
 }
 
 @media (max-width: 680px) {
+  .featured-grid { grid-template-columns: 1fr; }
+  .featured-card:first-child { grid-column: auto; }
   .page-shell { width: min(100% - 32px, 1220px); }
   .display { font-size: clamp(3.3rem, 17vw, 5.6rem); }
   .nav-links { display: none; position: absolute; top: 67px; left: 16px; right: 16px; padding: 12px; flex-direction: column; align-items: stretch; border-radius: 20px; background: var(--paper-3); box-shadow: var(--shadow); }

@@ -19,7 +19,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 'groundcontrol',
-    number: '01',
+    number: '03',
     title: 'GroundControl',
     tag: 'self-hosted infrastructure',
     category: 'deployment',
@@ -37,7 +37,7 @@ export const projects: Project[] = [
   },
   {
     id: 'convoy',
-    number: '02',
+    number: '04',
     title: 'Convoy',
     tag: 'deployment agent',
     category: 'deployment',
@@ -55,7 +55,7 @@ export const projects: Project[] = [
   },
   {
     id: 'pocket-models',
-    number: '03',
+    number: '05',
     title: 'Pocket Models',
     tag: 'Android model field guide',
     category: 'tooling',
@@ -73,7 +73,7 @@ export const projects: Project[] = [
   },
   {
     id: 'ghana-health-ai',
-    number: '04',
+    number: '01',
     title: 'Ghana Health AI',
     tag: 'Twi-first health companion',
     category: 'health',
@@ -90,8 +90,25 @@ export const projects: Project[] = [
     liveUrl: 'https://ghanahealth.serendepify.com',
   },
   {
+    id: 'backend-as-natural-language',
+    number: '02',
+    title: 'Backend as Natural Language',
+    tag: 'compiler research · active',
+    category: 'tooling',
+    canvasMode: 'terminal',
+    description: 'A research compiler for turning controlled natural-language backend declarations into canonical, typed intermediate representations and executable plans.',
+    stack: ['Rust', 'Compiler design', 'BIR', 'Language research', 'CI evaluation'],
+    architecture: 'A catalogue-driven semantic frontend lowers declarations through one generic path, validates constraints, rejects contradictions, and emits canonical BIR for deterministic execution.',
+    highlights: [
+      '180/180 on a fresh 15-family holdout after freezing the compiler.',
+      '1,000/1,000 on a 50-family synthetic and adversarial evaluation with blind inputs separated from labels.',
+      'Human-authored validation remains open: 20+ contributors and 250+ declarations.',
+    ],
+    githubUrl: 'https://github.com/teckedd-code2save/backend-as-natural-language',
+  },
+  {
     id: 'intent-engine',
-    number: '05',
+    number: '06',
     title: 'Intent Engine',
     tag: 'on-device AI · Android',
     category: 'health',
@@ -108,7 +125,7 @@ export const projects: Project[] = [
   },
   {
     id: 'adwuma-pa',
-    number: '06',
+    number: '07',
     title: 'Adwuma Pa',
     tag: 'voice-first family care',
     category: 'health',
@@ -125,7 +142,7 @@ export const projects: Project[] = [
   },
   {
     id: 'shipd',
-    number: '07',
+    number: '08',
     title: 'Shipd',
     tag: 'deployment intelligence',
     category: 'deployment',

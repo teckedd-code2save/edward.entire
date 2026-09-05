@@ -4,7 +4,10 @@ import { filterCategories, projects, type ProjectCategory } from '@/components/p
 
 export default function Projects() {
   const [filter, setFilter] = useState<ProjectCategory>('all');
-  const visible = filter === 'all' ? projects : projects.filter((project) => project.category === filter);
+  const featuredIds = ['ghana-health-ai', 'backend-as-natural-language', 'groundcontrol'];
+  const featured = featuredIds.flatMap((id) => projects.filter((project) => project.id === id));
+  const archive = projects.filter((project) => !featuredIds.includes(project.id));
+  const visible = filter === 'all' ? archive : archive.filter((project) => project.category === filter);
 
   return (
     <div>
@@ -16,8 +19,36 @@ export default function Projects() {
         </motion.div>
       </header>
 
-      <section className="editorial-section">
+      <section className="editorial-section featured-work-section" aria-labelledby="featured-work">
         <div className="page-shell">
+          <div className="section-head">
+            <div><p className="eyebrow">Current priorities</p><h2 id="featured-work" className="section-title">Featured work</h2></div>
+            <p className="lede">The strongest current evidence across language research, applied health AI, and self-hosted infrastructure.</p>
+          </div>
+          <div className="featured-grid">
+            {featured.map((project) => (
+              <article className="featured-card" key={project.id}>
+                <div className="work-card-top"><span>{project.number}</span><span>{project.tag}</span></div>
+                <h2>{project.title}</h2>
+                <p>{project.description}</p>
+                <ul>{project.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}</ul>
+                <div className="tag-row">{project.stack.map((item) => <span className="tiny-tag" key={item}>{item}</span>)}</div>
+                <div className="work-card-links">
+                  {project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noreferrer">Live product ↗</a>}
+                  {project.githubUrl && <a href={project.githubUrl} target="_blank" rel="noreferrer">Research and source ↗</a>}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="editorial-section archive-work-section" aria-labelledby="project-archive">
+        <div className="page-shell">
+          <div className="section-head">
+            <div><p className="eyebrow">Additional systems</p><h2 id="project-archive" className="section-title">Project archive</h2></div>
+            <p className="lede">Earlier products and focused experiments, grouped separately from the current flagship work.</p>
+          </div>
           <div className="filter-bar" role="group" aria-label="Filter projects">
             {filterCategories.map((category) => (
               <button
