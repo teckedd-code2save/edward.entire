@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 export default function Footer() {
   return (
     <footer className="site-footer">
-      <div className="footer-shadow-word" aria-hidden="true">precision</div>
       <div className="page-shell footer-main">
         <div>
+          <p className="footer-studio-label">Independent work · Connected disciplines</p>
           <p className="footer-brand">precision <em>xyz</em></p>
           <p className="footer-copy">Engineering dependable systems and useful AI products from Accra—built to travel well beyond it.</p>
         </div>

@@ -1,0 +1,28 @@
+.contact-studio { background: #f0efec; }
+.contact-studio-intro { padding-block: 170px 115px; display: grid; grid-template-columns: 1.3fr .85fr; gap: clamp(60px, 8vw, 130px); align-items: center; }
+.contact-studio-copy > .eyebrow { color: #828792; margin-bottom: 28px; }
+.contact-studio-copy .display { font-size: clamp(42px,5vw,71px); }
+.contact-studio-copy .lede { max-width: 480px; margin-block: 30px 45px; }
+.contact-address { border-top: 1px solid #cbd0d7; padding-top: 25px; }
+.contact-address > span { display: block; font-size: 10px; color: #808894; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 14px; }
+.contact-address > a { display: block; text-decoration: none; color: #3e526f; font-size: clamp(15px,1.65vw,24px); font-weight: 400; letter-spacing: -.025em; overflow-wrap: anywhere; }
+.contact-address > a b { font-weight: 400; padding-left: 8px; }
+.contact-address > button { border: 0; background: none; border-bottom: 1px solid #a3aab5; font-size: 10px; padding: 0 0 4px; margin-top: 20px; color: #6c7685; cursor: pointer; }
+.contact-copy-status { min-height: 14px; margin: 6px 0 0; font-size: 10px; color: #486083; }
+.contact-coordinates { display: flex; align-items: center; gap: 22px; color: #8a9099; font-size: 10px; margin-top: 28px; }
+.contact-coordinates > a { color: #4b586b; text-decoration: none; margin-left: auto; }
+.contact-portrait-stage { perspective: 1400px; padding-inline: 10px; }
+.contact-portrait-stage figure { margin: 0; padding: 10px; background: #faf9f6; border: 1px solid #dededb; box-shadow: 0 40px 55px -30px #666d7866, 0 1px 3px #595d621a; }
+.contact-portrait-stage img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1.1; object-fit: cover; object-position: 50% 42%; }
+.contact-portrait-stage figcaption { padding: 25px 15px 20px; position: relative; }
+.contact-portrait-stage strong { display: block; color: #393f48; font-weight: 500; font-size: 15px; letter-spacing: -.03em; }
+.contact-portrait-stage figcaption span { display: block; margin-top: 6px; color: #8c929b; font-size: 10px; }
+.contact-portrait-stage figcaption i { position: absolute; right: 18px; top: 26px; font-style: normal; color: #acb4c0; font-size: 20px; }
+.contact-studio-details { padding-block: 70px 100px; border-top: 1px solid #cbd0d7; display: grid; grid-template-columns: 1.3fr .85fr; gap: clamp(60px,8vw,130px); }
+.contact-studio-details h2 { font-size: clamp(28px,3vw,42px); font-weight: 500; line-height: 1.2; letter-spacing: -.045em; margin-block: 25px; }
+.contact-studio-details p:not(.eyebrow) { max-width: 450px; color: #747e8a; font-size: 14px; line-height: 1.9; }
+.contact-studio-elsewhere > p { margin-bottom: 22px; }
+.contact-studio-elsewhere > a { display: flex; justify-content: space-between; gap: 20px; padding: 15px 0; border-bottom: 1px solid #d2d5da; color: #4b5667; text-decoration: none; font-size: 13px; transition: padding .2s; }
+.contact-studio-elsewhere > a:hover { padding-inline: 7px; }
+@media (max-width: 900px) { .contact-studio-intro { grid-template-columns: 1.1fr .8fr; gap: 45px; } .contact-coordinates { flex-wrap: wrap; gap: 14px; } .contact-coordinates > a { margin-left: 0; } }
+@media (max-width: 640px) { .contact-studio-intro { padding-block: 130px 65px; grid-template-columns: 1fr; gap: 55px; } .contact-studio-copy .display { font-size: 47px; } .contact-studio-copy .lede { font-size: 14px; } .contact-portrait-stage { max-width: 350px; margin: auto; padding-inline: 10px; } .contact-studio-details { padding-block: 55px 70px; grid-template-columns: 1fr; gap: 45px; } .contact-address > a { font-size: 17px; } }

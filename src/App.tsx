@@ -1,5 +1,5 @@
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, MotionConfig, motion } from 'framer-motion';
 import type { ReactNode } from 'react';
 import Layout from './components/Layout';
 import Home from './pages/Home';
@@ -9,6 +9,7 @@ import Research from './pages/Research';
 import Fit from './pages/Fit';
 import Articles from './pages/Articles';
 import ArticleViewer from './pages/ArticleViewer';
+import SystemPrototype from './pages/SystemPrototype';
 
 function PageWrapper({ children }: { children: ReactNode }) {
   return (
@@ -32,6 +33,7 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
+        <Route path="/prototype/system-teardown" element={<PageWrapper><SystemPrototype /></PageWrapper>} />
         <Route
           path="/articles"
           element={<PageWrapper><Articles /></PageWrapper>}
@@ -87,10 +89,10 @@ function AnimatedRoutes() {
 
 export default function App() {
   return (
-    <HashRouter>
+    <MotionConfig reducedMotion="user"><HashRouter>
       <Layout>
         <AnimatedRoutes />
       </Layout>
-    </HashRouter>
+    </HashRouter></MotionConfig>
   );
 }

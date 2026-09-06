@@ -14,6 +14,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const darkRoute = location.pathname === '/research';
+  const studioRoute = !darkRoute;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -23,9 +24,9 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className={`nav-wrap${scrolled ? ' is-scrolled' : ''}${open ? ' is-open' : ''}${darkRoute ? ' on-dark' : ''}`} aria-label="Primary navigation">
+    <nav className={`nav-wrap${scrolled ? ' is-scrolled' : ''}${open ? ' is-open' : ''}${darkRoute ? ' on-dark' : ''}${studioRoute ? ' studio-nav' : ''}`} aria-label="Primary navigation">
       <div className="page-shell nav-inner">
-        <Link to="/" className="brand-lockup" aria-label="Edward Twumasi, home">
+        <Link to="/" className="brand-lockup" aria-label="Edward Twumasi, home" onClick={() => setOpen(false)}>
           <span className="brand-sigil">ET</span>
           <span>
             <span className="brand-name">Edward Twumasi</span>
