@@ -46,7 +46,7 @@ function StudioEnvironment() {
   return <primitive object={map.texture} attach="environment" />;
 }
 
-function Scene({ progress }: { progress: MotionValue<number> }) {
+function Scene({ progress, compact }: { progress: MotionValue<number>; compact: boolean }) {
   const { camera, size, gl, invalidate } = useThree();
   const target = useMemo(() => new THREE.Vector3(), []);
   const eye = useMemo(() => new THREE.Vector3(), []);
@@ -65,6 +65,7 @@ function Scene({ progress }: { progress: MotionValue<number> }) {
     screen.draw(p);
     sample(p, cameraTrack, eye);
     sample(p, targetTrack, target);
+    if (compact) eye.setX(eye.x * .65);
     const framing = Math.max(1, 1.4 / (size.width / size.height));
     eye.sub(target).multiplyScalar(framing).add(target);
     camera.position.copy(eye);
@@ -78,13 +79,13 @@ function Scene({ progress }: { progress: MotionValue<number> }) {
     <directionalLight position={[-5, 12, 7]} intensity={3.0} color="#fff9f0" />
     <directionalLight position={[8, 5, -5]} intensity={2.4} color="#e7efff" />
     <rectAreaLight position={[-8, 8, 3]} rotation={[-Math.PI / 4, -Math.PI / 4, 0]} width={8} height={12} intensity={5} color="#ffffff" />
-    <group position={[0, .42, 0]}><WorkstationHardware progress={progress} screenTexture={screen.texture} /></group>
-    <ContactShadows position={[0, -.06, 0]} opacity={.38} scale={55} blur={2.6} far={18} resolution={1024} color="#575963" />
+    <group position={[0, .42, 0]}><WorkstationHardware progress={progress} screenTexture={screen.texture} compact={compact} /></group>
+    <ContactShadows position={[0, -.06, 0]} opacity={.38} scale={55} blur={2.6} far={18} frames={compact ? 1 : Infinity} resolution={compact ? 512 : 1024} color="#575963" />
   </>;
 }
 
-export default function WorkstationScene({ progress }: { progress: MotionValue<number>; product: boolean }) {
-  return <Canvas frameloop="demand" camera={{ position: [2.4, 6.8, 9.6], fov: 35, near: .1, far: 120 }} dpr={[1, 2]} gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }} onCreated={({ gl }) => { gl.setClearColor('#ebeae7', 0); gl.toneMapping = THREE.ACESFilmicToneMapping; gl.toneMappingExposure = 1.05; }}>
-    <Scene progress={progress} />
+export default function WorkstationScene({ progress, compact = false }: { progress: MotionValue<number>; product: boolean; compact?: boolean }) {
+  return <Canvas frameloop="demand" camera={{ position: [2.4, 6.8, 9.6], fov: 35, near: .1, far: 120 }} dpr={[1, compact ? 1.5 : 2]} gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }} onCreated={({ gl }) => { gl.setClearColor('#ebeae7', 0); gl.toneMapping = THREE.ACESFilmicToneMapping; gl.toneMappingExposure = 1.05; }}>
+    <Scene progress={progress} compact={compact} />
   </Canvas>;
 }
