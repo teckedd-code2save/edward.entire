@@ -1,9 +1,18 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import App from '../App';
 
+vi.mock('../components/workstation/WorkstationScene', () => ({
+  default: () => <div data-testid="workstation-scene" />,
+}));
+
+beforeEach(() => {
+  vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
+});
+afterEach(() => vi.restoreAllMocks());
+
 describe('App', () => {
-  it('renders the portfolio shell: navigation, home hero, and footer', () => {
+  it('renders the portfolio shell: navigation, home hero, and footer', async () => {
     render(<App />);
 
     // Brand lockup links home
@@ -18,10 +27,10 @@ describe('App', () => {
     expect(screen.getByRole('link', { name: 'Writing' })).toHaveAttribute('href', '#/articles');
     expect(screen.getByRole('link', { name: 'Contact' })).toBeInTheDocument();
 
-    // Home hero (h1 text is split across <br /> and nested spans)
     const heading = screen.getByRole('heading', { level: 1 });
-    expect(heading).toHaveTextContent(/AI systems/);
-    expect(heading).toHaveTextContent(/real world/);
+    expect(heading).toHaveTextContent('AI, beyond the model.');
+    expect(await screen.findByTestId('workstation-scene')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Three systems.*One through-line/ })).toBeInTheDocument();
 
     // Footer brand + copyright (brand text spans a nested <em>, so assert on the footer element)
     const footer = screen.getByRole('contentinfo');

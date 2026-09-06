@@ -9,6 +9,65 @@ export type Article = {
   html: string;
 };
 
+export const groundControlTerminalArticle: Article = {
+  id: 'nsenter-bridge',
+  title: 'How GroundControl’s Terminal',
+  accent: 'Reaches the Host',
+  subtitle: 'The Docker host bridge, command lifecycle, and approval boundary behind the browser terminal',
+  description: 'A terminal inside a container is not automatically a terminal on the server. How I connected the two in GroundControl—and why host identity, command review, and the privilege boundary matter.',
+  tags: ['groundcontrol', 'host-execution', 'docker', 'developer-tools'],
+  date: 'September 2026 · Revised from July 2026',
+  html: `
+<p class="article-standfirst">The interesting part of GroundControl’s terminal is not that it accepts commands in a browser. It is where those commands run. A control plane can look convincing while operating on the wrong machine.</p>
+
+<h2>The command was right. The environment was wrong.</h2>
+<p>I built GroundControl to manage the VPS hosting my deployments. Running the control plane in Docker made it straightforward to package and update. But it also introduced an awkward boundary: the application was inside a container, while the services it needed to manage lived on the host.</p>
+<p>The mounted Docker socket let GroundControl inspect containers. It did not make every shell command a host command. A request for <code>caddy version</code> could report that Caddy was missing even though Caddy was serving traffic on the server. Package installation, service management, and filesystem inspection had the same problem. They were asking the application’s environment about the host’s state.</p>
+<p>This was more consequential than an inconvenient terminal. If a dashboard mistakes its own container for the managed machine, its installation checks and operational decisions become unreliable too. I needed an explicit way to cross that boundary.</p>
+
+<h2>A short-lived helper, created by the host</h2>
+<p>The useful observation was that GroundControl already had access to the host’s Docker daemon. Rather than adding a second long-running host agent for the local setup, I used that connection to create a small helper container for each host command.</p>
+<p>The bridge image contains Alpine and <code>util-linux</code>, with <code>nsenter</code> as its entry point. GroundControl builds it locally when needed. The helper starts with the host PID namespace and privileged capabilities, then targets the host’s PID 1 to enter its mount, UTS, IPC, network, and PID namespaces.</p>
+<pre><code>Browser command
+  → authenticated terminal endpoint
+  → execOnTarget
+  → host Docker daemon
+  → temporary nsenter helper
+  → host shell
+  → stdout · stderr · exit code</code></pre>
+<p>That changes the meaning of the command. The shell now sees the host filesystem and service environment, rather than the application container’s copy of them. The helper also sets a predictable system path and applies the requested working directory. A quoted command is passed to <code>sh -c</code>; the result comes back through the same interface as other execution paths.</p>
+<p>The normal helper uses Docker’s automatic removal on exit. It is a per-command execution mechanism, not a permanently running management agent. The GroundControl application container itself does not need the helper’s <code>--pid=host</code> flag. The Docker daemon creates the process that does.</p>
+<blockquote>The design is small because it reuses a capability the installation already has. The engineering work is making the target environment explicit—and being honest about the authority that capability carries.</blockquote>
+
+<h2>One result contract, different execution paths</h2>
+<p>The local container bridge is one part of the execution layer. <code>execOnVps</code> also supports direct local execution and remote execution through SSH. <code>execOnTarget</code> routes a containerized local target toward the host-access strategies; an explicitly supplied remote connection goes through the SSH path. Each returns standard output, standard error, and an exit code.</p>
+<p>That common result shape matters. A terminal, an installation check, and a deployment operation should not each invent their own way to interpret success. But a shared function is not enough on its own: callers must still identify the correct target. The browser terminal’s containerized path currently uses the local host bridge; it should not be read as proof that every terminal request resolves an arbitrary remote host selection.</p>
+<p>GroundControl also checks whether it appears to have reached the host by comparing the target’s PID 1 command line with the application container’s. Matching identities produce a warning. This is a useful diagnostic, not an infallible identity guarantee. The general execution path can fall back to the container when host access is unavailable; a separate strict entry point rejects that final fallback for callers that require host execution.</p>
+
+<h2>A terminal experience, not a persistent shell session</h2>
+<p>The current interface is deliberately command-oriented. It posts a command and working directory to an authenticated endpoint and displays the returned output and exit status. It is not a persistent interactive PTY: exporting a variable in one request does not establish a lasting shell environment for the next request.</p>
+<p>The browser maintains a working-directory value, handles simple <code>cd</code> navigation, and keeps recent command history locally. Tab completion combines command history with path, project, and container suggestions. Capability-aware helper chips avoid recommending <code>systemctl</code> when the detected system does not provide it, or Caddy commands when Caddy is absent.</p>
+<p>There are practical compatibility decisions underneath that experience. The command route can resolve common binaries, select the available Docker Compose form, and provide hints when a Bash invocation is rewritten for <code>sh</code>. These details are less dramatic than the namespace bridge, but they decide whether an operator can actually use it. The helpers and completion endpoint are separate paths, so they still need to agree with the execution target.</p>
+
+<h2>AI proposes; the operator runs</h2>
+<p>Typing <code>/ai check disk space</code> follows a different path from entering a shell command. GroundControl first returns a proposed command with an explanation. The interface offers <strong>Run</strong>, <strong>Edit</strong>, and <strong>Dismiss</strong>. Generating a suggestion does not automatically execute that suggested operation.</p>
+<p>For common requests, a model call is unnecessary. Disk usage, memory, container listings, and some deployment queries have deterministic handlers. Other requests receive server context before a configured language model produces a POSIX-shell suggestion. Context collection itself can perform inspection commands; the approval step concerns the proposed command.</p>
+<p>There is an important product distinction here: a deployment is not simply a line in <code>docker ps</code>. The terminal’s deployment helper was written to inspect managed Compose directories instead of substituting a raw container list. That helper is narrower than the newer deployment inventory, where enrolled workloads can live in other locations. It needs to evolve with that inventory; a plausible command is not proof of complete coverage.</p>
+<p>The useful role of AI is to reduce the distance between an operational question and an inspectable command. It does not remove the need to understand what that command will touch. The terminal’s review step is a user-interface boundary, not a server-side authorization system that makes model-authored shell inherently safe.</p>
+
+<h2>Ephemeral does not mean least privilege</h2>
+<p>This bridge has substantial authority. Access to a rootful Docker daemon can provide root-equivalent control of the host, and the helper intentionally uses privileged namespace access. Keeping the helper short-lived does not turn the application holding that socket into a low-privilege system.</p>
+<p>The terminal endpoint requires authentication and rejects several recognizably destructive command patterns. Those checks are useful friction, not a complete shell sandbox or a comprehensive policy engine. An authenticated operator still has powerful host access. Command history in a browser is also not the same thing as a durable, server-side audit trail.</p>
+<p>That is the right way to present this design: an administrative control plane for a trusted operator, with a consequential host boundary. Stronger policy enforcement, consistent target routing, and durable operation records remain important hardening work. They should not be implied merely because the interface contains an approval button.</p>
+
+<h2>The same idea solves a deployment lifecycle problem</h2>
+<p>The bridge also has a detached execution path for self-redeployment. If GroundControl replaces its own application container, a deployment process tied to that container can die halfway through the job. The detached helper is owned by Docker instead, with output directed to a host file, so the operation can outlive the application process that initiated it.</p>
+<p>This is what I find valuable about the work. The terminal is not an isolated feature pasted onto a dashboard. The execution boundary supports diagnosis, host operations, and the lifecycle of the control plane itself. After GitHub Actions delivers an image, GroundControl provides the place to inspect what is running and act on the actual server.</p>
+<p>A convincing infrastructure interface has to do more than display the right panels. It has to preserve the meaning of “this host,” “this deployment,” and “this command” all the way from the browser to the process that runs.</p>
+
+<p class="article-footnote">Implementation reviewed in September 2026 at <a href="https://github.com/teckedd-code2save/groundcontrol/tree/a387ac78f74a49cef8590bdc27277e74caa33e9f" target="_blank" rel="noreferrer">GroundControl commit a387ac7</a>. Primary implementation: <a href="https://github.com/teckedd-code2save/groundcontrol/blob/a387ac78f74a49cef8590bdc27277e74caa33e9f/src/lib/docker-host-bridge.ts" target="_blank" rel="noreferrer">Docker host bridge</a>, <a href="https://github.com/teckedd-code2save/groundcontrol/blob/a387ac78f74a49cef8590bdc27277e74caa33e9f/src/lib/host-exec.ts" target="_blank" rel="noreferrer">execution routing</a>, and <a href="https://github.com/teckedd-code2save/groundcontrol/blob/a387ac78f74a49cef8590bdc27277e74caa33e9f/src/app/terminal/page.tsx" target="_blank" rel="noreferrer">terminal interface</a>. This is a source-grounded account of the implementation, not a security certification or a claim that every deployment configuration has been tested.</p>`,
+};
+
 export const newArticles: Article[] = [
   {
     id: 'training-an-interpreter-not-an-assistant',
@@ -44,6 +103,7 @@ export const newArticles: Article[] = [
 <p>The target is not simply fewer API calls. It is a Twi-native model whose understanding and answer can be evaluated together. Until that evidence exists, the hosted model remains in the response path—and the interface says so.</p>
 <p class="article-footnote">Active research snapshot: <a href="https://github.com/teckedd-code2save/ghana-health-ai/tree/d459c2a" target="_blank" rel="noreferrer">commit d459c2a</a>. This work is experimental and does not establish clinical safety.</p>`,
   },
+  groundControlTerminalArticle,
   {
     id: 'meaning-before-medicine',
     title: 'Semantic Accuracy as a',

@@ -1,11 +1,10 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import './WorkFitStudio.css';
 
 const roles = [
   {
-    fit: 'Best fit',
     title: 'Senior backend engineer, AI products',
-    signal: 'Strong now',
     body: 'Hire Edward when the backend has to do more than move JSON: it must coordinate models, data, safety, payments, and infrastructure without becoming fragile.',
     evidence: [
       'Built Ghana Health AI across typed APIs, Postgres/Prisma, retrieval, commerce, authentication, rate limits, audit trails, and streamed conversations.',
@@ -17,9 +16,7 @@ const roles = [
     routeLabel: 'See the production systems',
   },
   {
-    fit: 'Differentiated',
     title: 'Applied AI / voice engineer',
-    signal: 'Strong with the right team',
     body: 'Hire Edward when speech research must leave the notebook and survive contact with real users, noisy audio, code-switching, safety constraints, and production latency.',
     evidence: [
       'Published speech checkpoints and Qwen LoRA understanding adapters, connecting Whisper/DONDO research to a 7,814-row silver corpus and Modal A100 training.',
@@ -31,9 +28,7 @@ const roles = [
     routeLabel: 'Enter the research lab',
   },
   {
-    fit: 'Competitive',
     title: 'AI platform / agent infrastructure engineer',
-    signal: 'Credible, needs scale evidence',
     body: 'Hire Edward to build the dependable layer around agents: execution boundaries, observable workflows, deployment decisions, and human control over consequential actions.',
     evidence: [
       'Convoy turns deployment into an explicit rehearse–ship–observe agent loop instead of an opaque one-shot action.',
@@ -45,9 +40,7 @@ const roles = [
     routeLabel: 'Inspect the platform work',
   },
   {
-    fit: 'Selective',
     title: 'Founding engineer, AI startup',
-    signal: 'High-upside match',
     body: 'Hire Edward as a founding engineer when the company needs one owner who can turn an underserved problem into a coherent product, technical system, research program, and production operation.',
     evidence: [
       'Took Ghana Health AI from a Ghana-specific product thesis to UX, health and commerce workflows, voice intelligence, model evaluation, and a live deployment.',
@@ -88,50 +81,124 @@ const gaps = [
 ];
 
 export default function Fit() {
+  const reduceMotion = useReducedMotion();
+  const reveal = {
+    initial: reduceMotion ? false : { opacity: 0, y: 18 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.1 },
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const },
+  };
+
   return (
-    <div>
-      <header className="page-hero fit-hero">
-        <motion.div className="page-shell" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .75, ease: [0.16, 1, 0.3, 1] }}>
-          <p className="eyebrow">Market position · evidence over adjectives</p>
-          <h1 className="display">Roles backed by<br /><span style={{ color: 'var(--blue)' }}>shipped work.</span></h1>
-          <div className="fit-intro">
-            <p className="lede">For teams hiring at the intersection of backend engineering and applied AI, Edward offers something unusually complete: model evaluation, product infrastructure, deployment ownership, and grounded work in low-resource voice technology.</p>
-            <div className="fit-stamp"><strong>Best hiring case</strong><span>A backend engineer who can evaluate, ship, and operate production AI systems.</span></div>
+    <div className="work-fit-studio fit-studio">
+      <header className="studio-shell fit-masthead">
+        <motion.div className="fit-hero-copy" {...reveal}>
+          <p className="studio-kicker">Working together / Edward Twumasi</p>
+          <h1 className="studio-title fit-title">From model<br />to <span>live product.</span></h1>
+          <p className="studio-lede">I build the software around intelligent systems: the APIs, data, evaluation, and infrastructure that connect an experiment to a product people can use.</p>
+          <div className="fit-hero-actions">
+            <button
+              className="studio-action"
+              type="button"
+              onClick={() => document.getElementById('role-evidence')?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' })}
+            >
+              Explore the role evidence <span aria-hidden="true">↓</span>
+            </button>
           </div>
         </motion.div>
+
+        <motion.figure className="fit-ownership" {...reveal}>
+          <svg viewBox="0 0 420 340" role="img" aria-labelledby="fit-ownership-title fit-ownership-description">
+            <title id="fit-ownership-title">Evaluate, build, operate</title>
+            <desc id="fit-ownership-description">Connected ownership across model and meaning evaluation, product engineering, and production operations.</desc>
+            <g fill="none" stroke="currentColor" strokeWidth="1">
+              <path d="M52 68V260" opacity="0.23" />
+              <path d="M52 68H370M52 164H370M52 260H370" opacity="0.13" />
+              <circle cx="52" cy="68" r="17" fill="var(--studio-paper, #ebeae7)" />
+              <circle cx="52" cy="164" r="17" fill="var(--studio-paper, #ebeae7)" />
+              <circle cx="52" cy="260" r="17" fill="var(--studio-paper, #ebeae7)" />
+              <path d="M42 68h6l4-7 4 14 4-7h3M44 157h16v14H44zM44 262l5 5 11-13" stroke="var(--studio-blue, #456eaa)" strokeWidth="1.5" />
+              <path d="M379 68h10v192h-10" opacity="0.23" />
+            </g>
+            <g fill="currentColor" fontFamily="inherit">
+              <text x="88" y="62" fontSize="23" fontWeight="500">Evaluate</text>
+              <text x="88" y="86" fontSize="13" opacity="0.65">Models, data, and meaning</text>
+              <text x="88" y="158" fontSize="23" fontWeight="500">Build</text>
+              <text x="88" y="182" fontSize="13" opacity="0.65">APIs, product, and infrastructure</text>
+              <text x="88" y="254" fontSize="23" fontWeight="500">Operate</text>
+              <text x="88" y="278" fontSize="13" opacity="0.65">Deployments, monitoring, and recovery</text>
+            </g>
+          </svg>
+          <figcaption>One connected practice, from evaluation to operations.</figcaption>
+        </motion.figure>
       </header>
 
-      <section className="editorial-section">
-        <div className="page-shell">
-          <div className="section-head"><div><p className="eyebrow">01 · Where Edward adds value</p><h2 className="section-title">Four lanes.<br />One clear lead.</h2></div><p className="lede">Role titles vary. The durable value is ownership of the software around intelligent systems: APIs, data, evaluation, deployment, safety, and observability.</p></div>
-          <div className="fit-grid">
-            {roles.map((role, index) => (
-              <article className="fit-card" key={role.title}>
-                <div className="fit-card-top"><span>0{index + 1} / {role.fit}</span><strong>{role.signal}</strong></div>
-                <h2>{role.title}</h2><p className="fit-thesis">{role.body}</p>
-                <div className="fit-evidence"><span>Why the work supports it</span><ul>{role.evidence.map((item) => <li key={item}>{item}</li>)}</ul></div>
-                <div className="tag-row">{role.proof.map((item) => <span className="tiny-tag" key={item}>{item}</span>)}</div>
-                <Link className="fit-proof-link" to={role.route}>{role.routeLabel} ↗</Link>
-              </article>
+      <section className="studio-shell studio-section" id="role-evidence" aria-labelledby="fit-roles-title">
+        <motion.div className="studio-section-heading" {...reveal}>
+          <div>
+            <p className="studio-kicker">01 / Role evidence</p>
+            <h2 id="fit-roles-title">The work behind<br />the role.</h2>
+          </div>
+          <p className="studio-lede">Four ways that experience can serve a team. Each starts with a problem to own and points to the work behind it.</p>
+        </motion.div>
+
+        <div className="fit-role-list">
+          {roles.map((role, index) => (
+            <motion.article className="fit-role-row" key={role.title} {...reveal}>
+              <div className="fit-role-heading">
+                <p className="studio-kicker">Role / 0{index + 1}</p>
+                <h3>{role.title}</h3>
+                <p>{role.body}</p>
+              </div>
+              <div className="fit-role-evidence">
+                <p className="studio-kicker fit-evidence-label">Selected evidence</p>
+                <ul>{role.evidence.map((item) => <li key={item}>{item}</li>)}</ul>
+                <p className="fit-proof-index">{role.proof.join(' · ')}</p>
+                <Link className="studio-action" to={role.route}>{role.routeLabel} <span aria-hidden="true">↗</span></Link>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+
+      <section className="fit-next-section" aria-labelledby="fit-next-title">
+        <div className="studio-shell studio-section">
+          <motion.div className="studio-section-heading" {...reveal}>
+            <div>
+              <p className="studio-kicker">02 / The next evidence</p>
+              <h2 id="fit-next-title">A clear view of<br />what comes next.</h2>
+            </div>
+            <p className="studio-lede">The projects show what I can build. These are the areas where further operating results and independent evidence will make the work easier to assess.</p>
+          </motion.div>
+          <div className="fit-next-list">
+            {gaps.map((gap) => (
+              <motion.article className="fit-next-row" key={gap.number} {...reveal}>
+                <span className="studio-kicker fit-next-number">{gap.number}</span>
+                <h3>{gap.title}</h3>
+                <div className="fit-next-copy">
+                  <p>{gap.body}</p>
+                  <p className="fit-next-action">{gap.action}</p>
+                </div>
+              </motion.article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="editorial-section dark-section">
-        <div className="page-shell">
-          <div className="section-head"><div><p className="eyebrow">02 · Evidence in progress</p><h2 className="section-title">What is proven.<br /><span style={{ color: 'var(--acid)' }}>What comes next.</span></h2></div><p className="lede">The projects establish range and technical judgment. These are the next signals an employer should expect to see as the systems and research mature.</p></div>
-          <div className="gap-list">
-            {gaps.map((gap) => <article className="gap-row" key={gap.number}><b>{gap.number}</b><h3>{gap.title}</h3><div><p>{gap.body}</p><span>{gap.action}</span></div></article>)}
+      <section className="studio-shell studio-section fit-contact-section" aria-labelledby="fit-contact-title">
+        <motion.div className="studio-section-heading" {...reveal}>
+          <div>
+            <p className="studio-kicker">03 / Start a conversation</p>
+            <h2 id="fit-contact-title">What are<br />you building?</h2>
           </div>
-        </div>
-      </section>
-
-      <section className="editorial-section fit-cta">
-        <div className="page-shell section-head" style={{ marginBottom: 0 }}>
-          <div><p className="eyebrow">03 · The hiring shortlist</p><h2 className="section-title">AI backend.<br />Voice. Platform.</h2></div>
-          <div><p className="lede">For teams building in those spaces, the work page carries the product proof and the research lab shows the experimental depth behind it.</p><div className="hero-actions"><Link className="button-primary" to="/projects">Inspect the work ↗</Link><Link className="button-ghost" to="/contact">Discuss a role</Link></div></div>
-        </div>
+          <div>
+            <p className="studio-lede">If your team is working on AI backends, voice, or platform infrastructure, let’s talk about the problem, the stage you’re at, and what needs an owner.</p>
+            <div className="fit-hero-actions">
+              <Link className="studio-button" to="/contact">Discuss a role <span aria-hidden="true">↗</span></Link>
+              <Link className="studio-action" to="/projects">Explore the work <span aria-hidden="true">↗</span></Link>
+            </div>
+          </div>
+        </motion.div>
       </section>
     </div>
   );

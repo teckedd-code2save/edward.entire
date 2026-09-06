@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import './ResearchWritingStudio.css';
 
 const tracks = [
   {
@@ -79,20 +79,19 @@ const questions = [
 
 export default function Research() {
   return (
-    <div>
-      <section className="research-lab-hero">
-        <div className="lab-grid" aria-hidden="true" />
-        <motion.div className="page-shell research-intro" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .75, ease: [0.16, 1, 0.3, 1] }}>
-          <div>
-            <p className="eyebrow lab-kicker"><i /> Research environment · Accra / GH</p>
-            <h1 className="display">Language AI,<br /><span>under test.</span></h1>
+    <div className="research-studio">
+      <section className="lab-studio-hero">
+        <div className="page-shell lab-studio-intro">
+          <div className="lab-studio-copy">
+            <p className="studio-page-kicker"><span /> Research environment · Accra / GH</p>
+            <h1>Language AI,<br /><span>under test.</span></h1>
             <p className="lede">My research sits between speech ML, interactive AI, and production engineering. I train and publish Ghanaian-language models, run GPU workloads on Modal, and build the evaluation and safety machinery required to put them in front of real users.</p>
-            <div className="hero-actions"><a className="lab-button" href="https://huggingface.co/teckedd" target="_blank" rel="noreferrer">Open model registry ↗</a><a className="lab-text-link" href="https://github.com/teckedd-code2save/ghana-health-ai" target="_blank" rel="noreferrer">Inspect research code</a></div>
+            <div className="hero-actions"><a className="research-action" href="https://huggingface.co/teckedd" target="_blank" rel="noreferrer">Open model registry <span>↗</span></a><a className="research-text-link" href="https://github.com/teckedd-code2save/ghana-health-ai" target="_blank" rel="noreferrer">Inspect research code ↗</a></div>
           </div>
-        </motion.div>
-        <motion.div className="page-shell lab-metrics" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .45, duration: .7 }}>
-          {labMetrics.map(([value, label, context]) => <div key={label}><strong>{value}</strong><span>{label}</span><small>{context}</small></div>)}
-        </motion.div>
+        </div>
+        <dl className="page-shell lab-studio-metrics">
+          {labMetrics.map(([value, label, context]) => <div key={label}><dt>{label}</dt><dd><strong>{value}</strong><small>{context}</small></dd></div>)}
+        </dl>
       </section>
 
       <section className="editorial-section" aria-labelledby="understanding-update">
@@ -103,7 +102,7 @@ export default function Research() {
           <div className="research-track"><span className="track-number">GATE</span><div><h2>Published does not mean promoted</h2><a className="project-arrow" href="https://huggingface.co/teckedd/gha-understand-twi-medical-plus-language-v3" target="_blank" rel="noreferrer">Inspect v3 on Hugging Face ↗</a></div><p>V2 passed 3/8 product fixtures; v3 passed 7/11 on an expanded suite. The different denominators prevent a like-for-like improvement claim. V3 still confuses an eye-pain phrase with cough and misreads a hospital-location request, so it has not been promoted to the live Research endpoint.</p></div>
           <div className="research-track"><span className="track-number">SHIP</span><div><h2>Research modes with boundaries</h2></div><p>Built shadow-adapter integration, an explicit research-mode picker, latency limits, on-demand review lanes, and compact corpus summaries. The workbench persists human decisions and supports CSV review and strict export gates, keeping experimental adaptation separate from accepted evidence.</p></div>
           <div className="research-track"><span className="track-number">NEXT</span><div><h2>Response-capable review loop</h2><a className="project-arrow" href="https://github.com/teckedd-code2save/ghana-health-ai/tree/d459c2a" target="_blank" rel="noreferrer">Inspect the active research commit ↗</a></div><p>The active branch adds reviewed Twi replies, explicit routine-to-emergency safety labels, and consented multi-speaker recordings tied to individual phrases. A strict exporter refuses to train until at least 100 reviewed response rows exist across train, development, and test splits. Today it exports zero—the correct result while review is incomplete.</p></div>
-          <p className="lede">Evidence snapshots: semantic pipeline <a href="https://github.com/teckedd-code2save/ghana-health-ai/tree/9f4ff2c490da50762f7a6afc9e807143d4842e84" target="_blank" rel="noreferrer">9f4ff2c</a>; active response-corpus work <a href="https://github.com/teckedd-code2save/ghana-health-ai/tree/d459c2a" target="_blank" rel="noreferrer">d459c2a</a>. The latter is active branch work, not a trained or promoted model. Neither corpus establishes clinical safety.</p>
+          <p className="research-source-note">Evidence snapshots: semantic pipeline <a href="https://github.com/teckedd-code2save/ghana-health-ai/tree/9f4ff2c490da50762f7a6afc9e807143d4842e84" target="_blank" rel="noreferrer">9f4ff2c</a>; active response-corpus work <a href="https://github.com/teckedd-code2save/ghana-health-ai/tree/d459c2a" target="_blank" rel="noreferrer">d459c2a</a>. The latter is active branch work, not a trained or promoted model. Neither corpus establishes clinical safety.</p>
         </div>
       </section>
 
@@ -118,7 +117,7 @@ export default function Research() {
 
       <section className="editorial-section dark-section">
         <div className="page-shell">
-          <div className="section-head"><div><p className="eyebrow">02 · Modal research infrastructure</p><h2 className="section-title">A lab that can<br /><span style={{ color: 'var(--acid)' }}>actually ship.</span></h2></div><p className="lede">Modal is the compute and serving layer—not a one-off notebook host. The same system supports controlled training, evaluation recovery, artifact storage, and production inference.</p></div>
+          <div className="section-head"><div><p className="eyebrow">02 · Modal research infrastructure</p><h2 className="section-title">A lab that can<br /><span>actually ship.</span></h2></div><p className="lede">Modal is the compute and serving layer—not a one-off notebook host. The same system supports controlled training, evaluation recovery, artifact storage, and production inference.</p></div>
           <div className="modal-pipeline">
             {modalStages.map(([number, title, body]) => <article key={number}><b>{number}</b><h3>{title}</h3><p>{body}</p></article>)}
           </div>
@@ -143,7 +142,7 @@ export default function Research() {
 
       <section className="editorial-section dark-section">
         <div className="page-shell">
-          <div className="section-head"><div><p className="eyebrow">04 · Research horizon</p><h2 className="section-title">Build now.<br /><span style={{ color: 'var(--acid)' }}>Ask further.</span></h2></div><p className="lede">A practical thread connects today’s prototypes to longer-term work in accountable autonomous systems.</p></div>
+          <div className="section-head"><div><p className="eyebrow">04 · Research horizon</p><h2 className="section-title">Build now.<br /><span>Ask further.</span></h2></div><p className="lede">A practical thread connects today’s prototypes to longer-term work in accountable autonomous systems.</p></div>
           <div className="principles">
             {questions.map(([time, question], index) => <article className="principle" key={time}><b>0{index + 1} / {time}</b><h3>{question}</h3></article>)}
           </div>

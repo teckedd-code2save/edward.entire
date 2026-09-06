@@ -1,0 +1,48 @@
+.studio-story { position: relative; height: 720vh; color: #212329; background: #ebeae7; }
+.studio-viewport { height: 100svh; min-height: 640px; position: sticky; top: 0; isolation: isolate; overflow: hidden; background: radial-gradient(ellipse at 52% 47%, #f7f6f3 0%, #eeedea 45%, #e4e3e0 100%); }
+.studio-heading { position: absolute; top: 124px; left: max(5vw, 28px); right: max(5vw, 28px); z-index: 2; display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; pointer-events: none; }
+.studio-eyebrow { font-size: 10px; letter-spacing: .10em; text-transform: uppercase; color: #77797e; margin: 0 0 16px; font-weight: 600; }
+.studio-eyebrow span { padding: 0 9px; color: #a3a4a8; }
+.studio-heading h1 { margin: 0; font-size: clamp(36px, 4vw, 62px); line-height: 1.08; font-weight: 500; letter-spacing: -.065em; }
+.studio-description { max-width: 325px; margin: 0 0 2px; font-size: 13px; line-height: 1.7; color: #77797e; }
+.studio-stage { position: absolute; inset: 225px 0 92px; }
+.studio-stage canvas { display: block; touch-action: pan-y; }
+.studio-bottom { position: absolute; bottom: 44px; left: max(5vw, 28px); right: max(5vw, 28px); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.studio-chapters { display: flex; gap: 25px; }
+.studio-chapters button { padding: 8px 0; border: 0; background: none; display: flex; gap: 8px; align-items: center; color: #8a8c90; cursor: pointer; font-size: 11px; font-weight: 500; white-space: nowrap; transition: color .2s; }
+.studio-chapters button:hover, .studio-chapters .is-current { color: #23262b; }
+.studio-chapter-mark { display: block; width: 5px; height: 5px; background: #adafb2; border-radius: 50%; }
+.studio-chapters .is-current .studio-chapter-mark { background: #3b68b0; box-shadow: 0 0 0 4px rgba(63,100,160,.10); }
+.studio-context { color: #666970; font-size: 11px; white-space: nowrap; }
+.studio-context a { color: #34383f; text-decoration: none; padding: 12px 0; border-bottom: 1px solid #8c9097; }
+.studio-context a:hover { color: #315b9b; border-color: #315b9b; }
+.studio-context b, .studio-context a span { margin-left: 20px; font-size: 16px; font-weight: 400; }
+.studio-caption { position: absolute; left: max(5vw, 28px); bottom: 16px; margin: 0; color: #929397; font-size: 9px; letter-spacing: .02em; }
+.studio-loading { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 12px; justify-content: center; align-items: center; color: #75787d; font-size: 13px; }
+.studio-loading span { color: #a5a6aa; font-size: 11px; }
+.studio-still { margin: 0 auto; width: min(830px, 88%); overflow: hidden; border: 1px solid #c2c5ca; border-radius: 12px; background: #fafafa; box-shadow: 0 35px 70px -25px #7a7d8655; }
+.studio-still img { display: block; width: 100%; height: auto; }
+.studio-still-chrome { display: flex; align-items: center; gap: 5px; padding: 9px 14px; background: #e2e3e6; }
+.studio-still-chrome span { width: 7px; height: 7px; border: 1px solid #a4a6aa; border-radius: 50%; }
+.studio-still-chrome p { text-align: center; flex: 1; font-size: 9px; color: #7b7e84; margin: 0 40px 0 0; }
+.studio-story--still { height: auto; }
+.studio-story--still .studio-viewport { height: auto; min-height: 0; position: relative; padding: 128px 24px 44px; }
+.studio-story--still .studio-heading { position: static; margin-bottom: 44px; }
+.studio-story--still .studio-stage { position: static; }
+.studio-story--still .studio-bottom { position: static; margin-top: 30px; justify-content: center; }
+.studio-story--still .studio-caption { display: none; }
+.studio-story--still .studio-still { width: min(830px, 100%); }
+.nav-wrap.studio-nav { background: rgba(235,234,231,.84); border-bottom: 1px solid rgba(41,43,48,.08); backdrop-filter: blur(20px); color: #23262b; }
+.studio-nav .brand-lockup, .studio-nav .nav-contact { color: #23262b; }
+.studio-nav .brand-sigil { border-color: #a8aaaf; color: #3b3f46; background: transparent; }
+.studio-nav .brand-place { color: #8c8e93; }
+.studio-nav .nav-links { border: 0; background: transparent; }
+.studio-nav .nav-link { color: #73767c; }
+.studio-nav .nav-link:hover { background: #dedfdf; color: #20232a; }
+.studio-nav .nav-contact i { background: #5f7b9f; box-shadow: none; animation: none; }
+@media (min-width: 1600px) { .studio-stage { top: 245px; bottom: 104px; } .studio-heading { top: 132px; } }
+@media (max-width: 1100px) { .studio-heading { top: 113px; gap: 24px; } .studio-description { max-width: 245px; font-size: 11px; } .studio-stage { inset: 205px -4% 110px; } .studio-chapters { gap: 16px; } .studio-chapters button, .studio-context { font-size: 10px; } .studio-eyebrow { font-size: 8px; } }
+@media (max-height: 760px) and (min-width: 641px) { .studio-viewport { min-height: 540px; } .studio-heading { top: 94px; } .studio-heading h1 { font-size: 36px; } .studio-eyebrow { margin-bottom: 9px; } .studio-stage { top: 176px; bottom: 76px; } .studio-bottom { bottom: 30px; } .studio-caption { bottom: 9px; } }
+@media (max-width: 800px) { .studio-description { max-width: 200px; } .studio-chapters { gap: 14px; } .studio-chapters button span:last-child { display: none; } .studio-chapters button { padding: 12px 7px; } }
+@media (max-width: 640px) { .studio-heading { flex-direction: column; align-items: flex-start; gap: 17px; } .studio-heading h1 { font-size: 43px; } .studio-description { max-width: 340px; font-size: 13px; } .studio-eyebrow { font-size: 8px; line-height: 1.7; } .studio-nav .nav-links.open { background: #ebeae7; } }
+@media (min-width: 481px) and (max-width: 640px) { .studio-heading { top: 108px; gap: 12px; } .studio-heading h1 { font-size: 33px; } .studio-eyebrow { margin-bottom: 10px; font-size: 7px; } .studio-description { font-size: 11px; line-height: 1.65; max-width: 360px; } .studio-stage { top: 265px; bottom: 95px; } }
