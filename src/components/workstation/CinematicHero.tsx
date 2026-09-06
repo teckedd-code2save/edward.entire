@@ -15,9 +15,10 @@ function ProductStill() {
   return <div className="studio-still"><div className="studio-still-chrome"><span /><span /><span /><p>ghanahealth.serendepify.com</p></div><img src="/ghana-health-live.png" width="1512" height="982" alt="Ghana Health AI: the live voice-first chat interface" /></div>;
 }
 
-class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+class SceneBoundary extends Component<{ children: ReactNode; onFailure: () => void }, { failed: boolean }> {
   state = { failed: false };
   static getDerivedStateFromError() { return { failed: true }; }
+  componentDidCatch() { this.props.onFailure(); }
   render() { return this.state.failed ? <ProductStill /> : this.props.children; }
 }
 
@@ -26,8 +27,9 @@ export default function CinematicHero() {
   const reducedMotion = useReducedMotion();
   const [compact, setCompact] = useState(() => typeof window !== 'undefined' && window.matchMedia('(max-width: 480px)').matches);
   const [chapter, setChapter] = useState(0);
+  const [sceneFailed, setSceneFailed] = useState(false);
   const { scrollYProgress } = useScroll({ target: section, offset: ['start start', 'end end'] });
-  const still = reducedMotion || compact;
+  const still = reducedMotion || sceneFailed;
   useEffect(() => {
     const media = window.matchMedia('(max-width: 480px)');
     const update = () => setCompact(media.matches);
@@ -47,10 +49,10 @@ export default function CinematicHero() {
     <div className="studio-viewport">
       <header className="studio-heading"><div><p className="studio-eyebrow">Edward Twumasi <span>/</span> Applied AI & software engineering</p><h1>{current.title}</h1></div><p className="studio-description" aria-live="polite">{current.body}</p></header>
       <div className="studio-stage" role="img" aria-label="One three-dimensional laptop moves from the agent workspace to GitHub Actions, GroundControl, and Ghana Health AI. Its camera and screen follow your scroll in both directions.">
-        {still ? <ProductStill /> : <SceneBoundary><Suspense fallback={<div className="studio-loading">Preparing the workspace<span>Ghana Health AI</span></div>}><WorkstationScene progress={scrollYProgress} product={chapter === 4} /></Suspense></SceneBoundary>}
+        {still ? <ProductStill /> : <SceneBoundary onFailure={() => setSceneFailed(true)}><Suspense fallback={<div className="studio-loading">Preparing the workspace<span>Ghana Health AI</span></div>}><WorkstationScene progress={scrollYProgress} product={chapter === 4} compact={compact} /></Suspense></SceneBoundary>}
       </div>
       <div className="studio-bottom">
-        {!still && <nav className="studio-chapters" aria-label="Explore the build sequence">{chapters.map((item, index) => <button key={item.label} aria-label={item.label} title={item.label} className={chapter === index ? 'is-current' : ''} aria-current={chapter === index ? 'step' : undefined} onClick={() => goTo(index)}><span className="studio-chapter-mark" /><span>{item.label}</span></button>)}</nav>}
+        {!still && <nav className="studio-chapters" aria-label="Explore the build sequence">{chapters.map((item, index) => <button key={item.label} aria-label={item.label} title={item.label} className={chapter === index ? 'is-current' : ''} aria-current={chapter === index ? 'step' : undefined} onClick={() => goTo(index)}><span className="studio-chapter-mark" /><span className="studio-chapter-label">{item.label}</span><span className="studio-chapter-short" aria-hidden="true">{['IDE', 'Agent', 'GitHub', 'Control', 'Live'][index]}</span></button>)}</nav>}
         <div className="studio-context">{chapter === 4 || still ? <a href="https://ghanahealth.serendepify.com" target="_blank" rel="noreferrer">Explore Ghana Health <span>↗</span></a> : chapter === 3 ? <a href="https://groundcontrol.serendepify.com" target="_blank" rel="noreferrer">Explore GroundControl <span>↗</span></a> : chapter === 2 ? <a href="https://github.com/teckedd-code2save/ghana-health-ai/actions/runs/33924380025" target="_blank" rel="noreferrer">View the actual release <span>↗</span></a> : <span>Scroll to explore <b>↓</b></span>}</div>
       </div>
       <p className="studio-caption">{chapter < 2 ? 'Ghana Health AI · Workspace reconstruction' : chapter === 2 ? 'Ghana Health AI · Actual release capture' : chapter === 3 ? 'GroundControl · Deployment workspace · Captured 6 Sep 2026' : 'Ghana Health AI · Actual product capture'}</p>

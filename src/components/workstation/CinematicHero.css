@@ -13,6 +13,7 @@
 .studio-chapters button:hover, .studio-chapters .is-current { color: #23262b; }
 .studio-chapter-mark { display: block; width: 5px; height: 5px; background: #adafb2; border-radius: 50%; }
 .studio-chapters .is-current .studio-chapter-mark { background: #3b68b0; box-shadow: 0 0 0 4px rgba(63,100,160,.10); }
+.studio-chapter-short { display: none; }
 .studio-context { color: #666970; font-size: 11px; white-space: nowrap; }
 .studio-context a { color: #34383f; text-decoration: none; padding: 12px 0; border-bottom: 1px solid #8c9097; }
 .studio-context a:hover { color: #315b9b; border-color: #315b9b; }
@@ -43,6 +44,45 @@
 @media (min-width: 1600px) { .studio-stage { top: 245px; bottom: 104px; } .studio-heading { top: 132px; } }
 @media (max-width: 1100px) { .studio-heading { top: 113px; gap: 24px; } .studio-description { max-width: 245px; font-size: 11px; } .studio-stage { inset: 205px -4% 110px; } .studio-chapters { gap: 16px; } .studio-chapters button, .studio-context { font-size: 10px; } .studio-eyebrow { font-size: 8px; } }
 @media (max-height: 760px) and (min-width: 641px) { .studio-viewport { min-height: 540px; } .studio-heading { top: 94px; } .studio-heading h1 { font-size: 36px; } .studio-eyebrow { margin-bottom: 9px; } .studio-stage { top: 176px; bottom: 76px; } .studio-bottom { bottom: 30px; } .studio-caption { bottom: 9px; } }
-@media (max-width: 800px) { .studio-description { max-width: 200px; } .studio-chapters { gap: 14px; } .studio-chapters button span:last-child { display: none; } .studio-chapters button { padding: 12px 7px; } }
+@media (max-width: 800px) { .studio-description { max-width: 200px; } .studio-chapters { gap: 14px; } .studio-chapter-label { display: none; } .studio-chapters button { padding: 12px 7px; } }
 @media (max-width: 640px) { .studio-heading { flex-direction: column; align-items: flex-start; gap: 17px; } .studio-heading h1 { font-size: 43px; } .studio-description { max-width: 340px; font-size: 13px; } .studio-eyebrow { font-size: 8px; line-height: 1.7; } .studio-nav .nav-links.open { background: #ebeae7; } }
 @media (min-width: 481px) and (max-width: 640px) { .studio-heading { top: 108px; gap: 12px; } .studio-heading h1 { font-size: 33px; } .studio-eyebrow { margin-bottom: 10px; font-size: 7px; } .studio-description { font-size: 11px; line-height: 1.65; max-width: 360px; } .studio-stage { top: 265px; bottom: 95px; } }
+@media (max-width: 480px) {
+  .studio-story:not(.studio-story--still) { height: 560svh; }
+  .studio-viewport { min-height: 0; }
+  .studio-heading { top: 94px; left: 20px; right: 20px; gap: 12px; }
+  .studio-eyebrow { font-size: 7px; margin-bottom: 12px; letter-spacing: .07em; }
+  .studio-eyebrow span { padding: 0 4px; }
+  .studio-heading h1 { font-size: clamp(30px, 8.5vw, 38px); line-height: 1.08; }
+  .studio-description { font-size: 11px; line-height: 1.6; max-width: 360px; }
+  .studio-stage { inset: clamp(265px, 33svh, 290px) -4% 164px; }
+  .studio-bottom { bottom: 45px; left: 20px; right: 20px; flex-direction: column; align-items: stretch; gap: 8px; }
+  .studio-chapters { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; }
+  .studio-chapters button { flex-direction: column; justify-content: center; min-height: 44px; padding: 8px 0; gap: 8px; }
+  .studio-chapter-short { display: inline; font-size: 10px; }
+  .studio-context { min-height: 36px; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+  .studio-context a { padding: 8px 0; }
+  .studio-caption { left: 20px; right: 20px; bottom: 15px; font-size: 8px; line-height: 1.5; }
+  .studio-story--still .studio-viewport { padding: 108px 20px 36px; }
+}
+@media (max-height: 500px) and (min-width: 481px) and (max-width: 1000px) {
+  body:has(.studio-story) .nav-wrap.studio-nav { padding: 10px 0; }
+  .studio-story:not(.studio-story--still) { height: 560svh; }
+  .studio-viewport { min-height: 0; }
+  .studio-heading { top: 78px; }
+  .studio-heading h1 { font-size: 26px; }
+  .studio-heading .studio-eyebrow, .studio-description { display: none; }
+  .studio-stage { inset: 116px 0 72px; }
+  .studio-bottom { bottom: 24px; }
+  .studio-caption { bottom: 7px; }
+  .studio-chapters button { min-width: 44px; min-height: 44px; justify-content: center; }
+}
+@media (max-width: 480px) and (max-height: 700px) {
+  .studio-heading { top: 86px; gap: 10px; }
+  .studio-heading h1 { font-size: 30px; }
+  .studio-eyebrow { margin-bottom: 9px; }
+  .studio-description { font-size: 10px; line-height: 1.5; }
+  .studio-stage { top: 240px; bottom: 130px; }
+  .studio-bottom { bottom: 29px; gap: 0; }
+  .studio-caption { bottom: 6px; font-size: 7px; }
+}

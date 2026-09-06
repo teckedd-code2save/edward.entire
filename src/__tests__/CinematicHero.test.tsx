@@ -6,6 +6,7 @@ import CinematicHero from '../components/workstation/CinematicHero';
 const playback = vi.hoisted(() => ({
   compact: false,
   reducedMotion: false,
+  sceneFails: false,
   progress: null as MotionValue<number> | null,
 }));
 
@@ -20,12 +21,16 @@ vi.mock('framer-motion', async importOriginal => {
 });
 
 vi.mock('../components/workstation/WorkstationScene', () => ({
-  default: ({ product }: { product: boolean }) => <div data-testid="workstation-scene" data-product={String(product)} />,
+  default: ({ compact, product }: { compact: boolean; product: boolean }) => {
+    if (playback.sceneFails) throw new Error('WebGL is unavailable');
+    return <div data-testid="workstation-scene" data-compact={String(compact)} data-product={String(product)} />;
+  },
 }));
 
 beforeEach(() => {
   playback.compact = false;
   playback.reducedMotion = false;
+  playback.sceneFails = false;
   playback.progress?.set(0);
   vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
   vi.spyOn(window, 'matchMedia').mockImplementation(query => ({
@@ -88,13 +93,61 @@ describe('Cinematic hero', () => {
     expect(screen.queryByRole('link', { name: /View the actual release/ })).not.toBeInTheDocument();
   });
 
-  it.each(['compact', 'reducedMotion'] as const)('shows an accessible product still for %s viewers', preference => {
-    playback[preference] = true;
-    render(<CinematicHero />);
+  it('keeps the animated scene and reversible chapter controls on compact screens', async () => {
+    playback.compact = true;
+    const { container } = render(<CinematicHero />);
+    expect(await screen.findByTestId('workstation-scene')).toHaveAttribute('data-compact', 'true');
+    expect(screen.queryByRole('img', { name: 'Ghana Health AI: the live voice-first chat interface' })).not.toBeInTheDocument();
+    const navigation = screen.getByRole('navigation', { name: 'Explore the build sequence' });
+    expect(navigation.querySelectorAll('button')).toHaveLength(5);
+    const section = container.querySelector('section')!;
+    expect(section).not.toHaveClass('studio-story--still');
+    Object.defineProperty(section, 'offsetHeight', { value: 6000 });
+    vi.spyOn(section, 'getBoundingClientRect').mockReturnValue({
+      top: 0, bottom: 6000, left: 0, right: 390,
+      width: 390, height: 6000, x: 0, y: 0,
+      toJSON: () => ({}),
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: 'GroundControl' }));
+    expect(window.scrollTo).toHaveBeenLastCalledWith({
+      top: window.scrollY + .78 * (6000 - window.innerHeight),
+      behavior: 'auto',
+    });
+    act(() => playback.progress?.set(.78));
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Operate what you ship.');
+    expect(screen.getByRole('button', { name: 'GroundControl' })).toHaveAttribute('aria-current', 'step');
+
+    fireEvent.click(screen.getByRole('button', { name: 'The intent' }));
+    expect(window.scrollTo).toHaveBeenLastCalledWith({ top: window.scrollY, behavior: 'auto' });
+    act(() => playback.progress?.set(0));
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('AI, beyond the model.');
+    expect(screen.getByRole('button', { name: 'The intent' })).toHaveAttribute('aria-current', 'step');
+    expect(screen.getByTestId('workstation-scene')).toBeInTheDocument();
+  });
+
+  it.each([false, true])('respects reduced motion with an accessible still (compact: %s)', compact => {
+    playback.compact = compact;
+    playback.reducedMotion = true;
+    const { container } = render(<CinematicHero />);
 
     expect(screen.getByRole('img', { name: 'Ghana Health AI: the live voice-first chat interface' })).toHaveAttribute('src', '/ghana-health-live.png');
     expect(screen.queryByTestId('workstation-scene')).not.toBeInTheDocument();
     expect(screen.queryByRole('navigation', { name: 'Explore the build sequence' })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Explore Ghana Health/ })).toHaveAttribute('href', 'https://ghanahealth.serendepify.com');
+    expect(container.querySelector('section')).toHaveClass('studio-story--still');
+  });
+
+  it('collapses to the accessible still when the scene cannot render', async () => {
+    playback.compact = true;
+    playback.sceneFails = true;
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const { container } = render(<CinematicHero />);
+
+    expect(await screen.findByRole('img', { name: 'Ghana Health AI: the live voice-first chat interface' })).toHaveAttribute('src', '/ghana-health-live.png');
+    expect(screen.queryByTestId('workstation-scene')).not.toBeInTheDocument();
+    expect(screen.queryByRole('navigation', { name: 'Explore the build sequence' })).not.toBeInTheDocument();
+    expect(container.querySelector('section')).toHaveClass('studio-story--still');
     expect(screen.getByRole('link', { name: /Explore Ghana Health/ })).toHaveAttribute('href', 'https://ghanahealth.serendepify.com');
   });
 });

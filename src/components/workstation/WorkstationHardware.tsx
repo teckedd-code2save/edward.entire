@@ -14,7 +14,7 @@ export const SCREEN_HEIGHT = 6.05;
 const HINGE_POSITION: [number, number, number] = [0, 0.2, -3.25];
 const SCREEN_POSITION: [number, number, number] = [0, 3.26, 0.153];
 
-type HardwareProps = { progress: MotionValue<number>; screenTexture: Texture };
+type HardwareProps = { progress: MotionValue<number>; screenTexture: Texture; compact?: boolean };
 type Point = [number, number, number];
 type Instance = { position: Point; scale?: Point; rotation?: Point };
 
@@ -365,7 +365,7 @@ function smoothRange(value: number, start: number, end: number) {
 }
 
 /** The page owns camera choreography; every hardware transform is local to the hinge/base. */
-export default function WorkstationHardware({ progress, screenTexture }: HardwareProps) {
+export default function WorkstationHardware({ progress, screenTexture, compact = false }: HardwareProps) {
   const materials = useHardwareMaterials();
   const hinge = useRef<Group>(null);
 
@@ -381,7 +381,7 @@ export default function WorkstationHardware({ progress, screenTexture }: Hardwar
     <Plate size={[10.8, 7.1, 0.215]} position={[0, -0.011, 0]} material={materials.shell} radius={0.34} rim={0.145} flat />
     <Plate size={[10.77, 7.07, 0.021]} position={[0, 0.105, 0]} material={materials.bevel} radius={0.33} rim={0.053} flat />
     <Plate size={[10.75, 7.05, 0.009]} position={[0, 0.12, 0]} material={materials.graphite} radius={0.32} rim={0.049} flat />
-    <Internals materials={materials} />
+    {!compact && <Internals materials={materials} />}
     <Ports materials={materials} />
     <Fasteners materials={materials} />
 
