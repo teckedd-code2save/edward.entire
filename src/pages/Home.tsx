@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { projects } from '@/components/projects/projectData';
 import CinematicHero from '@/components/workstation/CinematicHero';
+import QuickHelp from '@/components/QuickHelp';
 
 const featuredIds = ['ghana-health-ai', 'backend-as-natural-language', 'groundcontrol'];
 const featured = featuredIds.flatMap((id) => {
@@ -12,6 +13,7 @@ export default function Home() {
   return (
     <div>
       <CinematicHero />
+      <QuickHelp />
 
       <section className="editorial-section" style={{ background: 'var(--paper-2)' }}>
         <div className="page-shell">
