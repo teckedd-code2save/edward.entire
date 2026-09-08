@@ -10,6 +10,7 @@ import Fit from './pages/Fit';
 import Articles from './pages/Articles';
 import ArticleViewer from './pages/ArticleViewer';
 import SystemPrototype from './pages/SystemPrototype';
+import QuickHelpPage from './pages/QuickHelpPage';
 
 function PageWrapper({ children }: { children: ReactNode }) {
   return (
@@ -33,6 +34,7 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
+        <Route path="/help" element={<PageWrapper><QuickHelpPage /></PageWrapper>} />
         <Route path="/prototype/system-teardown" element={<PageWrapper><SystemPrototype /></PageWrapper>} />
         <Route
           path="/articles"

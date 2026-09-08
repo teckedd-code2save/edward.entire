@@ -10,6 +10,7 @@ export default function Footer() {
           <p className="footer-copy">Engineering dependable systems and useful AI products from Accra—built to travel well beyond it.</p>
         </div>
         <div className="footer-links">
+          <Link to="/help">Get quick help →</Link>
           <Link to="/projects">Selected work →</Link>
           <a href="https://github.com/teckedd-code2save" target="_blank" rel="noreferrer">GitHub ↗</a>
           <a href="https://www.linkedin.com/in/edward-twumasi" target="_blank" rel="noreferrer">LinkedIn ↗</a>

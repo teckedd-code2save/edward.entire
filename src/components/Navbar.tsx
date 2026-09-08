@@ -45,9 +45,10 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          <Link to="/help" className={`nav-link nav-help-menu${location.pathname === '/help' ? ' active' : ''}`} onClick={() => setOpen(false)}>Get quick help ↗</Link>
         </div>
 
-        <Link to="/contact" className="nav-contact"><i />Available for ambitious builds</Link>
+        <Link to="/help" className="nav-contact nav-quick-help" onClick={() => setOpen(false)}>Get quick help <span aria-hidden="true">↗</span></Link>
         <button className="menu-button" type="button" aria-expanded={open} aria-label="Toggle navigation" onClick={() => setOpen((value) => !value)}>
           <span className="mono">{open ? 'Close' : 'Menu'}</span>
         </button>

@@ -38,7 +38,7 @@ export default function Contact() {
         </div>
       </section>
       <section className="page-shell contact-studio-details">
-        <div><p className="eyebrow">What we could work on</p><h2>Products with<br />real engineering questions.</h2><p>AI-enabled products, voice and language systems, deployment tooling, health technology, and research collaborations. A concise brief is enough to begin.</p></div>
+        <div><p className="eyebrow">What we could work on</p><h2>Products with<br />real engineering questions.</h2><p>AI-enabled products, voice and language systems, deployment tooling, health technology, and research collaborations. A concise brief is enough to begin.</p><Link className="help-proof" to="/help">Just need an integration, deployment, or automation? Get quick help ↗</Link></div>
         <div className="contact-studio-elsewhere"><p className="eyebrow">A few other doors</p>{links.map(([label, href]) => <a key={label} href={href} target="_blank" rel="noreferrer"><span>{label}</span><span aria-hidden>↗</span></a>)}<Link to="/research"><span>Research lab</span><span aria-hidden>↗</span></Link><a href="https://drive.google.com/file/d/1JOOIvOaqkOIb2CNFp-2q66To6ef7sg1P/view?usp=sharing" target="_blank" rel="noreferrer"><span>Curriculum vitae</span><span aria-hidden>↗</span></a></div>
       </section>
     </div>
