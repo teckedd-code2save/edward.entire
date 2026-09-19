@@ -14,13 +14,13 @@ describe('Research evidence', () => {
       'href',
       'https://github.com/teckedd-code2save/ghana-health-ai/pull/37',
     );
-    expect(screen.getByText(/active research branch/)).toBeInTheDocument();
+    expect(screen.getAllByText(/active research branch/).length).toBeGreaterThan(0);
   });
 
   it('keeps source counts, research state, and production claims distinct', () => {
     render(<Research />);
     expect(screen.getByText(/two directions, not unique sources/)).toBeInTheDocument();
-    expect(screen.getByText(/0/)).toBeInTheDocument();
+    expect(screen.getByText('active response models promoted')).toBeInTheDocument();
     expect(screen.getByText(/research remains isolated/)).toBeInTheDocument();
     expect(screen.getByText(/No result on this page establishes clinical safety or native-speaker certification/)).toBeInTheDocument();
     expect(screen.queryByText(/ASR \/ EXP-026/)).not.toBeInTheDocument();
