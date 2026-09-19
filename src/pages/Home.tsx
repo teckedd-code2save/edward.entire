@@ -3,7 +3,7 @@ import { projects } from '@/components/projects/projectData';
 import CinematicHero from '@/components/workstation/CinematicHero';
 import QuickHelp from '@/components/QuickHelp';
 
-const featuredIds = ['ghana-health-ai', 'backend-as-natural-language', 'groundcontrol'];
+const featuredIds = ['groundcontrol', 'rentaweekend', 'ghana-health-ai'];
 const featured = featuredIds.flatMap((id) => {
   const project = projects.find((item) => item.id === id);
   return project ? [project] : [];
@@ -13,13 +13,12 @@ export default function Home() {
   return (
     <div>
       <CinematicHero />
-      <QuickHelp />
 
       <section className="editorial-section" style={{ background: 'var(--paper-2)' }}>
         <div className="page-shell">
           <div className="section-head">
             <div><p className="eyebrow">01 · Flagship work</p><h2 className="section-title">Three systems.<br />One through-line.</h2></div>
-            <p className="lede">Research, product engineering, and infrastructure treated as one delivery problem—not separate portfolios.</p>
+            <p className="lede">Distributed systems, agent infrastructure, and ML research treated as one engineering practice: state, trust, failure, evidence, and operation.</p>
           </div>
           <div className="home-work-list">
             {featured.map((project, index) => {
@@ -34,17 +33,17 @@ export default function Home() {
       <section className="editorial-section delivery-section">
         <div className="page-shell delivery-grid">
           <div className="delivery-copy">
-            <p className="eyebrow">02 · Agent-enabled delivery</p>
-            <h2 className="section-title">From repository<br />to your own VPS.</h2>
-            <p className="lede">I built the deployment path my agents use when a product belongs on a Hetzner-class server rather than a managed platform. The agent reads the repository, rehearses the build, prepares only the required deployment files, and pauses at approval gates. The release pipeline then ships an immutable container and verifies the public system—not just the CI job.</p>
-            <div className="hero-actions"><a className="button-primary" href="https://github.com/teckedd-code2save/convoy" target="_blank" rel="noreferrer">Inspect Convoy ↗</a><a className="button-ghost" href="https://github.com/teckedd-code2save/groundcontrol" target="_blank" rel="noreferrer">Inspect GroundControl ↗</a></div>
+            <p className="eyebrow">02 · Agent infrastructure</p>
+            <h2 className="section-title">Give agents capability.<br />Not unlimited authority.</h2>
+            <p className="lede">GroundControl now exposes infrastructure to remote agents through scoped MCP/OAuth capabilities rather than a generic shell. Long-running mutations become durable, idempotent operations; interrupted non-replayable actions become explicitly uncertain; repository and sandbox evidence stay tied to the exact deployed revision.</p>
+            <div className="hero-actions"><a className="button-primary" href="https://github.com/teckedd-code2save/groundcontrol" target="_blank" rel="noreferrer">Inspect GroundControl ↗</a><a className="button-ghost" href="#/article/nsenter-bridge">Read the host-boundary note ↗</a></div>
           </div>
           <div className="delivery-flow" aria-label="Agent-enabled VPS delivery pipeline">
             {[
-              ['01', 'Inspect + rehearse', 'Convoy maps services, secrets, health paths, and platform constraints; a real build and boot must pass before deployment files are proposed.'],
-              ['02', 'Build + publish', 'GitHub Actions builds with cache, tags the image by commit SHA, and publishes the immutable artifact to GHCR.'],
-              ['03', 'Deploy + route', 'The VPS pulls over SSH, applies database migrations, rolls the Compose service, and routes the domain through Caddy and Cloudflare.'],
-              ['04', 'Operate + recover', 'GroundControl becomes the operations interface after GitHub Actions ships: host health, containers, routes, logs, and agent-assisted control. External probes verify the product; known image tags support recovery.'],
+              ['01', 'Grant exactly what is needed', 'OAuth consent is scoped to enrolled deployments and capabilities. The remote agent never receives a permanent SSH credential or an unrestricted production shell.'],
+              ['02', 'Inspect with evidence', 'Deployments, health, logs, configuration presence, repository identity, and connector capabilities are queried through bounded interfaces with secret redaction.'],
+              ['03', 'Mutate durably', 'Redeploys use idempotency keys and durable operation IDs. Disconnects do not erase state; ambiguous non-replayable work is marked uncertain instead of executed twice.'],
+              ['04', 'Verify the customer path', 'The control plane correlates deployment identity, proxy/upstream boundaries, runtime state, and external reachability before model reasoning or recovery is allowed to claim success.'],
             ].map(([number, title, body]) => <article key={number}><b>{number}</b><div><h3>{title}</h3><p>{body}</p></div></article>)}
           </div>
         </div>
@@ -52,10 +51,12 @@ export default function Home() {
 
       <section className="home-research-band">
         <div className="page-shell home-research-grid">
-          <div><p className="eyebrow">03 · Research update · September 2026</p><h2 className="section-title">From recognizing speech<br /><span>to recovering meaning.</span></h2></div>
-          <div><p className="lede">The latest Health AI work connects a traceable corpus, human-review tooling, Qwen LoRA training on Modal, and product-level semantic tests. Published adapters remain research candidates until they preserve meaning reliably.</p><Link className="lab-button" to="/research">Explore the latest research ↗</Link></div>
+          <div><p className="eyebrow">03 · ML systems · September 2026</p><h2 className="section-title">From a Twi model<br /><span>to a reproducible system.</span></h2></div>
+          <div><p className="lede">Ghana Health AI is becoming the ML-systems capstone behind my next phase of work: corpus provenance, Arrow/Parquet data planes, reproducible adaptation, GPU profiling, distributed training, checkpoint/recovery, evaluation, and serving. Model promotion still depends on semantic evidence, not a completed training run.</p><Link className="lab-button" to="/research">Enter the research lab ↗</Link></div>
         </div>
       </section>
+
+      <QuickHelp />
 
       <section className="editorial-section">
         <div className="page-shell section-head" style={{ marginBottom: 0 }}>

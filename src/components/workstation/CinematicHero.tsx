@@ -4,10 +4,10 @@ import './CinematicHero.css';
 
 const WorkstationScene = lazy(() => import('./WorkstationScene'));
 const chapters = [
-  { title: 'AI, beyond the model.', label: 'The intent', body: 'Research, product, and the infrastructure in between. A closer look at building Ghana Health AI.', at: 0 },
+  { title: 'AI, beyond the model.', label: 'The intent', body: 'Distributed systems, agent infrastructure, and low-resource-language AI. The through-line is making intelligent systems reliable outside the notebook.', at: 0 },
   { title: 'Inside the work.', label: 'The engineering', body: 'An agent-assisted workspace. A conversation that keeps its context. An interpretation the user can inspect.', at: .25 },
   { title: 'Every release has a record.', label: 'The release', body: 'The actual Ghana Health build: an immutable image, a commit, and a verifiable path to production.', at: .55 },
-  { title: 'Operate what you ship.', label: 'GroundControl', body: 'After GitHub Actions ships, GroundControl brings deployment stages, runtime verification, and agent-assisted host operations into one interface.', at: .78 },
+  { title: 'Operate what you ship.', label: 'GroundControl', body: 'The control plane now gives remote agents scoped MCP/OAuth capabilities, durable operations, exact-revision evidence, and bounded recovery without handing them a generic production shell.', at: .78 },
   { title: 'Ghana Health, live.', label: 'The product', body: 'A voice-first health assistant built around Twi, visible interpretation, and a continuous conversation.', at: .96 },
 ];
 
@@ -45,9 +45,9 @@ export default function CinematicHero() {
     window.scrollTo({ top: start + chapters[index].at * (section.current.offsetHeight - window.innerHeight), behavior: 'auto' });
   }
 
-  return <section ref={section} className={`studio-story${still ? ' studio-story--still' : ''}`} aria-label="From building Ghana Health AI to the live product">
+  return <section ref={section} className={`studio-story${still ? ' studio-story--still' : ''}`} aria-label="From model and product engineering to deployment and operations">
     <div className="studio-viewport">
-      <header className="studio-heading"><div><p className="studio-eyebrow">Edward Twumasi <span>/</span> Applied AI & software engineering</p><h1>{current.title}</h1></div><p className="studio-description" aria-live="polite">{current.body}</p></header>
+      <header className="studio-heading"><div><p className="studio-eyebrow">Edward Twumasi <span>/</span> Distributed systems · agent infrastructure · ML systems</p><h1>{current.title}</h1></div><p className="studio-description" aria-live="polite">{current.body}</p></header>
       <div className="studio-stage" role="img" aria-label="One three-dimensional laptop moves from the agent workspace to GitHub Actions, GroundControl, and Ghana Health AI. Its camera and screen follow your scroll in both directions.">
         {still ? <ProductStill /> : <SceneBoundary onFailure={() => setSceneFailed(true)}><Suspense fallback={<div className="studio-loading">Preparing the workspace<span>Ghana Health AI</span></div>}><WorkstationScene progress={scrollYProgress} product={chapter === 4} compact={compact} /></Suspense></SceneBoundary>}
       </div>
