@@ -4,79 +4,79 @@ import './WorkFitStudio.css';
 
 const roles = [
   {
-    title: 'Senior backend engineer, AI products',
-    body: 'Hire Edward when the backend has to do more than move JSON: it must coordinate models, data, safety, payments, and infrastructure without becoming fragile.',
+    title: 'Distributed / production infrastructure',
+    body: 'For teams that need stateful backend systems, durable workflows, deployment control planes, and engineers who can own failure from API contract to production recovery.',
     evidence: [
-      'Built Ghana Health AI across typed APIs, Postgres/Prisma, retrieval, commerce, authentication, rate limits, audit trails, and streamed conversations.',
-      'Runs the product on a self-hosted Docker and Caddy stack with secret sync, migrations, CI/CD, smoke checks, logs, and rollback paths.',
-      'Built GhanaAPI and infrastructure control tooling, showing reusable API and operational judgment beyond a single product.',
+      'Lead backend engineering across financial, payments, e-commerce, and public-sector systems using Temporal, Kafka, Akka.NET, Redis, Elasticsearch/OpenSearch, PostgreSQL, EF Core, and Dapper.',
+      'GroundControl reconciles deployments, Docker/Compose, proxy routes, host state, logs, health, and release evidence across operator-owned infrastructure.',
+      'Production work emphasizes concurrency, retries, idempotency, observability, rollout safety, and explicit recovery rather than happy-path service code.',
     ],
-    proof: ['Ghana Health AI', 'GroundControl', 'GhanaAPI'],
+    proof: ['Hubtel distributed systems', 'Temporal workflows', 'GroundControl'],
     route: '/projects',
-    routeLabel: 'See the production systems',
+    routeLabel: 'Inspect the systems work',
   },
   {
-    title: 'Applied AI / voice engineer',
-    body: 'Hire Edward when speech research must leave the notebook and survive contact with real users, noisy audio, code-switching, safety constraints, and production latency.',
+    title: 'Agent / research platform infrastructure',
+    body: 'For teams building agents that need real capabilities without turning model autonomy into unrestricted production authority.',
     evidence: [
-      'Published speech checkpoints and Qwen LoRA understanding adapters, connecting Whisper/DONDO research to a 7,814-row silver corpus and Modal A100 training.',
-      'Improved DONDO from 71.91% zero-shot WER to 35.77% in v1, then reached 27.31% with v2 plus a Twi language-model decoder.',
-      'Built a 12,223-candidate review queue, human-review and export tooling, shadow integration, and semantic tests; held v3 back despite 7/11 fixture passes because meaning errors remained.',
+      'GroundControl exposes remote infrastructure through scoped MCP/OAuth grants instead of generic shell access, with rotating/revocable credentials and exact workload permissions.',
+      'Long-running mutations are durable idempotent operations; interrupted non-replayable work is marked uncertain instead of being executed twice.',
+      'Exact deployed revisions can be reproduced in ephemeral Daytona sandboxes for bounded validation, while connector health is verified capability by capability.',
     ],
-    proof: ['Twi benchmark suite', 'Modal GPU services', 'Akan Speech Lab'],
+    proof: ['MCP + OAuth', 'Durable operations', 'Sandbox reproduction'],
+    route: '/projects',
+    routeLabel: 'See the control-plane evidence',
+  },
+  {
+    title: 'ML systems / evaluation engineering',
+    body: 'For teams where model quality, data lineage, evaluation, training infrastructure, and production behavior have to be treated as one system.',
+    evidence: [
+      'Ghana Health AI connects Twi ASR, human-reviewed language data, semantic adaptation, Modal GPU training, versioned evaluation fixtures, and guarded product promotion.',
+      'Published model candidates retain measured failures and non-promotion decisions; a completed training run is never treated as proof that a model should ship.',
+      'The current systems track extends the same research into Arrow/Parquet corpus lineage, GPU profiling, distributed training, checkpoint/recovery, and serving benchmarks.',
+    ],
+    proof: ['Twi/Akan speech', 'Modal GPU', 'Evaluation + provenance'],
     route: '/research',
     routeLabel: 'Enter the research lab',
   },
   {
-    title: 'AI platform / agent infrastructure engineer',
-    body: 'Hire Edward to build the dependable layer around agents: execution boundaries, observable workflows, deployment decisions, and human control over consequential actions.',
+    title: 'Systems-minded founding engineer',
+    body: 'For early teams that need one owner who can connect an underserved problem to architecture, product, infrastructure, evaluation, and the operational details required to keep it real.',
     evidence: [
-      'Convoy turns deployment into an explicit rehearse–ship–observe agent loop instead of an opaque one-shot action.',
-      'Agent Ops and GroundControl combine runtime supervision, logs, container operations, reverse-proxy control, and human-readable status.',
-      'Shipd inspects a real repository, compares eleven platforms, explains trade-offs, and produces an actionable deployment plan.',
+      'GroundControl moved from dashboard to agent-operable control plane as the operational problem became clearer.',
+      'RentAWeekend evolved from planning UX into concurrency-safe, provenance-aware real-world agent execution with explicit payment, safety, matching, and human gates.',
+      'Ghana Health AI combines product, low-resource-language research, model evaluation, deployment, and an explicit roadmap into deeper ML systems work.',
     ],
-    proof: ['Agent Ops', 'Convoy', 'Shipd'],
+    proof: ['0→1 ownership', 'Architecture + product', 'Build + operate'],
     route: '/projects',
-    routeLabel: 'Inspect the platform work',
-  },
-  {
-    title: 'Founding engineer, AI startup',
-    body: 'Hire Edward as a founding engineer when the company needs one owner who can turn an underserved problem into a coherent product, technical system, research program, and production operation.',
-    evidence: [
-      'Took Ghana Health AI from a Ghana-specific product thesis to UX, health and commerce workflows, voice intelligence, model evaluation, and a live deployment.',
-      'Works across React and Next.js, TypeScript and Python, Postgres, GPU inference, Docker, CI/CD, secrets, observability, and product safety without losing the user problem.',
-      'Repeated the zero-to-working-system pattern across deployment agents, on-device AI, family care, Ghanaian APIs, and infrastructure tools.',
-    ],
-    proof: ['0→1 product ownership', 'Research + engineering', 'Build + operate'],
-    route: '/projects',
-    routeLabel: 'See the range of 0→1 work',
+    routeLabel: 'Explore the flagship systems',
   },
 ];
 
 const gaps = [
   {
     number: '01',
-    title: 'Production impact is the next signal.',
-    body: 'The portfolio already proves technical breadth. User counts, request volume, latency, reliability, model accuracy, cost, and before-and-after results will make the operating impact easier for a hiring panel to verify.',
-    action: 'Next evidence: a public Ghana Health AI operating scorecard.',
+    title: 'Measure more of the systems story.',
+    body: 'The architecture and failure-handling decisions are increasingly visible. The next improvement is systematic public measurement: latency, throughput, resource use, recovery time, load behavior, and before/after operating results.',
+    action: 'Next evidence: benchmark and operating scorecards attached to flagship case studies.',
   },
   {
     number: '02',
-    title: 'Platform depth is emerging.',
-    body: 'The work demonstrates deployment ownership and failure-aware design. Senior platform teams will also look for evidence of queues, tracing, capacity planning, incident learning, and trade-offs under sustained load.',
-    action: 'Next evidence: a case study with architecture, scale, and a failure story.',
+    title: 'Move deeper into GPU and distributed model compute.',
+    body: 'The current strength is backend, control-plane, evaluation, and deployment engineering. Training/inference infrastructure roles also require hands-on evidence in profiling, CUDA/Triton, parallelism, checkpointing, and accelerator memory behavior.',
+    action: 'Next evidence: Ghana Health Model Factory experiments with profiler traces and distributed-training measurements.',
   },
   {
     number: '03',
-    title: 'The strongest stack is focused.',
-    body: 'The clearest interview-ready story is narrower than the complete technology inventory: production backend engineering joined to model evaluation and voice infrastructure.',
-    action: 'Core signal: TypeScript, Python, Postgres, Docker, Linux, AI evals, and voice.',
+    title: 'Make cluster scheduling knowledge operational.',
+    body: 'Kubernetes and container deployment are already part of the work, but research-compute teams need deeper scheduler, gang-admission, Slurm, resource-topology, and failure-recovery understanding.',
+    action: 'Next evidence: a durable research-job controller with explicit resources, cancellation, checkpoint, resume, and evidence.',
   },
   {
     number: '04',
-    title: 'External validation will compound the work.',
-    body: 'The portfolio is founder-shaped and substantially self-authored. References, open-source adoption, collaborators, talks, publications, or shipped team outcomes would give employers independent confirmation of the signal.',
-    action: 'Next evidence: references plus a published benchmark or open dataset.',
+    title: 'Compound independent validation.',
+    body: 'The work is strongly self-authored. Open-source adoption, collaborators, benchmarks, references, talks, papers, and external users will make the signal easier to verify without relying on portfolio prose.',
+    action: 'Next evidence: public technical articles, reproducible benchmarks, contributions, and operating references.',
   },
 ];
 
@@ -94,8 +94,8 @@ export default function Fit() {
       <header className="studio-shell fit-masthead">
         <motion.div className="fit-hero-copy" {...reveal}>
           <p className="studio-kicker">Working together / Edward Twumasi</p>
-          <h1 className="studio-title fit-title">From model<br />to <span>live product.</span></h1>
-          <p className="studio-lede">I build the software around intelligent systems: the APIs, data, evaluation, and infrastructure that connect an experiment to a product people can use.</p>
+          <h1 className="studio-title fit-title">Systems for AI<br />that has to <span>work.</span></h1>
+          <p className="studio-lede">My strongest work sits where distributed backends, agent execution, model evaluation, and production operations meet. The evidence below is organized by capability, not by job-title keywords.</p>
           <div className="fit-hero-actions">
             <button
               className="studio-action"
@@ -139,7 +139,7 @@ export default function Fit() {
             <p className="studio-kicker">01 / Role evidence</p>
             <h2 id="fit-roles-title">The work behind<br />the role.</h2>
           </div>
-          <p className="studio-lede">Four ways that experience can serve a team. Each starts with a problem to own and points to the work behind it.</p>
+          <p className="studio-lede">Four capability clusters built from shipped systems, research artifacts, failure handling, and production ownership.</p>
         </motion.div>
 
         <div className="fit-role-list">
@@ -192,7 +192,7 @@ export default function Fit() {
             <h2 id="fit-contact-title">What are<br />you building?</h2>
           </div>
           <div>
-            <p className="studio-lede">If your team is working on AI backends, voice, or platform infrastructure, let’s talk about the problem, the stage you’re at, and what needs an owner.</p>
+            <p className="studio-lede">If your team is building distributed infrastructure, agent platforms, or ML systems that need production ownership, let’s talk about the hard part that needs an owner.</p>
             <div className="fit-hero-actions">
               <Link className="studio-button" to="/contact">Discuss a role <span aria-hidden="true">↗</span></Link>
               <Link className="studio-action" to="/projects">Explore the work <span aria-hidden="true">↗</span></Link>
