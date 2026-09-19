@@ -19,8 +19,8 @@ const tracks = [
     number: '03',
     title: 'Model Factory / ML systems',
     body: 'The next systems track turns the research stack into a measured pipeline: Arrow/Parquet corpus releases, GPU profiling, distributed training, checkpoint recovery, serving benchmarks, and durable experiment orchestration.',
-    link: 'https://github.com/teckedd-code2save/frontier-ai-career-quest',
-    label: 'Follow the systems programme',
+    link: 'https://github.com/teckedd-code2save/ghana-health-ai/tree/feat/response-capable-research',
+    label: 'Inspect the active research system',
   },
 ];
 
