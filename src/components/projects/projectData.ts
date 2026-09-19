@@ -54,7 +54,7 @@ export const projects: Project[] = [
   },
   {
     id: 'convoy',
-    number: '04',
+    number: '05',
     title: 'Convoy',
     tag: 'deployment agent',
     category: 'deployment',
@@ -72,7 +72,7 @@ export const projects: Project[] = [
   },
   {
     id: 'pocket-models',
-    number: '05',
+    number: '06',
     title: 'Pocket Models',
     tag: 'Android model field guide',
     category: 'tooling',
@@ -125,7 +125,7 @@ export const projects: Project[] = [
   },
   {
     id: 'intent-engine',
-    number: '06',
+    number: '07',
     title: 'Intent Engine',
     tag: 'on-device AI · Android',
     category: 'health',
@@ -142,7 +142,7 @@ export const projects: Project[] = [
   },
   {
     id: 'adwuma-pa',
-    number: '07',
+    number: '08',
     title: 'Adwuma Pa',
     tag: 'voice-first family care',
     category: 'health',
@@ -159,7 +159,7 @@ export const projects: Project[] = [
   },
   {
     id: 'shipd',
-    number: '08',
+    number: '09',
     title: 'Shipd',
     tag: 'deployment intelligence',
     category: 'deployment',
