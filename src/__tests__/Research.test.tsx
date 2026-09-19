@@ -3,18 +3,26 @@ import { render, screen } from '@testing-library/react';
 import Research from '../pages/Research';
 
 describe('Research evidence', () => {
-  it('shows the dated understanding update and its source', () => {
+  it('shows the current research programme and active evidence sources', () => {
     render(<Research />);
-    expect(screen.getByRole('heading', { name: /From meaning.*to an answer/ })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: '9f4ff2c' })).toHaveAttribute('href', expect.stringContaining('9f4ff2c490da50762f7a6afc9e807143d4842e84'));
-    expect(screen.getByRole('link', { name: 'd459c2a' })).toHaveAttribute('href', expect.stringContaining('d459c2a'));
-    expect(screen.getByText(/Today it exports zero/)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /A model programme.*not a demo/ })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Inspect the handoff/ })).toHaveAttribute(
+      'href',
+      expect.stringContaining('alignment-handoff-20260915.md'),
+    );
+    expect(screen.getByRole('link', { name: /Inspect the open MORENA audit/ })).toHaveAttribute(
+      'href',
+      'https://github.com/teckedd-code2save/ghana-health-ai/pull/37',
+    );
+    expect(screen.getAllByText(/active research branch/).length).toBeGreaterThan(0);
   });
 
-  it('keeps research results distinct from production and gold data', () => {
+  it('keeps source counts, research state, and production claims distinct', () => {
     render(<Research />);
-    expect(screen.getByText(/different denominators prevent a like-for-like improvement claim/)).toBeInTheDocument();
-    expect(screen.getByText(/not clinician-validated or human-verified gold data/)).toBeInTheDocument();
+    expect(screen.getByText(/two directions, not unique sources/)).toBeInTheDocument();
+    expect(screen.getByText('active response models promoted')).toBeInTheDocument();
+    expect(screen.getByText(/research remains isolated/)).toBeInTheDocument();
+    expect(screen.getByText(/No result on this page establishes clinical safety or native-speaker certification/)).toBeInTheDocument();
     expect(screen.queryByText(/ASR \/ EXP-026/)).not.toBeInTheDocument();
   });
 });
