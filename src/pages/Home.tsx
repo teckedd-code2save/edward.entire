@@ -35,8 +35,8 @@ export default function Home() {
           <div className="delivery-copy">
             <p className="eyebrow">02 · Agent infrastructure</p>
             <h2 className="section-title">Give agents capability.<br />Not unlimited authority.</h2>
-            <p className="lede">GroundControl now exposes infrastructure to remote agents through scoped MCP/OAuth capabilities rather than a generic shell. Long-running mutations become durable, idempotent operations; interrupted non-replayable actions become explicitly uncertain; repository and sandbox evidence stay tied to the exact deployed revision.</p>
-            <div className="hero-actions"><a className="button-primary" href="https://github.com/teckedd-code2save/groundcontrol" target="_blank" rel="noreferrer">Inspect GroundControl ↗</a><a className="button-ghost" href="#/article/nsenter-bridge">Read the host-boundary note ↗</a></div>
+            <p className="lede">GroundControl gives operators a browser-based surface for deploying, inspecting and recovering self-hosted applications, while approved AI agents receive access only to specific workloads and actions. Redeploys survive disconnects and retries, and repair is tied to the exact deployed revision.</p>
+            <div className="hero-actions"><a className="button-primary" href="https://trygroundcontrol.serendepify.com/" target="_blank" rel="noreferrer">Try GroundControl ↗</a><a className="button-ghost" href="https://github.com/teckedd-code2save/groundcontrol" target="_blank" rel="noreferrer">Inspect the source ↗</a></div>
           </div>
           <div className="delivery-flow" aria-label="Agent-enabled VPS delivery pipeline">
             {[
