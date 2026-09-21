@@ -77,7 +77,7 @@ function ProjectVisual({ project }: { project: Project }) {
   return <figure ref={ref} className={`studio-project-visual visual-${project.id}`}>
     <motion.div className="studio-project-artifact" style={reduceMotion ? undefined : { y, rotateX }}>
       {isCompiler ? <CompilerSchematic /> : <div className="studio-product-window">
-        <div className="studio-product-window-bar"><span><i /><i /><i /></span><span>{isHealth ? 'ghanahealth.serendepify.com' : 'groundcontrol.serendepify.com'}</span><span>{isHealth ? 'Research preview' : 'Infrastructure'}</span></div>
+        <div className="studio-product-window-bar"><span><i /><i /><i /></span><span>{isHealth ? 'ghanahealth.serendepify.com' : 'trygroundcontrol.serendepify.com'}</span><span>{isHealth ? 'Research preview' : 'Infrastructure'}</span></div>
         <img src={isHealth ? '/ghana-health-live.png' : '/groundcontrol-deployments.png'} alt={isHealth ? 'Ghana Health AI live research preview showing its voice and text chat interface, with voice v6 and stable meaning extraction selected.' : 'GroundControl’s current Ghana Health deployment workspace, showing recorded configuration, validation, image pull, runtime, and release verification stages.'} width={isHealth ? 1512 : 1280} height={isHealth ? 982 : 720} loading={isHealth ? 'eager' : 'lazy'} />
       </div>}
     </motion.div>
