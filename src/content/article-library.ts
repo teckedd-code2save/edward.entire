@@ -212,6 +212,6 @@ export const newArticles: Article[] = [
 
 <h2>Operational truth is a feature</h2>
 <p>Good infrastructure software does more than execute commands. It preserves the meaning of what happened. A green release should mean the intended version is serving. A red release should mean it is not. Cleanup, capacity, and drift remain important, but they should be represented in a way that helps the operator choose the next action.</p>
-<p class="article-footnote">GroundControl is a self-hosted VPS control plane built around real deploy, diagnose, rehearse, rollback, and recovery loops. <a href="https://groundcontrol.serendepify.com" target="_blank" rel="noreferrer">View the live system</a>.</p>`,
+<p class="article-footnote">GroundControl is a self-hosted VPS control plane built around real deploy, diagnose, rehearse, rollback, and recovery loops. <a href="https://trygroundcontrol.serendepify.com" target="_blank" rel="noreferrer">View the live system</a>.</p>`,
   },
 ];
