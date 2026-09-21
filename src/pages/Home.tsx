@@ -35,14 +35,14 @@ export default function Home() {
           <div className="delivery-copy">
             <p className="eyebrow">02 · Agent infrastructure</p>
             <h2 className="section-title">Give agents capability.<br />Not unlimited authority.</h2>
-            <p className="lede">GroundControl gives operators a browser-based surface for deploying, inspecting and recovering self-hosted applications, while approved AI agents receive access only to specific workloads and actions. Redeploys survive disconnects and retries, and repair is tied to the exact deployed revision.</p>
+            <p className="lede">GroundControl turns deployment operations into constrained capabilities. ChatGPT can receive only an approved deployment, trigger a typed redeploy after a merge, follow the durable operation, and return health and public-reachability evidence without VPS shell access or broad server control. Operators still have a stateful host terminal when live troubleshooting requires it.</p>
             <div className="hero-actions"><a className="button-primary" href="https://trygroundcontrol.serendepify.com/" target="_blank" rel="noreferrer">Try GroundControl ↗</a><a className="button-ghost" href="https://github.com/teckedd-code2save/groundcontrol" target="_blank" rel="noreferrer">Inspect the source ↗</a></div>
           </div>
           <div className="delivery-flow" aria-label="Agent-enabled VPS delivery pipeline">
             {[
-              ['01', 'Grant exactly what is needed', 'OAuth consent is scoped to enrolled deployments and capabilities. The remote agent never receives a permanent SSH credential or an unrestricted production shell.'],
+              ['01', 'Grant exactly what is needed', 'OAuth consent is scoped to enrolled deployments and capabilities. ChatGPT receives only the deployment and actions the operator approved, never a permanent SSH credential or unrestricted production shell.'],
               ['02', 'Inspect with evidence', 'Deployments, health, logs, configuration presence, repository identity, and connector capabilities are queried through bounded interfaces with secret redaction.'],
-              ['03', 'Mutate durably', 'Redeploys use idempotency keys and durable operation IDs. Disconnects do not erase state; ambiguous non-replayable work is marked uncertain instead of executed twice.'],
+              ['03', 'Mutate durably', 'After a merge, an approved client can trigger a typed redeploy, follow the durable operation ID through completion, and reconnect without losing state or replaying the deployment.'],
               ['04', 'Verify the customer path', 'The control plane correlates deployment identity, proxy/upstream boundaries, runtime state, and external reachability before model reasoning or recovery is allowed to claim success.'],
             ].map(([number, title, body]) => <article key={number}><b>{number}</b><div><h3>{title}</h3><p>{body}</p></div></article>)}
           </div>
@@ -52,7 +52,7 @@ export default function Home() {
       <section className="home-research-band">
         <div className="page-shell home-research-grid">
           <div><p className="eyebrow">03 · ML systems · September 2026</p><h2 className="section-title">From a Twi model<br /><span>to a reproducible system.</span></h2></div>
-          <div><p className="lede">Ghana Health AI is becoming the ML-systems capstone behind my next phase of work: corpus provenance, Arrow/Parquet data planes, reproducible adaptation, GPU profiling, distributed training, checkpoint/recovery, evaluation, and serving. Model promotion still depends on semantic evidence, not a completed training run.</p><Link className="lab-button" to="/research">Enter the research lab ↗</Link></div>
+          <div><p className="lede">Ghana Health AI is becoming the ML-systems capstone behind my next phase of work: corpus source history, Arrow/Parquet data planes, reproducible adaptation, GPU profiling, distributed training, checkpoint/recovery, evaluation, and serving. Model promotion still depends on semantic evidence, not a completed training run.</p><Link className="lab-button" to="/research">Enter the research lab ↗</Link></div>
         </div>
       </section>
 
