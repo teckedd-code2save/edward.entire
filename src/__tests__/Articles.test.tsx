@@ -12,7 +12,8 @@ describe('Writing', () => {
     expect(screen.getByText('Designing Safe Docker Garbage Collection')).toBeInTheDocument();
     expect(screen.getByText('When Cleanup Fails After a Successful Deploy')).toBeInTheDocument();
     expect(screen.queryByText('Coming soon')).not.toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Training a Direct-Response Twi Model' })).toHaveAttribute('href', '/article/training-an-interpreter-not-an-assistant');
+    expect(screen.getByRole('link', { name: /Training a Direct-Response Twi Model/ })).toHaveAttribute('href', '/article/training-an-interpreter-not-an-assistant');
+    expect(screen.getByRole('link', { name: 'Bring Your Own Data. Run the Declaration.' })).toHaveAttribute('href', '/article/bnl-getting-started');
     expect(screen.getByRole('link', { name: /Designing Safe Docker Garbage Collection/ })).toHaveAttribute('href', '/article/garbage-collection-is-product-design');
     expect(screen.getByRole('link', { name: /How GroundControl’s Terminal Reaches the Host/ })).toHaveAttribute('href', '/article/nsenter-bridge');
   });
