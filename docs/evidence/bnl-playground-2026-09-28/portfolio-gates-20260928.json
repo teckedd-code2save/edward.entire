@@ -1,0 +1,1 @@
+{"command": ["docker", "run", "--rm", "--cpus", "1", "--memory", "1500m", "--pids-limit", "256", "-v", "/opt/bnl-validation/portfolio-20260928:/work", "-w", "/work", "node:24-bookworm", "bash", "-c", "npm ci && npm run build && npm run lint && npm test"], "exitCode": 0}

@@ -110,7 +110,7 @@ export const projects: Project[] = [
     id: 'backend-as-natural-language',
     number: '02',
     title: 'Backend as Natural Language',
-    tag: 'compiler research · active',
+    tag: 'compiler research · try it live',
     category: 'tooling',
     canvasMode: 'terminal',
     description: 'A research compiler for turning controlled natural-language backend declarations into canonical, typed intermediate representations and executable plans.',
@@ -121,7 +121,7 @@ export const projects: Project[] = [
       '1,000/1,000 on a 50-family synthetic and adversarial evaluation with blind inputs separated from labels.',
       'Human-authored validation remains open: 20+ contributors and 250+ declarations.',
     ],
-    githubUrl: 'https://github.com/teckedd-code2save/backend-as-natural-language',
+    liveUrl: '/#/playground/bnl',
   },
   {
     id: 'intent-engine',

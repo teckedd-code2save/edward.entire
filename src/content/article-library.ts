@@ -1,3 +1,5 @@
+import { bnlArticles } from './bnl-articles';
+
 export type Article = {
   id: string;
   title: string;
@@ -69,6 +71,7 @@ export const groundControlTerminalArticle: Article = {
 };
 
 export const newArticles: Article[] = [
+  ...bnlArticles,
   {
     id: 'training-an-interpreter-not-an-assistant',
     title: 'Training a Direct-Response',

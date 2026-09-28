@@ -66,3 +66,6 @@ Or import the GitHub repository into Vercel and keep the defaults above.
 
 - Routing uses `HashRouter`, so deep-link refreshes do not require custom rewrite rules.
 - `.vercel` and local `.env` files are ignored and should not be committed.
+# BNL playground
+
+The live `/#/playground/bnl` route runs the real BNL Rust runtime with visitor-supplied records. See [the integration guide](docs/BNL-PLAYGROUND.md) for boundaries, reproducible maintainer builds and evidence. Public getting-started articles are part of the site's Writing section. The compiled BNL binary has a separate licensing status documented in `public/bnl/README.txt`.

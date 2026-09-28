@@ -1,0 +1,121 @@
+Traceback (most recent call last):
+  File "/work/scripts/bnl-browser-check.py", line 91, in <module>
+    check('guide links to working playground',page.locator('a[href="#/playground/bnl"]').count()>=2)
+  File "/work/scripts/bnl-browser-check.py", line 15, in check
+{
+  "passed": 26,
+  "total": 27,
+  "checks": [
+    {
+      "name": "fresh runtime is empty",
+      "passed": true
+    },
+    {
+      "name": "no default typed customer value",
+      "passed": true
+    },
+    {
+      "name": "empty orders produce an actual empty result",
+      "passed": true
+    },
+    {
+      "name": "actual imported orders returned",
+      "passed": true
+    },
+    {
+      "name": "declaration ordering changes output",
+      "passed": true
+    },
+    {
+      "name": "data changes alter output",
+      "passed": true
+    },
+    {
+      "name": "incorrect nominal type rejects",
+      "passed": true
+    },
+    {
+      "name": "unsupported language rejects",
+      "passed": true
+    },
+    {
+      "name": "invalid import reports rejection",
+      "passed": true
+    },
+    {
+      "name": "invalid import preserves previous data",
+      "passed": true
+    },
+    {
+      "name": "failed policy rejects after local write",
+      "passed": true
+    },
+    {
+      "name": "failed execution rolls back local tasks",
+      "passed": true
+    },
+    {
+      "name": "trace records rollback",
+      "passed": true
+    },
+    {
+      "name": "real local write commits",
+      "passed": true
+    },
+    {
+      "name": "local task contains supplied invoice ID",
+      "passed": true
+    },
+    {
+      "name": "session persists between calls",
+      "passed": true
+    },
+    {
+      "name": "external effects rejected even when unreachable",
+      "passed": true
+    },
+    {
+      "name": "visitor content rendered as text",
+      "passed": true
+    },
+    {
+      "name": "separate tabs have separate stores",
+      "passed": true
+    },
+    {
+      "name": "export captures actual request and result",
+      "passed": true
+    },
+    {
+      "name": "execution sends no data over the network",
+      "passed": true
+    },
+    {
+      "name": "no localStorage persistence",
+      "passed": true
+    },
+    {
+      "name": "mobile page has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "mobile playground link accessible",
+      "passed": true
+    },
+    {
+      "name": "keyboard moves to Name field",
+      "passed": true
+    },
+    {
+      "name": "restart clears effects and records",
+      "passed": true
+    },
+    {
+      "name": "guide links to working playground",
+      "passed": false
+    }
+  ]
+}
+    if not condition:raise AssertionError(name)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: guide links to working playground

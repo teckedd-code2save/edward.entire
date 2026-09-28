@@ -11,6 +11,7 @@ import Articles from './pages/Articles';
 import ArticleViewer from './pages/ArticleViewer';
 import SystemPrototype from './pages/SystemPrototype';
 import QuickHelpPage from './pages/QuickHelpPage';
+import BnlPlayground from './pages/BnlPlayground';
 
 function PageWrapper({ children }: { children: ReactNode }) {
   return (
@@ -34,6 +35,7 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
+        <Route path="/playground/bnl" element={<PageWrapper><BnlPlayground /></PageWrapper>} />
         <Route path="/help" element={<PageWrapper><QuickHelpPage /></PageWrapper>} />
         <Route path="/prototype/system-teardown" element={<PageWrapper><SystemPrototype /></PageWrapper>} />
         <Route
