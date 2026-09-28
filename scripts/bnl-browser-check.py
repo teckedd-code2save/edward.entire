@@ -87,6 +87,8 @@ try:
     mobile.get_by_label('Customer ID',exact=True).focus();mobile.keyboard.press('Tab');check('keyboard moves to Name field',mobile.get_by_label('Name',exact=True).evaluate('(el)=>el===document.activeElement'))
     mobile.close()
     page.get_by_role('button',name='Restart empty session',exact=True).click();ready(page);check('restart clears effects and records',all(not rows for rows in state(page).values()))
+    with page.expect_download() as download:page.get_by_role('button',name='Export workspace',exact=False).click()
+    check('restart export identifies initialization',json.loads(pathlib.Path(download.value.path()).read_text())['lastRequest']=={'action':'init'})
     page.goto('http://127.0.0.1:4183/#/article/bnl-getting-started')
     page.get_by_role('heading',name='1. Start with a customer you choose',exact=True).wait_for()
     check('guide links to working playground',page.locator('a[href="#/playground/bnl"]').count()>=2)

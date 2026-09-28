@@ -30,7 +30,7 @@ export default function BnlPlayground() {
     let active = true;
     current.send({ action: 'init' }).then(result => {
       if (!active) return;
-      setResponse(result); setCatalogue(result.catalogue); setFatal(false);
+      setResponse(result); setLastRequest({ action: 'init' }); setCatalogue(result.catalogue); setFatal(false);
       setLoadedData(pretty(emptyData)); setMessage('Ready. Your runtime starts with zero records.');
     }).catch(error => { if (active) { setFatal(true); setMessage(String(error.message)); } })
       .finally(() => { if (active) setBusy(false); });
