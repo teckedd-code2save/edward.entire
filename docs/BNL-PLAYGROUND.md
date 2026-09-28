@@ -1,5 +1,7 @@
 # BNL public playground
 
+Production was verified after PR64 released as cb61c49e5fe133ee465d13f4e965af4511443721. See [captioned production and GC screenshots](evidence/bnl-playground-2026-09-28/PRODUCTION-SCREENSHOTS.md), the [image manifest](../public/images/bnl/manifest.json), and the original [browser scorecard](evidence/bnl-playground-2026-09-28/browser-scorecard.json). Images are embedded in the getting-started guide and GroundControl articles; synthetic acceptance inputs are explicitly labelled.
+
 Route: `/#/playground/bnl`. Guides: `/#/article/bnl-getting-started` and `/#/article/bnl-runtime-boundaries`.
 
 The public page runs the actual BNL Rust compiler and guarded executor compiled to WebAssembly. It is not a JavaScript imitation. It begins with an empty Store, imports visitor-supplied data and maintains local effects only in its worker. No input data is uploaded or placed in localStorage, URLs or telemetry. Explicit export downloads a JSON workspace.

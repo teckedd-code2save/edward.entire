@@ -270,3 +270,7 @@
 @media (prefers-reduced-motion: reduce) {
   .research-studio *, .writing-studio *, .reading-studio * { scroll-behavior: auto; transition: none !important; }
 }
+.article-body .article-evidence { margin: 32px 0; padding: 0; }
+.article-body .article-evidence img { display: block; width: 100%; height: auto; border: 1px solid #24272c26; }
+.article-body .article-evidence figcaption { margin-top: 12px; color: #5f6b7a; font-size: 12px; line-height: 1.75; }
+.article-body .article-evidence a:focus-visible { outline: 2px solid #456eaa; outline-offset: 4px; }
