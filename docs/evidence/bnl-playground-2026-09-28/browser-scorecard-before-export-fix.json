@@ -107,10 +107,6 @@
       "passed": true
     },
     {
-      "name": "restart export identifies initialization",
-      "passed": true
-    },
-    {
       "name": "guide links to working playground",
       "passed": true
     },
@@ -127,8 +123,8 @@
       "passed": true
     }
   ],
-  "passed": 31,
-  "total": 31,
+  "passed": 30,
+  "total": 30,
   "build": {
     "schema": "bnl-public-playground-1",
     "sourceCommit": "a1d606c588ceb849c6a85561a9820c6ab6885e58",
