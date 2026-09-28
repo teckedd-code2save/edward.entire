@@ -1,0 +1,154 @@
+{
+  "suite": "BNL actual-WASM browser acceptance",
+  "syntheticTestInputsOnly": true,
+  "checks": [
+    {
+      "name": "fresh runtime is empty",
+      "passed": true
+    },
+    {
+      "name": "no default typed customer value",
+      "passed": true
+    },
+    {
+      "name": "empty orders produce an actual empty result",
+      "passed": true
+    },
+    {
+      "name": "actual imported orders returned",
+      "passed": true
+    },
+    {
+      "name": "declaration ordering changes output",
+      "passed": true
+    },
+    {
+      "name": "data changes alter output",
+      "passed": true
+    },
+    {
+      "name": "incorrect nominal type rejects",
+      "passed": true
+    },
+    {
+      "name": "unsupported language rejects",
+      "passed": true
+    },
+    {
+      "name": "invalid import reports rejection",
+      "passed": true
+    },
+    {
+      "name": "invalid import preserves previous data",
+      "passed": true
+    },
+    {
+      "name": "failed policy rejects after local write",
+      "passed": true
+    },
+    {
+      "name": "failed execution rolls back local tasks",
+      "passed": true
+    },
+    {
+      "name": "trace records rollback",
+      "passed": true
+    },
+    {
+      "name": "real local write commits",
+      "passed": true
+    },
+    {
+      "name": "local task contains supplied invoice ID",
+      "passed": true
+    },
+    {
+      "name": "session persists between calls",
+      "passed": true
+    },
+    {
+      "name": "external effects rejected even when unreachable",
+      "passed": true
+    },
+    {
+      "name": "visitor content rendered as text",
+      "passed": true
+    },
+    {
+      "name": "separate tabs have separate stores",
+      "passed": true
+    },
+    {
+      "name": "export captures actual request and result",
+      "passed": true
+    },
+    {
+      "name": "execution sends no data over the network",
+      "passed": true
+    },
+    {
+      "name": "no localStorage persistence",
+      "passed": true
+    },
+    {
+      "name": "mobile page has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "mobile playground link accessible",
+      "passed": true
+    },
+    {
+      "name": "keyboard moves to Name field",
+      "passed": true
+    },
+    {
+      "name": "restart clears effects and records",
+      "passed": true
+    },
+    {
+      "name": "guide links to working playground",
+      "passed": false
+    }
+  ],
+  "passed": 26,
+  "total": 27,
+  "build": {
+    "schema": "bnl-public-playground-1",
+    "sourceCommit": "a1d606c588ceb849c6a85561a9820c6ab6885e58",
+    "wasmSha256": "fa55334543c5e22ef64ea7adb3a7583f134a071fc3c739a91c86a0bc0d49e337",
+    "wasmBytes": 603800,
+    "execution": "Real Rust compiler/planner/executor, browser-local user data; no external adapters",
+    "limits": {
+      "requestBytes": 65536,
+      "sourceBytes": 32768,
+      "records": 200,
+      "effects": 200,
+      "memoryBytes": 67108864
+    },
+    "inputs": {
+      "alpha/Cargo.lock": "1f73e6c5b6780e5b44e9c0e17323e3b2515ce859fd3cdb689e2cc8f591575611",
+      "alpha/Cargo.toml": "0a5c57998c94942fe9b687a75ac0cd470274045be2c423fb36810eb4280a9f9b",
+      "alpha/catalogue.json": "b7679ba3136592ed71ebb0b002d8c7ec86cc914656fbcb3818b0ced3327237b0",
+      "alpha/src/compiler.rs": "1e6ded11aa136d7f94c0504c624b7ffc000f3ac82273b7ee0bb59b6334f800ac",
+      "alpha/src/composition.rs": "2bc414fdc33922e07f9216bd9e6cbb4aa1d44fb3da323212bc974dc24b86e044",
+      "alpha/src/composition_evaluation.rs": "6fe1f9fb7d659997d136b15fc82391edec999c368e9133c31a3369fb569799c5",
+      "alpha/src/composition_ops.rs": "eee1a254fa9447120d8f321cf99504fd5935150e8be6e19b1eb3b7af5416868d",
+      "alpha/src/composition_order.rs": "034a1efc02335dc024e74fecdc3569296dd03db93734e440ae68b140621bc628",
+      "alpha/src/engine.rs": "6d7e08bf857c888efb9cbd4e703a260d91e21b91b2482bdf1825705d282e86b1",
+      "alpha/src/evaluation.rs": "af623c04f4401a8a01b5f8be8352b58e2123fcadfa3939ee2367b7f88112f7fd",
+      "alpha/src/lib.rs": "406bb434f9cd216e0f07600ce7ec74815befd1b298bf478858f36b62039e5af9",
+      "alpha/src/main.rs": "1ef4149f91304983783bf853b8ce96f000aa3d71d57f8337d19b3acf6257decb",
+      "alpha/src/template_frontend.rs": "ae25ca2d0b7808715e5225425ec03538fed25d1e7d182c44a23c1fbda12a9f20",
+      "alpha/src/wasm.rs": "411a64d78511ca223ead18156764ca0d75aa2e191dfcb8f9ed46a337eaf5c086",
+      "playground/Cargo.lock": "19888ce822ba76b94e2ea6aa9616d6da3eb6f568601f12e0795a6303499c041e",
+      "playground/Cargo.toml": "3d3535d6f5390a5a0c00048a1e1adfe3d7a957a3ab749ce13d1436dd8216ae39",
+      "playground/build.py": "15faf9779b2ad07184fc22d6d399388792ef7eb2aa5247d6c329a3683483a491",
+      "playground/src/lib.rs": "8093c03f2edbb1daca8e2d38f4adc7ec42e18264712727bad25f2320f33dbe61",
+      "playground/src/wasm.rs": "4397825d5b12ba9752d2b18ebe0b892f840324bf6532f9e5d99594136ac487df",
+      "runtime/Cargo.toml": "6c5fffdae0a7200d4eacaac760ca0670e0a87490147876c9b041e23ab653b387",
+      "runtime/src/lib.rs": "f45503e088f0aae6f6d5b85c07ae61942930bad15a0fd38a34705150bf2d3d14",
+      "runtime/src/main.rs": "ed23aceeced203e6864357a88271234a6523f197d88029e700dff97bbef0bb60"
+    }
+  }
+}
