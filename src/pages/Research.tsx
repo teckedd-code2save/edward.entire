@@ -108,7 +108,7 @@ export default function Research() {
 
       <section className="editorial-section model-ledger-section">
         <div className="page-shell">
-          <div className="section-head"><div><p className="eyebrow">01 · Speech-model lineage</p><h2 className="section-title">Results, including<br />the ones that failed.</h2></div><div><p className="lede">The speech experiments underpin the newer understanding work. These results retain their original evaluation context; the model cards document intended use and limitations.</p><a className="project-arrow" href="https://huggingface.co/teckedd" target="_blank" rel="noreferrer">View the full Hugging Face profile ↗</a></div></div>
+          <div className="section-head"><div><p className="eyebrow">01 · Speech-model lineage</p><h2 className="section-title">Results, including<br />the ones that failed.</h2></div><div><p className="lede">These are results from my own evaluations, not an independent benchmark or a measure of overall product accuracy. The model cards document the datasets, intended use, and limitations. The DONDO v2 comparison uses the same 300-sample Waxal slice; broader validation remains open.</p><a className="project-arrow" href="https://huggingface.co/teckedd" target="_blank" rel="noreferrer">View the full Hugging Face profile ↗</a></div></div>
           <div className="model-ledger">
             {modelWork.map((model, index) => <a className="model-row" href={model.href} target="_blank" rel="noreferrer" key={model.name}><span className="track-number">0{index + 1}</span><div><h3>{model.name}</h3><code>{model.repo}</code></div><strong>{model.result}</strong><p>{model.note}</p><i aria-hidden="true">↗</i></a>)}
           </div>

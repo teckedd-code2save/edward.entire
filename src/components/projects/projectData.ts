@@ -100,9 +100,9 @@ export const projects: Project[] = [
     stack: ['Next.js', 'Python', 'Modal GPU', 'PostgreSQL', 'Whisper/W2V-BERT', 'Qwen LoRA'],
     architecture: 'The product separates ASR, language understanding, response generation and promotion decisions. Training data keeps source identity, dataset splits and checksums; protected evaluation can block a model from shipping; GPU training and inference run on Modal while reusable checkpoints and model cards are published through Hugging Face.',
     highlights: [
-      'Adapted and evaluated Whisper, MMS and DONDO/W2V-BERT for Twi speech; DONDO improved from 70.64% base WER to 27.31% on the same 300-sample Waxal slice.',
-      'Built protected evaluation that rejected a Qwen adapter despite 672/672 parseable outputs because it passed only 1/11 product fixtures.',
-      'Built a bilingual data pipeline spanning 30,404 unique sources and 60,808 bidirectional training views, then deployed GPU-backed ASR and response-model services on Modal.',
+      'Connected Twi speech recognition, visible language interpretation, and voice/text conversation in a working research preview.',
+      'Built evaluation gates that can reject a trained model before it reaches the product.',
+      'Built a bilingual data pipeline and GPU-backed speech and response-model services, with published checkpoints and model cards.',
     ],
     githubUrl: 'https://github.com/teckedd-code2save/ghana-health-ai',
     liveUrl: 'https://ghanahealth.serendepify.com',
@@ -124,6 +124,23 @@ export const projects: Project[] = [
       'Human-authored validation remains open: 20+ contributors and 250+ declarations.',
     ],
     liveUrl: '/#/playground/bnl',
+  },
+  {
+    id: 'haven',
+    number: '10',
+    title: 'Haven',
+    tag: '3D furniture + room planning',
+    category: 'tooling',
+    canvasMode: 'exchange',
+    description: 'Explore furniture and see how a shortlist could fit into your room.',
+    stack: [],
+    architecture: 'A furniture collection connects product exploration with measured room layouts, a bird’s-eye plan, a 3D view, and retailer enquiries. Placement is schematic; openings, clearance, and delivery access still need to be confirmed.',
+    highlights: [
+      'Explore furniture in an interactive 3D shop.',
+      'Build a shortlist and arrange pieces in a measured room.',
+      'Continue the room plan in Studio or connect a retailer collection.',
+    ],
+    liveUrl: 'https://haven-room-studio-x9m4.createdliving1000.chatgpt.site/shop',
   },
   {
     id: 'intent-engine',
@@ -178,6 +195,12 @@ export const projects: Project[] = [
     liveUrl: 'https://shipd-seven.vercel.app/',
   },
 ];
+
+// Keep the home page and work index in the same, deliberately curated order.
+export const spotlightIds = ['groundcontrol', 'rentaweekend', 'ghana-health-ai', 'backend-as-natural-language', 'convoy'];
+export const spotlightProjects = spotlightIds.flatMap(id => projects.filter(project => project.id === id));
+export const moreProjects = ['haven', 'pocket-models', 'intent-engine', 'adwuma-pa', 'shipd']
+  .flatMap(id => projects.filter(project => project.id === id));
 
 export const filterCategories: { label: string; value: ProjectCategory }[] = [
   { label: 'all work', value: 'all' },

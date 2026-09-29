@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
+import ProjectCaseStudy from './pages/ProjectCaseStudy';
 import Contact from './pages/Contact';
 import Research from './pages/Research';
 import Fit from './pages/Fit';
@@ -36,6 +37,7 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/playground/bnl" element={<PageWrapper><BnlPlayground /></PageWrapper>} />
+        <Route path="/projects/:projectId" element={<PageWrapper><ProjectCaseStudy /></PageWrapper>} />
         <Route path="/help" element={<PageWrapper><QuickHelpPage /></PageWrapper>} />
         <Route path="/prototype/system-teardown" element={<PageWrapper><SystemPrototype /></PageWrapper>} />
         <Route
