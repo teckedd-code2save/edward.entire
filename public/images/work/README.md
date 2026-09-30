@@ -14,3 +14,7 @@ The other spotlight captures already live in this portfolio:
 `haven-room-planning.png` was captured from https://haven-room-studio-x9m4.createdliving1000.chatgpt.site/shop on 29 September 2026 after placing the collection's Heritage sofa into a local example room. It shows the product in development, not a completed housing project or purchase.
 
 The remaining gallery entries use explicitly labelled product-flow illustrations, not invented screenshots or operating results. Their links lead to the relevant product or public source.
+
+`rentaweekend-brief.png` shows an example outing request entered into the public planning interface on 30 September 2026. Generating a plan required sign-in, so the research and comparison chapters are explicitly labelled illustrations of the implemented workflow, not replayed agent activity or source-backed results. The demonstration did not book, contact, or pay anyone.
+
+The GroundControl story also reuses `/images/bnl/gc-bnl-scorecard-20260928.jpg`, a recorded terminal scorecard from the existing BNL release evidence. The Convoy walkthrough is loaded from its published YouTube video only when the visitor presses play.

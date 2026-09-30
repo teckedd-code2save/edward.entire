@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { moreProjects, spotlightProjects } from '@/components/projects/projectData';
 import { MoreWorkCard, SpotlightCard } from '@/components/projects/WorkShowcase';
+import { ProjectNavigator } from '@/components/projects/ProjectStories';
 import CinematicHero from '@/components/workstation/CinematicHero';
 
 export default function Home() {
@@ -12,8 +13,9 @@ export default function Home() {
         <section id="selected-work" className="work-section page-shell" aria-labelledby="selected-work-title" tabIndex={-1}>
           <div className="work-section-heading">
             <div><p className="eyebrow">01 / In the spotlight</p><h2 id="selected-work-title">Selected work.</h2></div>
-            <p>Products, tools, and research you can explore. Start with a demo, or go inside the build.</p>
+            <p>Follow a release. Explore a plan. Run a rule. There’s a story behind each of these.</p>
           </div>
+          <ProjectNavigator />
           <div className="spotlight-grid">{spotlightProjects.map((project, index) => <SpotlightCard key={project.id} project={project} index={index} />)}</div>
         </section>
 
