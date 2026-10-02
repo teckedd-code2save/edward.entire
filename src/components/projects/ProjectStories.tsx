@@ -44,12 +44,12 @@ function ConvoyFilm() {
 
 const stories: Record<string, { headline: string; intro: string; action: string; href: string; chapters: Chapter[] }> = {
   groundcontrol: {
-    headline: 'From a repository to a running product.',
-    intro: 'Shipping is a sequence of decisions. I built GroundControl to keep the application, its deployment, and the next action in one place.',
+    headline: 'Build with an agent. Keep it in the loop.',
+    intro: 'Once the app is live, your agent can help run it. I built GroundControl to connect ChatGPT and other compatible agents to deployments through MCP tools: inspect releases, read logs, check health, and ship updates. You choose which apps and actions they can access.',
     action: 'Explore GroundControl', href: 'https://trygroundcontrol.serendepify.com/',
     chapters: [
-      { label: 'The deployment', title: 'See where the release stands.', description: 'Configuration, runtime, and verification stay attached to the application you are shipping.', content: <Capture src="/groundcontrol-deployments.png" alt="GroundControl showing the release stages for a Ghana Health AI deployment" caption="Ghana Health AI deployment · recorded product view" /> },
-      { label: 'The checks', title: 'Follow the release through its checks.', description: 'This is the recorded GroundControl workspace used while shipping the BNL browser playground.', content: <Capture src="/images/bnl/gc-bnl-scorecard-20260928.jpg" alt="GroundControl deployment scorecard for the BNL playground release" caption="BNL release · captured 28 September 2026" /> },
+      { label: 'The deployment', title: 'One deployment. A shared view of what is running.', description: 'The dashboard keeps source, runtime, and release history together. An authorized agent can inspect that deployment through MCP, request an update, and follow its progress.', content: <Capture src="/groundcontrol-deployments.png" alt="GroundControl showing the release stages for a Ghana Health AI deployment" caption="Ghana Health AI deployment · recorded dashboard view" /> },
+      { label: 'The checks', title: 'Go deeper when the work needs it.', description: 'For hands-on work, I also built a persistent host terminal. I used it to build and verify the BNL playground shown here.', content: <Capture src="/images/bnl/gc-bnl-scorecard-20260928.jpg" alt="GroundControl terminal showing recorded BNL verification results" caption="BNL release · supervised terminal work · 28 September 2026" /> },
       { label: 'The working product', title: 'Then open what you shipped.', description: 'The final stop is the actual product: a browser running a BNL rule over supplied data.', content: <Capture src="/images/bnl/bnl-production-execution-20260928.jpg" alt="The shipped BNL playground executing an invoice rule" caption="Public browser execution · captured 28 September 2026" /> },
     ],
   },

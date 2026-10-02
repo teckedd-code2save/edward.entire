@@ -10,11 +10,11 @@ export interface WorkPresentation {
 
 export const workPresentation: Record<string, WorkPresentation> = {
   groundcontrol: {
-    summary: 'Deploy and troubleshoot your apps from one control plane.',
+    summary: 'Connect ChatGPT and other AI agents to the apps you run. Inspect, deploy, and verify through MCP tools, with access you control.',
     status: 'Live product',
-    contribution: 'Built the deployment control plane, host terminal, and scoped access for agents.',
-    proof: 'Used to build and verify the BNL playground, with a recorded path from terminal to public execution.',
-    evidence: { label: 'See the release evidence', href: '/article/shipping-bnl-through-groundcontrol' },
+    contribution: 'I wanted the agent that helped build an app to stay useful after launch. GroundControl gives it deployment tools and a way to check the outcome. Operators choose its access, and every deploy request gets a saved operation the agent can return to.',
+    proof: 'In the documented RentAWeekend run, ChatGPT inspected the deployment and checked the live runtime. A signed GitHub push then triggered a source deployment; GroundControl recorded its completion, healthy services, and a successful public response.',
+    evidence: { label: 'Read the ChatGPT deployment story', href: 'https://github.com/teckedd-code2save/groundcontrol/blob/65d4e173acc8e54f49585aa4d16165f94959afa2/docs/articles/chatgpt-operated-my-deployment.md' },
     image: { src: '/groundcontrol-deployments.png', alt: 'GroundControl deployment workspace with configuration, runtime, and release verification stages.', width: 1280, height: 720, caption: 'Deployment workspace · captured 6 Sep 2026' },
   },
   rentaweekend: {
