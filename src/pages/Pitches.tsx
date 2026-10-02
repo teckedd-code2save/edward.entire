@@ -5,12 +5,12 @@ const decks = [
   {
     id: 'groundcontrol',
     title: 'GroundControl',
-    subtitle: 'VPS Fleet Control Plane',
-    line1: 'The VPS cockpit that',
-    line2: 'escaped its container.',
-    description: 'A self-hosted dashboard and deployment control plane. One install, one SQLite file, zero agents. Manages Docker, k3s, Cloud Run, and Terraform from a single browser window.',
-    stack: ['Next.js 16', 'TypeScript', 'Prisma', 'SQLite', 'Docker', 'k3s', 'Terraform', 'Cloudflare'],
-    liveUrl: 'https://groundcontrol.serendepify.com',
+    subtitle: 'Deployment tools for AI agents',
+    line1: 'Build with an agent.',
+    line2: 'Keep it in the loop.',
+    description: 'Connect ChatGPT and other compatible agents to your deployments through MCP. Inspect releases, check logs and health, and ship updates from a self-hosted control plane with access you choose.',
+    stack: ['MCP', 'OAuth', 'TypeScript', 'Next.js 16', 'Docker', 'SQLite'],
+    liveUrl: 'https://trygroundcontrol.serendepify.com/',
     color: 'var(--blue)',
   },
   {

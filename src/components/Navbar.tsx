@@ -4,9 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 const links = [
   { label: 'Work', path: '/projects' },
   { label: 'Research', path: '/research' },
-  { label: 'Playground', path: '/playground/bnl' },
   { label: 'Writing', path: '/articles' },
-  { label: 'Role fit', path: '/fit' },
   { label: 'Contact', path: '/contact' },
 ];
 
@@ -16,6 +14,13 @@ export default function Navbar() {
   const location = useLocation();
   const darkRoute = location.pathname === '/research';
   const studioRoute = !darkRoute;
+
+  function showSelectedWork() {
+    const work = document.getElementById('selected-work');
+    work?.focus({ preventScroll: true });
+    work?.scrollIntoView({ behavior: 'auto', block: 'start' });
+    setOpen(false);
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -40,7 +45,7 @@ export default function Navbar() {
             <Link
               key={link.path}
               to={link.path}
-              className={`nav-link${location.pathname === link.path ? ' active' : ''}`}
+              className={`nav-link${location.pathname === link.path || (link.path === '/projects' && location.pathname.startsWith('/projects/')) ? ' active' : ''}`}
               onClick={() => setOpen(false)}
             >
               {link.label}
@@ -49,7 +54,7 @@ export default function Navbar() {
           <Link to="/help" className={`nav-link nav-help-menu${location.pathname === '/help' ? ' active' : ''}`} onClick={() => setOpen(false)}>Get quick help ↗</Link>
         </div>
 
-        <Link to="/help" className="nav-contact nav-quick-help" onClick={() => setOpen(false)}>Get quick help <span aria-hidden="true">↗</span></Link>
+        {location.pathname === '/' ? <button type="button" className="nav-contact nav-work-link" onClick={showSelectedWork} aria-label="See selected work"><span className="nav-work-long">See selected work</span><span className="nav-work-short">View work</span><span aria-hidden="true">↓</span></button> : <Link to="/contact" className="nav-contact" onClick={() => setOpen(false)}>Let’s talk <span aria-hidden="true">↗</span></Link>}
         <button className="menu-button" type="button" aria-expanded={open} aria-label="Toggle navigation" onClick={() => setOpen((value) => !value)}>
           <span className="mono">{open ? 'Close' : 'Menu'}</span>
         </button>

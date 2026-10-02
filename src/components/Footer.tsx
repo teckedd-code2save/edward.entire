@@ -12,6 +12,8 @@ export default function Footer() {
         <div className="footer-links">
           <Link to="/help">Get quick help →</Link>
           <Link to="/projects">Selected work →</Link>
+          <Link to="/playground/bnl">Try the BNL playground →</Link>
+          <Link to="/fit">Role fit →</Link>
           <a href="https://github.com/teckedd-code2save" target="_blank" rel="noreferrer">GitHub ↗</a>
           <a href="https://www.linkedin.com/in/edward-twumasi" target="_blank" rel="noreferrer">LinkedIn ↗</a>
           <a href="https://www.serendepify.com/" target="_blank" rel="noreferrer">Serendepify ↗</a>
