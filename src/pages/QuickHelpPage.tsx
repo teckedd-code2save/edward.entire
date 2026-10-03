@@ -43,7 +43,7 @@ export default function QuickHelpPage() {
       </section>
       <section className="page-shell help-expectations" aria-labelledby="help-next">
         <div><p className="eyebrow">Before we begin</p><h2 id="help-next">Clear scope.<br />No surprises.</h2></div>
-        <p>We’ll agree on the deliverable, fee, and timing before any work starts. The goal is a working result you can understand and maintain—not another dependency you can’t operate.</p>
+        <p>We’ll agree on the deliverable, fee, and timing before any work starts. You should leave with a working result and enough context to operate it.</p>
         <Link to="/contact">Something bigger in mind?<br /><span>Let’s talk →</span></Link>
       </section>
     </div>

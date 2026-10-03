@@ -4,6 +4,7 @@ import { moreProjects, spotlightProjects } from '@/components/projects/projectDa
 import { MoreWorkCard, SpotlightCard } from '@/components/projects/WorkShowcase';
 import { ProjectNavigator } from '@/components/projects/ProjectStories';
 import CinematicHero from '@/components/workstation/CinematicHero';
+import './PortfolioSections.css';
 
 export default function Home() {
   return (
@@ -27,9 +28,13 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="work-section page-shell home-reading" aria-labelledby="inside-work-title">
+          <div className="work-section-heading"><div><p className="eyebrow">03 / Behind the products</p><h2 id="inside-work-title">Follow the thinking.</h2></div><p>The experiments, failures, and decisions that shaped the work.</p></div>
+          <div className="home-reading-links"><Link to="/research"><span>Research / Twi & language AI</span><strong>What does it take to understand the way we speak?</strong><span>Findings, model cards, and the data behind them <ArrowRight size={17} aria-hidden="true" /></span></Link><Link to="/articles"><span>Writing / Engineering notes</span><strong>What changed when the build met the real world?</strong><span>Read the decisions. Open the working result. <ArrowRight size={17} aria-hidden="true" /></span></Link></div>
+        </section>
         <section className="work-section page-shell work-about" aria-labelledby="work-together-title">
-          <div><p className="eyebrow">03 / Edward Twumasi · Accra</p><h2 id="work-together-title">From an idea<br />to something useful.</h2></div>
-          <div><p>I build products, backend systems, and AI tools—and the infrastructure that keeps them running.</p><Link className="button-primary" to="/contact">Let’s talk <ArrowRight size={16} aria-hidden="true" /></Link><div className="work-about-links"><Link to="/fit">Working together</Link><Link to="/help">Need help with a smaller task?</Link></div></div>
+          <div><p className="eyebrow">04 / Edward Twumasi · Accra</p><h2 id="work-together-title">What needs <br />your attention next?</h2></div>
+          <div><p>A product to ship, an agent to connect, or a model to evaluate. I bring the backend, product, and operational work together.</p><Link className="button-primary" to="/contact">Start a conversation <ArrowRight size={16} aria-hidden="true" /></Link><div className="work-about-links"><Link to="/fit">Working together</Link><Link to="/help">Need help with a smaller task?</Link></div></div>
         </section>
       </div>
     </div>

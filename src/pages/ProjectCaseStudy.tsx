@@ -32,11 +32,11 @@ export default function ProjectCaseStudy() {
       <div><p className="work-case-description">{project.description}</p><ul className="work-highlights">{project.highlights.map(highlight => <li key={highlight}>{highlight}</li>)}</ul></div>
     </section>
     <section className="work-section work-evidence-section" aria-labelledby="evidence-title"><div className="page-shell work-case-story">
-      <div><p className="eyebrow">02 / Open the evidence</p><h2 id="evidence-title">See it for yourself.</h2></div>
+      <div><p className="eyebrow">02 / Explore the project</p><h2 id="evidence-title">Keep exploring.</h2></div>
       <div><p className="work-case-description">{presentation.proof}</p><EvidenceLink href={presentation.evidence.href}>{presentation.evidence.label}</EvidenceLink>
         {project.id === 'ghana-health-ai' && <p className="work-evidence-note">Research preview. Evaluation figures are from my own tests, with datasets and limitations documented in the research section.</p>}
         {project.id === 'haven' && <p className="work-evidence-note">In development. Room placement is schematic; confirm clearances and delivery access before buying.</p>}
-        {project.id === 'convoy' && <p className="work-evidence-note">The capture and walkthrough are recorded product evidence, not a live deployment status.</p>}
+        {project.id === 'convoy' && <p className="work-evidence-note">Recorded product walkthrough. Deployment status may have changed since recording.</p>}
         <details className="work-architecture"><summary>Architecture &amp; decisions</summary><p>{project.architecture}</p></details>
       </div>
     </div></section>

@@ -4,8 +4,8 @@ export const gcBnlArticle: Article = {
   id: 'shipping-bnl-through-groundcontrol',
   title: 'Shipping BNL',
   accent: 'From the Browser',
-  subtitle: 'GroundControl as the working host surface, with evidence from build to public execution',
-  description: 'How I used GroundControl’s live terminal to build and verify the real BNL playground, preserve failures and screenshots, and check the deployed result independently.',
+  subtitle: 'Building and shipping a browser compiler through GroundControl',
+  description: 'How I used GroundControl’s browser terminal to build the BNL playground, catch a restart bug, and check the deployed compiler.',
   tags: ['groundcontrol', 'bnl', 'verification', 'developer-tools'],
   date: '28 September 2026',
   html: `
@@ -20,13 +20,13 @@ export const gcBnlArticle: Article = {
 <p>The native delivery review was separate. It found a liveness bug where a batch smaller than the route count could keep skipping later routes. The correction reserves a slot for every configured route. Seven host Rust tests, 37 shipping HTTP checks and 33 delivery/migration checks passed. The public playground cannot access that native delivery path.</p>
 <h2>Keep the failed attempts</h2>
 <p>The first container command did not have Cargo on its login-shell PATH. Packaging then could not resolve a linked worktree’s host-side Git metadata. Those failures stayed in the record; Cargo used its container path and packaging ran from the real checkout.</p>
-<p>The first browser attempt checked an article before its animated route had mounted. The corrected harness waits for the destination heading. A later review found that an export after restart could retain the previous request identity; the implementation and regression were updated. Saved evidence is more useful when it explains those corrections.</p>
+<p>The first browser attempt checked an article before its animated route had mounted. The corrected harness waits for the destination heading. A later review found that an export after restart could retain the previous request identity; the implementation and regression were updated.</p>
 <h2>Check the public consequence</h2>
 <p>After release, a fresh public session loaded with zero records and the expected source/binary identity. A custom declaration checked whether a supplied integer was greater than 30. Input 31 produced true; changing it to 12 produced false. Those were explicit verification inputs, not customer fixtures.</p>
 <figure class="article-evidence"><a href="/images/bnl/bnl-production-execution-20260928.jpg" target="_blank" rel="noreferrer"><img src="/images/bnl/bnl-production-execution-20260928.jpg" width="1357" height="932" loading="lazy" alt="Deployed BNL playground returning false from the actual Rust runtime for the supplied integer 12" /></a><figcaption>Public execution after release cb61c49: the real runtime returns false for days = 12 under the rule days &gt; 30. The source commit and WASM digest are visible below the result.</figcaption></figure>
-<p>The distinction matters: a shell command finishing, a test passing and a public feature working are three separate observations. GroundControl provided the host access to do the work; the evidence connects that work to what a visitor can actually try.</p>
+<p>The distinction matters: a shell command finishing, a test passing and a public feature working are three separate observations. GroundControl provided the host access to build it. Changing inputs in the published playground confirmed that the compiler was working after release.</p>
 <h2>Repeat the workflow</h2>
 <ol><li>Pin source and build inputs in an isolated checkout.</li><li>Run explicit build and test commands through the authenticated GC terminal, with resource limits.</li><li>Retain exit codes, scorecards, hashes, failures and captioned screenshots.</li><li>Publish through the application’s existing review/deployment path.</li><li>Open the public route independently and change an input to verify its consequence.</li></ol>
-<p><a href="#/article/bnl-getting-started">Start with your own BNL data</a>, read <a href="#/article/bnl-runtime-boundaries">the runtime boundaries</a>, or <a href="https://github.com/teckedd-code2save/edward.entire/tree/main/docs/evidence/bnl-playground-2026-09-28" target="_blank" rel="noreferrer">inspect the saved evidence</a>. The <a href="/images/bnl/mobile-empty.png" target="_blank" rel="noreferrer">390px mobile capture</a> and <a href="/images/bnl/manifest.json" target="_blank" rel="noreferrer">screenshot manifest</a> are available separately.</p>
+<p><a href="#/article/bnl-getting-started">Start with your own BNL data</a> or read <a href="#/article/bnl-runtime-boundaries">how the runtime works</a>.</p>
 <p class="article-footnote">Captured 28 September 2026, UTC. Rust runtime source a1d606c588ceb849c6a85561a9820c6ab6885e58; WASM SHA-256 fa55334543c5e22ef64ea7adb3a7583f134a071fc3c739a91c86a0bc0d49e337. <a href="https://github.com/teckedd-code2save/groundcontrol/blob/68e2c230576ded23b7554d7ca8622338ae832ea0/src/app/terminal/page.tsx" target="_blank" rel="noreferrer">Current terminal implementation</a>. Development evidence does not establish independent language generalisation, production payment/message delivery or autonomous recovery.</p>`,
 };

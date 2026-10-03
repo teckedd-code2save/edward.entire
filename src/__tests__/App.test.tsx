@@ -29,14 +29,14 @@ describe('App', () => {
     expect(screen.getByRole('link', { name: 'Contact' })).toBeInTheDocument();
 
     const heading = screen.getByRole('heading', { level: 1 });
-    expect(heading).toHaveTextContent('AI, beyond the model.');
+    expect(heading).toHaveTextContent('I turn ideas into working products.');
     expect(await screen.findByTestId('workstation-scene')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Selected work.' })).toBeInTheDocument();
     expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(10);
 
     // Footer brand + copyright (brand text spans a nested <em>, so assert on the footer element)
     const footer = screen.getByRole('contentinfo');
-    expect(within(footer).getByRole('link', { name: /Role fit/ })).toHaveAttribute('href', '#/fit');
+    expect(within(footer).getByRole('link', { name: /Working together/ })).toHaveAttribute('href', '#/fit');
     expect(footer).toHaveTextContent(/precision xyz/i);
     expect(footer).toHaveTextContent(/© 2026 Edward Kwabena Twumasi/);
   });

@@ -88,7 +88,7 @@ describe('Cinematic hero', () => {
     expect(screen.getByRole('link', { name: /Explore Ghana Health/ })).toHaveAttribute('href', 'https://ghanahealth.serendepify.com');
 
     act(() => playback.progress?.set(.1));
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('AI, beyond the model.');
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('I turn ideas into working products.');
     expect(screen.getByTestId('workstation-scene')).toHaveAttribute('data-product', 'false');
     expect(screen.queryByRole('link', { name: /View the actual release/ })).not.toBeInTheDocument();
   });
@@ -121,7 +121,7 @@ describe('Cinematic hero', () => {
     fireEvent.click(screen.getByRole('button', { name: 'The intent' }));
     expect(window.scrollTo).toHaveBeenLastCalledWith({ top: window.scrollY, behavior: 'auto' });
     act(() => playback.progress?.set(0));
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('AI, beyond the model.');
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('I turn ideas into working products.');
     expect(screen.getByRole('button', { name: 'The intent' })).toHaveAttribute('aria-current', 'step');
     expect(screen.getByTestId('workstation-scene')).toBeInTheDocument();
   });

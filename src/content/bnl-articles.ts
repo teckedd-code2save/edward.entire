@@ -34,7 +34,7 @@ Return recent</code></pre>
 <h2>4. Try a state change</h2>
 <p>Add an invoice with your own <code>id</code> and <code>customerId</code>, nonnegative integer <code>amountMinor</code> and <code>overdueDays</code>, and Boolean <code>paid</code>. Load the data, then select <strong>Create a local task</strong>. Enter that invoice ID in the typed inputs. The starter requires an unpaid invoice with overdueDays greater than 30; change the threshold to the rule you want to test.</p>
 <p>On success, inspect <strong>Session state</strong> for the newly created task. If the rule fails, the runtime returns a policy diagnostic and commits no task. Repeated successful calls create additional tasks: this starter does not add duplicate suppression. The task is a real record in this browser session, not a notification sent to someone.</p>
-<h2>5. Keep the evidence</h2>
+<h2>5. Save your workspace</h2>
 <p><strong>Export workspace</strong> downloads your declaration, typed-input text, loaded dataset, any unapplied data edits, the last executed request, its response and the runtime build identity. To resume, paste the saved declaration and inputs back, and load the JSON stored in datasetText. Exported execution results are evidence of the earlier run; importing data does not recreate earlier effects.</p>
 <p>There is no public source-install command yet: the BNL repository remains private while its licensing and research work continue. The browser playground is the available way to get started today. Read <a href="#/article/bnl-runtime-boundaries">what the runtime guarantees and where it stops</a>, or <a href="#/playground/bnl">try your first declaration</a>.</p>`,
   },

@@ -7,8 +7,8 @@ export const quickServices = [
     promise: 'Make your tools talk.',
     description: 'Connect an external API, wire up a webhook, or fix an integration that keeps breaking.',
     scope: 'Authentication · Data mapping · Retries & error handling',
-    proof: 'Explore my backend & product work',
-    proofPath: '/projects',
+    proof: 'See connected tools in GroundControl',
+    proofPath: '/projects/groundcontrol',
   },
   {
     id: 'deployment',
@@ -16,8 +16,8 @@ export const quickServices = [
     promise: 'Get your app out into the world.',
     description: 'Take an app from repository to a working domain, or repair a release pipeline that has stalled.',
     scope: 'CI/CD · Containers · HTTPS · Health checks',
-    proof: 'See the delivery systems I built',
-    proofPath: '/projects',
+    proof: 'Follow a release through GroundControl',
+    proofPath: '/projects/groundcontrol',
   },
   {
     id: 'automation',
@@ -25,8 +25,8 @@ export const quickServices = [
     promise: 'Take the repeat work off your plate.',
     description: 'Connect a recurring task across your tools: data syncs, scheduled jobs, alerts, or agent-assisted workflows.',
     scope: 'Webhooks · Scheduled jobs · Tool connections',
-    proof: 'Read how GroundControl enables host control',
-    proofPath: '/article/nsenter-bridge',
+    proof: 'See the RentAWeekend planning workflow',
+    proofPath: '/projects/rentaweekend',
   },
 ] as const;
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import Articles from '../pages/Articles';
 import ArticleViewer from '../pages/ArticleViewer';
@@ -29,7 +29,7 @@ describe('Writing', () => {
   it('renders a complete response-model article', () => {
     render(<MemoryRouter initialEntries={['/article/training-an-interpreter-not-an-assistant']}><Routes><Route path="/article/:id" element={<ArticleViewer />} /></Routes></MemoryRouter>);
     expect(screen.getByRole('heading', { name: /Training a Direct-Response.*Twi Model/ })).toBeInTheDocument();
-    expect(screen.getByText(/The zero-row result is a success/)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /The zero-row result is a success/ })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /commit d459c2a/ })).toHaveAttribute('href', expect.stringContaining('d459c2a'));
     expect(screen.getByRole('link', { name: /The journal/ })).toHaveAttribute('href', '/articles');
   });
@@ -38,5 +38,29 @@ describe('Writing', () => {
     render(<MemoryRouter initialEntries={[`/article/${id}`]}><Routes><Route path="/article/:id" element={<ArticleViewer />} /></Routes></MemoryRouter>);
     expect(screen.getByRole('heading', { name: 'Article not found.' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Back to articles/ })).toHaveAttribute('href', '/articles');
+  });
+
+  it('filters the notebook while keeping the runnable introduction available', () => {
+    render(<MemoryRouter initialEntries={['/articles?topic=Language%20AI']}><Articles /></MemoryRouter>);
+    expect(screen.getByRole('button', { name: 'Language AI' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('heading', { name: 'Training a Direct-Response Twi Model' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Designing Safe Docker Garbage Collection' })).not.toBeInTheDocument();
+    expect(within(screen.getByRole('region', { name: 'Featured essay' })).getByRole('link', { name: /Try it in the editor/ })).toHaveAttribute('href', '/playground/bnl');
+    fireEvent.click(screen.getByRole('button', { name: 'Operations' }));
+    expect(screen.queryByRole('heading', { name: 'Training a Direct-Response Twi Model' })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Designing Safe Docker Garbage Collection' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'All notes' }));
+    expect(screen.getByRole('heading', { name: 'Training a Direct-Response Twi Model' })).toBeInTheDocument();
+  });
+
+  it('moves focus to an article section without replacing the article route', () => {
+    render(<MemoryRouter initialEntries={['/article/nsenter-bridge']}><Routes><Route path="/article/:id" element={<ArticleViewer />} /></Routes></MemoryRouter>);
+    fireEvent.click(screen.getByText('In this note'));
+    const heading = screen.getByRole('heading', { name: 'Ephemeral does not mean least privilege' });
+    heading.scrollIntoView = () => {};
+    fireEvent.click(screen.getByRole('button', { name: /Ephemeral does not mean least privilege/ }));
+    expect(heading).toHaveFocus();
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('How GroundControl’s Terminal');
+    expect(screen.getByRole('link', { name: /Explore GroundControl/ })).toHaveAttribute('href', '/projects/groundcontrol');
   });
 });
