@@ -1,55 +1,41 @@
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { newArticles } from '../content/article-library';
+import { articleTitle, articleTopic, articleTopics, readingMinutes } from '../content/article-navigation';
 import './ResearchWritingStudio.css';
-
-const articles = newArticles;
+import './PortfolioSections.css';
 
 export default function Articles() {
-  const [featured, ...index] = articles;
-  const title = (article: typeof articles[number]) => `${article.title}${'accent' in article ? ` ${article.accent}` : ''}`;
+  const [params, setParams] = useSearchParams();
+  const topic = articleTopics.find(item => item === params.get('topic')) ?? 'All notes';
+  const [featured, ...notes] = newArticles;
+  const visible = notes.filter(article => topic === 'All notes' || articleTopic(article) === topic);
 
-  return (
-    <div className="writing-studio">
-      <header className="journal-masthead page-shell">
-        <div className="journal-edition"><p className="studio-page-kicker">Edward Twumasi / Field notes</p><span>Engineering · Research · Operations</span></div>
-        <div className="journal-intro"><h1>Engineering<br /><em>notes.</em></h1><p>Detailed accounts of systems I have built, the failures that changed them, and the evidence behind each engineering decision.</p></div>
-        <div className="journal-rule"><span>The journal</span><span>{String(articles.length).padStart(2, '0')} essays / From the workbench</span></div>
-      </header>
-
-      <section className="page-shell journal-feature-section" aria-label="Featured essay">
-        <article className="journal-feature">
-          <div className="journal-feature-copy">
-            <p className="journal-meta">Latest note <span>/</span> {featured.date}</p>
-            <h2><Link to={`/article/${featured.id}`}>{title(featured)}</Link></h2>
-            <p className="journal-deck">{featured.description}</p>
-            <div className="journal-tags">{featured.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
-            <Link className="journal-read-link" to={`/article/${featured.id}`}>Read the essay <span>↗</span></Link>
-          </div>
-          <div className="journal-manuscript" aria-hidden="true">
-            <div className="manuscript-page manuscript-page-back" />
-            <div className="manuscript-page">
-              <div className="manuscript-topline"><span>LANGUAGE RESEARCH</span><span>01 / 03</span></div>
-              <span className="manuscript-quote">Understanding<br />is only<br /><em>the beginning.</em></span>
-              <div className="manuscript-boundary"><span>INTERPRETATION</span><i>→</i><span>REVIEWED REPLY</span></div>
-              <div className="manuscript-bottomline"><span>Ghana Health AI</span><span>Research notes / 2026</span></div>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <section className="page-shell journal-index" aria-labelledby="journal-index-heading">
-        <div className="journal-index-heading"><h2 id="journal-index-heading">More from the notebook</h2><span>Selected essays</span></div>
-        {index.map((article, i) => <Link className="journal-row" key={article.id} to={`/article/${article.id}`}>
-          <span className="journal-row-number">{String(i + 2).padStart(2, '0')}</span>
-          <div className="journal-row-title"><p className="journal-meta">{article.date}</p><h3>{title(article)}</h3><span>{article.subtitle}</span></div>
-          <div className="journal-row-summary"><p>{article.description}</p><div className="journal-tags">{article.tags.map(tag => <span key={tag}>{tag}</span>)}</div></div>
-          <span className="journal-row-arrow" aria-hidden="true">↗</span>
-        </Link>)}
-      </section>
-
-      <section className="journal-standard">
-        <div className="page-shell"><p className="studio-page-kicker">Editorial standard</p><h2>Written from<br /><span>production evidence.</span></h2><p>Each article links its argument to a working system, measured result, production incident, or research artifact.</p></div>
-      </section>
-    </div>
-  );
+  return <div className="writing-studio">
+    <header className="journal-masthead page-shell">
+      <div className="journal-edition"><p className="studio-page-kicker">Edward Twumasi / Field notes</p><span>Written from the work</span></div>
+      <div className="journal-intro"><h1>What the build <br /><em>taught me.</em></h1><p>The decisions, experiments, and failures behind the products. Pick a question. Follow it back to the work.</p></div>
+      <div className="journal-rule"><span>Read · Inspect · Try</span><span>{newArticles.length} notes from the workbench</span></div>
+    </header>
+    <section className="page-shell journal-feature-section" aria-label="Featured essay">
+      <article className="journal-feature">
+        <div className="journal-feature-copy">
+          <p className="journal-meta">Start here / About {readingMinutes(featured)} min read</p>
+          <h2><Link to={`/article/${featured.id}`}>{articleTitle(featured)}</Link></h2>
+          <p className="journal-deck">Bring a small dataset. Change a rule. See exactly what the browser executes. A practical first session with the BNL compiler I built.</p>
+          <div className="section-actions"><Link className="journal-read-link" to={`/article/${featured.id}`}>Read the guide <span aria-hidden="true">↗</span></Link><Link className="section-link" to="/playground/bnl">Try it in the editor →</Link></div>
+        </div>
+        <figure className="journal-product-proof"><img src="/images/bnl/bnl-production-execution-20260928.jpg" width="1357" height="932" alt="The BNL playground executing a rule and displaying its result" /><figcaption>A real browser execution · recorded 28 September 2026</figcaption></figure>
+      </article>
+    </section>
+    <section className="page-shell journal-index" aria-labelledby="journal-index-heading">
+      <div className="journal-index-heading"><h2 id="journal-index-heading">Follow your curiosity.</h2><span role="status">{visible.length} {visible.length === 1 ? 'note' : 'notes'}</span></div>
+      <div className="section-filters" role="group" aria-label="Filter notes by subject">{articleTopics.map(item => <button key={item} type="button" aria-pressed={topic === item} onClick={() => setParams(item === 'All notes' ? {} : { topic: item }, { replace: true })}>{item}</button>)}</div>
+      {visible.map((article, index) => <Link className="journal-row" key={article.id} to={`/article/${article.id}`}>
+        <span className="journal-row-number">{String(index + 1).padStart(2, '0')}</span>
+        <div className="journal-row-title"><p className="journal-meta">{articleTopic(article)} / About {readingMinutes(article)} min</p><h3>{articleTitle(article)}</h3><span>{article.date}</span></div>
+        <div className="journal-row-summary"><p>{article.description}</p></div><span className="journal-row-arrow" aria-hidden="true">↗</span>
+      </Link>)}
+    </section>
+    <section className="section-next"><div className="page-shell section-next-inner"><div><p className="eyebrow">Keep exploring</p><h2>The story has a working version.</h2></div><Link className="section-link" to="/projects">Explore the projects →</Link></div></section>
+  </div>;
 }

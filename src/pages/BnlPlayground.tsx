@@ -138,9 +138,9 @@ export default function BnlPlayground() {
             <p className="bnl-boundary">Queries and local task / review records execute here. Payments and messages are unavailable. Reloading or leaving this page clears the runtime; export anything you want to keep.</p>
           </section>
           <section className="bnl-card bnl-output">
-            <div className="bnl-section-label"><span>03 / INSPECT THE EVIDENCE</span><span>{response?.status ?? 'Loading'}</span></div>
+            <div className="bnl-section-label"><span>03 / RESULT</span><span>{response?.status ?? 'Loading'}</span></div>
             <div role="status" aria-live="polite" className={`bnl-status${response?.error || fatal ? ' has-error' : ''}`}>{message}</div>
-            <p className="bnl-help">Evidence from the last operation. Run or compile again after editing a declaration or its inputs.</p>
+            <p className="bnl-help">Output from the last operation. Run or compile again after editing a declaration or its inputs.</p>
             <div className="bnl-tabs" role="group" aria-label="Execution view">{(['result', 'trace', 'state', 'bir'] as Panel[]).map(key => <button key={key} aria-pressed={panel === key} onClick={() => setPanel(key)}>{key === 'bir' ? 'Compiled BIR' : key === 'state' ? 'Session state' : key === 'trace' ? 'Execution trace' : 'Result'}</button>)}</div>
             {output != null ? <pre className="bnl-result" tabIndex={0} aria-label={`${panel} output`}>{pretty(output)}</pre> : <div className="bnl-empty"><span>∅</span><h3>No {panel === 'result' ? 'result' : panel} yet.</h3><p>{panel === 'bir' ? 'Compile a declaration to inspect its typed intermediate representation.' : 'Load your records and run a declaration. The values you see here will come from that execution.'}</p></div>}
             <div className="bnl-session-actions"><button className="bnl-text-button" disabled={busy} onClick={() => { setBusy(true); setFatal(false); setResponse(null); setGeneration(n => n + 1); }}>Restart empty session</button><Link to="/article/bnl-runtime-boundaries">How execution works ↗</Link></div>

@@ -1,82 +1,29 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import './WorkFitStudio.css';
+import './PortfolioSections.css';
 
 const roles = [
   {
-    title: 'Distributed / production infrastructure',
-    body: 'For teams that need stateful backend systems, durable workflows, deployment control planes, and engineers who can own failure from API contract to production recovery.',
-    evidence: [
-      'Lead backend engineering across financial, payments, e-commerce, and public-sector systems using Temporal, Kafka, Akka.NET, Redis, Elasticsearch/OpenSearch, PostgreSQL, EF Core, and Dapper.',
-      'GroundControl reconciles deployments, Docker/Compose, proxy routes, host state, logs, health, and release evidence across operator-owned infrastructure.',
-      'Production work emphasizes concurrency, retries, idempotency, observability, rollout safety, and explicit recovery rather than happy-path service code.',
-    ],
-    proof: ['Hubtel distributed systems', 'Temporal workflows', 'GroundControl'],
-    route: '/projects',
-    routeLabel: 'Inspect the systems work',
+    title: 'A product that needs to ship.',
+    body: 'Turn an idea into a working product, then make its deployment and day-to-day operation understandable.',
+    evidence: ['GroundControl connects applications and deployment actions, then checks that an update is running.', 'RentAWeekend brings a planning request through research, comparison, and a practical next step.'],
+    proof: ['Product engineering', 'Backends', 'Deployment'],
+    route: '/projects/rentaweekend', routeLabel: 'Follow the RentAWeekend story',
   },
   {
-    title: 'Agent / research platform infrastructure',
-    body: 'For teams building agents that need real capabilities without turning model autonomy into unrestricted production authority.',
-    evidence: [
-      'GroundControl lets ChatGPT act as a constrained deployment client: receive only an approved deployment, trigger a typed redeploy, follow the durable operation and report health/public evidence without VPS shell access.',
-      'Long-running mutations are durable idempotent operations; interrupted non-replayable work is marked uncertain instead of being executed twice.',
-      'Exact deployed revisions can be reproduced in ephemeral Daytona sandboxes for bounded validation, while connector health is verified capability by capability.',
-    ],
-    proof: ['MCP + OAuth', 'Durable operations', 'Exact-revision verification'],
-    route: '/projects',
-    routeLabel: 'See the control-plane evidence',
+    title: 'An agent that needs to act.',
+    body: 'Connect an AI assistant to useful tools, with clear access and a way to inspect what happened.',
+    evidence: ['GroundControl exposes MCP tools for ChatGPT and other compatible agents to inspect and update selected deployments.', 'Saved operations carry progress and verification beyond a single conversation.'],
+    proof: ['MCP + OAuth', 'Tool integration', 'Operation tracking'],
+    route: '/projects/groundcontrol', routeLabel: 'See how GroundControl works',
   },
   {
-    title: 'ML systems / evaluation engineering',
-    body: 'For teams where model quality, data lineage, evaluation, training infrastructure, and production behavior have to be treated as one system.',
-    evidence: [
-      'Ghana Health AI connects Twi ASR, human-reviewed language data, semantic adaptation, Modal GPU training, versioned evaluation fixtures, and guarded product promotion.',
-      'Published model candidates retain measured failures and non-promotion decisions; a completed training run is never treated as proof that a model should ship.',
-      'The current systems track extends the same research into Arrow/Parquet corpus lineage, GPU profiling, distributed training, checkpoint/recovery, and serving benchmarks.',
-    ],
-    proof: ['Twi/Akan speech', 'Modal GPU', 'Evaluation + source history'],
-    route: '/research',
-    routeLabel: 'Enter the research lab',
-  },
-  {
-    title: 'Systems-minded founding engineer',
-    body: 'For early teams that need one owner who can connect an underserved problem to architecture, product, infrastructure, evaluation, and the operational details required to keep it real.',
-    evidence: [
-      'GroundControl moved from dashboard to agent-operable control plane as the operational problem became clearer.',
-      'RentAWeekend evolved from planning UX into concurrency-safe, source-tracked real-world execution with explicit payment, safety, matching, and human gates.',
-      'Ghana Health AI combines product, low-resource-language research, model evaluation, deployment, and an explicit roadmap into deeper ML systems work.',
-    ],
-    proof: ['0→1 ownership', 'Architecture + product', 'Build + operate'],
-    route: '/projects',
-    routeLabel: 'Explore the flagship systems',
-  },
-];
-
-const gaps = [
-  {
-    number: '01',
-    title: 'Measure more of the systems story.',
-    body: 'The architecture and failure-handling decisions are increasingly visible. The next improvement is systematic public measurement: latency, throughput, resource use, recovery time, load behavior, and before/after operating results.',
-    action: 'Next evidence: benchmark and operating scorecards attached to flagship case studies.',
-  },
-  {
-    number: '02',
-    title: 'Move deeper into GPU and distributed model compute.',
-    body: 'The current strength is backend, control-plane, evaluation, and deployment engineering. Training/inference infrastructure roles also require hands-on evidence in profiling, CUDA/Triton, parallelism, checkpointing, and accelerator memory behavior.',
-    action: 'Next evidence: Ghana Health Model Factory experiments with profiler traces and distributed-training measurements.',
-  },
-  {
-    number: '03',
-    title: 'Make cluster scheduling knowledge operational.',
-    body: 'Kubernetes and container deployment are already part of the work, but research-compute teams need deeper scheduler, gang-admission, Slurm, resource-topology, and failure-recovery understanding.',
-    action: 'Next evidence: a durable research-job controller with explicit resources, cancellation, checkpoint, resume, and evidence.',
-  },
-  {
-    number: '04',
-    title: 'Compound independent validation.',
-    body: 'The work is strongly self-authored. Open-source adoption, collaborators, benchmarks, references, talks, papers, and external users will make the signal easier to verify without relying on portfolio prose.',
-    action: 'Next evidence: public technical articles, reproducible benchmarks, contributions, and operating references.',
+    title: 'AI that needs to be evaluated.',
+    body: 'Connect model experiments to their data, test conditions, and behavior in a real product.',
+    evidence: ['Ghana Health AI brings Twi speech and language research into a working voice and text experience.', 'Published model cards and source-linked data releases make the experiments inspectable.'],
+    proof: ['Speech + language', 'Data pipelines', 'Evaluation'],
+    route: '/research', routeLabel: 'Explore the research findings',
   },
 ];
 
@@ -94,15 +41,15 @@ export default function Fit() {
       <header className="studio-shell fit-masthead">
         <motion.div className="fit-hero-copy" {...reveal}>
           <p className="studio-kicker">Working together / Edward Twumasi</p>
-          <h1 className="studio-title fit-title">Systems for AI<br />that has to <span>work.</span></h1>
-          <p className="studio-lede">My strongest work sits where distributed backends, agent execution, model evaluation, and production operations meet. The evidence below is organized by capability, not by job-title keywords.</p>
+          <h1 className="studio-title fit-title">Build it. <br />Make it <span>dependable.</span></h1>
+          <p className="studio-lede">I’m Edward, an engineer and independent builder in Accra. I work across backend systems, AI tools, and the infrastructure that keeps a product running. Here are three places I can help.</p>
           <div className="fit-hero-actions">
             <button
               className="studio-action"
               type="button"
-              onClick={() => document.getElementById('role-evidence')?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' })}
+              onClick={() => { const section = document.getElementById('role-evidence'); section?.focus({ preventScroll: true }); section?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' }); }}
             >
-              Explore the role evidence <span aria-hidden="true">↓</span>
+              Find the work closest to yours <span aria-hidden="true">↓</span>
             </button>
           </div>
         </motion.div>
@@ -133,25 +80,24 @@ export default function Fit() {
         </motion.figure>
       </header>
 
-      <section className="studio-shell studio-section" id="role-evidence" aria-labelledby="fit-roles-title">
+      <section className="studio-shell studio-section" id="role-evidence" aria-labelledby="fit-roles-title" tabIndex={-1}>
         <motion.div className="studio-section-heading" {...reveal}>
           <div>
-            <p className="studio-kicker">01 / Role evidence</p>
-            <h2 id="fit-roles-title">The work behind<br />the role.</h2>
+            <p className="studio-kicker">01 / Where I can help</p>
+            <h2 id="fit-roles-title">Start with the <br />problem in front of you.</h2>
           </div>
-          <p className="studio-lede">Four capability clusters built from shipped systems, research artifacts, failure handling, and production ownership.</p>
+          <p className="studio-lede">From the first working version to the systems that keep it running.</p>
         </motion.div>
 
         <div className="fit-role-list">
           {roles.map((role, index) => (
             <motion.article className="fit-role-row" key={role.title} {...reveal}>
               <div className="fit-role-heading">
-                <p className="studio-kicker">Role / 0{index + 1}</p>
+                <p className="studio-kicker">0{index + 1} / Your next step</p>
                 <h3>{role.title}</h3>
                 <p>{role.body}</p>
               </div>
               <div className="fit-role-evidence">
-                <p className="studio-kicker fit-evidence-label">Selected evidence</p>
                 <ul>{role.evidence.map((item) => <li key={item}>{item}</li>)}</ul>
                 <p className="fit-proof-index">{role.proof.join(' · ')}</p>
                 <Link className="studio-action" to={role.route}>{role.routeLabel} <span aria-hidden="true">↗</span></Link>
@@ -162,26 +108,9 @@ export default function Fit() {
       </section>
 
       <section className="fit-next-section" aria-labelledby="fit-next-title">
-        <div className="studio-shell studio-section">
-          <motion.div className="studio-section-heading" {...reveal}>
-            <div>
-              <p className="studio-kicker">02 / The next evidence</p>
-              <h2 id="fit-next-title">A clear view of<br />what comes next.</h2>
-            </div>
-            <p className="studio-lede">The projects show what I can build. These are the areas where further operating results and independent evidence will make the work easier to assess.</p>
-          </motion.div>
-          <div className="fit-next-list">
-            {gaps.map((gap) => (
-              <motion.article className="fit-next-row" key={gap.number} {...reveal}>
-                <span className="studio-kicker fit-next-number">{gap.number}</span>
-                <h3>{gap.title}</h3>
-                <div className="fit-next-copy">
-                  <p>{gap.body}</p>
-                  <p className="fit-next-action">{gap.action}</p>
-                </div>
-              </motion.article>
-            ))}
-          </div>
+        <div className="studio-shell studio-section fit-working-note">
+          <div><p className="studio-kicker">02 / How I work</p><h2 id="fit-next-title">Make progress visible.</h2></div>
+          <div><p>Start with the outcome and constraints. Build a small working path. Test the failure cases, then leave the next person enough context to operate and extend it.</p><details className="evidence-disclosure"><summary>What I’m exploring next <span aria-hidden="true">+</span></summary><div><p>Deeper training and serving measurements, recovery behavior, and independent validation of the research. I keep these as open questions, with the published work showing what has been demonstrated so far.</p></div></details></div>
         </div>
       </section>
 
@@ -189,12 +118,12 @@ export default function Fit() {
         <motion.div className="studio-section-heading" {...reveal}>
           <div>
             <p className="studio-kicker">03 / Start a conversation</p>
-            <h2 id="fit-contact-title">What are<br />you building?</h2>
+            <h2 id="fit-contact-title">What are <br />you building?</h2>
           </div>
           <div>
-            <p className="studio-lede">If your team is building distributed infrastructure, agent platforms, or ML systems that need production ownership, let’s talk about the hard part that needs an owner.</p>
+            <p className="studio-lede">Tell me what you’re building, where it is getting stuck, and the kind of collaboration you have in mind. A few sentences are enough to begin.</p>
             <div className="fit-hero-actions">
-              <Link className="studio-button" to="/contact">Discuss a role <span aria-hidden="true">↗</span></Link>
+              <Link className="studio-button" to="/contact?topic=role">Discuss a role <span aria-hidden="true">↗</span></Link>
               <Link className="studio-action" to="/projects">Explore the work <span aria-hidden="true">↗</span></Link>
             </div>
           </div>

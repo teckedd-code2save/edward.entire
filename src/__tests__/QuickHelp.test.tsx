@@ -48,7 +48,7 @@ describe('Quick help', () => {
     expect(draft.searchParams.get('body')).toContain('I’d like help with deployments.');
     expect(draft.searchParams.get('body')).toContain('What I’m trying to do:');
     expect(draft.searchParams.get('body')).toContain('Preferred timing:');
-    expect(screen.getByRole('link', { name: /See the delivery systems I built/ })).toHaveAttribute('href', '/projects');
+    expect(screen.getByRole('link', { name: /Follow a release through GroundControl/ })).toHaveAttribute('href', '/projects/groundcontrol');
   });
 
   it('keeps the brief when changing service and correctly encodes special characters in the draft', () => {
@@ -67,7 +67,7 @@ describe('Quick help', () => {
     expect(draft.searchParams.get('body')).toBe(`Hi Edward,\n\nI’d like help with automations.\n\n${brief.trim()}\n\nThanks!`);
     expect([...draft.searchParams.keys()]).toEqual(['subject', 'body']);
     expect(draft.hash).toBe('');
-    expect(screen.getByRole('link', { name: /Read how GroundControl enables host control/ })).toHaveAttribute('href', '/article/nsenter-bridge');
+    expect(screen.getByRole('link', { name: /See the RentAWeekend planning workflow/ })).toHaveAttribute('href', '/projects/rentaweekend');
   });
 
   it.each(['missing', '__proto__', 'constructor', '<script>alert(1)</script>', 'api&bcc=unwanted@example.test'])(
@@ -77,7 +77,7 @@ describe('Quick help', () => {
       expect(screen.getByRole('radio', { name: 'API integration' })).toBeChecked();
       expect(emailDraft().searchParams.get('subject')).toBe('Quick help — API integration');
       expect(emailDraft().searchParams.get('body')).not.toContain(service);
-      expect(screen.getByRole('link', { name: /Explore my backend & product work/ })).toHaveAttribute('href', '/projects');
+      expect(screen.getByRole('link', { name: /See connected tools in GroundControl/ })).toHaveAttribute('href', '/projects/groundcontrol');
     },
   );
 
