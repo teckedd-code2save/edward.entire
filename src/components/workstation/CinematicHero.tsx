@@ -4,7 +4,7 @@ import './CinematicHero.css';
 
 const WorkstationScene = lazy(() => import('./WorkstationScene'));
 const chapters = [
-  { title: 'I turn ideas into working products.', label: 'The intent', body: 'Products, AI tools, and the systems behind them—from planning a weekend to helping an agent run a deployment.', at: 0 },
+  { title: 'Creation is my adrenaline.', label: 'The intent', body: 'I have a thing for ingenious engineering—and ideas that won’t leave me alone until I’ve built them.', at: 0 },
   { title: 'Inside the work.', label: 'The engineering', body: 'An agent-assisted workspace. A conversation that keeps its context. An interpretation the user can inspect.', at: .25 },
   { title: 'Every release has a record.', label: 'The release', body: 'The actual Ghana Health build: an immutable image, a commit, and a verifiable path to production.', at: .55 },
   { title: 'Operate what you ship.', label: 'GroundControl', body: 'The control plane now gives remote agents scoped MCP/OAuth capabilities, durable operations, exact-revision evidence, and bounded recovery without handing them a generic production shell.', at: .78 },

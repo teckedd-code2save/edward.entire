@@ -29,7 +29,7 @@ describe('App', () => {
     expect(screen.getByRole('link', { name: 'Contact' })).toBeInTheDocument();
 
     const heading = screen.getByRole('heading', { level: 1 });
-    expect(heading).toHaveTextContent('I turn ideas into working products.');
+    expect(heading).toHaveTextContent('Creation is my adrenaline.');
     expect(await screen.findByTestId('workstation-scene')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Selected work.' })).toBeInTheDocument();
     expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(10);
