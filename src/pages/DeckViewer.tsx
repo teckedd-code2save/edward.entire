@@ -7,12 +7,12 @@ const decks: Record<string, {
 }> = {
   groundcontrol: {
     title: 'GroundControl',
-    line1: 'Build with an agent.',
-    line2: 'Keep it in the loop.',
-    subtitle: 'Connect ChatGPT and other compatible agents to your deployments through MCP tools, with access you control.',
+    line1: 'Give your agents the access',
+    line2: 'to follow through.',
+    subtitle: 'An open-source, self-hosted control plane for your VPS. Discover your apps and connect compatible agents through MCP and OAuth.',
     slides: [
-      { title: 'Useful after launch', body: ['The agent that helped build your app can help operate it, too. GroundControl is a self-hosted workspace that connects agents to the applications running on your infrastructure.'], tags: ['MCP', 'OAuth', 'TypeScript', 'Next.js 16', 'Docker', 'SQLite'] },
-      { title: 'Connect the agent. Choose its access.', body: ['Add GroundControl to ChatGPT or another compatible remote MCP client. Sign in with OAuth, select the deployments it may access, and choose the actions it may take.'], bullets: ['Access to selected applications', 'Separate scopes for reads and deployment actions', 'Revocable grants in the Agents workspace'] },
+      { title: 'Start with what is running', body: ['GroundControl discovers existing Docker Compose apps on your VPS. Choose which to enroll, then connect their source, runtime, and public address. The dashboard supports hands-on operations before you connect an external agent.'], tags: ['MCP', 'OAuth', 'TypeScript', 'Next.js 16', 'Docker', 'SQLite'] },
+      { title: 'Connect the agent. Approve its access.', body: ['Add GroundControl to ChatGPT or another compatible remote MCP client. Sign in with OAuth, review the capabilities the client requests, and select the deployments it may access.'], bullets: ['Access to selected applications', 'Separate scopes for reads and deployment actions', 'Revocable grants in the Agents workspace'] },
       { title: 'Tools for the next operational decision', bullets: ['Inspect the running revision and recent releases', 'Read deployment logs and check health', 'Check whether named settings are configured while keeping values private', 'Build and deploy linked GitHub source, or redeploy an app', 'Retrieve operation progress and verification evidence'] },
       { title: 'A result you can return to', body: ['A deploy request returns a saved operation ID. The agent can reconnect and retrieve progress, verification evidence, or an error. Repeating the same request key returns the existing operation.'], bullets: ['GroundControl records the work beyond the chat request', 'Runtime and public endpoint checks help establish the outcome', 'Interrupted work is surfaced as uncertain when its outcome cannot be established'] },
       { title: 'Used on real applications', body: ['The documented RentAWeekend run paired ChatGPT deployment inspection with a signed GitHub push that triggered a source deployment. GroundControl recorded completion, healthy services, and a successful public response.', 'For hands-on work, operators also have a persistent host terminal. I used that surface to build and verify the BNL browser playground.'] },

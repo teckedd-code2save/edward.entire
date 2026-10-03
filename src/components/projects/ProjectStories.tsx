@@ -44,8 +44,8 @@ function ConvoyFilm() {
 
 const stories: Record<string, { headline: string; intro: string; action: string; href: string; chapters: Chapter[] }> = {
   groundcontrol: {
-    headline: 'Build with an agent. Keep it in the loop.',
-    intro: 'Once the app is live, your agent can help run it. I built GroundControl to connect ChatGPT and other compatible agents to deployments through MCP tools: inspect releases, read logs, check health, and ship updates. You choose which apps and actions they can access.',
+    headline: 'Give your agents the access to follow through.',
+    intro: 'GroundControl is an open-source, self-hosted control plane for your VPS. Discover the apps already running, choose what to manage, and connect ChatGPT or another compatible agent through MCP and OAuth. Agents can inspect deployments, read logs, check health, and request updates within the access you approve.',
     action: 'Explore GroundControl', href: 'https://trygroundcontrol.serendepify.com/',
     chapters: [
       { label: 'The deployment', title: 'One deployment. A shared view of what is running.', description: 'The dashboard keeps source, runtime, and release history together. An authorized agent can inspect that deployment through MCP, request an update, and follow its progress.', content: <Capture src="/groundcontrol-deployments.png" alt="GroundControl showing the release stages for a Ghana Health AI deployment" caption="Ghana Health AI deployment · recorded dashboard view" /> },
