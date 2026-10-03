@@ -10,11 +10,11 @@ export interface WorkPresentation {
 
 export const workPresentation: Record<string, WorkPresentation> = {
   groundcontrol: {
-    summary: 'Connect ChatGPT and other AI agents to the apps you run. Inspect, deploy, and verify through MCP tools, with access you control.',
+    summary: 'An open-source control plane for apps on your own VPS. Discover what is running, choose what to manage, and connect your agents through MCP and OAuth.',
     status: 'Live product',
-    contribution: 'I wanted the agent that helped build an app to stay useful after launch. GroundControl gives it deployment tools and a way to check the outcome. Operators choose its access, and every deploy request gets a saved operation the agent can return to.',
+    contribution: 'I built GroundControl so asking an agent about an app could lead to work on the actual server. It connects the app’s source, running services, and public address. You approve access; the agent requests a supported action, and GroundControl runs it and checks the result.',
     proof: 'In the documented RentAWeekend run, ChatGPT inspected the deployment and checked the live runtime. A signed GitHub push then triggered a source deployment; GroundControl recorded its completion, healthy services, and a successful public response.',
-    evidence: { label: 'Read the ChatGPT deployment story', href: 'https://github.com/teckedd-code2save/groundcontrol/blob/65d4e173acc8e54f49585aa4d16165f94959afa2/docs/articles/chatgpt-operated-my-deployment.md' },
+    evidence: { label: 'Connect an agent to GroundControl', href: 'https://trygroundcontrol.serendepify.com/docs/agent-access' },
     image: { src: '/groundcontrol-deployments.png', alt: 'GroundControl deployment workspace with configuration, runtime, and release verification stages.', width: 1280, height: 720, caption: 'Deployment workspace · captured 6 Sep 2026' },
   },
   rentaweekend: {
