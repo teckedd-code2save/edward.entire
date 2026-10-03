@@ -59,38 +59,38 @@ describe('Cinematic hero', () => {
       toJSON: () => ({}),
     });
 
-    expect(screen.getByRole('button', { name: 'The intent' })).toHaveAttribute('aria-current', 'step');
-    fireEvent.click(screen.getByRole('button', { name: 'The release' }));
+    expect(screen.getByRole('button', { name: 'Start' })).toHaveAttribute('aria-current', 'step');
+    fireEvent.click(screen.getByRole('button', { name: 'Deploy' }));
     expect(window.scrollTo).toHaveBeenLastCalledWith({
       top: 120 + window.scrollY + .55 * (6400 - window.innerHeight),
       behavior: 'auto',
     });
-    fireEvent.click(screen.getByRole('button', { name: 'The intent' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Start' }));
     expect(window.scrollTo).toHaveBeenLastCalledWith({ top: 120 + window.scrollY, behavior: 'auto' });
   });
 
-  it('updates evidence and product links when scrolling forward and back', async () => {
+  it('updates build and product links when scrolling forward and back', async () => {
     render(<CinematicHero />);
     await screen.findByTestId('workstation-scene');
 
     act(() => playback.progress?.set(.52));
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Every release has a record.');
-    expect(screen.getByRole('button', { name: 'The release' })).toHaveAttribute('aria-current', 'step');
-    expect(screen.getByRole('link', { name: /View the actual release/ })).toHaveAttribute('href', 'https://github.com/teckedd-code2save/ghana-health-ai/actions/runs/33924380025');
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Getting it online.');
+    expect(screen.getByRole('button', { name: 'Deploy' })).toHaveAttribute('aria-current', 'step');
+    expect(screen.getByRole('link', { name: /View the build on GitHub/ })).toHaveAttribute('href', 'https://github.com/teckedd-code2save/ghana-health-ai/actions/runs/33924380025');
 
     act(() => playback.progress?.set(.65));
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Operate what you ship.');
-    expect(screen.getByRole('button', { name: 'GroundControl' })).toHaveAttribute('aria-current', 'step');
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Keeping it running.');
+    expect(screen.getByRole('button', { name: 'Manage' })).toHaveAttribute('aria-current', 'step');
     expect(screen.getByRole('link', { name: /Explore GroundControl/ })).toHaveAttribute('href', 'https://groundcontrol.serendepify.com');
 
     act(() => playback.progress?.set(.96));
     expect(screen.getByTestId('workstation-scene')).toHaveAttribute('data-product', 'true');
-    expect(screen.getByRole('link', { name: /Explore Ghana Health/ })).toHaveAttribute('href', 'https://ghanahealth.serendepify.com');
+    expect(screen.getByRole('link', { name: /Try Ghana Health AI/ })).toHaveAttribute('href', 'https://ghanahealth.serendepify.com');
 
     act(() => playback.progress?.set(.1));
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Creation is my adrenaline.');
     expect(screen.getByTestId('workstation-scene')).toHaveAttribute('data-product', 'false');
-    expect(screen.queryByRole('link', { name: /View the actual release/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /View the build on GitHub/ })).not.toBeInTheDocument();
   });
 
   it('keeps the animated scene and reversible chapter controls on compact screens', async () => {
@@ -109,20 +109,20 @@ describe('Cinematic hero', () => {
       toJSON: () => ({}),
     });
 
-    fireEvent.click(screen.getByRole('button', { name: 'GroundControl' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Manage' }));
     expect(window.scrollTo).toHaveBeenLastCalledWith({
       top: window.scrollY + .78 * (6000 - window.innerHeight),
       behavior: 'auto',
     });
     act(() => playback.progress?.set(.78));
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Operate what you ship.');
-    expect(screen.getByRole('button', { name: 'GroundControl' })).toHaveAttribute('aria-current', 'step');
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Keeping it running.');
+    expect(screen.getByRole('button', { name: 'Manage' })).toHaveAttribute('aria-current', 'step');
 
-    fireEvent.click(screen.getByRole('button', { name: 'The intent' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Start' }));
     expect(window.scrollTo).toHaveBeenLastCalledWith({ top: window.scrollY, behavior: 'auto' });
     act(() => playback.progress?.set(0));
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Creation is my adrenaline.');
-    expect(screen.getByRole('button', { name: 'The intent' })).toHaveAttribute('aria-current', 'step');
+    expect(screen.getByRole('button', { name: 'Start' })).toHaveAttribute('aria-current', 'step');
     expect(screen.getByTestId('workstation-scene')).toBeInTheDocument();
   });
 
@@ -134,7 +134,7 @@ describe('Cinematic hero', () => {
     expect(screen.getByRole('img', { name: 'Ghana Health AI: the live voice-first chat interface' })).toHaveAttribute('src', '/ghana-health-live.png');
     expect(screen.queryByTestId('workstation-scene')).not.toBeInTheDocument();
     expect(screen.queryByRole('navigation', { name: 'Explore the build sequence' })).not.toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /Explore Ghana Health/ })).toHaveAttribute('href', 'https://ghanahealth.serendepify.com');
+    expect(screen.getByRole('link', { name: /Try Ghana Health AI/ })).toHaveAttribute('href', 'https://ghanahealth.serendepify.com');
     expect(container.querySelector('section')).toHaveClass('studio-story--still');
   });
 
@@ -148,6 +148,6 @@ describe('Cinematic hero', () => {
     expect(screen.queryByTestId('workstation-scene')).not.toBeInTheDocument();
     expect(screen.queryByRole('navigation', { name: 'Explore the build sequence' })).not.toBeInTheDocument();
     expect(container.querySelector('section')).toHaveClass('studio-story--still');
-    expect(screen.getByRole('link', { name: /Explore Ghana Health/ })).toHaveAttribute('href', 'https://ghanahealth.serendepify.com');
+    expect(screen.getByRole('link', { name: /Try Ghana Health AI/ })).toHaveAttribute('href', 'https://ghanahealth.serendepify.com');
   });
 });

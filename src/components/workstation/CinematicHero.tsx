@@ -4,11 +4,11 @@ import './CinematicHero.css';
 
 const WorkstationScene = lazy(() => import('./WorkstationScene'));
 const chapters = [
-  { title: 'Creation is my adrenaline.', label: 'The intent', body: 'I have a thing for ingenious engineering—and ideas that won’t leave me alone until I’ve built them.', at: 0 },
-  { title: 'Inside the work.', label: 'The engineering', body: 'An agent-assisted workspace. A conversation that keeps its context. An interpretation the user can inspect.', at: .25 },
-  { title: 'Every release has a record.', label: 'The release', body: 'The actual Ghana Health build: an immutable image, a commit, and a verifiable path to production.', at: .55 },
-  { title: 'Operate what you ship.', label: 'GroundControl', body: 'The control plane now gives remote agents scoped MCP/OAuth capabilities, durable operations, exact-revision evidence, and bounded recovery without handing them a generic production shell.', at: .78 },
-  { title: 'Ghana Health, live.', label: 'The product', body: 'A voice-first health assistant built around Twi, visible interpretation, and a continuous conversation.', at: .96 },
+  { title: 'Creation is my adrenaline.', label: 'Start', body: 'I have a thing for ingenious engineering—and ideas that won’t leave me alone until I’ve built them.', at: 0 },
+  { title: 'Building Ghana Health AI.', label: 'Build', body: 'A conversation in Twi, by voice or text. Here I’m connecting the controls so someone can continue without starting over.', at: .25 },
+  { title: 'Getting it online.', label: 'Deploy', body: 'Once the changes are ready, GitHub Actions builds the app and rolls the update onto the server.', at: .55 },
+  { title: 'Keeping it running.', label: 'Manage', body: 'GroundControl connects ChatGPT and other agents to the app: check health, read logs, and deploy updates through MCP tools.', at: .78 },
+  { title: 'Try the conversation.', label: 'Try it', body: 'The result is Ghana Health AI: a research preview for conversations in Twi. Speak or type, see the interpretation, and carry on.', at: .96 },
 ];
 
 function ProductStill() {
@@ -45,15 +45,15 @@ export default function CinematicHero() {
     window.scrollTo({ top: start + chapters[index].at * (section.current.offsetHeight - window.innerHeight), behavior: 'auto' });
   }
 
-  return <section ref={section} className={`studio-story${still ? ' studio-story--still' : ''}`} aria-label="From model and product engineering to deployment and operations">
+  return <section ref={section} className={`studio-story${still ? ' studio-story--still' : ''}`} aria-label="Building, deploying, and running Ghana Health AI">
     <div className="studio-viewport">
       <header className="studio-heading"><div><p className="studio-eyebrow">Edward Twumasi <span>/</span> Engineer & independent builder</p><h1>{current.title}</h1></div><p className="studio-description" aria-live="polite">{current.body}</p></header>
       <div className="studio-stage" role="img" aria-label="One three-dimensional laptop moves from the agent workspace to GitHub Actions, GroundControl, and Ghana Health AI. Its camera and screen follow your scroll in both directions.">
         {still ? <ProductStill /> : <SceneBoundary onFailure={() => setSceneFailed(true)}><Suspense fallback={<div className="studio-loading">Preparing the workspace<span>Ghana Health AI</span></div>}><WorkstationScene progress={scrollYProgress} product={chapter === 4} compact={compact} /></Suspense></SceneBoundary>}
       </div>
       <div className="studio-bottom">
-        {!still && <nav className="studio-chapters" aria-label="Explore the build sequence">{chapters.map((item, index) => <button key={item.label} aria-label={item.label} title={item.label} className={chapter === index ? 'is-current' : ''} aria-current={chapter === index ? 'step' : undefined} onClick={() => goTo(index)}><span className="studio-chapter-mark" /><span className="studio-chapter-label">{item.label}</span><span className="studio-chapter-short" aria-hidden="true">{['IDE', 'Agent', 'GitHub', 'Control', 'Live'][index]}</span></button>)}</nav>}
-        <div className="studio-context">{chapter === 4 || still ? <a href="https://ghanahealth.serendepify.com" target="_blank" rel="noreferrer">Explore Ghana Health <span>↗</span></a> : chapter === 3 ? <a href="https://groundcontrol.serendepify.com" target="_blank" rel="noreferrer">Explore GroundControl <span>↗</span></a> : chapter === 2 ? <a href="https://github.com/teckedd-code2save/ghana-health-ai/actions/runs/33924380025" target="_blank" rel="noreferrer">View the actual release <span>↗</span></a> : <span>Scroll to explore <b>↓</b></span>}</div>
+        {!still && <nav className="studio-chapters" aria-label="Explore the build sequence">{chapters.map((item, index) => <button key={item.label} aria-label={item.label} title={item.label} className={chapter === index ? 'is-current' : ''} aria-current={chapter === index ? 'step' : undefined} onClick={() => goTo(index)}><span className="studio-chapter-mark" /><span className="studio-chapter-label">{item.label}</span><span className="studio-chapter-short" aria-hidden="true">{item.label}</span></button>)}</nav>}
+        <div className="studio-context">{chapter === 4 || still ? <a href="https://ghanahealth.serendepify.com" target="_blank" rel="noreferrer">Try Ghana Health AI <span>↗</span></a> : chapter === 3 ? <a href="https://groundcontrol.serendepify.com" target="_blank" rel="noreferrer">Explore GroundControl <span>↗</span></a> : chapter === 2 ? <a href="https://github.com/teckedd-code2save/ghana-health-ai/actions/runs/33924380025" target="_blank" rel="noreferrer">View the build on GitHub <span>↗</span></a> : <span>Scroll to explore <b>↓</b></span>}</div>
       </div>
       <p className="studio-caption">{chapter < 2 ? 'Ghana Health AI · Workspace reconstruction' : chapter === 2 ? 'Ghana Health AI · Actual release capture' : chapter === 3 ? 'GroundControl · Deployment workspace · Captured 6 Sep 2026' : 'Ghana Health AI · Actual product capture'}</p>
     </div>
