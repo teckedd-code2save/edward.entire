@@ -11,6 +11,19 @@ export default function Home() {
     <div>
       <CinematicHero />
       <div className="work-showcase">
+        <section className="work-section page-shell" aria-labelledby="open-source-title">
+          <div className="work-section-heading">
+            <div><p className="eyebrow">Open source / CNCF</p><h2 id="open-source-title">Open-source contributions.</h2></div>
+            <p>Contributing to shared engineering infrastructure.</p>
+          </div>
+          <div className="home-reading-links">
+            <a href="https://github.com/open-telemetry/opentelemetry-dotnet/pull/8188" target="_blank" rel="noreferrer">
+              <span>OpenTelemetry .NET / Merged · November 2026</span>
+              <strong>Eight CI jobs migrated to lightweight runners.</strong>
+              <span>Six workflows, controlled runner comparisons and fork-only automation validation. View merged PR #8188 <ArrowRight size={17} aria-hidden="true" /></span>
+            </a>
+          </div>
+        </section>
         <section id="selected-work" className="work-section page-shell" aria-labelledby="selected-work-title" tabIndex={-1}>
           <div className="work-section-heading">
             <div><p className="eyebrow">01 / In the spotlight</p><h2 id="selected-work-title">Selected work.</h2></div>
