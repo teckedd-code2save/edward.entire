@@ -47,7 +47,7 @@ export default function CinematicHero() {
 
   return <section ref={section} className={`studio-story${still ? ' studio-story--still' : ''}`} aria-label="Building, deploying, and running Ghana Health AI">
     <div className="studio-viewport">
-      <header className="studio-heading"><div><p className="studio-eyebrow">Edward Twumasi <span>/</span> Engineer & independent builder</p><h1>{current.title}</h1></div><p className="studio-description" aria-live="polite">{current.body}</p></header>
+      <header className="studio-heading"><div><p className="studio-eyebrow">Edward Twumasi <span>/</span> Engineer & independent builder</p><h1>{current.title}</h1><a className="studio-oss" href="https://github.com/open-telemetry/opentelemetry-dotnet/pull/8188" target="_blank" rel="noreferrer"><span className="studio-oss-mark" aria-hidden="true">●</span><span>OpenTelemetry .NET contributor <small>CNCF · Merged PR #8188</small></span><span aria-hidden="true">↗</span></a></div><p className="studio-description" aria-live="polite">{current.body}</p></header>
       <div className="studio-stage" role="img" aria-label="One three-dimensional laptop moves from the agent workspace to GitHub Actions, GroundControl, and Ghana Health AI. Its camera and screen follow your scroll in both directions.">
         {still ? <ProductStill /> : <SceneBoundary onFailure={() => setSceneFailed(true)}><Suspense fallback={<div className="studio-loading">Preparing the workspace<span>Ghana Health AI</span></div>}><WorkstationScene progress={scrollYProgress} product={chapter === 4} compact={compact} /></Suspense></SceneBoundary>}
       </div>

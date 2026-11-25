@@ -86,3 +86,12 @@
   .studio-bottom { bottom: 29px; gap: 0; }
   .studio-caption { bottom: 6px; font-size: 7px; }
 }
+
+/* Keep verified open-source work visible in the first viewport. */
+.studio-oss { display: inline-flex; align-items: center; gap: 9px; margin-top: 12px; padding: 7px 11px; border: 1px solid #b5bfd0; border-radius: 7px; background: #f7f8fa; color: #243f67; font-size: 13px; font-weight: 650; line-height: 1.3; text-decoration: none; pointer-events: auto; }
+.studio-oss small { display: block; font-size: 10px; font-weight: 500; color: #596579; }
+.studio-oss-mark { color: #416da9; font-size: 10px; }
+.studio-oss:hover, .studio-oss:focus-visible { border-color: #416da9; background: #e8effa; }
+.studio-story:not(.studio-story--still) .studio-stage { margin-top: 52px; }
+@media (max-width: 640px) { .studio-oss { margin-top: 8px; padding: 6px 9px; font-size: 12px; } .studio-oss small { font-size: 9px; } .studio-story:not(.studio-story--still) .studio-stage { margin-top: 50px; } }
+@media (max-height: 500px) and (min-width: 481px) { .studio-oss { margin-top: 4px; padding: 3px 7px; font-size: 10px; } .studio-oss small { display: inline; margin-left: 5px; } .studio-story:not(.studio-story--still) .studio-stage { margin-top: 32px; } }
